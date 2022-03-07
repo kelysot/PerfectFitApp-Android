@@ -48,19 +48,6 @@
             app:layout_constraintStart_toEndOf="@+id/listrow_avatar_imv"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <RatingBar
-            android:id="@+id/listrow_ratingBar"
-            android:layout_width="248dp"
-            android:layout_height="63dp"
-            android:layout_marginTop="20dp"
-            android:elevation="8dp"
-            android:progressBackgroundTint="#AF0202"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listrow_post_img" />
-
         <!--            android:progressTint="@color/ratingBarPrimary"-->
         <!--            android:secondaryProgressTint="@color/ratingBarSecondary"-->
 

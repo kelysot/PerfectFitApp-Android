@@ -19,5 +19,5 @@
         android:id="@+id/addNewPostFragment"
         android:name="com.example.perfectfitapp_android.post.AddNewPostFragment"
         android:label="fragment_add_new_post"
-        tools:layout="@layout/fragment_add_new_post" /><action android:id="@+id/action_global_addNewPostFragment" app:destination="@id/addNewPostFragment"/>
+        tools:layout="@layout/fragment_add_new_post" /><action android:id="@+id/action_global_addNewPostFragment" app:destination="@id/addNewPostFragment"/><action android:id="@+id/action_global_homePageFragment" app:destination="@id/homePageFragment"/>
 </navigation>

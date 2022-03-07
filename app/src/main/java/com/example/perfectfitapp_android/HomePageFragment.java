@@ -30,7 +30,6 @@ public class HomePageFragment extends Fragment {
 
     List<Post> data;
     MyAdapter adapter;
-    Button newPostBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,15 +39,13 @@ public class HomePageFragment extends Fragment {
 
         data = Model.instance.getAllPosts();
 
-        newPostBtn = view.findViewById(R.id.homepage_newpost_btn);
-        newPostBtn.setOnClickListener(v -> newPost(view));
-
         RecyclerView postsList = view.findViewById(R.id.postlist_rv);
         postsList.setHasFixedSize(true);
         postsList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new MyAdapter();
         postsList.setAdapter(adapter);
+
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -65,15 +62,11 @@ public class HomePageFragment extends Fragment {
         return view;
     }
 
-    private void newPost(View view) {
-        Navigation.findNavController(view).navigate(R.id.action_homePageFragment_to_addNewPostFragment);
-    }
 
 
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView userNameTv;
         TextView descriptionTv;
-        CheckBox cb;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
@@ -87,13 +80,6 @@ public class HomePageFragment extends Fragment {
                 }
             });
 
-            cb.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    Post post = data.get(position);
-                }
-            });
         }
     }
 
@@ -129,7 +115,6 @@ public class HomePageFragment extends Fragment {
             return data.size();
         }
     }
-
 
 
     /* *************************************** Menu Functions *************************************** */
