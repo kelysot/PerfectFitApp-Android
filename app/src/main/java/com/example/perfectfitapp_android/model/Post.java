@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 public class Post {
 
+    // TODO: need to fix postId
     String profileId, productName, SKU, size, company, color, categoryId, subCategoryId;
     String description,date, link, sizeAdjustment, rating, picturesUrl;
+    String postId;
     int price;
     ArrayList<Integer> likes;
     ArrayList<Comment> comments;
@@ -180,9 +182,22 @@ public class Post {
         this.comments = comments;
     }
 
+    /*------------------------------------------------------*/
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
     /*--------------------------------- Constructors -------------------------------*/
 
     public Post(){
+        //TODO: postId
+        this.postId = "";
+
         this.profileId = "";
         this.productName = "";
         this.SKU = "";
@@ -202,10 +217,13 @@ public class Post {
         this.comments = new ArrayList<>();
     }
 
-    public Post(String profileId, String productName, String sku, String size, String company,
+    public Post(String postId, String profileId, String productName, String sku, String size, String company,
                 String color, String categoryId, String subCategoryId, String description,
                 String date, String link, String sizeAdjustment, String rating, String picturesUrl,
                 int price) {
+
+        //TODO: postId
+        this.postId = postId;
 
         this.profileId = profileId;
         this.productName = productName;
