@@ -11,37 +11,44 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout3"
-            android:layout_width="173dp"
-            android:layout_height="42dp"
+            android:id="@+id/addnewpost_categories_txtil"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="190dp"
+            android:layout_height="60dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:hint="Category"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addnewpost_category_et"
+            <AutoCompleteTextView
+                android:id="@+id/addnewpost_category_auto"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Category" />
+                android:layout_height="match_parent"
+                android:inputType="none" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout4"
-            android:layout_width="176dp"
-            android:layout_height="45dp"
+            android:id="@+id/addnewpost_subcategories_txtil"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="190dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:hint="SubCategory"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textInputLayout3"
+            app:layout_constraintStart_toEndOf="@+id/addnewpost_categories_txtil"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addnewpost_subcategory_et"
+            <AutoCompleteTextView
+                android:id="@+id/addnewpost_subcategory_auto"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Sub category" />
+                android:layout_height="match_parent"
+                android:inputType="none" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -51,13 +58,13 @@
             android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+            app:layout_constraintTop_toBottomOf="@+id/addnewpost_subcategories_txtil">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addnewpost_productname_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Product name" />
+                android:hint="Product Name" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -76,53 +83,64 @@
                 android:hint="SKU" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout7"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addnewpost_size_et"
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/addnewpost_size_txtil"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="220dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:hint="Size"
+            android:textColorHint="#000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
+            app:passwordToggleTint="#CCC6C6">
+
+            <AutoCompleteTextView
+                android:id="@+id/addnewpost_size_auto"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="size" />
+                android:layout_height="match_parent"
+                android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout8"
+            android:id="@+id/addnewpost_companies_txtil"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="149dp"
             android:layout_height="53dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
+            android:hint="Company"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout7">
+            app:layout_constraintTop_toBottomOf="@+id/addnewpost_size_txtil">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addnewpost_company_et"
+            <AutoCompleteTextView
+                android:id="@+id/addnewpost_company_auto"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="company" />
+                android:layout_height="match_parent"
+                android:inputType="none" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout9"
+            android:id="@+id/addnewpost_colors_txtil"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="149dp"
             android:layout_height="53dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textInputLayout8"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout7">
+            app:layout_constraintStart_toEndOf="@+id/addnewpost_companies_txtil"
+            app:layout_constraintTop_toBottomOf="@+id/addnewpost_size_txtil"
+            android:hint="Color">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addnewpost_color_et"
+            <AutoCompleteTextView
+                android:id="@+id/addnewpost_color_auto"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Color" />
+                android:layout_height="match_parent"
+                android:inputType="none" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -132,7 +150,7 @@
             android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout9">
+            app:layout_constraintTop_toBottomOf="@+id/addnewpost_colors_txtil">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addnewpost_description_et"
