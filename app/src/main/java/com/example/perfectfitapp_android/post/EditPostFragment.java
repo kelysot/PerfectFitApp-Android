@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ public class EditPostFragment extends Fragment {
     EditText linkEt, priceEt;
     //TODO: date
     SeekBar sizeAdjSk, ratingSk;
-    Button editBtn;
+    Button editBtn, deleteBtn;
     String postId;
     Post post;
 
@@ -66,7 +67,19 @@ public class EditPostFragment extends Fragment {
         editBtn = view.findViewById(R.id.editpost_edit_btn);
         editBtn.setOnClickListener(v -> edit(view));
 
+        deleteBtn = view.findViewById(R.id.editpost_delete_btn);
+        deleteBtn.setOnClickListener(v -> delete(view));
+
         return view;
+    }
+
+    private void delete(View view) {
+
+        Model.instance.deletePostByPost(post);
+
+        Navigation.findNavController(view)
+                .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
+
     }
 
     private void edit(View view) {

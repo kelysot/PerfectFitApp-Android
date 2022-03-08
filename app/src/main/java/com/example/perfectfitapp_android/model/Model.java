@@ -41,5 +41,10 @@ public class Model {
     }
 
     public void deletePost(int pos){ data.remove(pos); }
-    public Post getStudent(int pos){ return data.get(pos); }
+    public void deletePostByPost(Post post){
+
+        int index = data.indexOf(post);
+        data.remove(index);
+    }
+    public Post getPost(int pos){ return data.get(pos); }
 }
