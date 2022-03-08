@@ -15,8 +15,8 @@
             app:destination="@id/addNewPostFragment"
             app:popUpTo="@id/homePageFragment" />
         <action
-            android:id="@+id/action_homePageFragment_to_editPostFragment"
-            app:destination="@id/editPostFragment" />
+            android:id="@+id/action_homePageFragment_to_postPageFragment2"
+            app:destination="@id/postPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewPostFragment"
@@ -30,6 +30,18 @@
         android:name="com.example.perfectfitapp_android.post.EditPostFragment"
         android:label="fragment_edit_post"
         tools:layout="@layout/fragment_edit_post" >
+        <argument
+            android:name="postId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/postPageFragment"
+        android:name="com.example.perfectfitapp_android.post.PostPageFragment"
+        android:label="fragment_post_page"
+        tools:layout="@layout/fragment_post_page" >
+        <action
+            android:id="@+id/action_postPageFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
         <argument
             android:name="postId"
             app:argType="string" />

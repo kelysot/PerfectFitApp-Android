@@ -52,7 +52,7 @@ public class HomePageFragment extends Fragment {
             public void onItemClick(View v, int position) {
                 String postId = data.get(position).getPostId();
                 System.out.println("post " + postId + " was clicked");
-                Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToEditPostFragment(postId));
+                Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToPostPageFragment2(postId));
             }
         });
 

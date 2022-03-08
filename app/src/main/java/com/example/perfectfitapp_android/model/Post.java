@@ -1,6 +1,8 @@
 package com.example.perfectfitapp_android.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Post {
 
@@ -9,8 +11,8 @@ public class Post {
     String description,date, link, sizeAdjustment, rating, picturesUrl;
     String postId;
     String price;
-    ArrayList<Integer> likes;
-    ArrayList<Comment> comments;
+    ArrayList<String> likes;
+    ArrayList<String> comments;
 
     /*--------------------------------- Getters & Setters -------------------------------*/
 
@@ -164,21 +166,21 @@ public class Post {
 
     /*------------------------------------------------------*/
 
-    public ArrayList<Integer> getLikes() {
+    public ArrayList<String> getLikes() {
         return likes;
     }
 
-    public void setLikes(ArrayList<Integer> likes) {
+    public void setLikes(ArrayList<String> likes) {
         this.likes = likes;
     }
 
     /*------------------------------------------------------*/
 
-    public ArrayList<Comment> getComments() {
+    public ArrayList<String> getComments() {
         return comments;
     }
 
-    public void setComments(ArrayList<Comment> comments) {
+    public void setComments(ArrayList<String> comments) {
         this.comments = comments;
     }
 
@@ -224,7 +226,6 @@ public class Post {
 
         //TODO: postId
         this.postId = postId;
-
         this.profileId = profileId;
         this.productName = productName;
         this.SKU = sku;
@@ -242,5 +243,95 @@ public class Post {
         this.price = price;
         this.likes = new ArrayList<>();
         this.comments = new ArrayList<>();
+    }
+
+    public Post(String postId, String profileId, String productName, String sku, String size, String company,
+                String color, String categoryId, String subCategoryId, String description,
+                String date, String link, String sizeAdjustment, String rating, String picturesUrl,
+                String price, ArrayList<String> likes, ArrayList<String> comments) {
+
+        //TODO: postId, likes, comments
+        this.postId = postId;
+        this.profileId = profileId;
+        this.productName = productName;
+        this.SKU = sku;
+        this.size = size;
+        this.company = company;
+        this.color = color;
+        this.categoryId = categoryId;
+        this.subCategoryId = subCategoryId;
+        this.description = description;
+        this.date = date;
+        this.link = link;
+        this.sizeAdjustment = sizeAdjustment;
+        this.rating = rating;
+        this.picturesUrl = picturesUrl;
+        this.price = price;
+        this.likes = likes;
+        this.comments = comments;
+    }
+
+/************************************ Json ************************************/
+
+    public static Post fromJson(Map<String, Object> json) {
+        String postId = (String) json.get("postId").toString();
+        String profileId = (String) json.get("profileId");
+        String productName = (String) json.get("productName");
+        String sku = (String) json.get("SKU");
+        String size = (String) json.get("size");
+        String company = (String) json.get("company");
+        String color = (String) json.get("color");
+        String categoryId = (String) json.get("categoryId");
+        String subCategoryId = (String) json.get("subCategoryId");
+        String description = (String) json.get("description");
+        String date = (String) json.get("date");
+        String link = (String) json.get("link");
+        String sizeAdjustment = (String) json.get("sizeAdjustment");
+        String rating = (String) json.get("rating");
+        String picturesUrl = (String) json.get("picturesUrl");
+        String price = (String) json.get("price");
+        ArrayList<String> likes = (ArrayList<String>) json.get("likes");
+        ArrayList<String> comments = (ArrayList<String>) json.get("comments");
+
+//        Timestamp ts = (Timestamp) json.get("updateDate");
+//        Long updateDate = ts.getSeconds();
+
+//        Post post = new Post(id, dishName, restaurant, address, category, description,
+//                review, image, rate, userEmail, display);
+//        post.setUpdateDate(updateDate);
+
+       Post post = new Post(postId, profileId, productName, sku, size, company, color, categoryId, subCategoryId,
+               description, date, link, sizeAdjustment, rating, picturesUrl, price, likes, comments);
+
+        return post;
+    }
+
+    /*------------------------------------------------------*/
+
+    public Map<String, Object> toJson() {
+        Map<String, Object> json = new HashMap<String, Object>();
+        json.put("postId",postId );
+        json.put("profileId", profileId);
+        json.put("productName", productName);
+        json.put("SKU", SKU);
+        json.put("size", size);
+        json.put("company", company);
+        json.put("color", color);
+        json.put("categoryId", categoryId);
+        json.put("subCategoryId", subCategoryId);
+        json.put("description", description);
+        json.put("date", date);
+        json.put("link", link);
+        json.put("sizeAdjustment", sizeAdjustment);
+        json.put("rating", rating);
+        json.put("picturesUrl", picturesUrl);
+        json.put("price", price);
+        json.put("date", date);
+        json.put("likes", likes);
+        json.put("comments", comments);
+
+//        json.put("updateDate", FieldValue.serverTimestamp());
+
+        return json;
     }
 }

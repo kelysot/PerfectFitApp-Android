@@ -87,7 +87,6 @@ public class EditPostFragment extends Fragment {
 
     private void edit(View view) {
 
-
         String productName, sku, size, company, color, category, subCategory, description;
         String link, price;
         //TODO: date
@@ -102,10 +101,10 @@ public class EditPostFragment extends Fragment {
         color = colorAuto.getText().toString();
         category = categoryAuto.getText().toString();
         subCategory = subCategoryAuto.getText().toString();
+        price = priceEt.getText().toString();
 
         //TODO: postId, profileId, date. pictureUrl, sizeadj, rating, price
 
-        price = "1";
         String date = "8/3/2022";
         String pictureUrl = "";
         sizeAdj = "";
@@ -120,13 +119,13 @@ public class EditPostFragment extends Fragment {
         post.setSubCategoryId(subCategory);
         post.setDescription(description);
         post.setLink(link);
+        post.setPrice(price);
 
+
+        //TODO: navigate to homepage or postpage
         Navigation.findNavController(view)
                 .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
-
-
     }
-
 
 
     private void setAllDropDownMenus(View view, Post post) {
