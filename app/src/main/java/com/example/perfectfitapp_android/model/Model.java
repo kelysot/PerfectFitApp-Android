@@ -6,9 +6,10 @@ import java.util.List;
 public class Model {
 
     public static final Model instance = new Model();
+    int count = 0;
 
     public Model(){
-
+        this.count = 0;
     }
 
     List<Post> data = new LinkedList<Post>();
@@ -29,6 +30,14 @@ public class Model {
             }
         }
         return null;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public void deletePost(int pos){ data.remove(pos); }

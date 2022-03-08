@@ -52,7 +52,7 @@ public class HomePageFragment extends Fragment {
             public void onItemClick(View v, int position) {
                 String postId = data.get(position).getPostId();
                 System.out.println("post " + postId + " was clicked");
-//                Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetails(stId));
+                Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToEditPostFragment(postId));
             }
         });
 
@@ -65,12 +65,12 @@ public class HomePageFragment extends Fragment {
 
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView userNameTv;
+        TextView productNameTv;
         TextView descriptionTv;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
-            userNameTv = itemView.findViewById(R.id.listrow_username_tv);
+            productNameTv = itemView.findViewById(R.id.listrow_username_tv);
             descriptionTv = itemView.findViewById(R.id.listrow_description_tv);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -106,7 +106,7 @@ public class HomePageFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             Post post = data.get(position);
-            holder.userNameTv.setText(post.getProductName());
+            holder.productNameTv.setText(post.getProductName());
             holder.descriptionTv.setText(post.getDescription());
         }
 

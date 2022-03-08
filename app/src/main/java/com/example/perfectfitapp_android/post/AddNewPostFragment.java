@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,30 +61,36 @@ public class AddNewPostFragment extends Fragment {
         //TODO: date
         String sizeAdj, rating;
 
-        productName = productNameEt.toString().trim();
-        sku = skuEt.toString().trim();
-        size = sizeEt.toString().trim();
-        company = companyEt.toString().trim();
-        color = colorEt.toString().trim();
-        category = categoryEt.toString().trim();
-        subCategory = subCategoryEt.toString().trim();
-        description = descriptionEt.toString().trim();
-        link = linkEt.toString().trim();
+        productName = productNameEt.getText().toString();
+        sku = skuEt.getText().toString();
+        size = sizeEt.getText().toString();
+        company = companyEt.getText().toString();
+        color = colorEt.getText().toString();
+        category = categoryEt.getText().toString();
+        subCategory = subCategoryEt.getText().toString();
+        description = descriptionEt.getText().toString();
+        link = linkEt.getText().toString();
+        price = priceEt.getText().toString();
 
 
         //TODO: postId, profileId, date. pictureUrl, sizeadj, rating, price
 
-        price = "1";
         String date = "8/2/2022";
         String pictureUrl = "";
         sizeAdj = "";
         rating = "";
 
-        Post newPost = new Post("1","1",  productName, sku, size, company, color, category,
-                subCategory, description, date,link, sizeAdj, rating, pictureUrl, Integer.parseInt(price));
+        StringBuilder count = new StringBuilder();
+        count.append(Model.instance.getCount());
+        Model.instance.setCount(Model.instance.getCount()+1);
+
+
+        Post newPost = new Post(count.toString(),"1",  productName, sku, size, company, color, category,
+                subCategory, description, date,link, sizeAdj, rating, pictureUrl, price);
 
 
         Model.instance.addPost(newPost);
+        System.out.println(" -------------------- count: " + count);
         Navigation.findNavController(view)
                 .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
 

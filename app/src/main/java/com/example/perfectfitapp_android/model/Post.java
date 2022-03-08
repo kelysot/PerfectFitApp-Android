@@ -8,7 +8,7 @@ public class Post {
     String profileId, productName, SKU, size, company, color, categoryId, subCategoryId;
     String description,date, link, sizeAdjustment, rating, picturesUrl;
     String postId;
-    int price;
+    String price;
     ArrayList<Integer> likes;
     ArrayList<Comment> comments;
 
@@ -154,11 +154,11 @@ public class Post {
 
     /*------------------------------------------------------*/
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -212,7 +212,7 @@ public class Post {
         this.sizeAdjustment = "";
         this.rating = "";
         this.picturesUrl = "";
-        this.price = 0;
+        this.price = "0";
         this.likes = new ArrayList<>();
         this.comments = new ArrayList<>();
     }
@@ -220,7 +220,7 @@ public class Post {
     public Post(String postId, String profileId, String productName, String sku, String size, String company,
                 String color, String categoryId, String subCategoryId, String description,
                 String date, String link, String sizeAdjustment, String rating, String picturesUrl,
-                int price) {
+                String price) {
 
         //TODO: postId
         this.postId = postId;

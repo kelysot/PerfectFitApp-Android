@@ -14,10 +14,24 @@
             android:id="@+id/action_homePageFragment_to_addNewPostFragment"
             app:destination="@id/addNewPostFragment"
             app:popUpTo="@id/homePageFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewPostFragment"
         android:name="com.example.perfectfitapp_android.post.AddNewPostFragment"
         android:label="fragment_add_new_post"
-        tools:layout="@layout/fragment_add_new_post" /><action android:id="@+id/action_global_addNewPostFragment" app:destination="@id/addNewPostFragment"/><action android:id="@+id/action_global_homePageFragment" app:destination="@id/homePageFragment"/>
+        tools:layout="@layout/fragment_add_new_post" />
+    <action android:id="@+id/action_global_addNewPostFragment" app:destination="@id/addNewPostFragment" />
+    <action android:id="@+id/action_global_homePageFragment" app:destination="@id/homePageFragment" />
+    <fragment
+        android:id="@+id/editPostFragment"
+        android:name="com.example.perfectfitapp_android.post.EditPostFragment"
+        android:label="fragment_edit_post"
+        tools:layout="@layout/fragment_edit_post" >
+        <argument
+            android:name="postId"
+            app:argType="string" />
+    </fragment>
 </navigation>

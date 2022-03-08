@@ -53,23 +53,23 @@ public class LoginFragment extends Fragment {
         /* *************************************** Validations *************************************** */
 
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(localInputIEmail).matches()) {
-            emailEt.setError("Please provide valid email");
-            emailEt.requestFocus();
-
-            return;
-        }
-        if (localInputIEmail.isEmpty()) {
-            emailEt.setError("Please enter your Email");
-            emailEt.requestFocus();
-            return;
-        }
-
-        if (localInputPassword.length() < 6) {
-            passwordEt.setError("Password length should be at least 6 characters");
-            passwordEt.requestFocus();
-            return;
-        }
+//        if (!Patterns.EMAIL_ADDRESS.matcher(localInputIEmail).matches()) {
+//            emailEt.setError("Please provide valid email");
+//            emailEt.requestFocus();
+//
+//            return;
+//        }
+//        if (localInputIEmail.isEmpty()) {
+//            emailEt.setError("Please enter your Email");
+//            emailEt.requestFocus();
+//            return;
+//        }
+//
+//        if (localInputPassword.length() < 6) {
+//            passwordEt.setError("Password length should be at least 6 characters");
+//            passwordEt.requestFocus();
+//            return;
+//        }
 
         System.out.println("move to home page activity");
 
