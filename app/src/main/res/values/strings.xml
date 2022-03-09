@@ -3,6 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="URL">http://10.0.2.2:4000</string>
 
     <string-array name="categories">
         <item> Shirts </item>

@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,13 +24,22 @@ import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 
 import java.util.List;
+
 import com.example.perfectfitapp_android.model.Model;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class HomePageFragment extends Fragment {
 
     List<Post> data;
     MyAdapter adapter;
+    Button getPostBtn;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +47,8 @@ public class HomePageFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
 
+        getPostBtn = view.findViewById(R.id.homepage_getpost_btn);
+        getPostBtn.setOnClickListener(v -> getPost());
         data = Model.instance.getAllPosts();
 
         RecyclerView postsList = view.findViewById(R.id.postlist_rv);
@@ -62,9 +74,16 @@ public class HomePageFragment extends Fragment {
         return view;
     }
 
+    private void getPost() {
+
+        RestClient restClient = new RestClient();
+//        Log.d("TAG444", "we are hereeeee");
+       List<Post> list = restClient.getPosts();
+
+    }
 
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
         TextView productNameTv;
         TextView descriptionTv;
 
@@ -76,7 +95,7 @@ public class HomePageFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
-                    listener.onItemClick(v,pos);
+                    listener.onItemClick(v, pos);
                 }
             });
 
@@ -84,22 +103,23 @@ public class HomePageFragment extends Fragment {
     }
 
 
-    interface OnItemClickListener{
-        void onItemClick(View v,int position);
+    interface OnItemClickListener {
+        void onItemClick(View v, int position);
     }
 
-    class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
+    class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         OnItemClickListener listener;
-        public void setOnItemClickListener(OnItemClickListener listener){
+
+        public void setOnItemClickListener(OnItemClickListener listener) {
             this.listener = listener;
         }
 
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.post_list_row,parent,false);
-            MyViewHolder holder = new MyViewHolder(view,listener);
+            View view = getLayoutInflater().inflate(R.layout.post_list_row, parent, false);
+            MyViewHolder holder = new MyViewHolder(view, listener);
             return holder;
         }
 
@@ -140,7 +160,6 @@ public class HomePageFragment extends Fragment {
             return super.onOptionsItemSelected(item);
         }
     }
-
 
 
 

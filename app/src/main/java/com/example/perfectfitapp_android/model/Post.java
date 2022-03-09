@@ -2,7 +2,10 @@ package com.example.perfectfitapp_android.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import retrofit2.Response;
 
 public class Post {
 
@@ -205,6 +208,7 @@ public class Post {
         this.SKU = "";
         this.size = "";
         this.company = "";
+        this.price = "0";
         this.color = "";
         this.categoryId = "";
         this.subCategoryId = "";
@@ -214,7 +218,6 @@ public class Post {
         this.sizeAdjustment = "";
         this.rating = "";
         this.picturesUrl = "";
-        this.price = "0";
         this.likes = new ArrayList<>();
         this.comments = new ArrayList<>();
     }
@@ -231,6 +234,7 @@ public class Post {
         this.SKU = sku;
         this.size = size;
         this.company = company;
+        this.price = price;
         this.color = color;
         this.categoryId = categoryId;
         this.subCategoryId = subCategoryId;
@@ -240,7 +244,6 @@ public class Post {
         this.sizeAdjustment = sizeAdjustment;
         this.rating = rating;
         this.picturesUrl = picturesUrl;
-        this.price = price;
         this.likes = new ArrayList<>();
         this.comments = new ArrayList<>();
     }
@@ -257,6 +260,7 @@ public class Post {
         this.SKU = sku;
         this.size = size;
         this.company = company;
+        this.price = price;
         this.color = color;
         this.categoryId = categoryId;
         this.subCategoryId = subCategoryId;
@@ -266,7 +270,6 @@ public class Post {
         this.sizeAdjustment = sizeAdjustment;
         this.rating = rating;
         this.picturesUrl = picturesUrl;
-        this.price = price;
         this.likes = likes;
         this.comments = comments;
     }
@@ -274,12 +277,13 @@ public class Post {
 /************************************ Json ************************************/
 
     public static Post fromJson(Map<String, Object> json) {
-        String postId = (String) json.get("postId").toString();
+        String postId = (String) json.get("_id").toString();
         String profileId = (String) json.get("profileId");
         String productName = (String) json.get("productName");
-        String sku = (String) json.get("SKU");
+        String sku = (String) json.get("sku");
         String size = (String) json.get("size");
         String company = (String) json.get("company");
+        String price = (String) json.get("price");
         String color = (String) json.get("color");
         String categoryId = (String) json.get("categoryId");
         String subCategoryId = (String) json.get("subCategoryId");
@@ -289,7 +293,6 @@ public class Post {
         String sizeAdjustment = (String) json.get("sizeAdjustment");
         String rating = (String) json.get("rating");
         String picturesUrl = (String) json.get("picturesUrl");
-        String price = (String) json.get("price");
         ArrayList<String> likes = (ArrayList<String>) json.get("likes");
         ArrayList<String> comments = (ArrayList<String>) json.get("comments");
 
@@ -306,6 +309,17 @@ public class Post {
         return post;
     }
 
+    public static List<Post> getPostsFromJson(List<Map<String, Object>> map){
+        ArrayList<Post> list = new ArrayList<>();
+        for (Map<String, Object> a: map) {
+
+           Post post =  fromJson(a);
+           list.add(post);
+
+        }
+        return list;
+    }
+
     /*------------------------------------------------------*/
 
     public Map<String, Object> toJson() {
@@ -313,9 +327,10 @@ public class Post {
         json.put("postId",postId );
         json.put("profileId", profileId);
         json.put("productName", productName);
-        json.put("SKU", SKU);
+        json.put("sku", SKU);
         json.put("size", size);
         json.put("company", company);
+        json.put("price", price);
         json.put("color", color);
         json.put("categoryId", categoryId);
         json.put("subCategoryId", subCategoryId);
@@ -325,7 +340,6 @@ public class Post {
         json.put("sizeAdjustment", sizeAdjustment);
         json.put("rating", rating);
         json.put("picturesUrl", picturesUrl);
-        json.put("price", price);
         json.put("date", date);
         json.put("likes", likes);
         json.put("comments", comments);

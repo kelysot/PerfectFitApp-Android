@@ -92,6 +92,7 @@ public class LoginFragment extends Fragment {
                     public void onResponse(Call<User> call, retrofit2.Response<User> response) {
                         if (response.code() == 200) {
 
+
                             User result = response.body();
                             Toast.makeText(MyApplication.getContext(), "It Worked!!!",
                                     Toast.LENGTH_LONG).show();
