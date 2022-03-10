@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,10 +36,6 @@ public class RestClient{
     private static final String BASE_URL = "http://10.0.2.2:4000";
     private RetrofitInterface service;
     List<Post> posts = new ArrayList<>();
-    boolean success = false;
-    Map<String, Object> map;
-
-
 
     public RestClient() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -49,31 +46,9 @@ public class RestClient{
         service = retrofit.create(RetrofitInterface.class);
     }
 
-//    public void try1(){
-//        Log.d("TAG444", "00000000000");
-//
-//        Call<Map<String, Object>> str = service.try1();
-//        Log.d("TAG444", "11111111111111");
-//
-//        str.enqueue(new Callback<Map<String, Object>>() {
-//            @Override
-//            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-//                Log.d("TAG444", "222222222222222");
-//                if (response.isSuccessful()) {
-//
-//                    Log.d("TAG444", response.body().toString());
-//                    response.body().
-//                    str = response.body();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-//                Log.d("TAG444", "3333333333333333");
-//                Log.d("TAG444", t.getMessage());
-//            }
-//        });
-//    }
+    public interface ResultReadyCallback {
+        public void resultReady(List<Post> posts);
+    }
 
     public List<Post> getPosts() {
 
@@ -86,60 +61,9 @@ public class RestClient{
                     JsonArray postsJson = new JsonArray();
                     postsJson = response.body();
                     Log.d("TAG444", postsJson.get(0).toString() + "**********");
-
-                    for (int i = 0; i < postsJson.size(); i++) {
-                        String id = postsJson.get(i).getAsJsonObject().get("_id").toString();
-                        String profileId = postsJson.get(i).getAsJsonObject().get("profileId").toString();
-                        String productName = postsJson.get(i).getAsJsonObject().get("productName").toString();
-                        String sku = postsJson.get(i).getAsJsonObject().get("sku").toString();
-                        String size = postsJson.get(i).getAsJsonObject().get("size").toString();
-                        String company = postsJson.get(i).getAsJsonObject().get("company").toString();
-                        String price = postsJson.get(i).getAsJsonObject().get("price").toString();
-                        String color = postsJson.get(i).getAsJsonObject().get("color").toString();
-                        String categoryId = postsJson.get(i).getAsJsonObject().get("categoryId").toString();
-                        String subCategoryId = postsJson.get(i).getAsJsonObject().get("subCategoryId").toString();
-                        String description = postsJson.get(i).getAsJsonObject().get("description").toString();
-                        String date = postsJson.get(i).getAsJsonObject().get("date").toString();
-                        String link = postsJson.get(i).getAsJsonObject().get("link").toString();
-                        String sizeAdjustment = postsJson.get(i).getAsJsonObject().get("sizeAdjustment").toString();
-                        String rating = postsJson.get(i).getAsJsonObject().get("rating").toString();
-
-                        JsonElement picturesJson = postsJson.get(i).getAsJsonObject().get("picturesUrl");
-                        ArrayList<String> picturesUrl = new ArrayList<>();
-                        if(picturesJson != null){
-                            for (JsonElement pic : picturesJson.getAsJsonArray()) {
-                                picturesUrl.add(pic.toString());
-                            }
-                        }
-
-                        JsonElement likesJson = postsJson.get(i).getAsJsonObject().get("likes");
-                        ArrayList<String> likes = new ArrayList<>();
-                        if(!likesJson.toString().equals("null")){
-                            for (JsonElement like : likesJson.getAsJsonArray()) {
-                                likes.add(like.toString());
-                            }
-                        }
-
-                        JsonElement commentsJson = postsJson.get(i).getAsJsonObject().get("comments");
-                        ArrayList<String> comments = new ArrayList<>();
-                        if(!commentsJson.toString().equals("null")){
-                            for (JsonElement comment : commentsJson.getAsJsonArray()) {
-                                comments.add(comment.toString());
-                            }
-                        }
-
-
-                        Post post = new Post(id, profileId, productName, sku, size, company,
-                                color, categoryId, subCategoryId, description,
-                                date, link, sizeAdjustment, rating, picturesUrl,
-                                price, likes, comments);
-//                        Log.d("TAG444", post + "******+++++++****");
-
-                        posts.add(post);
-                    }
+                    posts = Post.jsonArrayToPost(postsJson);
                     Log.d("TAG444", posts + "**********");
-
-                   // callback.resultReady(posts);
+//                    callback.resultReady(posts);
                 }
             }
             @Override
@@ -147,8 +71,6 @@ public class RestClient{
                 Log.e("REST", t.getMessage());
             }
         });
-
-
         return posts;
     }
 
@@ -185,8 +107,6 @@ public class RestClient{
         return instance;
     }
 
-    public interface ResultReadyCallback {
-        public void resultReady(List<Post> posts);
-    }
+
 
 }

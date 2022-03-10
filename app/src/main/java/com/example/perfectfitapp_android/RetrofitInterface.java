@@ -27,7 +27,4 @@ public interface RetrofitInterface {
     @GET("/post")
     Call<JsonArray> getAllPosts();
 
-//    @GET("/post")
-//    Call<Map<String, Object>> try1();
-
 }

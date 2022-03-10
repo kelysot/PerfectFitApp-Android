@@ -1,5 +1,9 @@
 package com.example.perfectfitapp_android.model;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -348,4 +352,62 @@ public class Post {
 
         return json;
     }
+
+    public static Post jsonObjectToPost(JsonElement postsJson){
+        String id = postsJson.getAsJsonObject().get("_id").toString();
+        String profileId = postsJson.getAsJsonObject().get("profileId").toString();
+        String productName = postsJson.getAsJsonObject().get("productName").toString();
+        String sku = postsJson.getAsJsonObject().get("sku").toString();
+        String size = postsJson.getAsJsonObject().get("size").toString();
+        String company = postsJson.getAsJsonObject().get("company").toString();
+        String price = postsJson.getAsJsonObject().get("price").toString();
+        String color = postsJson.getAsJsonObject().get("color").toString();
+        String categoryId = postsJson.getAsJsonObject().get("categoryId").toString();
+        String subCategoryId = postsJson.getAsJsonObject().get("subCategoryId").toString();
+        String description = postsJson.getAsJsonObject().get("description").toString();
+        String date = postsJson.getAsJsonObject().get("date").toString();
+        String link = postsJson.getAsJsonObject().get("link").toString();
+        String sizeAdjustment = postsJson.getAsJsonObject().get("sizeAdjustment").toString();
+        String rating = postsJson.getAsJsonObject().get("rating").toString();
+
+        JsonElement picturesJson = postsJson.getAsJsonObject().get("picturesUrl");
+        ArrayList<String> picturesUrl = new ArrayList<>();
+        if(!picturesJson.toString().equals("null") || picturesJson.getAsJsonArray().size() != 0 || !picturesJson.isJsonNull()){
+            for (JsonElement pic : picturesJson.getAsJsonArray()) {
+                picturesUrl.add(pic.toString());
+            }
+        }
+
+        JsonElement likesJson = postsJson.getAsJsonObject().get("likes");
+        ArrayList<String> likes = new ArrayList<>();
+        if(!likesJson.toString().equals("null") || !likesJson.isJsonNull()){
+            for (JsonElement like : likesJson.getAsJsonArray()) {
+                likes.add(like.toString());
+            }
+        }
+
+        JsonElement commentsJson = postsJson.getAsJsonObject().get("comments");
+        ArrayList<String> comments = new ArrayList<>();
+        if(!commentsJson.toString().equals("null") || !commentsJson.isJsonNull()){
+            for (JsonElement comment : commentsJson.getAsJsonArray()) {
+                comments.add(comment.toString());
+            }
+        }
+
+        Post post = new Post(id, profileId, productName, sku, size, company,
+                color, categoryId, subCategoryId, description,
+                date, link, sizeAdjustment, rating, picturesUrl,
+                price, likes, comments);
+        return post;
+    }
+
+    public static List<Post> jsonArrayToPost(JsonArray postsJson){
+        List<Post> postsList = new ArrayList<>();
+        for (int i = 0; i < postsJson.size(); i++) {
+            postsList.add(Post.jsonObjectToPost(postsJson.get(i)));
+        }
+        return postsList;
+    }
+
+
 }
