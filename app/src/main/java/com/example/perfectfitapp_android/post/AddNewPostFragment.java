@@ -80,7 +80,7 @@ public class AddNewPostFragment extends Fragment {
         //TODO: postId, profileId, date. pictureUrl, sizeadj, rating, price
 
         String date = "8/2/2022";
-        String pictureUrl = "";
+        //String pictureUrl = "";
         sizeAdj = "";
         rating = "";
 
@@ -90,7 +90,7 @@ public class AddNewPostFragment extends Fragment {
 
 
         Post newPost = new Post(count.toString(),"1",  productName, sku, size, company, color, category,
-                subCategory, description, date,link, sizeAdj, rating, pictureUrl, price);
+                subCategory, description, date,link, sizeAdj, rating, price);
 
 
         System.out.println("the size is: --------------------------------  " +newPost.getSize());

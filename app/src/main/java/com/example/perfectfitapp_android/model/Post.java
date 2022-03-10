@@ -11,10 +11,10 @@ public class Post {
 
     // TODO: need to fix postId
     String profileId, productName, SKU, size, company, color, categoryId, subCategoryId;
-    String description,date, link, sizeAdjustment, rating, picturesUrl;
+    String description,date, link, sizeAdjustment, rating;
     String postId;
     String price;
-    ArrayList<String> likes;
+    ArrayList<String> likes, picturesUrl;
     ArrayList<String> comments;
 
     /*--------------------------------- Getters & Setters -------------------------------*/
@@ -149,11 +149,11 @@ public class Post {
 
     /*------------------------------------------------------*/
 
-    public String getPicturesUrl() {
+    public ArrayList<String> getPicturesUrl() {
         return picturesUrl;
     }
 
-    public void setPicturesUrl(String picturesUrl) {
+    public void setPicturesUrl(ArrayList<String> picturesUrl) {
         this.picturesUrl = picturesUrl;
     }
 
@@ -217,14 +217,14 @@ public class Post {
         this.link = "";
         this.sizeAdjustment = "";
         this.rating = "";
-        this.picturesUrl = "";
+        this.picturesUrl = new ArrayList<>();
         this.likes = new ArrayList<>();
         this.comments = new ArrayList<>();
     }
 
     public Post(String postId, String profileId, String productName, String sku, String size, String company,
                 String color, String categoryId, String subCategoryId, String description,
-                String date, String link, String sizeAdjustment, String rating, String picturesUrl,
+                String date, String link, String sizeAdjustment, String rating,
                 String price) {
 
         //TODO: postId
@@ -243,14 +243,14 @@ public class Post {
         this.link = link;
         this.sizeAdjustment = sizeAdjustment;
         this.rating = rating;
-        this.picturesUrl = picturesUrl;
+        this.picturesUrl = new ArrayList<>();
         this.likes = new ArrayList<>();
         this.comments = new ArrayList<>();
     }
 
     public Post(String postId, String profileId, String productName, String sku, String size, String company,
                 String color, String categoryId, String subCategoryId, String description,
-                String date, String link, String sizeAdjustment, String rating, String picturesUrl,
+                String date, String link, String sizeAdjustment, String rating, ArrayList<String> picturesUrl,
                 String price, ArrayList<String> likes, ArrayList<String> comments) {
 
         //TODO: postId, likes, comments
@@ -292,7 +292,7 @@ public class Post {
         String link = (String) json.get("link");
         String sizeAdjustment = (String) json.get("sizeAdjustment");
         String rating = (String) json.get("rating");
-        String picturesUrl = (String) json.get("picturesUrl");
+        ArrayList<String> picturesUrl = (ArrayList<String>) json.get("picturesUrl");
         ArrayList<String> likes = (ArrayList<String>) json.get("likes");
         ArrayList<String> comments = (ArrayList<String>) json.get("comments");
 

@@ -8,6 +8,7 @@ import com.example.perfectfitapp_android.model.Post;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import kotlin.collections.builders.MapBuilder;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,7 +34,7 @@ public class RestClient{
 
     private static final String BASE_URL = "http://10.0.2.2:4000";
     private RetrofitInterface service;
-    List<Post> posts = null;
+    List<Post> posts = new ArrayList<>();
     boolean success = false;
     Map<String, Object> map;
 
@@ -83,18 +83,63 @@ public class RestClient{
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 if(response.isSuccessful()){
-                    JsonArray a = new JsonArray();
-                    a = (response.body());
-                    // Log.d("TAG444", a.toString());
-                    Log.d("TAG444", a.get(0).toString() + "**********");
-                    //  callback.resultReady(posts);
-                    a.get(0);
-//                    HashMap<String,Object> result = new HashMap<>();
-//                    Post post = Post.fromJson( a.get(0));
-//                    Log.d("TAG444", post.toString() + "$$$$$$$$$$");
-//                    Map<String, Object> map = a.stream().map(Object::toString).collect(Collectors.toMap(s -> s, s -> "value"));
+                    JsonArray postsJson = new JsonArray();
+                    postsJson = response.body();
+                    Log.d("TAG444", postsJson.get(0).toString() + "**********");
+
+                    for (int i = 0; i < postsJson.size(); i++) {
+                        String id = postsJson.get(i).getAsJsonObject().get("_id").toString();
+                        String profileId = postsJson.get(i).getAsJsonObject().get("profileId").toString();
+                        String productName = postsJson.get(i).getAsJsonObject().get("productName").toString();
+                        String sku = postsJson.get(i).getAsJsonObject().get("sku").toString();
+                        String size = postsJson.get(i).getAsJsonObject().get("size").toString();
+                        String company = postsJson.get(i).getAsJsonObject().get("company").toString();
+                        String price = postsJson.get(i).getAsJsonObject().get("price").toString();
+                        String color = postsJson.get(i).getAsJsonObject().get("color").toString();
+                        String categoryId = postsJson.get(i).getAsJsonObject().get("categoryId").toString();
+                        String subCategoryId = postsJson.get(i).getAsJsonObject().get("subCategoryId").toString();
+                        String description = postsJson.get(i).getAsJsonObject().get("description").toString();
+                        String date = postsJson.get(i).getAsJsonObject().get("date").toString();
+                        String link = postsJson.get(i).getAsJsonObject().get("link").toString();
+                        String sizeAdjustment = postsJson.get(i).getAsJsonObject().get("sizeAdjustment").toString();
+                        String rating = postsJson.get(i).getAsJsonObject().get("rating").toString();
+
+                        JsonElement picturesJson = postsJson.get(i).getAsJsonObject().get("picturesUrl");
+                        ArrayList<String> picturesUrl = new ArrayList<>();
+                        if(picturesJson != null){
+                            for (JsonElement pic : picturesJson.getAsJsonArray()) {
+                                picturesUrl.add(pic.toString());
+                            }
+                        }
+
+                        JsonElement likesJson = postsJson.get(i).getAsJsonObject().get("likes");
+                        ArrayList<String> likes = new ArrayList<>();
+                        if(!likesJson.toString().equals("null")){
+                            for (JsonElement like : likesJson.getAsJsonArray()) {
+                                likes.add(like.toString());
+                            }
+                        }
+
+                        JsonElement commentsJson = postsJson.get(i).getAsJsonObject().get("comments");
+                        ArrayList<String> comments = new ArrayList<>();
+                        if(!commentsJson.toString().equals("null")){
+                            for (JsonElement comment : commentsJson.getAsJsonArray()) {
+                                comments.add(comment.toString());
+                            }
+                        }
 
 
+                        Post post = new Post(id, profileId, productName, sku, size, company,
+                                color, categoryId, subCategoryId, description,
+                                date, link, sizeAdjustment, rating, picturesUrl,
+                                price, likes, comments);
+//                        Log.d("TAG444", post + "******+++++++****");
+
+                        posts.add(post);
+                    }
+                    Log.d("TAG444", posts + "**********");
+
+                   // callback.resultReady(posts);
                 }
             }
             @Override
@@ -104,7 +149,7 @@ public class RestClient{
         });
 
 
-        return null;
+        return posts;
     }
 
     public void setCallback(ResultReadyCallback callback) {

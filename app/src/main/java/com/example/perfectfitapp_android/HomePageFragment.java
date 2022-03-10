@@ -26,6 +26,7 @@ import com.example.perfectfitapp_android.model.Post;
 import java.util.List;
 
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.post.AddNewPostFragmentDirections;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,7 +49,7 @@ public class HomePageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
 
         getPostBtn = view.findViewById(R.id.homepage_getpost_btn);
-        getPostBtn.setOnClickListener(v -> getPost());
+        getPostBtn.setOnClickListener(v -> getPost(view));
         data = Model.instance.getAllPosts();
 
         RecyclerView postsList = view.findViewById(R.id.postlist_rv);
@@ -74,11 +75,17 @@ public class HomePageFragment extends Fragment {
         return view;
     }
 
-    private void getPost() {
+    private void getPost(View view) {
 
         RestClient restClient = new RestClient();
-//        Log.d("TAG444", "we are hereeeee");
-       List<Post> list = restClient.getPosts();
+        List<Post> list = restClient.getPosts();
+        Log.d("TAG444", list + "******+++++++****");
+
+        for (Post post:list) {
+            Model.instance.addPost(post);
+
+        }
+
 
     }
 
