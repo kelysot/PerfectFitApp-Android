@@ -5,6 +5,8 @@ import com.example.perfectfitapp_android.model.User;
 
 import org.json.JSONArray;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +24,7 @@ public interface RetrofitInterface {
     Call<Void> executeSignup (@Body HashMap<String, String> map);
 
     @GET("/post")
-    Call<Map<String, Object>> getAllPosts();
+    Call<ArrayList<String>> getAllPosts();
 
 //    @GET("/post")
 //    Call<Map<String, Object>> try1();

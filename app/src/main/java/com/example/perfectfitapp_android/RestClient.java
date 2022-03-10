@@ -11,6 +11,8 @@ import com.google.gson.GsonBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +31,7 @@ public class RestClient{
 
     private static final String BASE_URL = "http://10.0.2.2:4000";
     private RetrofitInterface service;
-    List<Post> posts = null;
+    List<String> posts = null;
     boolean success = false;
     Map<String, Object> map;
 
@@ -97,33 +99,61 @@ public class RestClient{
 //            }
 //        });
 
-        Call<Map<String, Object>> postlist = service.getAllPosts();
+        /*********************************************************************************/
+        Call<ArrayList<String>> postlist = service.getAllPosts();
 
-        postlist.enqueue(new Callback<Map<String, Object>>() {
+        postlist.enqueue(new Callback<ArrayList<String>>() {
             @Override
-            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+            public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
                 if (response.isSuccessful()) {
-
-                    map = response.body();
-                    Log.d("TAG444", "444444444444");
-                    Log.d("TAG444",  map.toString());
-
-//                    Object o = map.get("");
-//                    response.body();
-
-//                    posts = Post.getPostsFromJson();
-
-
+                    Log.d("TAG", response.body().toString());
+                    Log.d("TAG444",  posts.toString());
                 }
             }
 
             @Override
-            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<String>> call, Throwable t) {
                 Log.d("TAG444", "55555555555555");
-                Log.e("REST", t.getMessage());
+
             }
         });
 
+
+
+
+
+
+        /*********************************************************************************/
+//        Call<Map<String, Object>> postlist = service.getAllPosts();
+//
+//        postlist.enqueue(new Callback<Map<String, Object>>() {
+//            @Override
+//            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+//                if (response.isSuccessful()) {
+//
+//                    map = response.body();
+//                    Log.d("TAG444", "444444444444");
+//                    Log.d("TAG444",  map.toString());
+////                    HashMap<String, String>(map.get("posts"));
+//
+//
+////                    Object o = map.get("");
+////                    response.body();
+//
+////                    posts = Post.getPostsFromJson();
+//
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+//                Log.d("TAG444", "55555555555555");
+//                Log.e("REST", t.getMessage());
+//            }
+//        });
+
+                //////////////////////////////////////////////////////////////////////////////////////
 
 //        Log.d("TAG444", "11111111111111");
 //        Call<List<Post>> postlist = service.getAllPosts();

@@ -5,6 +5,11 @@
 
     <string name="URL">http://10.0.2.2:4000</string>
 
+    <string-array name="gender">
+        <item>Female</item>
+        <item>Male</item>
+    </string-array>
+
     <string-array name="categories">
         <item> Shirts </item>
         <item> Pants </item>
