@@ -11,13 +11,12 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_singUpFragment"
-            app:destination="@id/singUpFragment"
-            app:popUpTo="@id/loginFragment" />
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
     <fragment
-        android:id="@+id/singUpFragment"
-        android:name="com.example.perfectfitapp_android.login.SingUpFragment"
-        android:label="fragment_sing_up"
-        tools:layout="@layout/fragment_sing_up" />
+        android:id="@+id/registerFragment"
+        android:name="com.example.perfectfitapp_android.login.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
 </navigation>

@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 
 import android.renderscript.ScriptGroup;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,65 +70,22 @@ public class LoginFragment extends Fragment {
         passwordEt = view.findViewById(R.id.login_input_password_et);
 
         loginBtn = view.findViewById(R.id.login_login_btn);
-        //loginBtn.setOnClickListener(v -> LogIn());
+        loginBtn.setOnClickListener(v -> LogIn());
 
         signupBtn = view.findViewById(R.id.login_signup_btn);
         signupBtn.setOnClickListener(v -> SignUp(view));
-
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HashMap<String, String> map = new HashMap<>();
-
-                map.put("email", emailEt.getText().toString());
-                map.put("password", passwordEt.getText().toString());
-                map.put("profilesArray", null);
-
-                Call<User> call = retrofitInterface.executeLogin(map);
-                Log.d("TAG111",  call.toString());
-
-
-                call.enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, retrofit2.Response<User> response) {
-                        if (response.code() == 200) {
-
-
-                            User result = response.body();
-                            Toast.makeText(MyApplication.getContext(), "It Worked!!!",
-                                    Toast.LENGTH_LONG).show();
-
-                            startActivity(new Intent(getContext(), MainActivity.class));
-                            getActivity().finish();
-
-                        } else if (response.code() == 404) {
-                            Log.d("TAG111",  call.toString());
-                            Log.d("TAG112",  response.message());
-                            Toast.makeText(MyApplication.getContext(), "Wrong Credentials",
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        Log.d("TAG111",  t.getMessage());
-                        System.out.println( "sout***************************************" + t.getMessage());
-                        Toast.makeText(MyApplication.getContext(), t.getMessage(),
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-        });
 
         return view;
     }
 
     private void SignUp(View view) {
         System.out.println("move to signup page");
-        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_singUpFragment);
+        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment);
     }
 
     private void LogIn() {
+
+        loginBtn.setEnabled(false);
 
         String localInputIEmail = emailEt.getText().toString().trim();
         String localInputPassword = passwordEt.getText().toString().trim();
@@ -152,10 +110,52 @@ public class LoginFragment extends Fragment {
 //            return;
 //        }
 
-        System.out.println("move to home page activity");
+        HashMap<String, String> map = new HashMap<>();
 
-        startActivity(new Intent(getContext(), MainActivity.class));
-        getActivity().finish();
+        map.put("email", localInputIEmail);
+        map.put("password", localInputPassword);
+        map.put("profilesArray", null);
 
+        Call<User> call = retrofitInterface.executeLogin(map);
+
+        call.enqueue(new Callback<User>() {
+
+            @Override
+            public void onResponse(Call<User> call, retrofit2.Response<User> response) {
+
+                if (response.code() == 200) {
+                    Toast.makeText(MyApplication.getContext(), "It Worked!!!",
+                            Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getContext(), MainActivity.class));
+                    getActivity().finish();
+                    return;
+
+                } else if (response.code() == 404) {
+                    Log.d("TAG111",  call.toString());
+                    Log.d("TAG112",  response.message());
+                    Toast.makeText(MyApplication.getContext(), "Wrong Credentials",
+                            Toast.LENGTH_LONG).show();
+
+                    loginBtn.setEnabled(true);
+                }
+                else if(response.code() == 400){
+                    Toast.makeText(MyApplication.getContext(), "Wrong email or password",
+                            Toast.LENGTH_LONG).show();
+                    loginBtn.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("TAG111",  t.getMessage());
+                System.out.println( "sout***************************************" + t.getMessage());
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+//                Toast.makeText(MyApplication.getContext(), t.getMessage(),
+//                        Toast.LENGTH_LONG).show();
+                loginBtn.setEnabled(true);
+
+            }
+        });
     }
 }
