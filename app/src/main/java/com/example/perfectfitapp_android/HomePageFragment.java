@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.perfectfitapp_android.model.Model;
@@ -40,6 +41,7 @@ public class HomePageFragment extends Fragment {
     List<Post> data;
     MyAdapter adapter;
     Button getPostBtn;
+    RestClient restClient = new RestClient();
 
 
     @Override
@@ -77,16 +79,22 @@ public class HomePageFragment extends Fragment {
 
     private void getPost(View view) {
 
-        RestClient restClient = new RestClient();
-        List<Post> list = restClient.getPosts();
-        Log.d("TAG444", list + "******+++++++****");
+        System.out.println("button get post clicked");
+        restClient.setCallback(new RestClient.ResultReadyCallback() {
+            @Override
+            public void resultReady(List<Post> posts) {
+                Log.d("TAG123", posts + "11111111111111111111");
+                Log.d("TAG123", posts.get(0).getPostId() + "11111111111111111111");
 
-        for (Post post:list) {
-            Model.instance.addPost(post);
-
-        }
-
-
+                for(int i = 0; i < posts.size(); i++){
+                    Model.instance.addPost(posts.get(i));
+                }
+                //TODO: refresh function
+                Navigation.findNavController(view)
+                        .navigate(HomePageFragmentDirections.actionGlobalHomePageFragment());
+            }
+        });
+        restClient.getPosts();
     }
 
 

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.navigation.Navigation;
+
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 import com.google.gson.Gson;
@@ -29,12 +31,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestClient{
 
-    private static RestClient instance = null;
+    static RestClient instance = null;
 
-    private ResultReadyCallback callback;
+    ResultReadyCallback callback;
 
-    private static final String BASE_URL = "http://10.0.2.2:4000";
-    private RetrofitInterface service;
+    static final String BASE_URL = "http://10.0.2.2:4000";
+    RetrofitInterface service;
     List<Post> posts = new ArrayList<>();
 
     public RestClient() {
@@ -60,10 +62,11 @@ public class RestClient{
                 if(response.isSuccessful()){
                     JsonArray postsJson = new JsonArray();
                     postsJson = response.body();
-                    Log.d("TAG444", postsJson.get(0).toString() + "**********");
+//                    Log.d("TAG444", postsJson.get(0).toString() + "**********");
                     posts = Post.jsonArrayToPost(postsJson);
-                    Log.d("TAG444", posts + "**********");
-//                    callback.resultReady(posts);
+
+                    callback.resultReady(posts);
+//                    Log.d("TAG444", posts + "**********");
                 }
             }
             @Override
@@ -106,6 +109,9 @@ public class RestClient{
         }
         return instance;
     }
+
+
+
 
 
 
