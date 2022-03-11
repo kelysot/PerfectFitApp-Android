@@ -18,5 +18,23 @@
         android:id="@+id/registerFragment"
         android:name="com.example.perfectfitapp_android.register.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_registerStep2Fragment"
+            app:destination="@id/registerStep2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerStep2Fragment"
+        android:name="com.example.perfectfitapp_android.register.RegisterStep2Fragment"
+        android:label="fragment_register_step2"
+        tools:layout="@layout/fragment_register_step2" >
+        <action
+            android:id="@+id/action_registerStep2Fragment_to_registerStep3Fragment"
+            app:destination="@id/registerStep3Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerStep3Fragment"
+        android:name="com.example.perfectfitapp_android.register.RegisterStep3Fragment"
+        android:label="fragment_register_step3"
+        tools:layout="@layout/fragment_register_step3" />
 </navigation>

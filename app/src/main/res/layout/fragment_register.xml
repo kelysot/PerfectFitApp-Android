@@ -43,7 +43,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/register_step1_gallery_imv"
             android:layout_width="52dp"
             android:layout_height="50dp"
@@ -104,9 +104,12 @@
                 android:id="@+id/register_step1_username_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="UserName"
+                android:drawableLeft="@drawable/ic_user"
+                android:drawableStart="@drawable/ic_user"
+                android:hint="User Name"
                 android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout7"
@@ -122,9 +125,13 @@
                 android:id="@+id/register_step1_email_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/email_24"
+                android:drawableStart="@drawable/email_24"
                 android:hint="Email"
                 android:inputType="textEmailAddress"/>
         </com.google.android.material.textfield.TextInputLayout>
+
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout9"
@@ -141,6 +148,8 @@
                 android:id="@+id/register_step1_password_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_password"
+                android:drawableStart="@drawable/ic_password"
                 android:hint="Password"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
