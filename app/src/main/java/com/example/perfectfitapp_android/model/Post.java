@@ -372,7 +372,7 @@ public class Post {
 
         JsonElement picturesJson = postsJson.getAsJsonObject().get("picturesUrl");
         ArrayList<String> picturesUrl = new ArrayList<>();
-        if(!picturesJson.toString().equals("null") || picturesJson.getAsJsonArray().size() != 0 || !picturesJson.isJsonNull()){
+        if(!picturesJson.toString().equals("null") || !picturesJson.isJsonNull()){
             for (JsonElement pic : picturesJson.getAsJsonArray()) {
                 picturesUrl.add(pic.toString());
             }
