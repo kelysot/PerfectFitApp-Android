@@ -1,5 +1,7 @@
 package com.example.perfectfitapp_android.model;
 
+import android.util.Log;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -354,27 +356,27 @@ public class Post {
     }
 
     public static Post jsonObjectToPost(JsonElement postsJson){
-        String id = postsJson.getAsJsonObject().get("_id").toString();
-        String profileId = postsJson.getAsJsonObject().get("profileId").toString();
-        String productName = postsJson.getAsJsonObject().get("productName").toString();
-        String sku = postsJson.getAsJsonObject().get("sku").toString();
-        String size = postsJson.getAsJsonObject().get("size").toString();
-        String company = postsJson.getAsJsonObject().get("company").toString();
-        String price = postsJson.getAsJsonObject().get("price").toString();
-        String color = postsJson.getAsJsonObject().get("color").toString();
-        String categoryId = postsJson.getAsJsonObject().get("categoryId").toString();
-        String subCategoryId = postsJson.getAsJsonObject().get("subCategoryId").toString();
-        String description = postsJson.getAsJsonObject().get("description").toString();
-        String date = postsJson.getAsJsonObject().get("date").toString();
-        String link = postsJson.getAsJsonObject().get("link").toString();
-        String sizeAdjustment = postsJson.getAsJsonObject().get("sizeAdjustment").toString();
-        String rating = postsJson.getAsJsonObject().get("rating").toString();
+        String id = postsJson.getAsJsonObject().get("_id").getAsString();
+        String profileId = postsJson.getAsJsonObject().get("profileId").getAsString();
+        String productName = postsJson.getAsJsonObject().get("productName").getAsString();
+        String sku = postsJson.getAsJsonObject().get("sku").getAsString();
+        String size = postsJson.getAsJsonObject().get("size").getAsString();
+        String company = postsJson.getAsJsonObject().get("company").getAsString();
+        String price = postsJson.getAsJsonObject().get("price").getAsString();
+        String color = postsJson.getAsJsonObject().get("color").getAsString();
+        String categoryId = postsJson.getAsJsonObject().get("categoryId").getAsString();
+        String subCategoryId = postsJson.getAsJsonObject().get("subCategoryId").getAsString();
+        String description = postsJson.getAsJsonObject().get("description").getAsString();
+        String date = postsJson.getAsJsonObject().get("date").getAsString();
+        String link = postsJson.getAsJsonObject().get("link").getAsString();
+        String sizeAdjustment = postsJson.getAsJsonObject().get("sizeAdjustment").getAsString();
+        String rating = postsJson.getAsJsonObject().get("rating").getAsString();
 
         JsonElement picturesJson = postsJson.getAsJsonObject().get("picturesUrl");
         ArrayList<String> picturesUrl = new ArrayList<>();
         if(!picturesJson.toString().equals("null") || !picturesJson.isJsonNull()){
             for (JsonElement pic : picturesJson.getAsJsonArray()) {
-                picturesUrl.add(pic.toString());
+                picturesUrl.add(pic.getAsString());
             }
         }
 
@@ -382,7 +384,7 @@ public class Post {
         ArrayList<String> likes = new ArrayList<>();
         if(!likesJson.toString().equals("null") || !likesJson.isJsonNull()){
             for (JsonElement like : likesJson.getAsJsonArray()) {
-                likes.add(like.toString());
+                likes.add(like.getAsString());
             }
         }
 
@@ -390,7 +392,7 @@ public class Post {
         ArrayList<String> comments = new ArrayList<>();
         if(!commentsJson.toString().equals("null") || !commentsJson.isJsonNull()){
             for (JsonElement comment : commentsJson.getAsJsonArray()) {
-                comments.add(comment.toString());
+                comments.add(comment.getAsString());
             }
         }
 
