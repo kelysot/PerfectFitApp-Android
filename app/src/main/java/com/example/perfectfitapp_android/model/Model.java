@@ -12,6 +12,8 @@ public class Model {
         this.count = 0;
     }
 
+    /*--------------------------------- Post -------------------------------*/
+
     List<Post> data = new LinkedList<Post>();
 
     public List<Post> getAllPosts(){
@@ -47,4 +49,17 @@ public class Model {
         data.remove(index);
     }
     public Post getPost(int pos){ return data.get(pos); }
+
+    /*--------------------------------- Profile -------------------------------*/
+
+    List<Profile> profiles = new LinkedList<>();
+
+    public Profile getProfileById(String profileId) {
+        for (Profile s:profiles) {
+            if (s.getProfileId().equals(profileId)){
+                return s;
+            }
+        }
+        return null;
+    }
 }

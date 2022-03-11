@@ -1,15 +1,19 @@
 package com.example.perfectfitapp_android.model;
 
+import android.util.Log;
+
 import com.example.perfectfitapp_android.profile.ProfileFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Profile {
 
-    String userId, firstName, lastName,gender, userName, birthday, userImageUrl;
+    //TODO:Add profileId in profile model in server side.
+    String userId, profileId, firstName, lastName,gender, userName, birthday, userImageUrl;
     String shoulder, chest, basin, waist, foot, height, weight, bodyType, status;
     ArrayList<String> similarProfileId;
     ArrayList<String> followers, trackers;
@@ -17,11 +21,12 @@ public class Profile {
     ArrayList<String> wishlist;
     ArrayList<String> myPostsListId;
 
-    public Profile(String userId, String firstName, String lastName, String gender, String userName,
+    public Profile(String userId, String profileId, String firstName, String lastName, String gender, String userName,
                    String birthday, String userImageUrl, String shoulder, String chest, String basin,
                    String waist, String foot, String height, String weight, String bodyType) {
 
         this.userId = userId;
+        this.profileId = profileId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -46,13 +51,14 @@ public class Profile {
         this.wishlist = new ArrayList<>();
         this.myPostsListId = new ArrayList<>();
     }
-    public Profile(String userId, String firstName, String lastName, String gender, String userName,
+    public Profile(String userId, String profileId, String firstName, String lastName, String gender, String userName,
                    String birthday, String userImageUrl, String shoulder, String chest, String basin,
                    String waist, String foot, String height, String weight, String bodyType, String status, ArrayList<String> similarProfileId,
                    ArrayList<String> followers, ArrayList<String> trackers, ArrayList<String> notifications,
                    ArrayList<String> wishlist, ArrayList<String> myPostsListId) {
 
         this.userId = userId;
+        this.profileId = profileId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -86,6 +92,16 @@ public class Profile {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    /*------------------------------------------------------*/
+
+    public String getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(String profileId) {
+        this.profileId = profileId;
     }
 
     /*------------------------------------------------------*/
@@ -298,29 +314,30 @@ public class Profile {
         this.myPostsListId = myPostsListId;
     }
 
-    public static Profile jsonObjectToProfile(JsonElement profilesJson){
-        String userId = profilesJson.getAsJsonObject().get("_id").toString();
-        String firstName = profilesJson.getAsJsonObject().get("firstName").toString();
-        String lastName = profilesJson.getAsJsonObject().get("lastName").toString();
-        String gender = profilesJson.getAsJsonObject().get("gender").toString();
-        String userName = profilesJson.getAsJsonObject().get("userName").toString();
-        String birthday = profilesJson.getAsJsonObject().get("birthday").toString();
-        String userImageUrl = profilesJson.getAsJsonObject().get("userImageUrl").toString();
-        String shoulder = profilesJson.getAsJsonObject().get("shoulder").toString();
-        String chest = profilesJson.getAsJsonObject().get("chest").toString();
-        String basin = profilesJson.getAsJsonObject().get("basin").toString();
-        String waist = profilesJson.getAsJsonObject().get("waist").toString();
-        String foot = profilesJson.getAsJsonObject().get("foot").toString();
-        String height = profilesJson.getAsJsonObject().get("height").toString();
-        String weight = profilesJson.getAsJsonObject().get("weight").toString();
-        String bodyType = profilesJson.getAsJsonObject().get("bodyType").toString();
-        String status = profilesJson.getAsJsonObject().get("status").toString();
+    public static Profile jsonElementToProfile(JsonElement profilesJson){
+        String userId = profilesJson.getAsJsonObject().get("_id").getAsString();
+        String profileId = profilesJson.getAsJsonObject().get("profileId").getAsString();
+        String firstName = profilesJson.getAsJsonObject().get("firstName").getAsString();
+        String lastName = profilesJson.getAsJsonObject().get("lastName").getAsString();
+        String gender = profilesJson.getAsJsonObject().get("gender").getAsString();
+        String userName = profilesJson.getAsJsonObject().get("userName").getAsString();
+        String birthday = profilesJson.getAsJsonObject().get("birthday").getAsString();
+        String userImageUrl = profilesJson.getAsJsonObject().get("userImageUrl").getAsString();
+        String shoulder = profilesJson.getAsJsonObject().get("shoulder").getAsString();
+        String chest = profilesJson.getAsJsonObject().get("chest").getAsString();
+        String basin = profilesJson.getAsJsonObject().get("basin").getAsString();
+        String waist = profilesJson.getAsJsonObject().get("waist").getAsString();
+        String foot = profilesJson.getAsJsonObject().get("foot").getAsString();
+        String height = profilesJson.getAsJsonObject().get("height").getAsString();
+        String weight = profilesJson.getAsJsonObject().get("weight").getAsString();
+        String bodyType = profilesJson.getAsJsonObject().get("bodyType").getAsString();
+        String status = profilesJson.getAsJsonObject().get("status").getAsString();
 
         JsonElement similarProfileIdJson = profilesJson.getAsJsonObject().get("similarProfileId");
         ArrayList<String> similarProfileId = new ArrayList<>();
         if(!similarProfileIdJson.toString().equals("null") || !similarProfileIdJson.isJsonNull()){
             for (JsonElement similarProfile : similarProfileIdJson.getAsJsonArray()) {
-                similarProfileId.add(similarProfile.toString());
+                similarProfileId.add(similarProfile.getAsString());
             }
         }
 
@@ -328,7 +345,7 @@ public class Profile {
         ArrayList<String> followers = new ArrayList<>();
         if(!followersJson.toString().equals("null") || !followersJson.isJsonNull()){
             for (JsonElement follower : followersJson.getAsJsonArray()) {
-                followers.add(follower.toString());
+                followers.add(follower.getAsString());
             }
         }
 
@@ -336,7 +353,7 @@ public class Profile {
         ArrayList<String> trackers = new ArrayList<>();
         if(!trackersJson.toString().equals("null") || !trackersJson.isJsonNull()){
             for (JsonElement tracker : trackersJson.getAsJsonArray()) {
-                trackers.add(tracker.toString());
+                trackers.add(tracker.getAsString());
             }
         }
 
@@ -344,7 +361,7 @@ public class Profile {
         ArrayList<String> notifications = new ArrayList<>();
         if(!notificationsJson.toString().equals("null") || !notificationsJson.isJsonNull()){
             for (JsonElement notification : notificationsJson.getAsJsonArray()) {
-                notifications.add(notification.toString());
+                notifications.add(notification.getAsString());
             }
         }
 
@@ -352,7 +369,7 @@ public class Profile {
         ArrayList<String> wishlist = new ArrayList<>();
         if(!wishlistJson.toString().equals("null") || !wishlistJson.isJsonNull()){
             for (JsonElement wishlist1 : wishlistJson.getAsJsonArray()) {
-                wishlist.add(wishlist1.toString());
+                wishlist.add(wishlist1.getAsString());
             }
         }
 
@@ -360,23 +377,96 @@ public class Profile {
         ArrayList<String> myPostsListId = new ArrayList<>();
         if(!myPostsListIdJson.toString().equals("null") || !myPostsListIdJson.isJsonNull()){
             for (JsonElement myPost : myPostsListIdJson.getAsJsonArray()) {
-                myPostsListId.add(myPost.toString());
+                myPostsListId.add(myPost.getAsString());
             }
         }
 
-        Profile profile = new Profile(userId, firstName, lastName, gender, userName,
+        Profile profile = new Profile(userId, profileId, firstName, lastName, gender, userName,
                 birthday, userImageUrl, shoulder, chest, basin, waist, foot, height,
                 weight, bodyType, status, similarProfileId, followers, trackers, notifications,
                 wishlist, myPostsListId);
         return profile;
     }
 
-    public static List<Profile> jsonArrayToProfile(JsonArray profilesJson){
-        List<Profile> profilesList = new ArrayList<>();
-        for (int i = 0; i < profilesJson.size(); i++) {
-            profilesList.add(Profile.jsonObjectToProfile(profilesJson.get(i)));
+    public static Profile jsonObjectToProfile(JsonObject profilesJson){
+        String userId = profilesJson.get("_id").getAsString();
+        String firstName = profilesJson.get("firstName").getAsString();
+        String lastName = profilesJson.get("lastName").getAsString();
+        String gender = profilesJson.get("gender").getAsString();
+        String userName = profilesJson.get("userName").getAsString();
+        String birthday = profilesJson.get("birthday").getAsString();
+        String userImageUrl = profilesJson.get("pictureUrl").getAsString();
+        String shoulder = profilesJson.get("shoulder").getAsString();
+        String chest = profilesJson.get("chest").getAsString();
+        String basin = profilesJson.get("basin").getAsString();
+        String waist = profilesJson.get("waist").getAsString();
+        String foot = profilesJson.get("foot").getAsString();
+        String height = profilesJson.get("height").getAsString();
+        String weight = profilesJson.get("weight").getAsString();
+        String bodyType = profilesJson.get("bodyType").getAsString();
+        String status = profilesJson.get("status").getAsString();
+
+        JsonElement similarProfileIdJson = profilesJson.get("similarProfileId");
+        ArrayList<String> similarProfileId = new ArrayList<>();
+        if(!similarProfileIdJson.toString().equals("null") || !similarProfileIdJson.isJsonNull()){
+            for (JsonElement similarProfile : similarProfileIdJson.getAsJsonArray()) {
+                similarProfileId.add(similarProfile.getAsString());
+            }
         }
-        return profilesList;
+
+        JsonElement followersJson = profilesJson.get("followers");
+        ArrayList<String> followers = new ArrayList<>();
+        if(!followersJson.toString().equals("null") || !followersJson.isJsonNull()){
+            for (JsonElement follower : followersJson.getAsJsonArray()) {
+                followers.add(follower.getAsString());
+            }
+        }
+
+        JsonElement trackersJson = profilesJson.get("trackers");
+        ArrayList<String> trackers = new ArrayList<>();
+        if(!trackersJson.toString().equals("null") || !trackersJson.isJsonNull()){
+            for (JsonElement tracker : trackersJson.getAsJsonArray()) {
+                trackers.add(tracker.getAsString());
+            }
+        }
+
+        JsonElement notificationsJson = profilesJson.get("notifications");
+        ArrayList<String> notifications = new ArrayList<>();
+        if(!notificationsJson.toString().equals("null") || !notificationsJson.isJsonNull()){
+            for (JsonElement notification : notificationsJson.getAsJsonArray()) {
+                notifications.add(notification.getAsString());
+            }
+        }
+
+        JsonElement wishlistJson = profilesJson.get("wishlist");
+        ArrayList<String> wishlist = new ArrayList<>();
+        if(!wishlistJson.toString().equals("null") || !wishlistJson.isJsonNull()){
+            for (JsonElement wishlist1 : wishlistJson.getAsJsonArray()) {
+                wishlist.add(wishlist1.getAsString());
+            }
+        }
+
+        JsonElement myPostsListIdJson = profilesJson.get("myPostsListId");
+        ArrayList<String> myPostsListId = new ArrayList<>();
+        if(!myPostsListIdJson.toString().equals("null") || !myPostsListIdJson.isJsonNull()){
+            for (JsonElement myPost : myPostsListIdJson.getAsJsonArray()) {
+                myPostsListId.add(myPost.getAsString());
+            }
+        }
+
+        Profile profile = new Profile(userId, null, firstName, lastName, gender, userName,
+                birthday, userImageUrl, shoulder, chest, basin, waist, foot, height,
+                weight, bodyType, status, similarProfileId, followers, trackers, notifications,
+                wishlist, myPostsListId);
+        return profile;
     }
+
+//    public static List<Profile> jsonArrayToProfile(JsonArray profilesJson){
+//        List<Profile> profilesList = new ArrayList<>();
+//        for (int i = 0; i < profilesJson.size(); i++) {
+//            profilesList.add(Profile.jsonObjectToProfile(profilesJson.get(i)));
+//        }
+//        return profilesList;
+//    }
 
 }

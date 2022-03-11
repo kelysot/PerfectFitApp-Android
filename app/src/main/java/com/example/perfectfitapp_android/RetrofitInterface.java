@@ -1,8 +1,12 @@
 package com.example.perfectfitapp_android;
 
+import android.util.Log;
+
 import com.example.perfectfitapp_android.model.Post;
+import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.model.User;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 
@@ -16,6 +20,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface RetrofitInterface {
     @POST("/auth/login")
@@ -26,5 +31,10 @@ public interface RetrofitInterface {
 
     @GET("/post")
     Call<JsonArray> getAllPosts();
+
+    @GET("/profile/:{id}")
+    Call<JsonObject> getUser(@Path("id") String id);
+    // http://10.0.2.2:4000/profile/1
+    // Call<User> service.getUser(1);
 
 }

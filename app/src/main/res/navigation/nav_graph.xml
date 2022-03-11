@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_homePageFragment_to_postPageFragment2"
             app:destination="@id/postPageFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewPostFragment"
@@ -46,4 +49,9 @@
             android:name="postId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.perfectfitapp_android.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
