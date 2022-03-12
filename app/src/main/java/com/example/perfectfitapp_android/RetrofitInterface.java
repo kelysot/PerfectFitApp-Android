@@ -27,7 +27,7 @@ public interface RetrofitInterface {
     Call<User> executeLogin(@Body HashMap<String, String> map);
 
     @POST("/auth/register")
-    Call<Void> executeSignup (@Body HashMap<String, String> map);
+    Call<Void> executeRegister (@Body HashMap<String,HashMap<String, String>> map);
 
     @GET("/post")
     Call<JsonArray> getAllPosts();

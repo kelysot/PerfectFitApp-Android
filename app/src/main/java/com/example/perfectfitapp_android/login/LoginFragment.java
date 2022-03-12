@@ -80,7 +80,7 @@ public class LoginFragment extends Fragment {
 
     private void SignUp(View view) {
         System.out.println("move to signup page");
-        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment);
+        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_createUserFragment);
     }
 
     private void LogIn() {

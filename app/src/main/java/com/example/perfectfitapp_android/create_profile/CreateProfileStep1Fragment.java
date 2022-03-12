@@ -1,4 +1,4 @@
-package com.example.perfectfitapp_android.register;
+package com.example.perfectfitapp_android.create_profile;
 
 import android.os.Bundle;
 
@@ -11,17 +11,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.perfectfitapp_android.R;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 
-public class RegisterFragment extends Fragment {
+public class CreateProfileStep1Fragment extends Fragment {
 
-    EditText firstNameEt, lastNameEt, EmailEt, PasswordEt, birthdatEt;
+    TextInputEditText firstNameEt, lastNameEt, birthdayEt, userNameEt;
     ImageView image;
     TextInputLayout genderTxtIL;
     AutoCompleteTextView genderAuto; // catch the gender
@@ -33,13 +33,12 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_register, container, false);
+        View view = inflater.inflate(R.layout.fragment_create_profile_step1, container, false);
 
         firstNameEt = view.findViewById(R.id.register_step1_name_et);
         lastNameEt = view.findViewById(R.id.register_step1_lastname_et);
-        EmailEt = view.findViewById(R.id.register_step1_email_et);
-        PasswordEt = view.findViewById(R.id.register_step1_password_et);
-        birthdatEt = view.findViewById(R.id.register_step1_birthday_et);
+        userNameEt = view.findViewById(R.id.register_step1_username_et);
+        birthdayEt = view.findViewById(R.id.register_step1_birthday_et);
         image = view.findViewById(R.id.register_step1_image_imv);
 
         cameraBtn = view.findViewById(R.id.register_step1_camera_imv);
@@ -47,19 +46,43 @@ public class RegisterFragment extends Fragment {
         continueBtn = view.findViewById(R.id.register_step1_continue_btn);
         continueBtn.setOnClickListener(v-> continueStep2(view));
 
+        setAllDropDownMenus(view);
 
-        /****** gender ******/
-        genderTxtIL = view.findViewById(R.id.register_step1_gender_txl);
-        genderAuto = view.findViewById(R.id.register_step1_gender_et);
-        genderArr = getResources().getStringArray(R.array.gender);
-        genderAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, genderArr);
-        genderAuto.setAdapter(genderAdapter);
-        genderAuto.setThreshold(1);
+        //TODO: fix the problem - in case we turn back from f.2 to f.1, we can't choose again female/male.
+        // Can use checkbox instead.
 
         return view;
     }
 
     private void continueStep2(View view) {
-        Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_registerStep2Fragment);
+
+        String firstName = firstNameEt.getText().toString();
+        String lastName = lastNameEt.getText().toString();
+        String userName = userNameEt.getText().toString();
+        String birthday = birthdayEt.getText().toString();
+        String gender = genderAuto.getText().toString();
+
+        CreateProfileModel.instance.profile.setUserName(userName);
+        CreateProfileModel.instance.profile.setFirstName(firstName);
+        CreateProfileModel.instance.profile.setLastName(lastName);
+        CreateProfileModel.instance.profile.setBirthday(birthday);
+        CreateProfileModel.instance.profile.setGender(gender);
+
+
+        Navigation.findNavController(view).navigate(R.id.action_registerFragment2_to_registerStep2Fragment2);
+    }
+
+    public void setAllDropDownMenus(View view){
+        genderTxtIL = view.findViewById(R.id.register_step1_gender_txl);
+        genderAuto = view.findViewById(R.id.register_step1_gender_et);
+
+        genderArr = getResources().getStringArray(R.array.gender);
+        genderAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, genderArr);
+        if(!CreateProfileModel.instance.profile.getGender().equals("")){
+            genderAuto.setText(CreateProfileModel.instance.profile.getGender());
+        }
+        genderAuto.setAdapter(genderAdapter);
+        genderAuto.setThreshold(1);
+
     }
 }

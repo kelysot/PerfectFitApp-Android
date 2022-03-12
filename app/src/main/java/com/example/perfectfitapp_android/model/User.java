@@ -1,6 +1,7 @@
 package com.example.perfectfitapp_android.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class User {
 
@@ -40,6 +41,16 @@ public class User {
         this.email = email;
         this.password = password;
         profilesArray = new ArrayList<>();
+    }
+
+    public HashMap<String, String> toJson(){
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("email", this.getEmail());
+        map.put("password", this.getPassword());
+
+        return map;
+        //TODO: list of profiles
     }
 
 }

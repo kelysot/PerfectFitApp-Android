@@ -4,61 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".register.RegisterStep2Fragment">
+    tools:context=".create_profile.CreateProfileStep2Fragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="Body Type"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout8"
-            android:layout_width="380dp"
-            android:layout_height="56dp"
-            android:layout_marginTop="15dp"
-            app:boxBackgroundColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_step2_uptext"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Hey there!"
-                android:text="What body type do you have?" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <ImageView
             android:id="@+id/register_step2_budyimage_imv"
             android:layout_width="179dp"
             android:layout_height="279dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="30dp"
             android:src="@drawable/body_girl_ectomorph"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout8" />
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout19"
             android:layout_width="350dp"
             android:layout_height="130dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_step2_budyimage_imv">
+            app:layout_constraintTop_toBottomOf="@+id/register_step2_bodytype_name_et">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_step2_downtext"
@@ -70,33 +40,57 @@
             android:id="@+id/register_step2_left_img_btn"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginTop="176dp"
+            android:layout_marginTop="150dp"
             android:layout_marginEnd="4dp"
             android:src="@drawable/ic_myleft"
             app:layout_constraintEnd_toStartOf="@+id/register_step2_budyimage_imv"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout8" />
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
         <ImageButton
             android:id="@+id/register_step2_right_img_btn"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="176dp"
+            android:layout_marginTop="150dp"
             android:src="@drawable/icon_rightmy"
             app:layout_constraintStart_toEndOf="@+id/register_step2_budyimage_imv"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout8" />
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="What body type do you have?"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/register_step2_bodytype_name_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp"
+            android:text="body type"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_step2_budyimage_imv" />
 
         <Button
             android:id="@+id/register_step2_continue_btn"
-            android:layout_width="118dp"
-            android:layout_height="47dp"
+            android:layout_width="213dp"
+            android:layout_height="48dp"
             android:layout_marginTop="35dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="20dp"
-            android:text="Continue"
+            android:text="Save And Continue"
             app:cornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout19" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

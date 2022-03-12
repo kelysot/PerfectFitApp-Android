@@ -10,6 +10,20 @@
         <item>Male</item>
     </string-array>
 
+    <string-array name="body_types">
+        <item>Hourglass</item>
+        <item>Pear</item>
+        <item>Apple</item>
+        <item>Ruler</item>
+    </string-array>
+
+    <string-array name="body_type_description">
+        <item>This type is characterized by a relatively broad shoulders, a wide pelvis and a narrow waist (Endomorphic or Mesomorphic)</item>
+        <item>In this body type the upper body is small, the chest is small and the abdomen is flat. Most of the weight is concentrated in the waist area and down (Mesomorphic or Endomorphic)</item>
+        <item>This body type is characterized by a heavy upper torso, relatively broad chest and abdomen, but a narrow lower torso - narrow hips and narrow legs (Mesomorphic or Endomorphic)</item>
+        <item>This body type is characterized by a straight body shape from the middle upwards and the middle downwards (Ectomorphic)</item>
+    </string-array>
+
     <string-array name="categories">
         <item> Shirts </item>
         <item> Pants </item>

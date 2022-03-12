@@ -52,7 +52,7 @@ public class ProfileFragment extends Fragment {
                 //  userNameTv.setText(profile.getUserName());
             }
         });
-        restClient.getProfile("6225d122b4e3e4eeb42151c3");
+        restClient.getProfile("622b6fa21977037a1057d3ca");
 
         return view;
     }

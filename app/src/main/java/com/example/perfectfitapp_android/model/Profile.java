@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Profile {
@@ -20,6 +21,34 @@ public class Profile {
     ArrayList<String> notifications;
     ArrayList<String> wishlist;
     ArrayList<String> myPostsListId;
+
+    public Profile() {
+        this.userId = "";
+        this.profileId = "";
+        this.firstName = "";
+        this.lastName = "";
+        this.gender = "";
+        this.userName = "";
+        this.birthday = "";
+        this.userImageUrl = "";
+        this.shoulder = "";
+        this.chest = "";
+        this.basin = "";
+        this.waist = "";
+        this.foot = "";
+        this.height = "";
+        this.weight = "";
+        this.bodyType = "";
+
+        this.status = "active";
+
+        this.similarProfileId = new ArrayList<>();
+        this.followers = new ArrayList<>();
+        this.trackers = new ArrayList<>();
+        this.notifications = new ArrayList<>();
+        this.wishlist = new ArrayList<>();
+        this.myPostsListId = new ArrayList<>();
+    }
 
     public Profile(String userId, String profileId, String firstName, String lastName, String gender, String userName,
                    String birthday, String userImageUrl, String shoulder, String chest, String basin,
@@ -459,6 +488,34 @@ public class Profile {
                 weight, bodyType, status, similarProfileId, followers, trackers, notifications,
                 wishlist, myPostsListId);
         return profile;
+    }
+
+    public HashMap<String, String> toJson(){
+
+        HashMap<String, String> map = new HashMap<>();
+
+        map.put("firstName", this.getFirstName());
+        map.put("lastName", this.getLastName());
+        map.put("gender", this.getGender());
+        map.put("userName", this.getUserName());
+        map.put("birthday", this.getBirthday());
+        map.put("pictureUrl", this.getUserImageUrl());
+        map.put("shoulder", this.getShoulder());
+        map.put("chest", this.getChest());
+        map.put("basin", this.getBasin());
+        map.put("waist", this.getWaist());
+        map.put("foot", this.getFoot());
+        map.put("height", this.getHeight());
+        map.put("weight", this.getWeight());
+        map.put("bodyType", this.getBodyType());
+        map.put("status", this.getStatus());
+
+        //TODO: all the arrays
+
+
+
+
+        return map;
     }
 
 //    public static List<Profile> jsonArrayToProfile(JsonArray profilesJson){

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homePageFragment">
+    app:startDestination="@id/userProfilesFragment">
 
     <fragment
         android:id="@+id/homePageFragment"
@@ -54,4 +54,43 @@
         android:name="com.example.perfectfitapp_android.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/userProfilesFragment"
+        android:name="com.example.perfectfitapp_android.UserProfilesFragment"
+        android:label="fragment_user_profiles"
+        tools:layout="@layout/fragment_user_profiles" >
+        <action
+            android:id="@+id/action_userProfilesFragment_to_registerFragment2"
+            app:destination="@id/createProfileStep1Fragment" />
+        <action
+            android:id="@+id/action_userProfilesFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createProfileStep1Fragment"
+        android:name="com.example.perfectfitapp_android.create_profile.CreateProfileStep1Fragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_create_profile_step1" >
+        <action
+            android:id="@+id/action_registerFragment2_to_registerStep2Fragment2"
+            app:destination="@id/createProfileStep2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createProfileStep2Fragment"
+        android:name="com.example.perfectfitapp_android.create_profile.CreateProfileStep2Fragment"
+        android:label="fragment_register_step2"
+        tools:layout="@layout/fragment_create_profile_step2" >
+        <action
+            android:id="@+id/action_registerStep2Fragment2_to_registerStep3Fragment2"
+            app:destination="@id/createProfileStep3Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createProfileStep3Fragment"
+        android:name="com.example.perfectfitapp_android.create_profile.CreateProfileStep3Fragment"
+        android:label="fragment_register_step3"
+        tools:layout="@layout/fragment_create_profile_step3" >
+        <action
+            android:id="@+id/action_registerStep3Fragment2_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
+    </fragment>
 </navigation>
