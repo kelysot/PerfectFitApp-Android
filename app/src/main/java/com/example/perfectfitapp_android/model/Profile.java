@@ -494,6 +494,7 @@ public class Profile {
 
         HashMap<String, String> map = new HashMap<>();
 
+        map.put("userId", this.getUserId());
         map.put("firstName", this.getFirstName());
         map.put("lastName", this.getLastName());
         map.put("gender", this.getGender());
@@ -508,7 +509,7 @@ public class Profile {
         map.put("height", this.getHeight());
         map.put("weight", this.getWeight());
         map.put("bodyType", this.getBodyType());
-        map.put("status", this.getStatus());
+//        map.put("status", this.getStatus());
 
         //TODO: all the arrays
 

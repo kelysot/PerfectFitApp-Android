@@ -6,6 +6,8 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +17,9 @@ import android.widget.ImageView;
 
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.RetrofitInterface;
+import com.example.perfectfitapp_android.model.Model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -86,40 +90,29 @@ public class CreateProfileStep3Fragment extends Fragment {
         CreateProfileModel.instance.profile.setWeight(weightEt.getText().toString());
         CreateProfileModel.instance.profile.setFoot(footEt.getText().toString());
 
-        //TODO: need to send user and profile to the server
+        CreateProfileModel.instance.profile.setUserId(Model.instance.getUser().getEmail());
 
-        HashMap<String, String> userMap = new HashMap<>();
-        userMap = CreateProfileModel.instance.user.toJson();
         HashMap<String, String> profileMap = new HashMap<>();
         profileMap = CreateProfileModel.instance.profile.toJson();
 
-        HashMap<String, HashMap<String, String>> map = new HashMap<>();
-        map.put("user", userMap);
-        map.put("profile", profileMap);
-
-        Call<Void> call = retrofitInterface.executeRegister(map); // the send call to the server
+        Call<Void> call = retrofitInterface.executeCreateProfile(profileMap); // the send call to the server
 
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.code() == 200){
-
+                if(response.code() == 200){
+                    Navigation.findNavController(view).navigate(R.id.action_registerStep3Fragment2_to_homePageFragment);
                 }
                 else if(response.code() == 400){
-
+                    Log.d("TAG", response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-
+                Log.d("TAG", t.getMessage());
             }
         });
-
-        Navigation.findNavController(view).navigate(R.id.action_registerStep3Fragment2_to_homePageFragment);
-
-//        startActivity(new Intent(getContext(), MainActivity.class));
-//        getActivity().finish();
     }
 
 //    private void continueStep4(View view) {

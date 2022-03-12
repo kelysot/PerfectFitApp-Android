@@ -1,5 +1,6 @@
 package com.example.perfectfitapp_android.model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,9 +8,19 @@ public class Model {
 
     public static final Model instance = new Model();
     int count = 0;
+    User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Model(){
         this.count = 0;
+        user = new User();
     }
 
     /*--------------------------------- Post -------------------------------*/

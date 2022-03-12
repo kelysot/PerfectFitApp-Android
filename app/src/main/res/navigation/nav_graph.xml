@@ -69,8 +69,8 @@
     <fragment
         android:id="@+id/createProfileStep1Fragment"
         android:name="com.example.perfectfitapp_android.create_profile.CreateProfileStep1Fragment"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_create_profile_step1" >
+        android:label="Create Profile - Step 1"
+        tools:layout="@layout/fragment_create_profile_step1">
         <action
             android:id="@+id/action_registerFragment2_to_registerStep2Fragment2"
             app:destination="@id/createProfileStep2Fragment" />
@@ -78,8 +78,8 @@
     <fragment
         android:id="@+id/createProfileStep2Fragment"
         android:name="com.example.perfectfitapp_android.create_profile.CreateProfileStep2Fragment"
-        android:label="fragment_register_step2"
-        tools:layout="@layout/fragment_create_profile_step2" >
+        android:label="Create Profile - Step 2"
+        tools:layout="@layout/fragment_create_profile_step2">
         <action
             android:id="@+id/action_registerStep2Fragment2_to_registerStep3Fragment2"
             app:destination="@id/createProfileStep3Fragment" />
@@ -87,8 +87,8 @@
     <fragment
         android:id="@+id/createProfileStep3Fragment"
         android:name="com.example.perfectfitapp_android.create_profile.CreateProfileStep3Fragment"
-        android:label="fragment_register_step3"
-        tools:layout="@layout/fragment_create_profile_step3" >
+        android:label="Create Profile - Step 3"
+        tools:layout="@layout/fragment_create_profile_step3">
         <action
             android:id="@+id/action_registerStep3Fragment2_to_homePageFragment"
             app:destination="@id/homePageFragment" />
