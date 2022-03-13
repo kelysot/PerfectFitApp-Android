@@ -98,6 +98,8 @@ public class CreateProfileStep3Fragment extends Fragment {
         HashMap<String, String> profileMap = new HashMap<>();
         profileMap = CreateProfileModel.instance.profile.toJson();
 
+        //TODO: change to ModelServer
+
         Call<Void> call = retrofitInterface.executeCreateProfile(profileMap); // the send call to the server
 
         call.enqueue(new Callback<Void>() {

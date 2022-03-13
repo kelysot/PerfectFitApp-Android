@@ -1,5 +1,9 @@
 package com.example.perfectfitapp_android.model;
 
+import android.view.Display;
+
+import com.example.perfectfitapp_android.ModelServer;
+import com.example.perfectfitapp_android.RestClient;
 import com.example.perfectfitapp_android.RetrofitInterface;
 
 import java.util.ArrayList;
@@ -18,6 +22,21 @@ public class Model {
     Retrofit retrofit;
     RetrofitInterface retrofitInterface;
     String BASE_URL = "http://10.0.2.2:4000";
+    List<Post> data = new LinkedList<Post>();
+    ModelServer modelServer = new ModelServer();
+
+
+    public Model(){
+        this.count = 0;
+        user = new User();
+        profile = new Profile();
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+    }
 
     public RetrofitInterface getRetrofitInterface() {
         return retrofitInterface;
@@ -35,7 +54,6 @@ public class Model {
         this.user = user;
     }
 
-
     public Profile getProfile() {
         return profile;
     }
@@ -45,23 +63,8 @@ public class Model {
     }
 
 
-    public Model(){
-        this.count = 0;
-        user = new User();
-        profile = new Profile();
-
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
-    }
-
     /*--------------------------------- Post -------------------------------*/
 
-    List<Post> data = new LinkedList<Post>();
 
     public List<Post> getAllPosts(){
         return data;
@@ -109,4 +112,32 @@ public class Model {
         }
         return null;
     }
+
+
+    /*--------------------------------------------------------*/
+
+    public interface getAllPostsListener {
+        void onComplete(List<Post> postList);
+    }
+
+    public void getAllPostsFromServer(getAllPostsListener listener) {
+        modelServer.getAllPosts(listener);
+    }
+
+    /*--------------------------------------------------------*/
+
+    public interface getProfileListener{
+        void onComplete(Profile profile);
+    }
+
+    public void getProfile(String email, String userName,getProfileListener listener) {
+        modelServer.getProfile(email,userName, listener);
+    }
+
+
+    /*--------------------------------------------------------*/
+
+
+
+
 }

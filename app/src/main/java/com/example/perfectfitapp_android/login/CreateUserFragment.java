@@ -35,9 +35,7 @@ public class CreateUserFragment extends Fragment {
 
     EditText emailEt, passwordEt;
     Button registerBtn;
-    private Retrofit retrofit;
-    private RetrofitInterface retrofitInterface;
-    private String BASE_URL = "http://10.0.2.2:4000";
+    Model model;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,33 +43,27 @@ public class CreateUserFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_create_user, container, false);
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        model = Model.instance;
 
         emailEt = view.findViewById(R.id.create_user_email_et);
         passwordEt = view.findViewById(R.id.create_user_password_et);
 
         registerBtn = view.findViewById(R.id.create_user_register_btn);
-        registerBtn.setOnClickListener(v-> register(view));
+        registerBtn.setOnClickListener(v-> register());
 
         return view;
     }
 
-    private void register(View view) {
+    private void register() {
 
         registerBtn.setEnabled(false);
         String email = emailEt.getText().toString();
         String password = passwordEt.getText().toString();
 
         User user = new User(email, password);
-//        Model.instance.setUser(user);
         HashMap<String, String> userMap = user.toJson();
 
-        Call<Void> call = retrofitInterface.executeRegister(userMap);
+        Call<Void> call = model.getRetrofitInterface().executeRegister(userMap);
 
         call.enqueue(new Callback<Void>() {
             @Override
@@ -80,7 +72,7 @@ public class CreateUserFragment extends Fragment {
 
                     Log.d("TAG", "the response: " + response.message());
 
-                    Call<JsonObject> callUser = retrofitInterface.executeGetUser(email);
+                    Call<JsonObject> callUser = model.getRetrofitInterface().executeGetUser(email);
 
                     callUser.enqueue(new Callback<JsonObject>() {
                         @Override
@@ -103,8 +95,6 @@ public class CreateUserFragment extends Fragment {
                                     Toast.LENGTH_LONG).show();
                         }
                     });
-
-
                 }
             }
 
@@ -117,6 +107,5 @@ public class CreateUserFragment extends Fragment {
 
             }
         });
-
     }
 }

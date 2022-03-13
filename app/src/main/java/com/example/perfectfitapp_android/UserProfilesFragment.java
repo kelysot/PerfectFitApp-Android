@@ -73,45 +73,58 @@ public class UserProfilesFragment extends Fragment {
             buttonList.get(i).setVisibility(View.VISIBLE);
             buttonList.get(i).setText(Model.instance.getUser().getProfilesArray().get(i));
             int finalI = i;
-            buttonList.get(i).setOnClickListener(v-> moveToHomePage(view, model.getUser().getProfilesArray().get(finalI)));
+            buttonList.get(i).setOnClickListener(v-> moveToHomePageWithProfile(view, model.getUser().getProfilesArray().get(finalI)));
         }
 
         return view;
     }
 
 
-    private void moveToHomePage(View view, String userName) {
+    private void moveToHomePageWithProfile(View view, String userName) {
 
         // getting the profile in order to show relevant details
 
-        Call<JsonObject> call = model.getRetrofitInterface().executeGetProfile(model.getUser().getEmail(), userName);
-
-        call.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                if(response.code() == 200){
-
-                    Profile profile = new Profile();
-                    profile = profile.jsonObjectToProfile(response.body());
-                    model.setProfile(profile);
-                    Navigation.findNavController(view).navigate(R.id.action_userProfilesFragment_to_homePageFragment);
-                }
-                else if(response.code() == 400){
-                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                            Toast.LENGTH_LONG).show();
-                    Log.d("TAG", "problem in userProfilesFragment 1");
-                }
+        Model.instance.getProfile(model.getUser().getEmail(), userName, profile -> {
+            if(profile != null){
+                model.setProfile(profile);
+                Navigation.findNavController(view).navigate(R.id.action_userProfilesFragment_to_homePageFragment);
             }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            else{
+                Log.d("TAG", "failed in UserProfileFragment 1");
                 Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                        Toast.LENGTH_LONG).show();
-
-                Log.d("TAG", "problem in userProfilesFragment 2");
-
+                            Toast.LENGTH_LONG).show();
             }
+
         });
+
+//        Call<JsonObject> call = model.getRetrofitInterface().executeGetProfile(model.getUser().getEmail(), userName);
+//
+//        call.enqueue(new Callback<JsonObject>() {
+//            @Override
+//            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+//                if(response.code() == 200){
+//
+//                    Profile profile = new Profile();
+//                    profile = profile.jsonObjectToProfile(response.body());
+//                    model.setProfile(profile);
+//                    Navigation.findNavController(view).navigate(R.id.action_userProfilesFragment_to_homePageFragment);
+//                }
+//                else if(response.code() == 400){
+//                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+//                            Toast.LENGTH_LONG).show();
+//                    Log.d("TAG", "problem in userProfilesFragment 1");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<JsonObject> call, Throwable t) {
+//                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+//                        Toast.LENGTH_LONG).show();
+//
+//                Log.d("TAG", "problem in userProfilesFragment 2");
+//
+//            }
+//        });
     }
 
     private void addProfile(View view) {

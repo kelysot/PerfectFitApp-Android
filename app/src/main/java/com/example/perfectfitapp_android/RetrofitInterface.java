@@ -39,6 +39,9 @@ public interface RetrofitInterface {
     Call<Void> executeCreateProfile (@Body HashMap<String,String> map);
 
     @GET("/post")
+    Call<JsonArray> executeGetAllPosts();
+
+    @GET("/post")
     Call<JsonArray> getAllPosts();
 
     @GET("/profile/:{id}")

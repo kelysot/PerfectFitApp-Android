@@ -96,21 +96,34 @@ public class HomePageFragment extends Fragment {
     private void getPost(View view) {
 
         System.out.println("button get post clicked");
-        restClient.setCallback(new RestClient.ResultReadyCallback() {
-            @Override
-            public void resultReady(List<Post> posts) {
-                Log.d("TAG123", posts + "11111111111111111111");
-                Log.d("TAG123", posts.get(0).getPostId() + "11111111111111111111");
 
-                for(int i = 0; i < posts.size(); i++){
-                    Model.instance.addPost(posts.get(i));
-                }
-                //TODO: refresh function
-                Navigation.findNavController(view)
-                        .navigate(HomePageFragmentDirections.actionGlobalHomePageFragment());
+        Model.instance.getAllPostsFromServer(postList -> {
+
+            //TODO: check if postsList is null
+
+            for(int i=0; i<postList.size(); i++){
+                Model.instance.addPost(postList.get(i));
             }
+            //TODO: refresh function
+            Navigation.findNavController(view).navigate(HomePageFragmentDirections.actionGlobalHomePageFragment());
         });
-        restClient.getPosts();
+
+//        Model.instance.getAllPosts();
+//        restClient.setCallback(new RestClient.ResultReadyCallback() {
+//            @Override
+//            public void resultReady(List<Post> posts) {
+//                Log.d("TAG123", posts + "11111111111111111111");
+//                Log.d("TAG123", posts.get(0).getPostId() + "11111111111111111111");
+//
+//                for(int i = 0; i < posts.size(); i++){
+//                    Model.instance.addPost(posts.get(i));
+//                }
+//                //TODO: refresh function
+//                Navigation.findNavController(view)
+//                        .navigate(HomePageFragmentDirections.actionGlobalHomePageFragment());
+//            }
+//        });
+//        restClient.getPosts();
     }
 
 
