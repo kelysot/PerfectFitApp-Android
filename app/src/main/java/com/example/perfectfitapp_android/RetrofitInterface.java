@@ -29,8 +29,8 @@ public interface RetrofitInterface {
     @POST("/auth/register")
     Call<Void> executeRegister (@Body HashMap<String,String> map);
 
-    @GET("/auth/")
-    Call<Void> executeGetCurrentUser (@Body HashMap<String,String> map);
+    @GET("/auth/getUser/{email}")
+    Call<JsonObject> executeGetCurrentUser (@Path("email") String email);
 
     @POST("/profile/")
     Call<Void> executeCreateProfile (@Body HashMap<String,String> map);

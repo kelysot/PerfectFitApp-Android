@@ -1,5 +1,8 @@
 package com.example.perfectfitapp_android.model;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -51,6 +54,21 @@ public class User {
 
         return map;
         //TODO: list of profiles
+    }
+
+    public User fromJson(JsonObject json){
+        User user = new User();
+
+        user.setEmail(json.get("email").getAsString());
+        user.setPassword(json.get("password").getAsString()); //TODO: need the password here?
+        ArrayList<String> arr = new ArrayList<>();
+        for (JsonElement j: json.get("profilesId").getAsJsonArray()) {
+            arr.add(j.getAsString());
+        }
+        user.setProfilesArray(arr);
+
+        // TODO: get the Tokens
+        return user;
     }
 
 }

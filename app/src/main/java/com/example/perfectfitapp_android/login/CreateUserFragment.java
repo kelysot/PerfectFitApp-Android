@@ -6,17 +6,21 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MainActivity;
+import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.RetrofitInterface;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.User;
+import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 
@@ -64,7 +68,7 @@ public class CreateUserFragment extends Fragment {
         String password = passwordEt.getText().toString();
 
         User user = new User(email, password);
-        Model.instance.setUser(user);
+//        Model.instance.setUser(user);
         HashMap<String, String> userMap = user.toJson();
 
         Call<Void> call = retrofitInterface.executeRegister(userMap);
@@ -75,23 +79,44 @@ public class CreateUserFragment extends Fragment {
                 if(response.code() == 200){
 
                     Log.d("TAG", "the response: " + response.message());
-                    startActivity(new Intent(getContext(), MainActivity.class));
-                    getActivity().finish();
+
+                    Call<JsonObject> callUser = retrofitInterface.executeGetCurrentUser(email);
+
+                    callUser.enqueue(new Callback<JsonObject>() {
+                        @Override
+                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                            Log.d("TAG", "succeed getCurrentUser");
+
+                            User currentUser = new User();
+                            currentUser = currentUser.fromJson(response.body());
+                            Model.instance.setUser(currentUser);
+
+                            startActivity(new Intent(getContext(), MainActivity.class));
+                            getActivity().finish();
+                        }
+
+                        @Override
+                        public void onFailure(Call<JsonObject> call, Throwable t) {
+                            Log.d("TAG", "failed to getCurrentUser");
+
+                            Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.d("TAG", "failed to register");
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
                 registerBtn.setEnabled(true);
 
             }
         });
-
-        //TODO: send userMap to server
-
-
-
 
     }
 }
