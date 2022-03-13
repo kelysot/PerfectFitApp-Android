@@ -80,7 +80,7 @@ public class CreateUserFragment extends Fragment {
 
                     Log.d("TAG", "the response: " + response.message());
 
-                    Call<JsonObject> callUser = retrofitInterface.executeGetCurrentUser(email);
+                    Call<JsonObject> callUser = retrofitInterface.executeGetUser(email);
 
                     callUser.enqueue(new Callback<JsonObject>() {
                         @Override

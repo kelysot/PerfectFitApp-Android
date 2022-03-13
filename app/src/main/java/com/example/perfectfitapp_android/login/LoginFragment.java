@@ -133,7 +133,7 @@ public class LoginFragment extends Fragment {
                     //TODO: get the user from server and insert it to Model.instance.user
 
 
-                    Call<JsonObject> callUser = retrofitInterface.executeGetCurrentUser(localInputIEmail);
+                    Call<JsonObject> callUser = retrofitInterface.executeGetUser(localInputIEmail);
 
 
                     callUser.enqueue(new Callback<JsonObject>() {
@@ -141,13 +141,10 @@ public class LoginFragment extends Fragment {
                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
                             if(response.code() == 200){
-                                Log.d("TAG", "workeddddddddddddddddddd");
-
                                 JsonObject json = response.body();
                                 User user = new User();
                                 user = user.fromJson(json);
                                 Model.instance.setUser(user);
-                                Log.d("TAG", "THE JSON: " +  json.get("email"));
                                 startActivity(new Intent(getContext(), MainActivity.class));
                                 getActivity().finish();
                             }
@@ -160,7 +157,6 @@ public class LoginFragment extends Fragment {
 
                         @Override
                         public void onFailure(Call<JsonObject> call, Throwable t) {
-                            Log.d("TAG", t.getMessage());
                             Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                     Toast.LENGTH_LONG).show();
                         }

@@ -30,7 +30,10 @@ public interface RetrofitInterface {
     Call<Void> executeRegister (@Body HashMap<String,String> map);
 
     @GET("/auth/getUser/{email}")
-    Call<JsonObject> executeGetCurrentUser (@Path("email") String email);
+    Call<JsonObject> executeGetUser (@Path("email") String email);
+
+    @GET("/profile/getProfile/{email}/{userName}")
+    Call<JsonObject> executeGetProfile (@Path("email") String email, @Path("userName") String userName);
 
     @POST("/profile/")
     Call<Void> executeCreateProfile (@Body HashMap<String,String> map);

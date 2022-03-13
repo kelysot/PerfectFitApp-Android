@@ -37,6 +37,7 @@ public class CreateProfileStep3Fragment extends Fragment {
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     private String BASE_URL = "http://10.0.2.2:4000";
+    Model model;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +46,8 @@ public class CreateProfileStep3Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_create_profile_step3, container, false);
 //        b = view.findViewById(R.id.register_step3_date_btn);
 //        b.setOnClickListener(v-> pickDate(view));
+
+        model = Model.instance;
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -101,6 +104,8 @@ public class CreateProfileStep3Fragment extends Fragment {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.code() == 200){
+
+                    model.getUser().getProfilesArray().add(CreateProfileModel.instance.profile.getUserName());
                     Navigation.findNavController(view).navigate(R.id.action_registerStep3Fragment2_to_homePageFragment);
                 }
                 else if(response.code() == 400){

@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/homePageFragment"
         android:name="com.example.perfectfitapp_android.HomePageFragment"
-        android:label="fragment_home_page"
-        tools:layout="@layout/fragment_home_page" >
+        android:label="PerfectFit"
+        tools:layout="@layout/fragment_home_page">
         <action
             android:id="@+id/action_homePageFragment_to_addNewPostFragment"
             app:destination="@id/addNewPostFragment"
@@ -57,8 +57,8 @@
     <fragment
         android:id="@+id/userProfilesFragment"
         android:name="com.example.perfectfitapp_android.UserProfilesFragment"
-        android:label="fragment_user_profiles"
-        tools:layout="@layout/fragment_user_profiles" >
+        android:label="Profiles"
+        tools:layout="@layout/fragment_user_profiles">
         <action
             android:id="@+id/action_userProfilesFragment_to_registerFragment2"
             app:destination="@id/createProfileStep1Fragment" />
@@ -93,4 +93,5 @@
             android:id="@+id/action_registerStep3Fragment2_to_homePageFragment"
             app:destination="@id/homePageFragment" />
     </fragment>
+    <action android:id="@+id/action_global_userProfilesFragment" app:destination="@id/userProfilesFragment" />
 </navigation>

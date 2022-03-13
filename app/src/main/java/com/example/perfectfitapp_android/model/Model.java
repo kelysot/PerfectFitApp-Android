@@ -1,14 +1,31 @@
 package com.example.perfectfitapp_android.model;
 
+import com.example.perfectfitapp_android.RetrofitInterface;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Model {
 
     public static final Model instance = new Model();
     int count = 0;
     User user;
+    Profile profile;
+    Retrofit retrofit;
+    RetrofitInterface retrofitInterface;
+    String BASE_URL = "http://10.0.2.2:4000";
+
+    public RetrofitInterface getRetrofitInterface() {
+        return retrofitInterface;
+    }
+
+    public void setRetrofitInterface(RetrofitInterface retrofitInterface) {
+        this.retrofitInterface = retrofitInterface;
+    }
 
     public User getUser() {
         return user;
@@ -18,9 +35,28 @@ public class Model {
         this.user = user;
     }
 
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+
     public Model(){
         this.count = 0;
         user = new User();
+        profile = new Profile();
+
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
     }
 
     /*--------------------------------- Post -------------------------------*/

@@ -40,16 +40,18 @@ public class HomePageFragment extends Fragment {
 
     List<Post> data;
     MyAdapter adapter;
-    Button getPostBtn;
-    Button goUserBtn;
+    Button getPostBtn, goUserBtn, profilesBtn;
     RestClient restClient = new RestClient();
-
+    TextView userName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
+
+        userName = view.findViewById(R.id.home_page_name_tv);
+        userName.setText(Model.instance.getProfile().getUserName());
 
         getPostBtn = view.findViewById(R.id.homepage_getpost_btn);
         getPostBtn.setOnClickListener(v -> getPost(view));
@@ -72,19 +74,23 @@ public class HomePageFragment extends Fragment {
         postsList.setAdapter(adapter);
 
 
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                String postId = data.get(position).getPostId();
-                System.out.println("post " + postId + " was clicked");
-                Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToPostPageFragment2(postId));
-            }
+        adapter.setOnItemClickListener((v, position) -> {
+            String postId = data.get(position).getPostId();
+            System.out.println("post " + postId + " was clicked");
+            Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToPostPageFragment2(postId));
         });
+
+        profilesBtn = view.findViewById(R.id.home_page_profiles_btn);
+        profilesBtn.setOnClickListener(v -> profiles());
 
         //TODO: menu
         setHasOptionsMenu(true);
 
         return view;
+    }
+
+    private void profiles() {
+        Navigation.findNavController(profilesBtn).navigate(HomePageFragmentDirections.actionGlobalUserProfilesFragment());
     }
 
     private void getPost(View view) {
@@ -116,17 +122,13 @@ public class HomePageFragment extends Fragment {
             super(itemView);
             productNameTv = itemView.findViewById(R.id.listrow_username_tv);
             descriptionTv = itemView.findViewById(R.id.listrow_description_tv);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    listener.onItemClick(v, pos);
-                }
+            itemView.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                listener.onItemClick(v, pos);
             });
 
         }
     }
-
 
     interface OnItemClickListener {
         void onItemClick(View v, int position);
@@ -164,16 +166,20 @@ public class HomePageFragment extends Fragment {
 
     /* *************************************** Menu Functions *************************************** */
 
-//    @Override
-//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//        inflater.inflate(R.menu.main_menu, menu);
-//    }
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.main_menu, menu);
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.NewPostFragment) {
             NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalAddNewPostFragment());
+            return true;
+        }
+        else if(item.getItemId() == R.id.UserProfileFragment){
+            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalUserProfilesFragment());
             return true;
         }
 //        else if(item.getItemId() == R.id.Exit){
