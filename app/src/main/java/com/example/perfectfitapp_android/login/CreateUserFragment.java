@@ -35,15 +35,12 @@ public class CreateUserFragment extends Fragment {
 
     EditText emailEt, passwordEt;
     Button registerBtn;
-    Model model;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_create_user, container, false);
-
-        model = Model.instance;
 
         emailEt = view.findViewById(R.id.create_user_email_et);
         passwordEt = view.findViewById(R.id.create_user_password_et);
@@ -60,51 +57,21 @@ public class CreateUserFragment extends Fragment {
         String email = emailEt.getText().toString();
         String password = passwordEt.getText().toString();
 
-        User user = new User(email, password);
-        HashMap<String, String> userMap = user.toJson();
-
-        Call<Void> call = model.getRetrofitInterface().executeRegister(userMap);
-
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.code() == 200){
-
-                    Log.d("TAG", "the response: " + response.message());
-
-                    Call<JsonObject> callUser = model.getRetrofitInterface().executeGetUser(email);
-
-                    callUser.enqueue(new Callback<JsonObject>() {
-                        @Override
-                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                            Log.d("TAG", "succeed getCurrentUser");
-
-                            User currentUser = new User();
-                            currentUser = currentUser.fromJson(response.body());
-                            Model.instance.setUser(currentUser);
-
-                            startActivity(new Intent(getContext(), MainActivity.class));
-                            getActivity().finish();
-                        }
-
-                        @Override
-                        public void onFailure(Call<JsonObject> call, Throwable t) {
-                            Log.d("TAG", "failed to getCurrentUser");
-
-                            Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
+        Model.instance.register(email, password, isSuccess -> {
+            if(isSuccess){
+                Model.instance.getUserFromServer(email, user -> {
+                    if(user != null){
+                        Model.instance.setUser(user);
+                        startActivity(new Intent(getContext(), MainActivity.class));
+                        getActivity().finish();
+                    }
+                    else{
+                        registerBtn.setEnabled(true);
+                    }
+                });
             }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.d("TAG", "failed to register");
-                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                        Toast.LENGTH_LONG).show();
+            else{
                 registerBtn.setEnabled(true);
-
             }
         });
     }

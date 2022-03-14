@@ -32,9 +32,6 @@ public class CreateProfileStep2Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //TODO: get the gender and put the relevant lists
-        //TODO: array of body types - move with the arrows accordingly to the array position
-
         View view = inflater.inflate(R.layout.fragment_create_profile_step2, container, false);
 
         descriptionText = view.findViewById(R.id.register_step2_downtext);
@@ -110,6 +107,5 @@ public class CreateProfileStep2Fragment extends Fragment {
             resBodyType.add(R.drawable.body_boy_ectomorph);
 
         }
-
     }
 }

@@ -1,12 +1,7 @@
 package com.example.perfectfitapp_android.model;
 
-import android.view.Display;
-
-import com.example.perfectfitapp_android.ModelServer;
-import com.example.perfectfitapp_android.RestClient;
 import com.example.perfectfitapp_android.RetrofitInterface;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -113,6 +108,36 @@ public class Model {
         return null;
     }
 
+    /******************************************************************************************/
+
+    public interface registerListener{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void register(String email, String password, registerListener listener){
+        modelServer.register(email, password, listener);
+    }
+
+    /*--------------------------------------------------------*/
+
+    public interface getUserListener{
+        void onComplete(User user);
+    }
+
+    public void getUserFromServer(String email, getUserListener listener){
+        modelServer.getUser(email, listener);
+    }
+
+    /*--------------------------------------------------------*/
+
+    public interface logInListener{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void logIn(String email, String password, logInListener listener){
+        modelServer.logIn(email, password, listener);
+    }
+
 
     /*--------------------------------------------------------*/
 
@@ -130,12 +155,20 @@ public class Model {
         void onComplete(Profile profile);
     }
 
-    public void getProfile(String email, String userName,getProfileListener listener) {
-        modelServer.getProfile(email,userName, listener);
+    public void getProfileFromServer(String email, String userName,getProfileListener listener) {
+        modelServer.getProfileFromServer(email,userName, listener);
     }
 
-
     /*--------------------------------------------------------*/
+
+    public interface  createProfileListener{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void createProfile(Profile profile, createProfileListener listener){
+        modelServer.createProfile(profile, listener);
+
+    }
 
 
 

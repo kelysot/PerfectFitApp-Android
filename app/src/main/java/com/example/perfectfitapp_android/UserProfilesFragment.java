@@ -82,9 +82,7 @@ public class UserProfilesFragment extends Fragment {
 
     private void moveToHomePageWithProfile(View view, String userName) {
 
-        // getting the profile in order to show relevant details
-
-        Model.instance.getProfile(model.getUser().getEmail(), userName, profile -> {
+        Model.instance.getProfileFromServer(model.getUser().getEmail(), userName, profile -> {
             if(profile != null){
                 model.setProfile(profile);
                 Navigation.findNavController(view).navigate(R.id.action_userProfilesFragment_to_homePageFragment);
@@ -94,40 +92,19 @@ public class UserProfilesFragment extends Fragment {
                 Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
             }
-
         });
-
-//        Call<JsonObject> call = model.getRetrofitInterface().executeGetProfile(model.getUser().getEmail(), userName);
-//
-//        call.enqueue(new Callback<JsonObject>() {
-//            @Override
-//            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-//                if(response.code() == 200){
-//
-//                    Profile profile = new Profile();
-//                    profile = profile.jsonObjectToProfile(response.body());
-//                    model.setProfile(profile);
-//                    Navigation.findNavController(view).navigate(R.id.action_userProfilesFragment_to_homePageFragment);
-//                }
-//                else if(response.code() == 400){
-//                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-//                            Toast.LENGTH_LONG).show();
-//                    Log.d("TAG", "problem in userProfilesFragment 1");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<JsonObject> call, Throwable t) {
-//                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-//                        Toast.LENGTH_LONG).show();
-//
-//                Log.d("TAG", "problem in userProfilesFragment 2");
-//
-//            }
-//        });
     }
 
     private void addProfile(View view) {
-        Navigation.findNavController(view).navigate(R.id.action_userProfilesFragment_to_registerFragment2);
+
+        //TODO: open dialog about the amount of profiles
+
+        if( Model.instance.getUser().getProfilesArray().size() == 5){
+            Toast.makeText(MyApplication.getContext(), "Sorry, you can only have 5 profiles",
+                    Toast.LENGTH_LONG).show();
+        }
+        else{
+            Navigation.findNavController(view).navigate(R.id.action_userProfilesFragment_to_registerFragment2);
+        }
     }
 }

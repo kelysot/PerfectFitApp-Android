@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.RetrofitInterface;
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.model.Profile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,9 +35,6 @@ public class CreateProfileStep3Fragment extends Fragment {
     EditText shoulderEt, chestEt, basinEt, waistEt, heightEt, weightEt, footEt;
     Button registerBtn, b, continueBtn;
     ImageView explenationImg;
-    private Retrofit retrofit;
-    private RetrofitInterface retrofitInterface;
-    private String BASE_URL = "http://10.0.2.2:4000";
     Model model;
 
     @Override
@@ -48,14 +46,6 @@ public class CreateProfileStep3Fragment extends Fragment {
 //        b.setOnClickListener(v-> pickDate(view));
 
         model = Model.instance;
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
-
 
         shoulderEt = view.findViewById(R.id.register_step3_shoulder_et);
         chestEt = view.findViewById(R.id.register_step3_chest_et);
@@ -85,6 +75,8 @@ public class CreateProfileStep3Fragment extends Fragment {
 
     private void registerApp(View view) {
 
+        registerBtn.setEnabled(false);
+
         CreateProfileModel.instance.profile.setShoulder(shoulderEt.getText().toString());
         CreateProfileModel.instance.profile.setChest(chestEt.getText().toString());
         CreateProfileModel.instance.profile.setBasin(basinEt.getText().toString());
@@ -93,31 +85,27 @@ public class CreateProfileStep3Fragment extends Fragment {
         CreateProfileModel.instance.profile.setWeight(weightEt.getText().toString());
         CreateProfileModel.instance.profile.setFoot(footEt.getText().toString());
 
+        String email = Model.instance.getUser().getEmail();
+        String userName = CreateProfileModel.instance.profile.getUserName();
+
         CreateProfileModel.instance.profile.setUserId(Model.instance.getUser().getEmail());
 
-        HashMap<String, String> profileMap = new HashMap<>();
-        profileMap = CreateProfileModel.instance.profile.toJson();
+        Model.instance.createProfile(CreateProfileModel.instance.profile, isSuccess -> {
+            if(isSuccess){
+                model.getUser().getProfilesArray().add(CreateProfileModel.instance.profile.getUserName());
 
-        //TODO: change to ModelServer
-
-        Call<Void> call = retrofitInterface.executeCreateProfile(profileMap); // the send call to the server
-
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.code() == 200){
-
-                    model.getUser().getProfilesArray().add(CreateProfileModel.instance.profile.getUserName());
-                    Navigation.findNavController(view).navigate(R.id.action_registerStep3Fragment2_to_homePageFragment);
-                }
-                else if(response.code() == 400){
-                    Log.d("TAG", response.message());
-                }
+                Model.instance.getProfileFromServer(email, userName, profile -> {
+                    if(profile != null){
+                        Model.instance.setProfile(profile);
+                        Navigation.findNavController(view).navigate(R.id.action_registerStep3Fragment2_to_homePageFragment);
+                    }
+                    else{
+                        registerBtn.setEnabled(true);
+                    }
+                });
             }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.d("TAG", t.getMessage());
+            else{
+                registerBtn.setEnabled(true);
             }
         });
     }
