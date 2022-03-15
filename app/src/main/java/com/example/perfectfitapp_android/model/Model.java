@@ -1,5 +1,9 @@
 package com.example.perfectfitapp_android.model;
 
+import android.content.Context;
+import android.util.Log;
+
+import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.RetrofitInterface;
 
 import java.util.LinkedList;
@@ -32,6 +36,7 @@ public class Model {
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
+
     }
 
     public RetrofitInterface getRetrofitInterface() {
@@ -63,7 +68,7 @@ public class Model {
     }
 
     public void setToken(String token) {
-        this.token = token;
+        this.token = "Bearer " + token;
     }
     /*--------------------------------- Post -------------------------------*/
 
