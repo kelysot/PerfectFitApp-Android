@@ -52,7 +52,7 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.perfectfitapp_android.profile.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="Profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/userProfilesFragment"
