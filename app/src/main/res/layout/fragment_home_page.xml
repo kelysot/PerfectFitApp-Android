@@ -23,12 +23,12 @@
         android:id="@+id/postlist_rv"
         android:layout_width="411dp"
         android:layout_height="541dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_page_profiles_btn"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/home_get_profile_btn" />
 
     <Button
         android:id="@+id/homepage_getpost_btn"
@@ -73,16 +73,5 @@
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
         app:layout_constraintStart_toEndOf="@+id/textView4" />
-
-    <Button
-        android:id="@+id/home_page_profiles_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
-        android:text="Profiles"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/home_get_profile_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

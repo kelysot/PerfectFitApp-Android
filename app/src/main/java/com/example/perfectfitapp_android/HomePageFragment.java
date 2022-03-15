@@ -40,7 +40,7 @@ public class HomePageFragment extends Fragment {
 
     List<Post> data;
     MyAdapter adapter;
-    Button getPostBtn, goUserBtn, profilesBtn;
+    Button getPostBtn, goUserBtn;
     RestClient restClient = new RestClient();
     TextView userName;
 
@@ -80,17 +80,10 @@ public class HomePageFragment extends Fragment {
             Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToPostPageFragment2(postId));
         });
 
-        profilesBtn = view.findViewById(R.id.home_page_profiles_btn);
-        profilesBtn.setOnClickListener(v -> profiles());
-
         //TODO: menu
         setHasOptionsMenu(true);
 
         return view;
-    }
-
-    private void profiles() {
-        Navigation.findNavController(profilesBtn).navigate(HomePageFragmentDirections.actionGlobalUserProfilesFragment());
     }
 
     private void getPost(View view) {

@@ -2,6 +2,7 @@ package com.example.perfectfitapp_android;
 
 import android.util.Log;
 
+import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.model.User;
@@ -19,10 +20,13 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface RetrofitInterface {
+
     @POST("/auth/login")
     Call<User> executeLogin(@Body HashMap<String, String> map);
 
@@ -33,7 +37,7 @@ public interface RetrofitInterface {
     Call<JsonObject> executeGetUser (@Path("email") String email);
 
     @GET("/profile/getProfile/{email}/{userName}")
-    Call<JsonObject> executeGetProfile (@Path("email") String email, @Path("userName") String userName);
+    Call<JsonObject> executeGetProfile (@Header("authorization") String token,@Path("email") String email, @Path("userName") String userName);
 
     @POST("/profile/")
     Call<Void> executeCreateProfile (@Body HashMap<String,String> map);

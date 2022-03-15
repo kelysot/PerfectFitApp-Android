@@ -13,6 +13,7 @@ public class Model {
     public static final Model instance = new Model();
     int count = 0;
     User user;
+    String token;
     Profile profile;
     Retrofit retrofit;
     RetrofitInterface retrofitInterface;
@@ -57,7 +58,13 @@ public class Model {
         this.profile = profile;
     }
 
+    public String getToken() {
+        return token;
+    }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
     /*--------------------------------- Post -------------------------------*/
 
 

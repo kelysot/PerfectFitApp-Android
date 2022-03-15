@@ -31,9 +31,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TableLayout
-            android:layout_width="91dp"
-            android:layout_height="433dp"
-            android:layout_marginTop="50dp"
+            android:layout_width="97dp"
+            android:layout_height="644dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_profiles_addprofile_btn">
@@ -45,7 +47,7 @@
                 <Button
                     android:id="@+id/user_profiles_profile1_btn"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="85dp"
                     android:layout_marginTop="30dp"
                     android:text="User1" />
             </TableRow>
@@ -58,7 +60,7 @@
                 <Button
                     android:id="@+id/user_profiles_profile2_btn"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="85dp"
                     android:layout_marginTop="30dp"
                     android:text="User2" />
             </TableRow>
@@ -70,7 +72,7 @@
                 <Button
                     android:id="@+id/user_profiles_profile3_btn"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="85dp"
                     android:layout_marginTop="30dp"
                     android:text="User3" />
             </TableRow>
@@ -82,19 +84,19 @@
                 <Button
                     android:id="@+id/user_profiles_profile4_btn"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="85dp"
                     android:layout_marginTop="30dp"
                     android:text="User4" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="118dp">
 
                 <Button
                     android:id="@+id/user_profiles_profile5_btn"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="85dp"
                     android:layout_marginTop="30dp"
                     android:text="User5" />
             </TableRow>

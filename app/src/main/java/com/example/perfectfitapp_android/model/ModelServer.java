@@ -4,14 +4,10 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.navigation.Navigation;
-
-import com.example.perfectfitapp_android.MainActivity;
 import com.example.perfectfitapp_android.MyApplication;
-import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.RetrofitInterface;
-import com.example.perfectfitapp_android.create_profile.CreateProfileModel;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
@@ -70,7 +66,7 @@ public class ModelServer {
 
     public void getProfileFromServer(String email, String userName, Model.getProfileListener listener){
 
-        Call<JsonObject> call = service.executeGetProfile(email, userName);
+        Call<JsonObject> call = service.executeGetProfile(Model.instance.getToken(), email, userName);
 
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -101,8 +97,7 @@ public class ModelServer {
 
     public void createProfile(Profile profile, Model.createProfileListener listener){
 
-        HashMap<String, String> profileMap = new HashMap<>();
-        profileMap = profile.toJson();
+        HashMap<String, String> profileMap =  profile.toJson();
 
         Call<Void> call = service.executeCreateProfile(profileMap);
 
@@ -116,14 +111,12 @@ public class ModelServer {
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
                     Log.d("TAG", "problem in createProfile in ModelServer 1");
-                    Log.d("TAG", response.message());
                     listener.onComplete(false);
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Log.d("TAG", t.getMessage());
                 Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                         Toast.LENGTH_LONG).show();
                 Log.d("TAG", "problem in createProfile in ModelServer 2");
@@ -162,6 +155,7 @@ public class ModelServer {
     }
 
 
+    //**********************************************//
     public void getUser(String email, Model.getUserListener listener){
 
         Call<JsonObject> callUser = service.executeGetUser(email);
@@ -170,6 +164,8 @@ public class ModelServer {
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
                 if(response.code() == 200){
+                    JsonElement js = response.body().get("tokens");
+                    Model.instance.setToken(js.getAsString());
                     User user = new User();
                     user = user.fromJson(response.body());
                     listener.onComplete(user);
@@ -209,54 +205,17 @@ public class ModelServer {
 
                 if (response.code() == 200) {
                     listener.onComplete(true);
-
-//                    Call<JsonObject> callUser = retrofitInterface.executeGetUser(localInputIEmail);
-//
-//
-//                    callUser.enqueue(new Callback<JsonObject>() {
-//                        @Override
-//                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-//
-//                            if(response.code() == 200){
-//                                JsonObject json = response.body();
-//                                User user = new User();
-//                                user = user.fromJson(json);
-//                                Model.instance.setUser(user);
-//                                startActivity(new Intent(getContext(), MainActivity.class));
-//                                getActivity().finish();
-//                            }
-//                            else if(response.code() == 400){
-//                                Toast.makeText(MyApplication.getContext(), "Wrong email or password",
-//                                        Toast.LENGTH_LONG).show();
-//                            }
-//
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<JsonObject> call, Throwable t) {
-//                            Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-//                                    Toast.LENGTH_LONG).show();
-//                        }
-//                    });
-
                 } else if (response.code() == 404) {
-
                     Toast.makeText(MyApplication.getContext(), "Wrong Credentials",
                             Toast.LENGTH_LONG).show();
                     Log.d("TAG",  "failed in LogIn in ModelServer 1");
-
-
                     listener.onComplete(false);
-//                    loginBtn.setEnabled(true);
                 }
                 else if(response.code() == 400){
                     Toast.makeText(MyApplication.getContext(), "Wrong email or password",
                             Toast.LENGTH_LONG).show();
                     listener.onComplete(false);
                     Log.d("TAG",  "failed in LogIn in ModelServer 2");
-
-
-//                    loginBtn.setEnabled(true);
                 }
             }
 
@@ -265,13 +224,7 @@ public class ModelServer {
                 Log.d("TAG",  "failed in LogIn in ModelServer 3");
                 Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                         Toast.LENGTH_LONG).show();
-//                Toast.makeText(MyApplication.getContext(), t.getMessage(),
-//                        Toast.LENGTH_LONG).show();
-
                 listener.onComplete(false);
-
-//                loginBtn.setEnabled(true);
-
             }
         });
 
