@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
+import com.example.perfectfitapp_android.model.Model;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -62,14 +66,23 @@ public class CreateProfileStep1Fragment extends Fragment {
         String birthday = birthdayEt.getText().toString();
         String gender = genderAuto.getText().toString();
 
-        CreateProfileModel.instance.profile.setUserName(userName);
-        CreateProfileModel.instance.profile.setFirstName(firstName);
-        CreateProfileModel.instance.profile.setLastName(lastName);
-        CreateProfileModel.instance.profile.setBirthday(birthday);
-        CreateProfileModel.instance.profile.setGender(gender);
-
-
-        Navigation.findNavController(view).navigate(R.id.action_registerFragment2_to_registerStep2Fragment2);
+        Model.instance.checkIfUserNameExist(userName, new Model.CheckIfUserNameExist() {
+            @Override
+            public void onComplete(Boolean isSuccess) {
+                if(isSuccess){
+                    CreateProfileModel.instance.profile.setUserName(userName);
+                    CreateProfileModel.instance.profile.setFirstName(firstName);
+                    CreateProfileModel.instance.profile.setLastName(lastName);
+                    CreateProfileModel.instance.profile.setBirthday(birthday);
+                    CreateProfileModel.instance.profile.setGender(gender);
+                    Navigation.findNavController(view).navigate(R.id.action_registerFragment2_to_registerStep2Fragment2);
+                }
+                else{
+                    Toast.makeText(MyApplication.getContext(), "The user name you choose already exist, please try another one.",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     public void setAllDropDownMenus(View view){

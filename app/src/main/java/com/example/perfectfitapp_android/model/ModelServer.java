@@ -231,8 +231,27 @@ public class ModelServer {
     }
 
 
+    public void checkIfUserNameExist(String userName, Model.CheckIfUserNameExist listener) {
 
+        Call<Void> call = service.checkIfUserNameExist(userName);
 
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.code() == 200){
+                    listener.onComplete(true);
+                }
+                else if(response.code() == 400){
+                    listener.onComplete(false);
+                }
+            }
 
-
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                listener.onComplete(false);
+            }
+        });
     }
+}
