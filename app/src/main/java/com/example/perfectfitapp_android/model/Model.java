@@ -182,6 +182,17 @@ public class Model {
 
     }
 
+    /*--------------------------------------------------------*/
+
+    public interface  CheckIfUserNameExist{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void checkIfUserNameExist(String userName, CheckIfUserNameExist listener){
+        modelServer.checkIfUserNameExist(userName, listener);
+
+    }
+
 
 
 
