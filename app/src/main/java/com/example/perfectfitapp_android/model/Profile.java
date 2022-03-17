@@ -490,9 +490,9 @@ public class Profile {
         return profile;
     }
 
-    public HashMap<String, String> toJson(){
+    public HashMap<String, Object> toJson(){
 
-        HashMap<String, String> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
 
         map.put("userId", this.getUserId());
         map.put("firstName", this.getFirstName());
@@ -509,12 +509,13 @@ public class Profile {
         map.put("height", this.getHeight());
         map.put("weight", this.getWeight());
         map.put("bodyType", this.getBodyType());
-//        map.put("status", this.getStatus());
-
-        //TODO: all the arrays
-
-
-
+        map.put("status", this.getStatus());
+        map.put("similarProfileId", this.getSimilarProfileId());
+        map.put("followers", this.getFollowers());
+        map.put("trackers", this.getTrackers());
+        map.put("notifications", this.getNotifications());
+        map.put("wishlist", this.getWishlist());
+        map.put("myPostsListId", this.getMyPostsListId());
 
         return map;
     }

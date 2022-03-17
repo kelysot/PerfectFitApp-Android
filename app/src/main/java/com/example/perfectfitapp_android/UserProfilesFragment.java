@@ -81,13 +81,33 @@ public class UserProfilesFragment extends Fragment {
 
 
     private void moveToHomePageWithProfile(View view, String userName) {
+        Log.d("TAG1", "11111");
 
         Model.instance.getProfileFromServer(model.getUser().getEmail(), userName, profile -> {
+            Log.d("TAG1", "5555");
             if(profile != null){
+                Log.d("TAG1", "6666");
                 model.setProfile(profile);
-                Navigation.findNavController(view).navigate(R.id.action_userProfilesFragment_to_homePageFragment);
+                profile.setStatus("true");
+                Model.instance.editProfile(profile, new Model.EditProfile() {
+                    @Override
+                    public void onComplete(Boolean isSuccess) {
+                        Log.d("TAG1", "989898");
+                        if(isSuccess){
+                            Log.d("TAG1", "22222");
+                            Navigation.findNavController(view).navigate(R.id.action_userProfilesFragment_to_homePageFragment);
+                        }
+                        else{
+                            Log.d("TAG1", "33333");
+                            Log.d("TAG", "failed in UserProfileFragment 1");
+                            Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
             }
             else{
+                Log.d("TAG1", "4444");
                 Log.d("TAG", "failed in UserProfileFragment 1");
                 Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
