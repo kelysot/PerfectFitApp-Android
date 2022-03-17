@@ -21,6 +21,7 @@ import com.example.perfectfitapp_android.RestClient;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -29,30 +30,21 @@ public class ProfileFragment extends Fragment {
 
     ImageView userPic;
     TextView userNameTv;
-    ProfileRestClient restClient = new ProfileRestClient();
-    String name;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_home_page, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         userPic = view.findViewById(R.id.profile_profile_img);
         userNameTv = view.findViewById(R.id.profile_user_name);
 
-        restClient.setCallback(new ProfileRestClient.ResultReadyCallbackProfile() {
-            @Override
-            public void resultReady(Profile profile) {
-//                Log.d("TAG123", profile + "11111111111111111111");
-//                Log.d("TAG123", profile.getFirstName() + "11111111111111111111");
-                // name = profile.getUserName();
-                Log.d("TAG123", profile.getUserName() + "11111111111111111111");
-                //  userNameTv.setText(profile.getUserName());
-            }
-        });
-        restClient.getProfile("622b6fa21977037a1057d3ca");
+        Profile profile = Model.instance.getProfile();
+        userNameTv.setText(profile.getUserName());
+//        if (profile.getUserImageUrl() != null) {
+//            Picasso.get().load(profile.getUserImageUrl()).into(userPic);
+//        }
 
         return view;
     }
