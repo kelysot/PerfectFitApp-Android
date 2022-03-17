@@ -22,6 +22,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -40,7 +41,7 @@ public interface RetrofitInterface {
     Call<JsonObject> executeGetProfile (@Header("authorization") String token,@Path("email") String email, @Path("userName") String userName);
 
     @POST("/profile/")
-    Call<Void> executeCreateProfile (@Body HashMap<String,String> map);
+    Call<Void> executeCreateProfile (@Body HashMap<String, Object>  map);
 
     @GET("/post")
     Call<JsonArray> executeGetAllPosts();
@@ -50,6 +51,9 @@ public interface RetrofitInterface {
 
     @GET("/profile/checkIfUserNameExist/{userName}")
     Call<Void> checkIfUserNameExist(@Path("userName") String userName);
+
+    @PATCH("/profile/")
+    Call<Void> editProfile(@Body HashMap<String, Object> map);
 
     @GET("/profile/:{id}")
     Call<JsonObject> getUser(@Path("id") String id);

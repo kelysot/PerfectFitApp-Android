@@ -184,12 +184,23 @@ public class Model {
 
     /*--------------------------------------------------------*/
 
-    public interface  CheckIfUserNameExist{
+    public interface CheckIfUserNameExist{
         void onComplete(Boolean isSuccess);
     }
 
     public void checkIfUserNameExist(String userName, CheckIfUserNameExist listener){
         modelServer.checkIfUserNameExist(userName, listener);
+
+    }
+
+    /*--------------------------------------------------------*/
+
+    public interface EditProfile{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void editProfile(Profile profile, EditProfile listener){
+        modelServer.editProfile(profile, listener);
 
     }
 

@@ -97,7 +97,7 @@ public class ModelServer {
 
     public void createProfile(Profile profile, Model.createProfileListener listener){
 
-        HashMap<String, String> profileMap =  profile.toJson();
+        HashMap<String, Object> profileMap =  profile.toJson();
 
         Call<Void> call = service.executeCreateProfile(profileMap);
 
@@ -230,7 +230,6 @@ public class ModelServer {
 
     }
 
-
     public void checkIfUserNameExist(String userName, Model.CheckIfUserNameExist listener) {
 
         Call<Void> call = service.checkIfUserNameExist(userName);
@@ -248,6 +247,41 @@ public class ModelServer {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                listener.onComplete(false);
+            }
+        });
+    }
+
+    public void editProfile(Profile profile, Model.EditProfile listener) {
+        Log.d("TAG1", "77777" + profile.getStatus() + profile.getUserName());
+        HashMap<String, Object>  profileMap = profile.toJson();
+        Log.d("TAG1", "77777" + profileMap.get("userName"));
+
+        Call<Void> call = service.editProfile(profileMap);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d("TAG1", "8888" + response.message());
+                if(response.code() == 200){
+                    Log.d("TAG1", "99999");
+
+                    listener.onComplete(true);
+                }
+                else if (response.code() == 400){
+                    Log.d("TAG1", "1212121212");
+                    Log.d("TAG", "failed to register in ModelServer 1");
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    listener.onComplete(false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("TAG1", "11313131313");
+                Log.d("TAG", "failed to register in ModelServer 2");
                 Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                         Toast.LENGTH_LONG).show();
                 listener.onComplete(false);
