@@ -48,6 +48,9 @@ public interface RetrofitInterface {
     @GET("/post")
     Call<JsonArray> getAllPosts();
 
+    @GET("/profile/checkIfUserNameExist/{userName}")
+    Call<Void> checkIfUserNameExist(@Path("userName") String userName);
+
     @GET("/profile/:{id}")
     Call<JsonObject> getUser(@Path("id") String id);
     // http://10.0.2.2:4000/profile/1
