@@ -70,8 +70,6 @@ public class Model {
     public void setToken(String token) {
         this.token = "Bearer " + token;
     }
-    /*--------------------------------- Post -------------------------------*/
-
 
     public List<Post> getAllPosts(){
         return data;
@@ -107,7 +105,58 @@ public class Model {
     }
     public Post getPost(int pos){ return data.get(pos); }
 
+    /******************************************************************************************/
+
+    /*--------------------------------- User -------------------------------*/
+
+    /******************************************************************************************/
+
+
+    public interface RegisterListener{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void register(String email, String password, RegisterListener listener){
+        modelServer.register(email, password, listener);
+    }
+
+    /*--------------------------------------------------------*/
+
+    public interface GetUserListener{
+        void onComplete(User user);
+    }
+
+    public void getUserFromServer(String email, GetUserListener listener){
+        modelServer.getUser(email, listener);
+    }
+
+    /*--------------------------------------------------------*/
+
+    public interface LogInListener{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void logIn(String email, String password, LogInListener listener){
+        modelServer.logIn(email, password, listener);
+    }
+
+
+    /*--------------------------------------------------------*/
+
+    public interface CheckIfEmailExist{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void checkIfEmailExist(String email, CheckIfEmailExist listener){
+        modelServer.checkIfEmailExist(email, listener);
+
+    }
+
+    /******************************************************************************************/
+
     /*--------------------------------- Profile -------------------------------*/
+
+    /******************************************************************************************/
 
     List<Profile> profiles = new LinkedList<>();
 
@@ -120,64 +169,23 @@ public class Model {
         return null;
     }
 
-    /******************************************************************************************/
-
-    public interface registerListener{
-        void onComplete(Boolean isSuccess);
-    }
-
-    public void register(String email, String password, registerListener listener){
-        modelServer.register(email, password, listener);
-    }
-
     /*--------------------------------------------------------*/
 
-    public interface getUserListener{
-        void onComplete(User user);
-    }
-
-    public void getUserFromServer(String email, getUserListener listener){
-        modelServer.getUser(email, listener);
-    }
-
-    /*--------------------------------------------------------*/
-
-    public interface logInListener{
-        void onComplete(Boolean isSuccess);
-    }
-
-    public void logIn(String email, String password, logInListener listener){
-        modelServer.logIn(email, password, listener);
-    }
-
-
-    /*--------------------------------------------------------*/
-
-    public interface getAllPostsListener {
-        void onComplete(List<Post> postList);
-    }
-
-    public void getAllPostsFromServer(getAllPostsListener listener) {
-        modelServer.getAllPosts(listener);
-    }
-
-    /*--------------------------------------------------------*/
-
-    public interface getProfileListener{
+    public interface GetProfileListener{
         void onComplete(Profile profile);
     }
 
-    public void getProfileFromServer(String email, String userName,getProfileListener listener) {
+    public void getProfileFromServer(String email, String userName,GetProfileListener listener) {
         modelServer.getProfileFromServer(email,userName, listener);
     }
 
     /*--------------------------------------------------------*/
 
-    public interface  createProfileListener{
+    public interface  CreateProfileListener{
         void onComplete(Boolean isSuccess);
     }
 
-    public void createProfile(Profile profile, createProfileListener listener){
+    public void createProfile(Profile profile, CreateProfileListener listener){
         modelServer.createProfile(profile, listener);
 
     }
@@ -204,6 +212,21 @@ public class Model {
 
     }
 
+    /******************************************************************************************/
+
+    /*--------------------------------- Post -------------------------------*/
+
+    /******************************************************************************************/
+
+    public interface GetAllPostsListener {
+        void onComplete(List<Post> postList);
+    }
+
+    public void getAllPostsFromServer(GetAllPostsListener listener) {
+        modelServer.getAllPosts(listener);
+    }
+
+    /*--------------------------------------------------------*/
 
 
 
