@@ -28,6 +28,10 @@ import retrofit2.http.Path;
 
 public interface RetrofitInterface {
 
+    /*--------------------------------- User -------------------------------*/
+
+    /******************************************************************************************/
+
     @POST("/auth/login")
     Call<User> executeLogin(@Body HashMap<String, String> map);
 
@@ -37,17 +41,23 @@ public interface RetrofitInterface {
     @GET("/auth/getUser/{email}")
     Call<JsonObject> executeGetUser (@Path("email") String email);
 
+    @GET("/auth/checkIfEmailExist/{email}")
+    Call<Void> checkIfEmailExist(@Path("email") String email);
+
+    @GET("/profile/:{id}")
+    Call<JsonObject> getUser(@Path("id") String id);
+    // http://10.0.2.2:4000/profile/1
+    // Call<User> service.getUser(1);
+
+    /*--------------------------------- Profile -------------------------------*/
+
+    /******************************************************************************************/
+
     @GET("/profile/getProfile/{email}/{userName}")
     Call<JsonObject> executeGetProfile (@Header("authorization") String token,@Path("email") String email, @Path("userName") String userName);
 
     @POST("/profile/")
     Call<Void> executeCreateProfile (@Body HashMap<String, Object>  map);
-
-    @GET("/post")
-    Call<JsonArray> executeGetAllPosts();
-
-    @GET("/post")
-    Call<JsonArray> getAllPosts();
 
     @GET("/profile/checkIfUserNameExist/{userName}")
     Call<Void> checkIfUserNameExist(@Path("userName") String userName);
@@ -55,9 +65,14 @@ public interface RetrofitInterface {
     @PATCH("/profile/")
     Call<Void> editProfile(@Body HashMap<String, Object> map);
 
-    @GET("/profile/:{id}")
-    Call<JsonObject> getUser(@Path("id") String id);
-    // http://10.0.2.2:4000/profile/1
-    // Call<User> service.getUser(1);
+    /*--------------------------------- Post -------------------------------*/
+
+    /******************************************************************************************/
+
+    @GET("/post")
+    Call<JsonArray> executeGetAllPosts();
+
+    @GET("/post")
+    Call<JsonArray> getAllPosts();
 
 }
