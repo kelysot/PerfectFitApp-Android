@@ -3,11 +3,13 @@ package com.example.perfectfitapp_android;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -67,6 +69,7 @@ public class UserProfilesFragment extends Fragment {
 
         for(int j=0; j<buttonList.size(); j++){
             buttonList.get(j).setVisibility(View.GONE);
+            registerForContextMenu(buttonList.get(j));
         }
 
         for(int i=0; i < Model.instance.getUser().getProfilesArray().size(); i++){
@@ -118,6 +121,27 @@ public class UserProfilesFragment extends Fragment {
         }
         else{
             Navigation.findNavController(view).navigate(R.id.action_userProfilesFragment_to_registerFragment2);
+        }
+    }
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.profile_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.profile_edit_menuItem:
+                // edit stuff here
+                return true;
+            case R.id.profile_delete_menuItem:
+                // remove stuff here
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 }
