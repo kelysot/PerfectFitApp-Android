@@ -41,7 +41,7 @@ public class HomePageFragment extends Fragment {
     List<Post> data;
     MyAdapter adapter;
     Button getPostBtn;
-    RestClient restClient = new RestClient();
+
     TextView userName;
 
     @Override

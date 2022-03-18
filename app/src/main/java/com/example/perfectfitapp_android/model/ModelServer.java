@@ -205,7 +205,7 @@ public class ModelServer {
 
         HashMap<String, Object> profileMap = profile.toJson();
 
-        Call<Void> call = service.executeCreateProfile(profileMap);
+        Call<Void> call = service.executeCreateProfile(Model.instance.getToken(), profileMap);
 
         call.enqueue(new Callback<Void>() {
             @Override
@@ -232,7 +232,7 @@ public class ModelServer {
 
     public void checkIfUserNameExist(String userName, Model.CheckIfUserNameExist listener) {
 
-        Call<Void> call = service.checkIfUserNameExist(userName);
+        Call<Void> call = service.checkIfUserNameExist(Model.instance.getToken(), userName);
 
         call.enqueue(new Callback<Void>() {
             @Override
@@ -257,7 +257,7 @@ public class ModelServer {
 
         HashMap<String, Object> profileMap = profile.toJson();
 
-        Call<Void> call = service.editProfile(profileMap);
+        Call<Void> call = service.editProfile(Model.instance.getToken(), profileMap);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -281,6 +281,30 @@ public class ModelServer {
         });
     }
 
+    public void deleteProfile(String userName, Model.DeleteProfileListener listener) {
+        Call<Void> call = service.deleteProfile(Model.instance.getToken(), userName);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    listener.onComplete(true);
+                }else if(response.code() == 400){
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    listener.onComplete(false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                Log.d("TAG","onFailure");
+                listener.onComplete(false);
+            }
+        });
+    }
+
     /******************************************************************************************/
 
     /*--------------------------------- Post -------------------------------*/
@@ -289,7 +313,7 @@ public class ModelServer {
 
     public void getAllPosts(Model.GetAllPostsListener listener) {
 
-        Call<JsonArray> call = service.executeGetAllPosts();
+        Call<JsonArray> call = service.executeGetAllPosts(Model.instance.getToken());
         call.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {

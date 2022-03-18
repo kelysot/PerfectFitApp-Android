@@ -3,11 +3,13 @@ package com.example.perfectfitapp_android;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,6 +39,8 @@ public class UserProfilesFragment extends Fragment {
     Button user1Btn, user2Btn, user3Btn, user4Btn, user5Btn;
     ArrayList<Button> buttonList;
     Model model;
+    String LongClickUserName;
+    int posInArray;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,6 +71,7 @@ public class UserProfilesFragment extends Fragment {
 
         for(int j=0; j<buttonList.size(); j++){
             buttonList.get(j).setVisibility(View.GONE);
+            registerForContextMenu(buttonList.get(j));
         }
 
         for(int i=0; i < Model.instance.getUser().getProfilesArray().size(); i++){
@@ -74,6 +79,14 @@ public class UserProfilesFragment extends Fragment {
             buttonList.get(i).setText(Model.instance.getUser().getProfilesArray().get(i));
             int finalI = i;
             buttonList.get(i).setOnClickListener(v-> moveToHomePageWithProfile(view, model.getUser().getProfilesArray().get(finalI)));
+            buttonList.get(i).setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    LongClickUserName = Model.instance.getUser().getProfilesArray().get(finalI);
+                    posInArray = finalI;
+                    return false;
+                }
+            });
         }
 
         return view;
@@ -118,6 +131,39 @@ public class UserProfilesFragment extends Fragment {
         }
         else{
             Navigation.findNavController(view).navigate(R.id.action_userProfilesFragment_to_registerFragment2);
+        }
+    }
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.profile_menu, menu);
+    }
+
+    //TODO: Add refresh to profile array + change delete case after the refresh will work
+    //TODO: Edit functionality + move edit profile page + crate the fragment
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.profile_edit_menuItem:{
+                return true;
+            }
+            case R.id.profile_delete_menuItem:{
+                Model.instance.deleteProfile(LongClickUserName,isSuccess -> {
+                    if(isSuccess){
+                        Model.instance.getUser().getProfilesArray().remove(posInArray); //current user
+                        buttonList.get(posInArray).setVisibility(View.GONE);
+                        buttonList.remove(posInArray);
+                    }else{
+                        Log.d("TAG","not work");
+                    }
+                });
+                return true;
+            }
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 }

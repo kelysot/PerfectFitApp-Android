@@ -218,7 +218,14 @@ public class Model {
 
     public void editProfile(Profile profile, EditProfile listener){
         modelServer.editProfile(profile, listener);
+    }
 
+    public interface DeleteProfileListener{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void deleteProfile(String userName, DeleteProfileListener listener){
+        modelServer.deleteProfile(userName, listener);
     }
 
     /******************************************************************************************/
