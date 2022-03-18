@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".profile.EditProfileStep2Fragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/edit_profile_step2_bodyimage_imv"
+            android:layout_width="179dp"
+            android:layout_height="279dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/body_girl_ectomorph"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_profile_8" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_profile_19"
+            android:layout_width="350dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="10dp"
+            app:boxBackgroundColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_profile_step2_bodytype_name_et">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_profile_step2_downtext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/edit_profile_step2_left_img_btn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/ic_myleft"
+            app:layout_constraintEnd_toStartOf="@+id/edit_profile_step2_bodyimage_imv"
+            app:layout_constraintTop_toBottomOf="@+id/edit_profile_8" />
+
+        <ImageButton
+            android:id="@+id/edit_profile_step2_right_img_btn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="150dp"
+            android:src="@drawable/icon_rightmy"
+            app:layout_constraintStart_toEndOf="@+id/edit_profile_step2_bodyimage_imv"
+            app:layout_constraintTop_toBottomOf="@+id/edit_profile_8" />
+
+        <TextView
+            android:id="@+id/edit_profile_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="What body type do you have?"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/edit_profile_step2_bodytype_name_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp"
+            android:text="body type"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_profile_step2_bodyimage_imv" />
+
+        <Button
+            android:id="@+id/edit_profile_step2_continue_btn"
+            android:layout_width="213dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="20dp"
+            android:text="Save And Continue"
+            app:cornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_profile_19" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

@@ -8,6 +8,15 @@ public class ModelProfile {
     public static final ModelProfile instance = new ModelProfile();
 
     Profile editProfile;
+    String previousName;
+
+    public String getPreviousName() {
+        return previousName;
+    }
+
+    public void setPreviousName(String previousName) {
+        this.previousName = previousName;
+    }
 
     public ModelProfile(Profile editProfile) {
         this.editProfile = editProfile;

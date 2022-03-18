@@ -99,7 +99,7 @@ public class UserProfilesFragment extends Fragment {
             if(profile != null){
                 model.setProfile(profile);
                 profile.setStatus("true");
-                Model.instance.editProfile(profile, new Model.EditProfile() {
+                Model.instance.editProfile(null,profile, new Model.EditProfile() {
                     @Override
                     public void onComplete(Boolean isSuccess) {
                         if(isSuccess){

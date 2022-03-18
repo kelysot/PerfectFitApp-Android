@@ -216,8 +216,8 @@ public class Model {
         void onComplete(Boolean isSuccess);
     }
 
-    public void editProfile(Profile profile, EditProfile listener){
-        modelServer.editProfile(profile, listener);
+    public void editProfile(String previousName, Profile profile, EditProfile listener){
+        modelServer.editProfile(previousName, profile, listener);
     }
 
     public interface DeleteProfileListener{

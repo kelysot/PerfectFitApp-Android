@@ -53,7 +53,11 @@
         android:id="@+id/profileFragment"
         android:name="com.example.perfectfitapp_android.profile.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userProfilesFragment"
         android:name="com.example.perfectfitapp_android.UserProfilesFragment"
@@ -99,4 +103,27 @@
         android:name="com.example.perfectfitapp_android.category.CategoryFragment"
         android:label="Categories"
         tools:layout="@layout/fragment_category" /><action android:id="@+id/action_global_categoryFragment" app:destination="@id/categoryFragment"/>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.perfectfitapp_android.profile.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_editProfileStep2Fragment"
+            app:destination="@id/editProfileStep2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileStep2Fragment"
+        android:name="com.example.perfectfitapp_android.profile.EditProfileStep2Fragment"
+        android:label="fragment_edit_profile_step2"
+        tools:layout="@layout/fragment_edit_profile_step2" >
+        <action
+            android:id="@+id/action_editProfileStep2Fragment_to_editProfileStep3Fragment"
+            app:destination="@id/editProfileStep3Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileStep3Fragment"
+        android:name="com.example.perfectfitapp_android.profile.EditProfileStep3Fragment"
+        android:label="fragment_edit_profile_step3"
+        tools:layout="@layout/fragment_edit_profile_step3" /><action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment"/>
 </navigation>
