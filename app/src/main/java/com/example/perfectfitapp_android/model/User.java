@@ -60,7 +60,7 @@ public class User {
         User user = new User();
 
         user.setEmail(json.get("email").getAsString());
-        user.setPassword(json.get("password").getAsString()); //TODO: need the password here?
+//        user.setPassword(json.get("password").getAsString()); //TODO: need the password here?
         ArrayList<String> arr = new ArrayList<>();
         for (JsonElement j: json.get("profilesId").getAsJsonArray()) {
             arr.add(j.getAsString());
