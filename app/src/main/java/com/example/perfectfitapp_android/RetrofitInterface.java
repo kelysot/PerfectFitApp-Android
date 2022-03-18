@@ -76,4 +76,6 @@ public interface RetrofitInterface {
     @GET("/post")
     Call<JsonArray> executeGetAllPosts(@Header("authorization") String token);
 
+    //try
+
 }
