@@ -253,9 +253,14 @@ public class ModelServer {
         });
     }
 
-    public void editProfile(Profile profile, Model.EditProfile listener) {
-
+    public void editProfile(String previousName, Profile profile, Model.EditProfile listener) {
         HashMap<String, Object> profileMap = profile.toJson();
+
+        if(previousName != null){
+            profileMap.put("previousName", previousName);
+        }
+
+        System.out.println("------------------------- 11111");
 
         Call<Void> call = service.editProfile(Model.instance.getToken(), profileMap);
         call.enqueue(new Callback<Void>() {
@@ -264,7 +269,7 @@ public class ModelServer {
                 if (response.code() == 200) {
                     listener.onComplete(true);
                 } else if (response.code() == 400) {
-                    Log.d("TAG", "failed to register in ModelServer 1");
+                    Log.d("TAG", "failed to editProfile in ModelServer 1");
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
                     listener.onComplete(false);
@@ -273,7 +278,7 @@ public class ModelServer {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Log.d("TAG", "failed to register in ModelServer 2");
+                Log.d("TAG", "failed to editProfile in ModelServer 2");
                 Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                         Toast.LENGTH_LONG).show();
                 listener.onComplete(false);
