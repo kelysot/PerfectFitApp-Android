@@ -94,4 +94,9 @@
             app:destination="@id/homePageFragment" />
     </fragment>
     <action android:id="@+id/action_global_userProfilesFragment" app:destination="@id/userProfilesFragment" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.perfectfitapp_android.category.CategoryFragment"
+        android:label="Categories"
+        tools:layout="@layout/fragment_category" /><action android:id="@+id/action_global_categoryFragment" app:destination="@id/categoryFragment"/>
 </navigation>

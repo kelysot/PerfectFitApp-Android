@@ -23,6 +23,7 @@ public class Model {
     RetrofitInterface retrofitInterface;
     String BASE_URL = "http://10.0.2.2:4000";
     List<Post> data = new LinkedList<Post>();
+    List<Category> categories = new LinkedList<Category>();
     ModelServer modelServer = new ModelServer();
 
 
@@ -75,8 +76,16 @@ public class Model {
         return data;
     }
 
+    public List<Category> getAllCategories(){
+        return categories;
+    }
+
     public void addPost(Post post){
         data.add(post);
+    }
+
+    public void addCategory(Category category){
+        categories.add(category);
     }
 
     public Post getPostById(String postId) {
@@ -228,6 +237,18 @@ public class Model {
 
     /*--------------------------------------------------------*/
 
+    /******************************************************************************************/
 
+    /*--------------------------------- Category -------------------------------*/
+
+    /******************************************************************************************/
+
+    public interface GetAllCategoriesListener {
+        void onComplete(List<Category> categoryList);
+    }
+
+    public void getAllCategoriesListener(GetAllCategoriesListener listener) {
+        modelServer.getAllCategoriesListener(listener);
+    }
 
 }

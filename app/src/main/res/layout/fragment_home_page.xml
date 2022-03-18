@@ -21,14 +21,17 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/postlist_rv"
-        android:layout_width="411dp"
-        android:layout_height="541dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_get_profile_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/home_page_name_tv" />
 
     <Button
         android:id="@+id/homepage_getpost_btn"
@@ -39,16 +42,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/home_get_profile_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Get User"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/homepage_getpost_btn" />
 
     <TextView
         android:id="@+id/textView4"
