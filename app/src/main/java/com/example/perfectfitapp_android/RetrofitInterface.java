@@ -58,24 +58,22 @@ public interface RetrofitInterface {
     Call<JsonObject> executeGetProfile (@Header("authorization") String token,@Path("email") String email, @Path("userName") String userName);
 
     @POST("/profile/")
-    Call<Void> executeCreateProfile (@Body HashMap<String, Object>  map);
+    Call<Void> executeCreateProfile (@Header("authorization") String token, @Body HashMap<String, Object>  map);
 
     @GET("/profile/checkIfUserNameExist/{userName}")
-    Call<Void> checkIfUserNameExist(@Path("userName") String userName);
+    Call<Void> checkIfUserNameExist(@Header("authorization") String token, @Path("userName") String userName);
 
     @PATCH("/profile/")
-    Call<Void> editProfile(@Body HashMap<String, Object> map);
+    Call<Void> editProfile(@Header("authorization") String token, @Body HashMap<String, Object> map);
 
     @DELETE("/profile/{userName}")
-    Call<Void> deleteProfile(@Path("userName") String userName);
+    Call<Void> deleteProfile(@Header("authorization") String token, @Path("userName") String userName);
+
     /*--------------------------------- Post -------------------------------*/
 
     /******************************************************************************************/
 
     @GET("/post")
-    Call<JsonArray> executeGetAllPosts();
-
-    @GET("/post")
-    Call<JsonArray> getAllPosts();
+    Call<JsonArray> executeGetAllPosts(@Header("authorization") String token);
 
 }

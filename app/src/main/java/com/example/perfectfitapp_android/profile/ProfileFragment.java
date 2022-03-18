@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.example.perfectfitapp_android.HomePageFragment;
 import com.example.perfectfitapp_android.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.R;
-import com.example.perfectfitapp_android.RestClient;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
