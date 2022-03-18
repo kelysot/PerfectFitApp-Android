@@ -19,6 +19,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -65,6 +66,8 @@ public interface RetrofitInterface {
     @PATCH("/profile/")
     Call<Void> editProfile(@Body HashMap<String, Object> map);
 
+    @DELETE("/profile/{userName}")
+    Call<Void> deleteProfile(@Path("userName") String userName);
     /*--------------------------------- Post -------------------------------*/
 
     /******************************************************************************************/
