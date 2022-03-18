@@ -57,11 +57,11 @@ public class CategoryFragment extends Fragment {
         categoryList.setAdapter(adapter);
 
 
-//        adapter.setOnItemClickListener((v, position) -> {
-//            String categoryId = data.get(position).getCategoryId();
-//            System.out.println("category " + categoryId + " was clicked");
-//            //TODO:Move to sub category page.
-//        });
+        adapter.setOnItemClickListener((v, position) -> {
+            String categoryId = data.get(position).getCategoryId();
+            System.out.println(categoryId);
+            //TODO:Move to sub category page.
+        });
 
 
         return view;
@@ -88,10 +88,10 @@ public class CategoryFragment extends Fragment {
             categoryNameTv = itemView.findViewById(R.id.category_name);
             categoryImage = itemView.findViewById(R.id.category_pic_url);
 
-//            itemView.setOnClickListener(v -> {
-//                int pos = getAdapterPosition();
-//                listener.onItemClick(v, pos);
-//            });
+            itemView.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                listener.onItemClick(v, pos);
+            });
 
         }
     }

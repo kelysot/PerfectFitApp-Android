@@ -87,7 +87,6 @@ public class UserProfilesFragment extends Fragment {
         return view;
     }
 
-
     private void moveToHomePageWithProfile(View view, String userName) {
 
         Model.instance.getProfileFromServer(model.getUser().getEmail(), userName, profile -> {

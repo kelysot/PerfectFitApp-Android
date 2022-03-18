@@ -136,7 +136,7 @@ public class Category {
         for (int i = 0; i < categoriesJson.size(); i++) {
             categoryList.add(Category.jsonObjectToCategory(categoriesJson.get(i)));
         }
-        Log.d("TAG12", categoryList.get(0).name +"111111");
+//        Log.d("TAG12", categoryList.get(0).name +"111111");
         return categoryList;
     }
 
