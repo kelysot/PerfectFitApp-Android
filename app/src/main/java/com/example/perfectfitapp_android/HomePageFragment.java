@@ -40,7 +40,8 @@ public class HomePageFragment extends Fragment {
 
     List<Post> data;
     MyAdapter adapter;
-    Button getPostBtn, goUserBtn;
+    Button getPostBtn;
+
     TextView userName;
 
     @Override
@@ -55,15 +56,6 @@ public class HomePageFragment extends Fragment {
         getPostBtn = view.findViewById(R.id.homepage_getpost_btn);
         getPostBtn.setOnClickListener(v -> getPost(view));
         data = Model.instance.getAllPosts();
-
-        goUserBtn = view.findViewById(R.id.home_get_profile_btn);
-        goUserBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToProfileFragment());
-
-            }
-        });
 
         RecyclerView postsList = view.findViewById(R.id.postlist_rv);
         postsList.setHasFixedSize(true);
