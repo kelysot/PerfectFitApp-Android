@@ -52,37 +52,35 @@ public class CreateUserFragment extends Fragment {
     }
 
     private void register() {
+        //TODO: add validations of email and password
 
         registerBtn.setEnabled(false);
         String email = emailEt.getText().toString();
         String password = passwordEt.getText().toString();
 
-        Model.instance.checkIfEmailExist(email, new Model.CheckIfEmailExist() {
-            @Override
-            public void onComplete(Boolean isSuccess) {
-                if(isSuccess){
-                    Model.instance.register(email, password, isSuccess1 -> {
-                        if(isSuccess1){
-                            Model.instance.getUserFromServer(email, user -> {
-                                if(user != null){
-                                    Model.instance.setUser(user);
-                                    startActivity(new Intent(getContext(), MainActivity.class));
-                                    getActivity().finish();
-                                }
-                                else{
-                                    registerBtn.setEnabled(true);
-                                }
-                            });
-                        }
-                        else{
-                            registerBtn.setEnabled(true);
-                        }
-                    });
-                } else {
-                    Toast.makeText(MyApplication.getContext(), "Your email addresses already exist in our database, " +
-                                    "please try a different one", Toast.LENGTH_LONG).show();
-                    registerBtn.setEnabled(true);
-                }
+        Model.instance.checkIfEmailExist(email, isSuccess -> {
+            if(isSuccess){
+                Model.instance.register(email, password, isSuccess1 -> {
+                    if(isSuccess1){
+                        Model.instance.getUserFromServer(email, user -> {
+                            if(user != null){
+                                Model.instance.setUser(user);
+                                startActivity(new Intent(getContext(), MainActivity.class));
+                                getActivity().finish();
+                            }
+                            else{
+                                registerBtn.setEnabled(true);
+                            }
+                        });
+                    }
+                    else{
+                        registerBtn.setEnabled(true);
+                    }
+                });
+            } else {
+                Toast.makeText(MyApplication.getContext(), "Your email addresses already exist in our database, " +
+                                "please try a different one", Toast.LENGTH_LONG).show();
+                registerBtn.setEnabled(true);
             }
         });
 
