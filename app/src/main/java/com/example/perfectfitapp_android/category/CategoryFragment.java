@@ -120,14 +120,9 @@ public class CategoryFragment extends Fragment {
         public void onBindViewHolder(@NonNull CategoryFragment.MyViewHolder holder, int position) {
             Category category = data.get(position);
             holder.categoryNameTv.setText(category.getName());
-            //TODO: Add category pic in category view.
-//            if (category.getPictureUrl() != null) {
-//                Picasso.get().load(R.drawable.ic_profile).into(holder.categoryImage);
-////                Picasso.get()
-////                        .load(category.getPictureUrl()).resize(250, 180)
-////                        .centerCrop()
-////                        .into(holder.categoryImage);
-//            }
+            if (category.getPictureUrl() != null) {
+                Picasso.get().load(category.getPictureUrl()).into(holder.categoryImage);
+            }
         }
 
         @Override

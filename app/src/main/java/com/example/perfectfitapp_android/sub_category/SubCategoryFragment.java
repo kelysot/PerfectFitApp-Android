@@ -21,6 +21,7 @@ import com.example.perfectfitapp_android.category.CategoryFragment;
 import com.example.perfectfitapp_android.model.Category;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.SubCategory;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -71,9 +72,12 @@ public class SubCategoryFragment extends Fragment {
     class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView subCategoryNameTv;
+        ImageView subCategoryPictureUrl;
+
         public MyViewHolder(@NonNull View itemView,OnItemClickListener listener) {
             super(itemView);
             subCategoryNameTv = itemView.findViewById(R.id.category_name);
+            subCategoryPictureUrl = itemView.findViewById(R.id.category_pic_url);
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 listener.onItemClick(v,pos);
@@ -104,6 +108,9 @@ public class SubCategoryFragment extends Fragment {
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             SubCategory subCategory = data.get(position);
             holder.subCategoryNameTv.setText(subCategory.getName());
+            if (subCategory.getPictureUrl() != null) {
+                Picasso.get().load(subCategory.getPictureUrl()).into(holder.subCategoryPictureUrl);
+            }
         }
 
         @Override

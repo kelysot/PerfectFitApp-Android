@@ -13,11 +13,13 @@ public class SubCategory {
     String subCategoryId;
     String categoryId;
     String name;
+    String pictureUrl;
 
-    public SubCategory(String subCategoryId, String categoryId, String name) {
+    public SubCategory(String subCategoryId, String categoryId, String name, String pictureUrl) {
         this.subCategoryId = subCategoryId;
         this.categoryId = categoryId;
         this.name = name;
+        this.pictureUrl = pictureUrl;
     }
 
     /*--------------------------------- Getters & Setters -------------------------------*/
@@ -52,13 +54,21 @@ public class SubCategory {
 
     /*------------------------------------------------------*/
 
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
 
     public static SubCategory jsonObjectToSubCategory(JsonElement subCategoriesJson){
         String subCategoryId = subCategoriesJson.getAsJsonObject().get("_id").getAsString();
         String categoryId = subCategoriesJson.getAsJsonObject().get("categoryId").getAsString();
         String name = subCategoriesJson.getAsJsonObject().get("name").getAsString();
+        String pictureUrl = subCategoriesJson.getAsJsonObject().get("pictureUrl").getAsString();
 
-        SubCategory subCategory = new SubCategory(subCategoryId,categoryId,name);
+        SubCategory subCategory = new SubCategory(subCategoryId, categoryId, name, pictureUrl);
         return subCategory;
     }
 
@@ -68,6 +78,7 @@ public class SubCategory {
         map.put("subCategoryId",this.subCategoryId);
         map.put("categoryId",this.categoryId);
         map.put("name",this.name);
+        map.put("pictureUrl",this.pictureUrl);
 
         return map;
     }
