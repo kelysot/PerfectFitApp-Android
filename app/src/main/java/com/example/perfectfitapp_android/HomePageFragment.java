@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
@@ -177,6 +178,21 @@ public class HomePageFragment extends Fragment {
         }
         else if(item.getItemId() == R.id.UserProfileFragment){
             NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalUserProfilesFragment());
+            return true;
+        }
+        else if(item.getItemId() == R.id.logout){
+            Model.instance.logout(new Model.LogoutListener() {
+                @Override
+                public void onComplete(Boolean isSuccess) {
+                    if(isSuccess)
+                        getActivity().finish();
+                    else{
+                        Toast.makeText(MyApplication.getContext(), "Can't logout",
+                                Toast.LENGTH_LONG).show();
+                    }
+//                    NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.lo);
+                }
+            });
             return true;
         }
 //        else if(item.getItemId() == R.id.Exit){

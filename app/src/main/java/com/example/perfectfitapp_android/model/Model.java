@@ -171,6 +171,16 @@ public class Model {
 
     }
 
+    /*--------------------------------------------------------*/
+
+    public interface LogoutListener{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void logout(LogoutListener listener){
+        modelServer.logout(listener);
+    }
+
     /******************************************************************************************/
 
     /*--------------------------------- Profile -------------------------------*/
