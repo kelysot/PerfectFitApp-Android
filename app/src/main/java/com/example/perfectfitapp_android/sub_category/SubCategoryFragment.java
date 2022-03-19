@@ -76,8 +76,8 @@ public class SubCategoryFragment extends Fragment {
 
         public MyViewHolder(@NonNull View itemView,OnItemClickListener listener) {
             super(itemView);
-            subCategoryNameTv = itemView.findViewById(R.id.category_name);
-            subCategoryPictureUrl = itemView.findViewById(R.id.category_pic_url);
+            subCategoryNameTv = itemView.findViewById(R.id.subCategory_name);
+            subCategoryPictureUrl = itemView.findViewById(R.id.subCategory_name_image);
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 listener.onItemClick(v,pos);
@@ -99,7 +99,7 @@ public class SubCategoryFragment extends Fragment {
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.category_list_row,parent,false);
+            View view = getLayoutInflater().inflate(R.layout.sub_category_list_row,parent,false);
             SubCategoryFragment.MyViewHolder holder = new SubCategoryFragment.MyViewHolder(view,listener);
             return holder;
         }
