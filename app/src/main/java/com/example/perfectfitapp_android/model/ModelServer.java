@@ -164,6 +164,38 @@ public class ModelServer {
 
     }
 
+    //TODO: Understand why logout is Forbidden.
+    public void logout(Model.LogoutListener listener) {
+        Call<Void> call = service.executeLogout(Model.instance.getToken());
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    listener.onComplete(true);
+                } else if (response.code() == 404) {
+                    Toast.makeText(MyApplication.getContext(), "Wrong Credentials",
+                            Toast.LENGTH_LONG).show();
+                    listener.onComplete(false);
+                } else if (response.code() == 401) {
+                    Toast.makeText(MyApplication.getContext(), "No token",
+                            Toast.LENGTH_LONG).show();
+                    listener.onComplete(false);
+                } else if (response.code() == 403) {
+                    Log.d("TAG2", response.message());
+                    Toast.makeText(MyApplication.getContext(), "invalid request",
+                            Toast.LENGTH_LONG).show();
+                    listener.onComplete(false);
+                }
+            }
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                listener.onComplete(false);
+            }
+        });
+    }
+
     /******************************************************************************************/
 
     /*--------------------------------- Profile -------------------------------*/
@@ -259,8 +291,6 @@ public class ModelServer {
         if(previousName != null){
             profileMap.put("previousName", previousName);
         }
-
-        System.out.println("------------------------- 11111");
 
         Call<Void> call = service.editProfile(Model.instance.getToken(), profileMap);
         call.enqueue(new Callback<Void>() {
@@ -403,6 +433,7 @@ public class ModelServer {
             }
         });
     }
+
 }
 
 

@@ -14,4 +14,10 @@
         android:checkable="false"
         android:icon="@android:drawable/ic_menu_add"
         android:title="New Post" />
+    <item
+        android:id="@+id/logout"
+        android:checkable="false"
+        android:icon="@drawable/ic_logout"
+        android:title="Logout"
+        app:showAsAction="ifRoom" />
 </menu>
