@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.RetrofitInterface;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class Model {
     String BASE_URL = "http://10.0.2.2:4000";
     List<Post> data = new LinkedList<Post>();
     List<Category> categories = new LinkedList<Category>();
+    List<SubCategory> subCategories = new ArrayList<>();
     ModelServer modelServer = new ModelServer();
 
 
@@ -37,7 +39,6 @@ public class Model {
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-
     }
 
     public RetrofitInterface getRetrofitInterface() {
@@ -80,12 +81,20 @@ public class Model {
         return categories;
     }
 
+    public List<SubCategory> getAllSubCategories(){
+        return subCategories;
+    }
+
     public void addPost(Post post){
         data.add(post);
     }
 
     public void addCategory(Category category){
         categories.add(category);
+    }
+
+    public void addSubCategory(SubCategory subCategory) {
+        subCategories.add(subCategory);
     }
 
     public Post getPostById(String postId) {
@@ -113,6 +122,7 @@ public class Model {
         data.remove(index);
     }
     public Post getPost(int pos){ return data.get(pos); }
+
 
     /******************************************************************************************/
 
@@ -258,4 +268,17 @@ public class Model {
         modelServer.getAllCategoriesListener(listener);
     }
 
+    /******************************************************************************************/
+
+    /*--------------------------------- SubCategory -------------------------------*/
+
+    /******************************************************************************************/
+
+    public interface GetAllSubCategoriesListener {
+        void onComplete(List<SubCategory> subCategoryList);
+    }
+
+    public void getAllSubCategories(GetAllSubCategoriesListener listener) {
+        modelServer.getAllSubCategories(listener);
+    }
 }

@@ -81,4 +81,9 @@ public interface RetrofitInterface {
 
     @GET("/category")
     Call<JsonArray> getAllCategories(@Header("authorization") String token);
+
+    /*--------------------------------- SubCategory -------------------------------*/
+
+    @GET("/subcategory")
+    Call<JsonArray> getAllSubCategories(@Header("authorization") String token);
 }

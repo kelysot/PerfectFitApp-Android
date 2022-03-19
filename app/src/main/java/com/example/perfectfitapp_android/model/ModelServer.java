@@ -373,6 +373,36 @@ public class ModelServer {
             }
         });
     }
+
+    /******************************************************************************************/
+
+    /*--------------------------------- SubCategory -------------------------------*/
+
+    /******************************************************************************************/
+
+    public void getAllSubCategories(Model.GetAllSubCategoriesListener listener) {
+
+        Call<JsonArray> call = service.getAllSubCategories(Model.instance.getToken());
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if(response.isSuccessful()){
+                    JsonArray subCategoriesJson = response.body();
+                    List<SubCategory> subCategories = SubCategory.jsonArrayToSubCategory(subCategoriesJson);
+                    listener.onComplete(subCategories);
+                }else{
+                    Log.d("TAG", "failed in getAllSubCategories in ModelServer");
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Log.d("TAG", "failed in getAllSubCategories in ModelServer");
+                listener.onComplete(null);
+            }
+        });
+    }
 }
 
 

@@ -105,7 +105,11 @@
         android:id="@+id/categoryFragment"
         android:name="com.example.perfectfitapp_android.category.CategoryFragment"
         android:label="Categories"
-        tools:layout="@layout/fragment_category" /><action android:id="@+id/action_global_categoryFragment" app:destination="@id/categoryFragment"/>
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_categoryFragment_to_subCategoryFragment"
+            app:destination="@id/subCategoryFragment" />
+    </fragment><action android:id="@+id/action_global_categoryFragment" app:destination="@id/categoryFragment"/>
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.example.perfectfitapp_android.profile.EditProfileFragment"
@@ -129,4 +133,9 @@
         android:name="com.example.perfectfitapp_android.profile.EditProfileStep3Fragment"
         android:label="fragment_edit_profile_step3"
         tools:layout="@layout/fragment_edit_profile_step3" /><action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment"/>
+    <fragment
+        android:id="@+id/subCategoryFragment"
+        android:name="com.example.perfectfitapp_android.sub_category.SubCategoryFragment"
+        android:label="fragment_sub_category"
+        tools:layout="@layout/fragment_sub_category" />
 </navigation>

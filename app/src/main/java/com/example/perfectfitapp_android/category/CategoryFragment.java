@@ -56,11 +56,11 @@ public class CategoryFragment extends Fragment {
         adapter = new CategoryFragment.MyAdapter();
         categoryList.setAdapter(adapter);
 
-
+        //TODO: send Id when navigate to subCategories for now bring all the subCategories -->
+        // need to get from server: subCategory by the category id instead get all like its work now
         adapter.setOnItemClickListener((v, position) -> {
             String categoryId = data.get(position).getCategoryId();
-            System.out.println(categoryId);
-            //TODO:Move to sub category page.
+            Navigation.findNavController(v).navigate(CategoryFragmentDirections.actionCategoryFragmentToSubCategoryFragment());
         });
 
 
@@ -132,7 +132,10 @@ public class CategoryFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return data.size();
+            if(data != null)
+                return data.size();
+            else
+                return 0;
         }
     }
 }
