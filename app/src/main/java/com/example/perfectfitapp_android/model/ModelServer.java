@@ -421,19 +421,39 @@ public class ModelServer {
                     List<SubCategory> subCategories = SubCategory.jsonArrayToSubCategory(subCategoriesJson);
                     listener.onComplete(subCategories);
                 }else{
-                    Log.d("TAG", "failed in getAllSubCategories in ModelServer");
+                    Log.d("TAG", "failed in getAllSubCategories1 in ModelServer");
                     listener.onComplete(null);
                 }
             }
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-                Log.d("TAG", "failed in getAllSubCategories in ModelServer");
+                Log.d("TAG", "failed in getAllSubCategories2 in ModelServer");
                 listener.onComplete(null);
             }
         });
     }
 
+
+    //TODO: not working
+    public void getSubCategoriesByCategoryId(String categoryId,String gender ,Model.GetSubCategoriesByCategoryIdListener listener) {
+        Call<JsonArray> call = service.getSubCategoriesByCategoryId(Model.instance.getToken(), categoryId,gender);
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if(response.isSuccessful()){
+                    Log.d("TAG","OK");
+                }else{
+                    Log.d("TAG","No1");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Log.d("TAG","No2");
+            }
+        });
+    }
 }
 
 

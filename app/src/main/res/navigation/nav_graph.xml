@@ -137,5 +137,9 @@
         android:id="@+id/subCategoryFragment"
         android:name="com.example.perfectfitapp_android.sub_category.SubCategoryFragment"
         android:label="Sub categories"
-        tools:layout="@layout/fragment_sub_category" />
+        tools:layout="@layout/fragment_sub_category" >
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -291,4 +291,12 @@ public class Model {
     public void getAllSubCategories(GetAllSubCategoriesListener listener) {
         modelServer.getAllSubCategories(listener);
     }
+
+    public interface GetSubCategoriesByCategoryIdListener {
+        void onComplete(List<SubCategory> subCategoryList);
+    }
+
+    public void getSubCategoriesByCategoryId(String categoryId,String gender,GetSubCategoriesByCategoryIdListener listener){
+        modelServer.getSubCategoriesByCategoryId(categoryId,gender,listener);
+    }
 }

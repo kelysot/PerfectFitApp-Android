@@ -30,6 +30,7 @@ public class SubCategoryFragment extends Fragment {
     Button getSubCategories;
     MyAdapter adapter;
     List<SubCategory> data;
+    String categoryId;
 
     public SubCategoryFragment(){}
 
@@ -37,6 +38,9 @@ public class SubCategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sub_category, container, false);
+        categoryId = SubCategoryFragmentArgs.fromBundle(getArguments()).getCategoryId();
+        Log.d("TAG",categoryId);
+        Log.d("TAG",Model.instance.getProfile().getGender());
 
         getSubCategories = view.findViewById(R.id.get_subCategiries);
         getSubCategories.setOnClickListener(v -> {
@@ -58,13 +62,18 @@ public class SubCategoryFragment extends Fragment {
 
         return  view;
     }
-
+    //TODO: change the func
     private void getSubCategory() {
-        Model.instance.getAllSubCategories(subCategoryList -> {
-            for(int i=0;i<subCategoryList.size();i++){
+//        Model.instance.getAllSubCategories(subCategoryList -> {
+//            for(int i=0;i<subCategoryList.size();i++){
+//                Model.instance.addSubCategory(subCategoryList.get(i));
+//            }
+//            //TODO: refresh function
+//            adapter.notifyDataSetChanged();
+//        });
+        Model.instance.getSubCategoriesByCategoryId(categoryId,Model.instance.getProfile().getGender(),subCategoryList -> {
+            for(int i=0;i<subCategoryList.size();i++)
                 Model.instance.addSubCategory(subCategoryList.get(i));
-            }
-            //TODO: refresh function
             adapter.notifyDataSetChanged();
         });
     }

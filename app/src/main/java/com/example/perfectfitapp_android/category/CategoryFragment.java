@@ -60,9 +60,8 @@ public class CategoryFragment extends Fragment {
         // need to get from server: subCategory by the category id instead get all like its work now
         adapter.setOnItemClickListener((v, position) -> {
             String categoryId = data.get(position).getCategoryId();
-            Navigation.findNavController(v).navigate(CategoryFragmentDirections.actionCategoryFragmentToSubCategoryFragment());
+            Navigation.findNavController(v).navigate(CategoryFragmentDirections.actionCategoryFragmentToSubCategoryFragment(categoryId));
         });
-
 
         return view;
     }
