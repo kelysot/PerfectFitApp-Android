@@ -372,6 +372,38 @@ public class ModelServer {
         });
     }
 
+    public void addNewPost(Post post, Model.AddNewPostListener listener) {
+        HashMap<String, Object> postMap = post.toJson();
+        Call<JsonObject> call = service.addNewPost(Model.instance.getToken(), postMap);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.d("TAG", response.toString());
+
+                if (response.code() == 200) {
+                    Log.d("TAG", response.body().toString());
+                    Log.d("TAG", response.body().get("post").getAsJsonObject().get("productName").toString());
+
+                    Post newPost = new Post();
+                    newPost = Post.jsonElementToPost(response.body().get("post"));
+                    listener.onComplete(newPost);
+                } else if (response.code() == 400) {
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    Log.d("TAG", response.toString());
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                Log.d("TAG", "problem in createProfile in ModelServer 2");
+                listener.onComplete(null);
+            }
+        });
+    }
 
     /******************************************************************************************/
 
