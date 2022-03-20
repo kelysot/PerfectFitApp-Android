@@ -264,6 +264,14 @@ public class Model {
 
     /*--------------------------------------------------------*/
 
+    public interface AddNewPostListener {
+        void onComplete(Post post);
+    }
+
+    public void addNewPost(Post post, AddNewPostListener listener) {
+        modelServer.addNewPost(post, listener);
+    }
+
     /******************************************************************************************/
 
     /*--------------------------------- Category -------------------------------*/

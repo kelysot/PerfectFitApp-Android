@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
+import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
@@ -56,6 +59,8 @@ public class AddNewPostFragment extends Fragment {
         return view;
     }
 
+    //TODO: Make all fields require.
+    //TODO: Send sizeAdj and rating to server.
     private void post(View view) {
 
         String productName, sku, size, company, color, category, subCategory, description;
@@ -88,16 +93,30 @@ public class AddNewPostFragment extends Fragment {
         count.append(Model.instance.getCount());
         Model.instance.setCount(Model.instance.getCount()+1);
 
-
-        Post newPost = new Post(count.toString(),"1",  productName, sku, size, company, color, category,
+        Post newPost = new Post(count.toString(), Model.instance.getProfile().getUserName(),  productName, sku, size, company, color, category,
                 subCategory, description, date,link, sizeAdj, rating, price);
 
 
-        System.out.println("the size is: --------------------------------  " +newPost.getSize());
-        Model.instance.addPost(newPost);
-        System.out.println(" -------------------- count: " + count);
-        Navigation.findNavController(view)
-                .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
+
+        Model.instance.addNewPost(newPost, new Model.AddNewPostListener() {
+            @Override
+            public void onComplete(Post post) {
+                if(post != null){
+                    System.out.println("the size is: --------------------------------  " +newPost.getSize());
+                    Model.instance.addPost(post);
+                    System.out.println(" -------------------- count: " + count);
+
+                    Navigation.findNavController(view)
+                            .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
+                }
+                else {
+                    //TODO: Handle what we want in else.
+                    Toast.makeText(MyApplication.getContext(), "Post didn't saved",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
 
 
     }
