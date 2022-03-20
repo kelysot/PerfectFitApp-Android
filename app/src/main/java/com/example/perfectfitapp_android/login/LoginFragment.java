@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -68,6 +69,7 @@ public class LoginFragment extends Fragment {
 
         signupBtn = view.findViewById(R.id.login_signup_btn);
         signupBtn.setOnClickListener(v -> SignUp(view));
+
 
         return view;
     }
