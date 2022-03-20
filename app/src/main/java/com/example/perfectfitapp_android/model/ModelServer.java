@@ -434,23 +434,24 @@ public class ModelServer {
         });
     }
 
-
-    //TODO: not working
-    public void getSubCategoriesByCategoryId(String categoryId,String gender ,Model.GetSubCategoriesByCategoryIdListener listener) {
-        Call<JsonArray> call = service.getSubCategoriesByCategoryId(Model.instance.getToken(), categoryId,gender);
-        call.enqueue(new Callback<JsonArray>() {
+    public void getSubCategoriesByCategoryId(String categoryId, String gender, Model.GetSubCategoriesByCategoryIdListener listener) {
+        Call<JsonObject> call = service.getSubCategoriesByCategoryId(Model.instance.getToken(), categoryId,gender);
+        call.enqueue(new Callback<JsonObject>() {
             @Override
-            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-                if(response.isSuccessful()){
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if(response.code() == 200){
                     Log.d("TAG","OK");
-                }else{
-                    Log.d("TAG","No1");
+                    //TODO: get The list from the server
+                }else if(response.code() == 400){
+                    Log.d("TAG", "failed in getSubCategoriesByCategoryId1 in ModelServer");
+                    listener.onComplete(null);
                 }
             }
 
             @Override
-            public void onFailure(Call<JsonArray> call, Throwable t) {
-                Log.d("TAG","No2");
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("TAG", "failed in getSubCategoriesByCategoryId2 in ModelServer");
+                listener.onComplete(null);
             }
         });
     }
