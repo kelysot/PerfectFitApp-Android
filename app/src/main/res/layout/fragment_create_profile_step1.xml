@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Create New Account"
+            android:text="Create New Profile"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,28 +32,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-        <ImageButton
-            android:id="@+id/register_step1_camera_imv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:src="@android:drawable/ic_menu_camera"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.721"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv" />
-
-        <ImageButton
-            android:id="@+id/register_step1_gallery_imv"
-            android:layout_width="52dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="12dp"
-            android:src="@android:drawable/ic_menu_gallery"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.17"
-            app:layout_constraintStart_toEndOf="@+id/register_step1_camera_imv"
-            app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout3"
             android:layout_width="170dp"
@@ -69,10 +47,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="First Name"
-                android:inputType="textPersonName"/>
+                android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout26"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -87,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Last Name"
-                android:inputType="textPersonName"/>
+                android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -95,7 +74,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
@@ -104,10 +83,10 @@
                 android:id="@+id/register_step1_username_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_user"
                 android:drawableStart="@drawable/ic_user"
+                android:drawableLeft="@drawable/ic_user"
                 android:hint="User Name"
-                android:inputType="text"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -161,7 +140,7 @@
             android:layout_width="170dp"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:hint="Gender"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
@@ -178,7 +157,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="16dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/register_step1_gender_txl"
@@ -194,16 +173,48 @@
 
         <Button
             android:id="@+id/register_step1_continue_btn"
-            android:layout_width="169dp"
-            android:layout_height="47dp"
-            android:layout_marginTop="30dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="227dp"
+            android:layout_marginTop="35dp"
             android:layout_marginEnd="15dp"
+            android:backgroundTint="@color/myGold"
             android:text="Continue"
-            app:cornerRadius="20dp"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_step1_gender_txl" />
 
-<!--        android:shape="rectangle" android:padding="10dp"-->
+        <ImageButton
+            android:id="@+id/register_step1_camera_imv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="264dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/myWhite"
+            android:src="@drawable/ic_camera"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayout26"
+            app:layout_constraintEnd_toStartOf="@+id/register_step1_gallery_imv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv" />
+
+        <ImageButton
+            android:id="@+id/register_step1_gallery_imv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/myWhite"
+            android:src="@drawable/ic_photo_library"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayout26"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/register_step1_camera_imv"
+            app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv" />
+
+        <!--        android:shape="rectangle" android:padding="10dp"-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

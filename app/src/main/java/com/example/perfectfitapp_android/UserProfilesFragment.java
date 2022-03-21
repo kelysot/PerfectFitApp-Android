@@ -6,13 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Display;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,14 +19,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.perfectfitapp_android.model.Model;
-import com.example.perfectfitapp_android.model.Profile;
-import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class UserProfilesFragment extends Fragment {

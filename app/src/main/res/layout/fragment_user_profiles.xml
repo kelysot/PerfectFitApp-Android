@@ -10,46 +10,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/user_profiles_addprofile_btn"
-            android:layout_width="65dp"
-            android:layout_height="54dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            android:src="@android:drawable/ic_menu_add"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <Button
             android:id="@+id/move_to_home_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
-            android:text="Home Page"
+            android:backgroundTint="#E4CB91"
+            android:text="Home"
+            android:textColor="#4f4f4f"
+            android:textSize="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TableLayout
-            android:layout_width="97dp"
+            android:id="@+id/tableLayout"
+            android:layout_width="wrap_content"
             android:layout_height="644dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_profiles_addprofile_btn">
+            app:layout_constraintTop_toBottomOf="@+id/move_to_home_page">
 
             <TableRow
-                android:layout_width="match_parent"
+                android:layout_width="190dp"
                 android:layout_height="match_parent">
 
                 <Button
                     android:id="@+id/user_profiles_profile1_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="85dp"
-                    android:layout_marginTop="30dp"
-                    android:text="User1" />
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/myWhite"
+                    android:text="User1"
+                    android:textColor="#4f4f4f"
+                    android:textSize="20dp"
+                    app:strokeColor="@color/myGold"
+                    app:strokeWidth="2dp" />
+
             </TableRow>
 
             <TableRow
@@ -61,8 +59,13 @@
                     android:id="@+id/user_profiles_profile2_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="85dp"
-                    android:layout_marginTop="30dp"
-                    android:text="User2" />
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/myWhite"
+                    android:text="User2"
+                    android:textColor="#4f4f4f"
+                    android:textSize="20dp"
+                    app:strokeColor="@color/myGold"
+                    app:strokeWidth="2dp" />
             </TableRow>
 
             <TableRow
@@ -73,8 +76,13 @@
                     android:id="@+id/user_profiles_profile3_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="85dp"
-                    android:layout_marginTop="30dp"
-                    android:text="User3" />
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/myWhite"
+                    android:text="User3"
+                    android:textColor="#4f4f4f"
+                    android:textSize="20dp"
+                    app:strokeColor="@color/myGold"
+                    app:strokeWidth="2dp" />
             </TableRow>
 
             <TableRow
@@ -85,8 +93,13 @@
                     android:id="@+id/user_profiles_profile4_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="85dp"
-                    android:layout_marginTop="30dp"
-                    android:text="User4" />
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/myWhite"
+                    android:text="User4"
+                    android:textColor="#4f4f4f"
+                    android:textSize="20dp"
+                    app:strokeColor="@color/myGold"
+                    app:strokeWidth="2dp" />
             </TableRow>
 
             <TableRow
@@ -97,10 +110,27 @@
                     android:id="@+id/user_profiles_profile5_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="85dp"
-                    android:layout_marginTop="30dp"
-                    android:text="User5" />
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/myWhite"
+                    android:text="User5"
+                    android:textColor="#4f4f4f"
+                    android:textSize="20dp"
+                    app:strokeColor="@color/myGold"
+                    app:strokeWidth="2dp" />
             </TableRow>
         </TableLayout>
+
+        <ImageButton
+            android:id="@+id/user_profiles_addprofile_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="35dp"
+            android:background="@color/myWhite"
+            android:src="@drawable/ic_person_add_alt_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

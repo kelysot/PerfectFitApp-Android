@@ -52,7 +52,7 @@
             android:src="@android:drawable/ic_menu_gallery"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.17"
-            app:layout_constraintStart_toEndOf="@+id/register_step1_camera_imv"
+            app:layout_constraintStart_toEndOf="@+id/register_step1_camera_imv1"
             app:layout_constraintTop_toBottomOf="@+id/edit_profile_step1_image_imv" />
 
         <com.google.android.material.textfield.TextInputLayout
