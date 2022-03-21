@@ -71,9 +71,11 @@ public class SubCategoryFragment extends Fragment {
 //            //TODO: refresh function
 //            adapter.notifyDataSetChanged();
 //        });
+        // display all the subCategorise according to the gender of profile and Category
         Model.instance.getSubCategoriesByCategoryId(categoryId,Model.instance.getProfile().getGender(),subCategoryList -> {
-            for(int i=0;i<subCategoryList.size();i++)
+            for(int i=0;i<subCategoryList.size();i++){
                 Model.instance.addSubCategory(subCategoryList.get(i));
+            }
             adapter.notifyDataSetChanged();
         });
     }

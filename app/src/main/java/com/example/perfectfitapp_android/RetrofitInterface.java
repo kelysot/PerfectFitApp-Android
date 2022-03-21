@@ -79,6 +79,9 @@ public interface RetrofitInterface {
     @GET("/post")
     Call<JsonArray> executeGetAllPosts(@Header("authorization") String token);
 
+    @POST("/post")
+    Call<JsonObject> addNewPost(@Header("authorization") String token, @Body HashMap<String, Object> map);
+
 
     /*--------------------------------- Category -------------------------------*/
 
@@ -90,6 +93,6 @@ public interface RetrofitInterface {
     @GET("/subcategory")
     Call<JsonArray> getAllSubCategories(@Header("authorization") String token);
 
-    @GET("/subcategory/{categoryId}/{gender}")
-    Call<JsonArray> getSubCategoriesByCategoryId(@Header("authorization") String token, @Path("categoryId") String categoryId , @Path("gender") String gender);
+    @GET("/subCategory/{categoryId}/{gender}")
+    Call<JsonObject> getSubCategoriesByCategoryId(@Header("authorization") String token, @Path("categoryId") String categoryId , @Path("gender") String gender);
 }
