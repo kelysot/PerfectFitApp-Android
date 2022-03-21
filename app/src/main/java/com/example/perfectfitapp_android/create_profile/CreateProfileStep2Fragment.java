@@ -92,19 +92,17 @@ public class CreateProfileStep2Fragment extends Fragment {
         if (CreateProfileModel.instance.profile.getGender().equals("Female")) {
 
             // if its a female:
-            resBodyType.add(R.drawable.body_girl_endomorph);
-            resBodyType.add(R.drawable.body_girl_mesomorph);
-            //TODO: find Pear/Apple picture
-            resBodyType.add(R.drawable.body_girl_mesomorph);
-            resBodyType.add(R.drawable.body_girl_ectomorph);
+            resBodyType.add(R.drawable.body_hourglass_female);
+            resBodyType.add(R.drawable.body_pear_female);
+            resBodyType.add(R.drawable.body_round_female);
+            resBodyType.add(R.drawable.body_rectangle_female);
         }
         else{
 
-            resBodyType.add(R.drawable.body_boy_endomorph);
-            resBodyType.add(R.drawable.body_boy_mesomorph);
-            //TODO: find Pear/Apple picture
-            resBodyType.add(R.drawable.body_boy_mesomorph);
-            resBodyType.add(R.drawable.body_boy_ectomorph);
+            resBodyType.add(R.drawable.body_inverted_triangle_men);
+            resBodyType.add(R.drawable.body_trapezoid_men);
+            resBodyType.add(R.drawable.body_round_men);
+            resBodyType.add(R.drawable.body_rectangle_man);
 
         }
     }

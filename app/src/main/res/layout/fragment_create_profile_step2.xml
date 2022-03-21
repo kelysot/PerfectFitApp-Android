@@ -14,7 +14,7 @@
             android:id="@+id/register_step2_budyimage_imv"
             android:layout_width="179dp"
             android:layout_height="279dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:src="@drawable/body_girl_ectomorph"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,8 +24,9 @@
             android:id="@+id/textInputLayout19"
             android:layout_width="350dp"
             android:layout_height="130dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             app:boxBackgroundColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/register_step2_continue_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_step2_bodytype_name_et">
@@ -36,31 +37,11 @@
                 android:layout_height="match_parent" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageButton
-            android:id="@+id/register_step2_left_img_btn"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="150dp"
-            android:layout_marginEnd="4dp"
-            android:src="@drawable/ic_myleft"
-            app:layout_constraintEnd_toStartOf="@+id/register_step2_budyimage_imv"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-        <ImageButton
-            android:id="@+id/register_step2_right_img_btn"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="150dp"
-            android:src="@drawable/icon_rightmy"
-            app:layout_constraintStart_toEndOf="@+id/register_step2_budyimage_imv"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:text="What body type do you have?"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -84,14 +65,46 @@
             android:id="@+id/register_step2_continue_btn"
             android:layout_width="213dp"
             android:layout_height="48dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="24dp"
             android:layout_marginBottom="20dp"
-            android:text="Save And Continue"
+            android:backgroundTint="@color/myGold"
+            android:text="Continue"
+            android:textColor="#4f4f4f"
             app:cornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout19" />
+
+        <ImageButton
+            android:id="@+id/register_step2_left_img_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="53dp"
+            android:layout_marginTop="145dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="125dp"
+            android:backgroundTint="@color/myWhite"
+            android:src="@drawable/ic_left"
+            app:layout_constraintBottom_toTopOf="@+id/register_step2_bodytype_name_et"
+            app:layout_constraintEnd_toStartOf="@+id/register_step2_budyimage_imv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        <ImageButton
+            android:id="@+id/register_step2_right_img_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="145dp"
+            android:layout_marginEnd="53dp"
+            android:layout_marginBottom="163dp"
+            android:backgroundTint="@color/myWhite"
+            android:src="@drawable/ic_right"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayout19"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/register_step2_budyimage_imv"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
