@@ -187,8 +187,20 @@ public class HomePageFragment extends Fragment {
                 @Override
                 public void onComplete(Boolean isSuccess) {
                     if(isSuccess){
-                        startActivity(new Intent(getContext(), LoginActivity.class));
-                        getActivity().finish();
+                        Model.instance.getProfile().setStatus("false");
+                        Model.instance.editProfile(null, Model.instance.getProfile(), new Model.EditProfile() {
+                            @Override
+                            public void onComplete(Boolean isSuccess) {
+                                if(isSuccess){
+                                    startActivity(new Intent(getContext(), LoginActivity.class));
+                                    getActivity().finish();
+                                }
+                                else {
+                                    Toast.makeText(MyApplication.getContext(), "Can't change to false",
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
                     }
                     else{
                         Toast.makeText(MyApplication.getContext(), "Can't logout",
