@@ -1,5 +1,6 @@
 package com.example.perfectfitapp_android;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.perfectfitapp_android.login.LoginActivity;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 
@@ -184,8 +186,10 @@ public class HomePageFragment extends Fragment {
             Model.instance.logout(new Model.LogoutListener() {
                 @Override
                 public void onComplete(Boolean isSuccess) {
-                    if(isSuccess)
+                    if(isSuccess){
+                        startActivity(new Intent(getContext(), LoginActivity.class));
                         getActivity().finish();
+                    }
                     else{
                         Toast.makeText(MyApplication.getContext(), "Can't logout",
                                 Toast.LENGTH_LONG).show();
