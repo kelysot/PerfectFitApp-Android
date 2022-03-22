@@ -142,4 +142,9 @@
             android:name="categoryId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/wishListFragment"
+        android:name="com.example.perfectfitapp_android.WishListFragment"
+        android:label="fragment_wish_list"
+        tools:layout="@layout/fragment_wish_list" /><action android:id="@+id/action_global_wishListFragment" app:destination="@id/wishListFragment"/><action android:id="@+id/action_global_postPageFragment" app:destination="@id/postPageFragment"/>
 </navigation>

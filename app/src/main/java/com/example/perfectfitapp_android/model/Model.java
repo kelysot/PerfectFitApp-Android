@@ -272,6 +272,16 @@ public class Model {
         modelServer.addNewPost(post, listener);
     }
 
+    /*--------------------------------------------------------*/
+
+    public interface getWishListListener {
+        void onComplete(List<Post> list);
+    }
+
+    public void getWishList(List<String> wishListId, getWishListListener listener) {
+        modelServer.getWishList(wishListId, listener);
+    }
+
     /******************************************************************************************/
 
     /*--------------------------------- Category -------------------------------*/

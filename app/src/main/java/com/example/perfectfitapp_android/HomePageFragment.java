@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -95,33 +96,19 @@ public class HomePageFragment extends Fragment {
             Navigation.findNavController(view).navigate(HomePageFragmentDirections.actionGlobalHomePageFragment());
         });
 
-//        Model.instance.getAllPosts();
-//        restClient.setCallback(new RestClient.ResultReadyCallback() {
-//            @Override
-//            public void resultReady(List<Post> posts) {
-//                Log.d("TAG123", posts + "11111111111111111111");
-//                Log.d("TAG123", posts.get(0).getPostId() + "11111111111111111111");
-//
-//                for(int i = 0; i < posts.size(); i++){
-//                    Model.instance.addPost(posts.get(i));
-//                }
-//                //TODO: refresh function
-//                Navigation.findNavController(view)
-//                        .navigate(HomePageFragmentDirections.actionGlobalHomePageFragment());
-//            }
-//        });
-//        restClient.getPosts();
     }
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView productNameTv;
         TextView descriptionTv;
+        ImageButton addToWishList;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             productNameTv = itemView.findViewById(R.id.listrow_username_tv);
             descriptionTv = itemView.findViewById(R.id.listrow_description_tv);
+            addToWishList = itemView.findViewById(R.id.add_to_wish_list_btn);
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 listener.onItemClick(v, pos);
@@ -155,7 +142,41 @@ public class HomePageFragment extends Fragment {
             Post post = data.get(position);
             holder.productNameTv.setText(post.getProductName());
             holder.descriptionTv.setText(post.getDescription());
+            holder.addToWishList.setOnClickListener(v -> addToWishList(post));
         }
+
+        private void addToWishList(Post post) {
+
+            if(Model.instance.getProfile().getWishlist().contains(post.getPostId())){
+                Model.instance.getProfile().getWishlist().remove(post.getPostId());
+                Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
+                    if(isSuccess){
+                        //TODO: change the color of the heart
+                        System.out.println("after remove " + Model.instance.getProfile().getWishlist());
+                    }
+                    else{
+                        //TODO: toast
+                    }
+                });
+
+            }
+            else{
+                Model.instance.getProfile().getWishlist().add(post.getPostId());
+                Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
+                    if(isSuccess){
+                        System.out.println("the posts added to the list");
+                        System.out.println(Model.instance.getProfile().getWishlist());
+                    }
+                    else{
+                        //TODO: toast
+                    }
+                });
+                //TODO: if post is already in the wishlist - we need to remove it
+            }
+
+        }
+
+
 
         @Override
         public int getItemCount() {

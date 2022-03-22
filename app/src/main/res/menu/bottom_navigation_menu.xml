@@ -17,8 +17,8 @@
 <!--        android:id="@+id/menu_notification"-->
 <!--        android:icon="@drawable/ic_notification"-->
 <!--        android:title="Notification"/>-->
-<!--    <item-->
-<!--        android:id="@+id/menu_wishlist"-->
-<!--        android:icon="@drawable/ic_wishlist"-->
-<!--        android:title="Wishlist"/>-->
+    <item
+        android:id="@+id/wishListFragment"
+        android:icon="@drawable/ic_wishlist"
+        android:title="Wishlist"/>
 </menu>

@@ -487,6 +487,33 @@ public class ModelServer {
             }
         });
     }
+
+
+    public void getWishList(List<String> wishListId, Model.getWishListListener listener){
+
+        //TODO: check if the post belongs to the profile
+        //TODO: by userName or by wishlist in profile
+        Call<JsonArray> call = service.getWishList(Model.instance.getToken(), wishListId);
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if(response.code() == 200){
+                    //TODO
+                }
+                else{
+                    Log.d("TAG", "failed in getWishList in ModelServer 1");
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Log.d("TAG", "failed in getWishList in ModelServer 2");
+                listener.onComplete(null);
+            }
+        });
+
+    }
 }
 
 
