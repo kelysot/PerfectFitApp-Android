@@ -15,15 +15,15 @@ public class Category {
     String categoryId;
     String name;
     String pictureUrl;
-    ArrayList<String> womenSubCategory;
-    ArrayList<String> menSubCategory;
+    String gender;
+    ArrayList<String> subCategory;
 
-    public Category(String categoryId, String name, String pictureUrl, ArrayList<String> womenSubCategory, ArrayList<String> menSubCategory) {
+    public Category(String categoryId, String name, String pictureUrl, String gender, ArrayList<String> subCategory) {
         this.categoryId = categoryId;
         this.name = name;
         this.pictureUrl = pictureUrl;
-        this.womenSubCategory = womenSubCategory;
-        this.menSubCategory = menSubCategory;
+        this.gender = gender;
+        this.subCategory = subCategory;
     }
 
     /*--------------------------------- Getters & Setters -------------------------------*/
@@ -58,24 +58,22 @@ public class Category {
 
     /*------------------------------------------------------*/
 
-    public ArrayList<String> getWomenSubCategory() {
-        return womenSubCategory;
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     /*------------------------------------------------------*/
 
-    public void setWomenSubCategory(ArrayList<String> womenSubCategory) {
-        this.womenSubCategory = womenSubCategory;
+    public ArrayList<String> getSubCategory() {
+        return subCategory;
     }
 
-    /*------------------------------------------------------*/
-
-    public ArrayList<String> getMenSubCategory() {
-        return menSubCategory;
-    }
-
-    public void setMenSubCategory(ArrayList<String> menSubCategory) {
-        this.menSubCategory = menSubCategory;
+    public void setSubCategory(ArrayList<String> subCategory) {
+        this.subCategory = subCategory;
     }
 
     /*------------------------------------------------------*/
@@ -86,8 +84,8 @@ public class Category {
                 "categoryId='" + categoryId + '\'' +
                 ", name='" + name + '\'' +
                 ", pictureUrl='" + pictureUrl + '\'' +
-                ", womenSubCategory=" + womenSubCategory +
-                ", menSubCategory=" + menSubCategory +
+                ", gender='" + gender + '\'' +
+                ", subCategory=" + subCategory +
                 '}';
     }
 
@@ -95,25 +93,18 @@ public class Category {
         String categoryId = categoriesJson.getAsJsonObject().get("_id").getAsString();
         String name = categoriesJson.getAsJsonObject().get("name").getAsString();
         String pictureUrl = categoriesJson.getAsJsonObject().get("pictureUrl").getAsString();
+        String gender = categoriesJson.getAsJsonObject().get("gender").getAsString();
 
 
-        JsonElement womenSubCategoryJson = categoriesJson.getAsJsonObject().get("womenSubCategory");
-        ArrayList<String> womenSubCategory = new ArrayList<>();
-        if(!womenSubCategoryJson.toString().equals("null") || !womenSubCategoryJson.isJsonNull()){
-            for (JsonElement similarProfile : womenSubCategoryJson.getAsJsonArray()) {
-                womenSubCategory.add(similarProfile.getAsString());
+        JsonElement subCategoryJson = categoriesJson.getAsJsonObject().get("subCategory");
+        ArrayList<String> subCategory = new ArrayList<>();
+        if(!subCategoryJson.toString().equals("null") || !subCategoryJson.isJsonNull()){
+            for (JsonElement similarProfile : subCategoryJson.getAsJsonArray()) {
+                subCategory.add(similarProfile.getAsString());
             }
         }
 
-        JsonElement menSubCategoryJson = categoriesJson.getAsJsonObject().get("menSubCategory");
-        ArrayList<String> menSubCategory = new ArrayList<>();
-        if(!menSubCategoryJson.toString().equals("null") || !menSubCategoryJson.isJsonNull()){
-            for (JsonElement similarProfile : menSubCategoryJson.getAsJsonArray()) {
-                menSubCategory.add(similarProfile.getAsString());
-            }
-        }
-
-        Category category = new Category(categoryId, name, pictureUrl, womenSubCategory, menSubCategory);
+        Category category = new Category(categoryId, name, pictureUrl, gender, subCategory);
 
         return category;
     }
@@ -125,8 +116,8 @@ public class Category {
         map.put("categoryId", this.getCategoryId());
         map.put("name", this.getName());
         map.put("pictureUrl", this.getPictureUrl());
-        map.put("womenSubCategory", this.getWomenSubCategory());
-        map.put("menSubCategory", this.getMenSubCategory());
+        map.put("gender", this.getGender());
+        map.put("subCategory", this.getSubCategory());
 
         return map;
     }
@@ -136,7 +127,6 @@ public class Category {
         for (int i = 0; i < categoriesJson.size(); i++) {
             categoryList.add(Category.jsonObjectToCategory(categoriesJson.get(i)));
         }
-//        Log.d("TAG12", categoryList.get(0).name +"111111");
         return categoryList;
     }
 
