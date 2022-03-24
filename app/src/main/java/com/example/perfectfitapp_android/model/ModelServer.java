@@ -506,10 +506,13 @@ public class ModelServer {
 
                     JsonArray wishListArray = response.body();
 
-                    System.out.println("101010101010101010101010101010101010");
-                    System.out.println(wishListArray);
-                    Model.instance.setWishList(Post.jsonArrayToPost(wishListArray));
-                    listener.onComplete(Post.jsonArrayToPost(wishListArray));
+                    List<Post> postsWishList = new ArrayList<>();
+                    postsWishList = Post.jsonArrayToPost(response.body());
+                    listener.onComplete(postsWishList);
+//                    System.out.println("101010101010101010101010101010101010");
+//                    System.out.println(wishListArray);
+//                    Model.instance.setWishList(Post.jsonArrayToPost(wishListArray));
+//                    listener.onComplete(Post.jsonArrayToPost(wishListArray));
 
 
                 }

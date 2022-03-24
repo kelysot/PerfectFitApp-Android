@@ -8,6 +8,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ public class WishListFragment extends Fragment {
         getListBtn = view.findViewById(R.id.wishlist_get_list_btn);
         getListBtn.setOnClickListener(v -> getWishList(view));
 
-        data = Model.instance.getAllPosts();
+        data = Model.instance.getWishList();
 
         RecyclerView myWishList = view.findViewById(R.id.wishlist_rv);
         myWishList.setHasFixedSize(true);
@@ -59,15 +60,16 @@ public class WishListFragment extends Fragment {
 
         //TODO: fix the function in the server and call the function below:
         Model.instance.getWishListFromServer(list -> {
+            Log.d("TAG", list.toString());
             for(int i=0; i<list.size(); i++){
                 Model.instance.addPostToWishList(list.get(i));
-                Model.instance.addPost(list.get(i));
 //                data.add(list.get(i));
             }
 //            System.out.println("2222222222222");
 //            System.out.println(Model.instance.getWishList());
+            adapter.notifyDataSetChanged();
 
-            Navigation.findNavController(view).navigate(WishListFragmentDirections.actionGlobalWishListFragment());
+//            Navigation.findNavController(view).navigate(WishListFragmentDirections.actionGlobalWishListFragment());
         });
     }
 
@@ -115,7 +117,10 @@ public class WishListFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return 0;
+            if(data != null)
+                return data.size();
+            else
+                return 0;
         }
     }
 }
