@@ -27,7 +27,7 @@ public class Model {
     List<Category> categories = new LinkedList<Category>();
     List<SubCategory> subCategories = new ArrayList<>();
     ModelServer modelServer = new ModelServer();
-    List<Post> wishList = new LinkedList<>();
+    List<Post> wishList = new ArrayList<>();
 
     public List<Post> getWishList() {
         return wishList;
