@@ -23,13 +23,11 @@
         android:id="@+id/wishlist_rv"
         android:layout_width="398dp"
         android:layout_height="601dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.838" />
+        app:layout_constraintTop_toBottomOf="@+id/wishlist_get_list_btn" />
 
     <Button
         android:id="@+id/wishlist_get_list_btn"

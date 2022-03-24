@@ -82,8 +82,10 @@ public interface RetrofitInterface {
     @POST("/post")
     Call<JsonObject> addNewPost(@Header("authorization") String token, @Body HashMap<String, Object> map);
 
-    @GET("/post/getWishList/{wishListId}")
-    Call<JsonArray> getWishList(@Header("authorization") String token, @Path("wishListId") List<String> wishListId);
+    @GET("/post/getWishList/{userName}")
+    Call<JsonArray> getWishList(@Header("authorization") String token, @Path("userName") String userName);
+
+//    Call<JsonArray> getWishList(@Header("authorization") String token, @Path("wishListId") List<String> wishListId);
 
     /*--------------------------------- Category -------------------------------*/
 

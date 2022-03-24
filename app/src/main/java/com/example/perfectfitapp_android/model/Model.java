@@ -27,7 +27,19 @@ public class Model {
     List<Category> categories = new LinkedList<Category>();
     List<SubCategory> subCategories = new ArrayList<>();
     ModelServer modelServer = new ModelServer();
+    List<Post> wishList = new LinkedList<>();
 
+    public List<Post> getWishList() {
+        return wishList;
+    }
+
+    public void setWishList(List<Post> wishList) {
+        this.wishList = wishList;
+    }
+
+    public void addPostToWishList(Post post){
+        this.wishList.add(post);
+    }
 
     public Model(){
         this.count = 0;
@@ -278,8 +290,8 @@ public class Model {
         void onComplete(List<Post> list);
     }
 
-    public void getWishList(List<String> wishListId, getWishListListener listener) {
-        modelServer.getWishList(wishListId, listener);
+    public void getWishListFromServer(getWishListListener listener) {
+        modelServer.getWishList(listener);
     }
 
     /******************************************************************************************/

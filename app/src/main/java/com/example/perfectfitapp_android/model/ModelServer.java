@@ -489,16 +489,26 @@ public class ModelServer {
     }
 
 
-    public void getWishList(List<String> wishListId, Model.getWishListListener listener){
+    public void getWishList(Model.getWishListListener listener){
 
         //TODO: check if the post belongs to the profile
         //TODO: by userName or by wishlist in profile
-        Call<JsonArray> call = service.getWishList(Model.instance.getToken(), wishListId);
+        Call<JsonArray> call = service.getWishList(Model.instance.getToken(), Model.instance.getProfile().getUserName());
+
         call.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 if(response.code() == 200){
                     //TODO
+
+                    JsonArray wishListArray = response.body();
+
+                    System.out.println("101010101010101010101010101010101010");
+                    System.out.println(wishListArray);
+                    Model.instance.setWishList(Post.jsonArrayToPost(wishListArray));
+                    listener.onComplete(Post.jsonArrayToPost(wishListArray));
+
+
                 }
                 else{
                     Log.d("TAG", "failed in getWishList in ModelServer 1");
