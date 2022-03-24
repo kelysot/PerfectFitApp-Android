@@ -10,6 +10,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -467,22 +468,24 @@ public class ModelServer {
     }
 
     public void getSubCategoriesByCategoryId(String categoryId, String gender, Model.GetSubCategoriesByCategoryIdListener listener) {
-        Call<JsonObject> call = service.getSubCategoriesByCategoryId(Model.instance.getToken(), categoryId,gender);
-        call.enqueue(new Callback<JsonObject>() {
+        Call<JsonArray> call = service.getSubCategoriesByCategoryId(Model.instance.getToken(), categoryId,gender);
+        call.enqueue(new Callback<JsonArray>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 if(response.code() == 200){
-                    Log.d("TAG","OK");
+                    List<SubCategory> subCategories = new ArrayList<>();
+                    subCategories = SubCategory.jsonArrayToSubCategory(response.body());
+                    listener.onComplete(subCategories);
                     //TODO: get The list from the server
                 }else if(response.code() == 400){
                     Log.d("TAG", "failed in getSubCategoriesByCategoryId1 in ModelServer");
                     listener.onComplete(null);
                 }
             }
-
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<JsonArray> call, Throwable t) {
                 Log.d("TAG", "failed in getSubCategoriesByCategoryId2 in ModelServer");
+                Log.d("TAG", t.getMessage());
                 listener.onComplete(null);
             }
         });

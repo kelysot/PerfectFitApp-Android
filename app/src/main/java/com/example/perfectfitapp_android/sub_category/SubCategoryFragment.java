@@ -39,8 +39,8 @@ public class SubCategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sub_category, container, false);
         categoryId = SubCategoryFragmentArgs.fromBundle(getArguments()).getCategoryId();
-        Log.d("TAG",categoryId);
-        Log.d("TAG",Model.instance.getProfile().getGender());
+//        Log.d("TAG",categoryId);
+//        Log.d("TAG",Model.instance.getProfile().getGender());
 
         getSubCategories = view.findViewById(R.id.get_subCategiries);
         getSubCategories.setOnClickListener(v -> {
@@ -71,7 +71,7 @@ public class SubCategoryFragment extends Fragment {
 //            //TODO: refresh function
 //            adapter.notifyDataSetChanged();
 //        });
-        // display all the subCategorise according to the gender of profile and Category
+//         display all the subCategorise according to the gender of profile and Category
         Model.instance.getSubCategoriesByCategoryId(categoryId,Model.instance.getProfile().getGender(),subCategoryList -> {
             for(int i=0;i<subCategoryList.size();i++){
                 Model.instance.addSubCategory(subCategoryList.get(i));
