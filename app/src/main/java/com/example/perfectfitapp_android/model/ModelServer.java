@@ -1,7 +1,9 @@
 package com.example.perfectfitapp_android.model;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
@@ -25,6 +27,7 @@ public class ModelServer {
     static ModelServer instance = null;
     static final String BASE_URL = "http://10.0.2.2:4000";
     RetrofitInterface service;
+    SharedPreferences sp = MyApplication.getContext().getSharedPreferences("TAG", ContextThemeWrapper.MODE_PRIVATE);
 
     public ModelServer() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -68,8 +71,6 @@ public class ModelServer {
         });
     }
 
-
-    //**********************************************//
     public void getUser(String email, Model.GetUserListener listener) {
 
         Call<JsonObject> callUser = service.executeGetUser(email);
@@ -79,7 +80,13 @@ public class ModelServer {
 
                 if (response.code() == 200) {
                     JsonElement js = response.body().get("tokens");
-                    Model.instance.setToken(js.getAsString());
+                    String aToken = "Bearer " + js.getAsJsonArray().get(0).getAsString();
+                    String rToken = "Bearer " + js.getAsJsonArray().get(1).getAsString();
+                    SharedPreferences.Editor preferences = MyApplication.getContext().getSharedPreferences("TAG", ContextThemeWrapper.MODE_PRIVATE).edit();
+                    preferences.putString("ACCESS_TOKEN", aToken);
+                    preferences.putString("REFRESH_TOKEN", rToken);
+                    preferences.commit();
+
                     User user = new User();
                     user = user.fromJson(response.body());
                     listener.onComplete(user);
@@ -167,7 +174,10 @@ public class ModelServer {
 
     //TODO: Understand why logout is Forbidden.
     public void logout(Model.LogoutListener listener) {
-        Call<Void> call = service.executeLogout(Model.instance.getToken());
+
+        String token = sp.getString("ACCESS_TOKEN", "");
+
+        Call<Void> call = service.executeLogout(token);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -206,7 +216,9 @@ public class ModelServer {
 
     public void getProfileFromServer(String email, String userName, Model.GetProfileListener listener) {
 
-        Call<JsonObject> call = service.executeGetProfile(Model.instance.getToken(), email, userName);
+        String token = sp.getString("ACCESS_TOKEN", "");
+
+        Call<JsonObject> call = service.executeGetProfile(token, email, userName);
 
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -235,10 +247,10 @@ public class ModelServer {
     }
 
     public void createProfile(Profile profile, Model.CreateProfileListener listener) {
-
+        String token = sp.getString("ACCESS_TOKEN", "");
         HashMap<String, Object> profileMap = profile.toJson();
 
-        Call<Void> call = service.executeCreateProfile(Model.instance.getToken(), profileMap);
+        Call<Void> call = service.executeCreateProfile(token, profileMap);
 
         call.enqueue(new Callback<Void>() {
             @Override
@@ -265,7 +277,9 @@ public class ModelServer {
 
     public void checkIfUserNameExist(String userName, Model.CheckIfUserNameExist listener) {
 
-        Call<Void> call = service.checkIfUserNameExist(Model.instance.getToken(), userName);
+        String token = sp.getString("ACCESS_TOKEN", "");
+
+        Call<Void> call = service.checkIfUserNameExist(token, userName);
 
         call.enqueue(new Callback<Void>() {
             @Override
@@ -293,7 +307,9 @@ public class ModelServer {
             profileMap.put("previousName", previousName);
         }
 
-        Call<Void> call = service.editProfile(Model.instance.getToken(), profileMap);
+        String token = sp.getString("ACCESS_TOKEN", "");
+
+        Call<Void> call = service.editProfile(token, profileMap);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -318,7 +334,8 @@ public class ModelServer {
     }
 
     public void deleteProfile(String userName, Model.DeleteProfileListener listener) {
-        Call<Void> call = service.deleteProfile(Model.instance.getToken(), userName);
+        String token = sp.getString("ACCESS_TOKEN", "");
+        Call<Void> call = service.deleteProfile(token, userName);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -348,8 +365,8 @@ public class ModelServer {
     /******************************************************************************************/
 
     public void getAllPosts(Model.GetAllPostsListener listener) {
-
-        Call<JsonArray> call = service.executeGetAllPosts(Model.instance.getToken());
+        String token = sp.getString("ACCESS_TOKEN", "");
+        Call<JsonArray> call = service.executeGetAllPosts(token);
         call.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
@@ -375,7 +392,8 @@ public class ModelServer {
 
     public void addNewPost(Post post, Model.AddNewPostListener listener) {
         HashMap<String, Object> postMap = post.toJson();
-        Call<JsonObject> call = service.addNewPost(Model.instance.getToken(), postMap);
+        String token = sp.getString("ACCESS_TOKEN", "");
+        Call<JsonObject> call = service.addNewPost(token, postMap);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -414,7 +432,8 @@ public class ModelServer {
 
     public void getAllCategoriesListener(Model.GetAllCategoriesListener listener) {
 
-        Call<JsonArray> call = service.getAllCategories(Model.instance.getToken());
+        String token = sp.getString("ACCESS_TOKEN", "");
+        Call<JsonArray> call = service.getAllCategories(token);
         call.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
@@ -445,7 +464,8 @@ public class ModelServer {
 
     public void getAllSubCategories(Model.GetAllSubCategoriesListener listener) {
 
-        Call<JsonArray> call = service.getAllSubCategories(Model.instance.getToken());
+        String token = sp.getString("ACCESS_TOKEN", "");
+        Call<JsonArray> call = service.getAllSubCategories(token);
         call.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
@@ -468,7 +488,8 @@ public class ModelServer {
     }
 
     public void getSubCategoriesByCategoryId(String categoryId, String gender, Model.GetSubCategoriesByCategoryIdListener listener) {
-        Call<JsonArray> call = service.getSubCategoriesByCategoryId(Model.instance.getToken(), categoryId,gender);
+        String token = sp.getString("ACCESS_TOKEN", "");
+        Call<JsonArray> call = service.getSubCategoriesByCategoryId(token, categoryId,gender);
         call.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
@@ -495,8 +516,8 @@ public class ModelServer {
     public void getWishList(Model.getWishListListener listener){
 
         //TODO: check if the post belongs to the profile
-        //TODO: by userName or by wishlist in profile
-        Call<JsonArray> call = service.getWishList(Model.instance.getToken(), Model.instance.getProfile().getUserName());
+        String token = sp.getString("ACCESS_TOKEN", "");
+        Call<JsonArray> call = service.getWishList(token, Model.instance.getProfile().getUserName());
 
         call.enqueue(new Callback<JsonArray>() {
             @Override
@@ -505,15 +526,9 @@ public class ModelServer {
                     //TODO
 
                     JsonArray wishListArray = response.body();
-
                     List<Post> postsWishList = new ArrayList<>();
                     postsWishList = Post.jsonArrayToPost(response.body());
                     listener.onComplete(postsWishList);
-//                    System.out.println("101010101010101010101010101010101010");
-//                    System.out.println(wishListArray);
-//                    Model.instance.setWishList(Post.jsonArrayToPost(wishListArray));
-//                    listener.onComplete(Post.jsonArrayToPost(wishListArray));
-
 
                 }
                 else{

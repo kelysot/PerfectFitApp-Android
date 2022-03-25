@@ -18,7 +18,7 @@ public class Model {
     public static final Model instance = new Model();
     int count = 0;
     User user;
-    String token;
+//    String token;
     Profile profile;
     Retrofit retrofit;
     RetrofitInterface retrofitInterface;
@@ -77,13 +77,13 @@ public class Model {
         this.profile = profile;
     }
 
-    public String getToken() {
-        return token;
-    }
+//    public String getToken() {
+//        return token;
+//    }
 
-    public void setToken(String token) {
-        this.token = "Bearer " + token;
-    }
+//    public void setToken(String token) {
+//        this.token = "Bearer " + token;
+//    }
 
     public List<Post> getAllPosts(){
         return data;
@@ -110,8 +110,7 @@ public class Model {
     }
 
     public Post getPostById(String postId) {
-        for (Post s:data
-        ) {
+        for (Post s:data) {
             if (s.getPostId().equals(postId)){
                 return s;
             }
