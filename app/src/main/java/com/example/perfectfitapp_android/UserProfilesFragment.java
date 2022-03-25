@@ -60,6 +60,14 @@ public class UserProfilesFragment extends Fragment {
         buttonList.add(user4Btn);
         buttonList.add(user5Btn);
 
+        setButtons();
+
+        return view;
+    }
+
+
+    public void setButtons(){
+
         for(int j=0; j<buttonList.size(); j++){
             buttonList.get(j).setVisibility(View.GONE);
             registerForContextMenu(buttonList.get(j));
@@ -69,14 +77,15 @@ public class UserProfilesFragment extends Fragment {
             buttonList.get(i).setVisibility(View.VISIBLE);
             buttonList.get(i).setText(Model.instance.getUser().getProfilesArray().get(i));
             int finalI = i;
-            buttonList.get(i).setOnClickListener(v-> moveToHomePageWithProfile(view, model.getUser().getProfilesArray().get(finalI)));
+            buttonList.get(i).setOnClickListener(v-> moveToHomePageWithProfile(addProfile, model.getUser().getProfilesArray().get(finalI)));
+            // addProfile instead of view
             buttonList.get(i).setOnLongClickListener(v -> {
                 editProfileByLongClick(finalI);
                 return false;
             });
         }
-        return view;
     }
+
 
     private void moveToHomePageWithProfile(View view, String userName) {
 
@@ -148,8 +157,10 @@ public class UserProfilesFragment extends Fragment {
                 Model.instance.deleteProfile(longClickUserName,isSuccess -> {
                     if(isSuccess){
                         Model.instance.getUser().getProfilesArray().remove(posInArray); //current user
-                        buttonList.get(posInArray).setVisibility(View.GONE);
-                        buttonList.remove(posInArray);
+//                        buttonList.get(posInArray).setVisibility(View.GONE);
+//                        buttonList.remove(posInArray);
+                        setButtons();
+
                     }else{
                         Log.d("TAG","not work");
                     }
