@@ -84,7 +84,7 @@ public class AddNewPostFragment extends Fragment {
 
         //TODO: postId, profileId, date. pictureUrl, sizeadj, rating, price
 
-        String date = "8/2/2022";
+        String date = "26/3/2022";
         //String pictureUrl = "";
         sizeAdj = "";
         rating = "";
@@ -97,31 +97,22 @@ public class AddNewPostFragment extends Fragment {
                 subCategory, description, date,link, sizeAdj, rating, price);
 
 
+        Model.instance.addNewPost(newPost, post -> {
+            if(post != null){
+                System.out.println("the size is: --------------------------------  " +newPost.getSize());
+                Model.instance.addPost(post);
+                System.out.println(" -------------------- count: " + count);
 
-        Model.instance.addNewPost(newPost, new Model.AddNewPostListener() {
-            @Override
-            public void onComplete(Post post) {
-                if(post != null){
-                    System.out.println("the size is: --------------------------------  " +newPost.getSize());
-                    Model.instance.addPost(post);
-                    System.out.println(" -------------------- count: " + count);
-
-                    Navigation.findNavController(view)
-                            .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
-                }
-                else {
-                    //TODO: Handle what we want in else.
-                    Toast.makeText(MyApplication.getContext(), "Post didn't saved",
-                            Toast.LENGTH_LONG).show();
-                }
+                Navigation.findNavController(view)
+                        .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
+            }
+            else {
+                //TODO: Handle what we want in else.
+                Toast.makeText(MyApplication.getContext(), "Post didn't saved",
+                        Toast.LENGTH_LONG).show();
             }
         });
-
-
-
     }
-
-
 
     public void setAllDropDownMenus(View view){
 

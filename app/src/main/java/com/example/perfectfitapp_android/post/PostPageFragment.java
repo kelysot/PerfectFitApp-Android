@@ -22,7 +22,8 @@ import com.example.perfectfitapp_android.model.Post;
 
 public class PostPageFragment extends Fragment {
 
-    EditText productNameEt, skuEt, sizeEt, companyEt, colorEt, categoryEt, subCategoryEt, descriptionEt;
+    TextView productNameEt;
+    EditText skuEt, sizeEt, companyEt, colorEt, categoryEt, subCategoryEt, descriptionEt;
     EditText linkEt, priceEt;
     TextView categoryTv, subCategoryTv;
     //TODO: date
