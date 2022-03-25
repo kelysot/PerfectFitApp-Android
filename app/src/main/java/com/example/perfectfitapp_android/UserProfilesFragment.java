@@ -20,7 +20,10 @@ import android.widget.Toast;
 
 import com.example.perfectfitapp_android.model.Model;
 
+import java.sql.Time;
 import java.util.ArrayList;
+
+import okio.Timeout;
 
 
 public class UserProfilesFragment extends Fragment {
@@ -44,8 +47,6 @@ public class UserProfilesFragment extends Fragment {
         addProfile = view.findViewById(R.id.user_profiles_addprofile_btn);
         addProfile.setOnClickListener(v-> addProfile(view));
 
-        homepageBtn = view.findViewById(R.id.move_to_home_page);
-
         buttonList = new ArrayList<>();
 
         user1Btn = view.findViewById(R.id.user_profiles_profile1_btn);
@@ -65,8 +66,22 @@ public class UserProfilesFragment extends Fragment {
         return view;
     }
 
+    public void setButtonsEnable(boolean flag){
+        if(flag){
+            for (Button b: buttonList) {
+                b.setEnabled(true);
+            }
+        }
+        else{
+            for (Button b: buttonList) {
+                b.setEnabled(false);
+            }
+        }
+    }
 
     public void setButtons(){
+
+        setButtonsEnable(true);
 
         for(int j=0; j<buttonList.size(); j++){
             buttonList.get(j).setVisibility(View.GONE);
@@ -77,7 +92,7 @@ public class UserProfilesFragment extends Fragment {
             buttonList.get(i).setVisibility(View.VISIBLE);
             buttonList.get(i).setText(Model.instance.getUser().getProfilesArray().get(i));
             int finalI = i;
-            buttonList.get(i).setOnClickListener(v-> moveToHomePageWithProfile(addProfile, model.getUser().getProfilesArray().get(finalI)));
+            buttonList.get(i).setOnClickListener(v-> moveToHomePageWithProfile(model.getUser().getProfilesArray().get(finalI)));
             // addProfile instead of view
             buttonList.get(i).setOnLongClickListener(v -> {
                 editProfileByLongClick(finalI);
@@ -87,7 +102,31 @@ public class UserProfilesFragment extends Fragment {
     }
 
 
-    private void moveToHomePageWithProfile(View view, String userName) {
+    private void moveToHomePageWithProfile(String userName) {
+
+        setButtonsEnable(false);
+        if(!Model.instance.getProfile().getUserName().isEmpty()){
+            Model.instance.getProfile().setStatus("false");
+            Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
+                if(isSuccess){
+                    changeProfile(userName);
+                }
+                else{
+                    // TODO
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    Log.d("TAG", "failed in UserProfile in editProfile - change status to false");
+                    setButtonsEnable(true);
+                }
+            });
+        }
+        else{
+            changeProfile(userName);
+        }
+    }
+
+
+    public void changeProfile(String userName){
 
         Model.instance.getProfileFromServer(model.getUser().getEmail(), userName, profile -> {
             if(profile != null){
@@ -97,12 +136,13 @@ public class UserProfilesFragment extends Fragment {
                     @Override
                     public void onComplete(Boolean isSuccess) {
                         if(isSuccess){
-                            Navigation.findNavController(view).navigate(R.id.action_userProfilesFragment_to_homePageFragment);
+                            Navigation.findNavController(addProfile).navigate(R.id.action_userProfilesFragment_to_homePageFragment);
                         }
                         else{
                             Log.d("TAG", "failed in UserProfileFragment 1");
                             Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                     Toast.LENGTH_LONG).show();
+                            setButtonsEnable(true);
                         }
                     }
                 });
@@ -110,7 +150,8 @@ public class UserProfilesFragment extends Fragment {
             else{
                 Log.d("TAG", "failed in UserProfileFragment 1");
                 Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                            Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_LONG).show();
+                setButtonsEnable(true);
             }
         });
     }
@@ -150,7 +191,7 @@ public class UserProfilesFragment extends Fragment {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()) {
             case R.id.profile_edit_menuItem:{
-                Navigation.findNavController(homepageBtn).navigate(UserProfilesFragmentDirections.actionUserProfilesFragmentToEditProfileFragment2());
+                Navigation.findNavController(addProfile).navigate(UserProfilesFragmentDirections.actionUserProfilesFragmentToEditProfileFragment2());
                 return true;
             }
             case R.id.profile_delete_menuItem:{

@@ -74,13 +74,15 @@ public class WishListFragment extends Fragment {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView productNameTv;
-        TextView descriptionTv;
+        TextView productNameTv, descriptionTv, categoryTv, subCategoryTv, userNameTv;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
-            productNameTv = itemView.findViewById(R.id.listrow_username_tv);
+            userNameTv = itemView.findViewById(R.id.listrow_username_tv);
             descriptionTv = itemView.findViewById(R.id.listrow_description_tv);
+            categoryTv = itemView.findViewById(R.id.listrow_category_tv);
+            subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
+
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 listener.onItemClick(v, pos);
@@ -111,8 +113,10 @@ public class WishListFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             Post post = data.get(position);
-            holder.productNameTv.setText(post.getProductName());
+            holder.userNameTv.setText(post.getProfileId());
             holder.descriptionTv.setText(post.getDescription());
+            holder.categoryTv.setText(post.getCategoryId());
+            holder.subCategoryTv.setText(post.getSubCategoryId());
         }
 
         @Override

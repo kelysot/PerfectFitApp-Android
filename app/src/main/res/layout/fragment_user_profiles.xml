@@ -10,27 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/move_to_home_page"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="#E4CB91"
-            android:text="Home"
-            android:textColor="#4f4f4f"
-            android:textSize="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TableLayout
             android:id="@+id/tableLayout"
             android:layout_width="wrap_content"
             android:layout_height="644dp"
+            android:layout_marginTop="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/move_to_home_page">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TableRow
                 android:layout_width="190dp"

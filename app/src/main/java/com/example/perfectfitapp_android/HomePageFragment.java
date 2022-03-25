@@ -100,14 +100,18 @@ public class HomePageFragment extends Fragment {
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView productNameTv;
-        TextView descriptionTv;
+        TextView productNameTv, descriptionTv,categoryTv, subCategoryTv, userNameTv;
+
         ImageButton addToWishList;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
-            productNameTv = itemView.findViewById(R.id.listrow_username_tv);
+            //TODO: change the productName to userName - by the profileID in the mongo
+            userNameTv = itemView.findViewById(R.id.listrow_username_tv);
             descriptionTv = itemView.findViewById(R.id.listrow_description_tv);
+            categoryTv = itemView.findViewById(R.id.listrow_category_tv);
+            subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
+
             addToWishList = itemView.findViewById(R.id.add_to_wish_list_btn);
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
@@ -140,8 +144,10 @@ public class HomePageFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             Post post = data.get(position);
-            holder.productNameTv.setText(post.getProductName());
+            holder.userNameTv.setText(post.getProfileId());
             holder.descriptionTv.setText(post.getDescription());
+            holder.categoryTv.setText(post.getCategoryId());
+            holder.subCategoryTv.setText(post.getSubCategoryId());
             holder.addToWishList.setOnClickListener(v -> addToWishList(post));
         }
 
@@ -173,9 +179,7 @@ public class HomePageFragment extends Fragment {
                 });
                 //TODO: if post is already in the wishlist - we need to remove it
             }
-
         }
-
 
 
         @Override
