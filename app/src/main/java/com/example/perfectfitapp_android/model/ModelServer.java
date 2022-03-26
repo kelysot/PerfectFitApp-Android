@@ -424,6 +424,37 @@ public class ModelServer {
         });
     }
 
+
+    public void deletePost(String postId, Model.deletePostFromServerListener listener){
+        String token = sp.getString("ACCESS_TOKEN", "");
+        Call<Void> call = service.deletePost(token, postId);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.code() == 200){
+                    listener.onComplete(true);
+                }
+                else{
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    Log.d("TAG", "failed in ModelServer in deletePost 1");
+                    listener.onComplete(false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                Log.d("TAG", "failed in ModelServer in deletePost 2");
+                listener.onComplete(false);
+            }
+        });
+
+
+    }
+
     /******************************************************************************************/
 
     /*--------------------------------- Category -------------------------------*/

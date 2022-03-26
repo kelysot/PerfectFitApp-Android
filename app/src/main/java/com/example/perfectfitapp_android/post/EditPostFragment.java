@@ -14,7 +14,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
+import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
@@ -65,7 +67,6 @@ public class EditPostFragment extends Fragment {
 
         //TODO: sizeAdjSk, ratingSk, price
 
-
         editBtn = view.findViewById(R.id.editpost_edit_btn);
         editBtn.setOnClickListener(v -> edit(view));
 
@@ -78,11 +79,19 @@ public class EditPostFragment extends Fragment {
 
     private void delete(View view) {
 
+        deleteBtn.setEnabled(false);
         Model.instance.deletePostByPost(post);
-
-        Navigation.findNavController(view)
-                .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
-
+        Model.instance.deletePostFromServer(post.getPostId(), isSuccess -> {
+            if(isSuccess){
+                Navigation.findNavController(view)
+                        .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
+            }
+            else{
+                deleteBtn.setEnabled(true);
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void edit(View view) {

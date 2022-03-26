@@ -99,10 +99,7 @@ public class AddNewPostFragment extends Fragment {
 
         Model.instance.addNewPost(newPost, post -> {
             if(post != null){
-                System.out.println("the size is: --------------------------------  " +newPost.getSize());
                 Model.instance.addPost(post);
-                System.out.println(" -------------------- count: " + count);
-
                 Navigation.findNavController(view)
                         .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
             }

@@ -304,6 +304,17 @@ public class Model {
         modelServer.getWishList(listener);
     }
 
+    /*--------------------------------------------------------*/
+
+    public interface deletePostFromServerListener{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void deletePostFromServer(String postId, deletePostFromServerListener listener){
+        modelServer.deletePost(postId, listener);
+    }
+
+
     /******************************************************************************************/
 
     /*--------------------------------- Category -------------------------------*/

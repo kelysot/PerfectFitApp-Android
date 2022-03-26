@@ -58,6 +58,10 @@ public class PostPageFragment extends Fragment {
         editBtn = view.findViewById(R.id.postpage_edit_btn);
         editBtn.setOnClickListener(v-> editPost(view));
 
+        if(!Model.instance.getProfile().getUserName().equals(post.getProfileId())){
+            editBtn.setVisibility(View.GONE);
+        }
+
         /***************************** set *****************************/
 
         productNameEt.setText(post.getProductName());

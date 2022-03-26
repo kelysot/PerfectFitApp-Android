@@ -85,6 +85,8 @@ public interface RetrofitInterface {
     @GET("/post/getWishList/{userName}")
     Call<JsonArray> getWishList(@Header("authorization") String token, @Path("userName") String userName);
 
+    @DELETE("/post/{postId}")
+    Call<Void> deletePost(@Header("authorization") String token, @Path("postId") String postId);
 //    Call<JsonArray> getWishList(@Header("authorization") String token, @Path("wishListId") List<String> wishListId);
 
     /*--------------------------------- Category -------------------------------*/
