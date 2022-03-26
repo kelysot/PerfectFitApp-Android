@@ -433,7 +433,7 @@ public class ModelServer {
     public void getAllCategoriesListener(Model.GetAllCategoriesListener listener) {
 
         String token = sp.getString("ACCESS_TOKEN", "");
-        Call<JsonArray> call = service.getAllCategories(token);
+        Call<JsonArray> call = service.getAllCategories(token, Model.instance.getProfile().getGender());
         call.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
@@ -489,7 +489,7 @@ public class ModelServer {
 
     public void getSubCategoriesByCategoryId(String categoryId, String gender, Model.GetSubCategoriesByCategoryIdListener listener) {
         String token = sp.getString("ACCESS_TOKEN", "");
-        Call<JsonArray> call = service.getSubCategoriesByCategoryId(token, categoryId,gender);
+        Call<JsonArray> call = service.getSubCategoriesByCategoryId(token, categoryId, gender);
         call.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {

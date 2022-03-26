@@ -18,7 +18,6 @@ public class Model {
     public static final Model instance = new Model();
     int count = 0;
     User user;
-//    String token;
     Profile profile;
     Retrofit retrofit;
     RetrofitInterface retrofitInterface;
@@ -28,6 +27,22 @@ public class Model {
     List<SubCategory> subCategories = new ArrayList<>();
     ModelServer modelServer = new ModelServer();
     List<Post> wishList = new ArrayList<>();
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    public List<SubCategory> getSubCategories() {
+        return subCategories;
+    }
+
+    public void setSubCategories(List<SubCategory> subCategories) {
+        this.subCategories = subCategories;
+    }
 
     public List<Post> getWishList() {
         return wishList;
@@ -76,14 +91,6 @@ public class Model {
     public void setProfile(Profile profile) {
         this.profile = profile;
     }
-
-//    public String getToken() {
-//        return token;
-//    }
-
-//    public void setToken(String token) {
-//        this.token = "Bearer " + token;
-//    }
 
     public List<Post> getAllPosts(){
         return data;

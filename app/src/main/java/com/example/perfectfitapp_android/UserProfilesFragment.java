@@ -1,5 +1,6 @@
 package com.example.perfectfitapp_android;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.example.perfectfitapp_android.model.Model;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import okio.Timeout;
 
@@ -132,18 +134,17 @@ public class UserProfilesFragment extends Fragment {
             if(profile != null){
                 model.setProfile(profile);
                 profile.setStatus("true");
-                Model.instance.editProfile(null,profile, new Model.EditProfile() {
-                    @Override
-                    public void onComplete(Boolean isSuccess) {
-                        if(isSuccess){
-                            Navigation.findNavController(addProfile).navigate(R.id.action_userProfilesFragment_to_homePageFragment);
-                        }
-                        else{
-                            Log.d("TAG", "failed in UserProfileFragment 1");
-                            Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                    Toast.LENGTH_LONG).show();
-                            setButtonsEnable(true);
-                        }
+                Model.instance.editProfile(null,profile, isSuccess -> {
+                    if(isSuccess){
+                        Model.instance.setCategories(new LinkedList<>());
+                        Model.instance.setSubCategories(new LinkedList<>());
+                        Navigation.findNavController(addProfile).navigate(R.id.action_userProfilesFragment_to_homePageFragment);
+                    }
+                    else{
+                        Log.d("TAG", "failed in UserProfileFragment 1");
+                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                Toast.LENGTH_LONG).show();
+                        setButtonsEnable(true);
                     }
                 });
             }

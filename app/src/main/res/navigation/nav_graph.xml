@@ -108,8 +108,12 @@
         tools:layout="@layout/fragment_category" >
         <action
             android:id="@+id/action_categoryFragment_to_subCategoryFragment"
-            app:destination="@id/subCategoryFragment" />
-    </fragment><action android:id="@+id/action_global_categoryFragment" app:destination="@id/categoryFragment"/>
+            app:destination="@id/subCategoryFragment"
+            app:popUpTo="@id/categoryFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_categoryFragment"
+        app:destination="@id/categoryFragment" />
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.example.perfectfitapp_android.profile.EditProfileFragment"
