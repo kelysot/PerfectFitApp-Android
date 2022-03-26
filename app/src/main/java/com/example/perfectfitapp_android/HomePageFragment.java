@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -69,7 +70,6 @@ public class HomePageFragment extends Fragment {
         adapter = new MyAdapter();
         postsList.setAdapter(adapter);
 
-
         adapter.setOnItemClickListener((v, position) -> {
             String postId = data.get(position).getPostId();
             System.out.println("post " + postId + " was clicked");
@@ -87,6 +87,12 @@ public class HomePageFragment extends Fragment {
     private void refresh(View view) {
         //TODO: refresh function
         getPost(view);
+        Model.instance.getWishListFromServer(list -> {
+            Model.instance.setWishList(list);
+            System.out.println("-----------------");
+            System.out.println(Model.instance.getWishList());
+
+        });
     }
 
     private void getPost(View view) {
@@ -94,19 +100,29 @@ public class HomePageFragment extends Fragment {
         System.out.println("button get post clicked");
 
         Model.instance.getAllPostsFromServer(postList -> {
+
+
             if(postList != null){
+
                 List<String> idFromServer = new LinkedList<>();
-                List<Post> allPost = Model.instance.getAllPosts();
                 List<String> postIdListModel = new LinkedList<>();
-                for(int j=0; j<postList.size(); j++){
-                    idFromServer.add(postList.get(j).getPostId());
+
+                for (Post p: postList){
+                    idFromServer.add(p.getPostId()); // the id from server
                 }
-                for (Post p:allPost) {
-                    postIdListModel.add(p.getPostId());
+                for (Post p:Model.instance.getAllPosts()) {
+                    postIdListModel.add(p.getPostId()); // the id from the model
                 }
-                for(int i=0; i<postList.size(); i++){
+
+                for(int i=0; i<idFromServer.size(); i++){
                     if(!postIdListModel.contains(idFromServer.get(i))){
                         Model.instance.addPost(postList.get(i));
+                    }
+                }
+                for(int j=0; j<postIdListModel.size(); j++){
+                    if(!idFromServer.contains(postIdListModel.get(j))){
+                        Post post = Model.instance.getPostById(postIdListModel.get(j));
+                        Model.instance.deletePostByPost(post);
                     }
                 }
                 adapter.notifyDataSetChanged();
@@ -176,6 +192,8 @@ public class HomePageFragment extends Fragment {
 
             if(Model.instance.getProfile().getWishlist().contains(post.getPostId())){
                 Model.instance.getProfile().getWishlist().remove(post.getPostId());
+//                List<Post> wishPosts = Model.instance.getWishList();
+//                Model.instance.setWishList(wishPosts);
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if(isSuccess){
                         //TODO: change the color of the heart
@@ -188,6 +206,7 @@ public class HomePageFragment extends Fragment {
 
             }
             else{
+//                Model.instance.addPostToWishList(post);
                 Model.instance.getProfile().getWishlist().add(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if(isSuccess){
