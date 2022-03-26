@@ -28,6 +28,7 @@ import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.example.perfectfitapp_android.model.Model;
@@ -78,7 +79,14 @@ public class HomePageFragment extends Fragment {
         //TODO: menu
         setHasOptionsMenu(true);
 
+        refresh(view);
+
         return view;
+    }
+
+    private void refresh(View view) {
+        //TODO: refresh function
+        getPost(view);
     }
 
     private void getPost(View view) {
@@ -86,16 +94,29 @@ public class HomePageFragment extends Fragment {
         System.out.println("button get post clicked");
 
         Model.instance.getAllPostsFromServer(postList -> {
-
-            //TODO: check if postsList is null
-
-            for(int i=0; i<postList.size(); i++){
-                Model.instance.addPost(postList.get(i));
+            if(postList != null){
+                List<String> idFromServer = new LinkedList<>();
+                List<Post> allPost = Model.instance.getAllPosts();
+                List<String> postIdListModel = new LinkedList<>();
+                for(int j=0; j<postList.size(); j++){
+                    idFromServer.add(postList.get(j).getPostId());
+                }
+                for (Post p:allPost) {
+                    postIdListModel.add(p.getPostId());
+                }
+                for(int i=0; i<postList.size(); i++){
+                    if(!postIdListModel.contains(idFromServer.get(i))){
+                        Model.instance.addPost(postList.get(i));
+                    }
+                }
+                adapter.notifyDataSetChanged();
             }
-            //TODO: refresh function
-            Navigation.findNavController(view).navigate(HomePageFragmentDirections.actionGlobalHomePageFragment());
+            else{
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                Log.d("TAG", "failed in getAllPosts - getPost in HomePageFragment");
+            }
         });
-
     }
 
 

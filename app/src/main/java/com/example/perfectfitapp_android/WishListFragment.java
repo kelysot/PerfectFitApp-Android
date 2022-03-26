@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -51,25 +52,47 @@ public class WishListFragment extends Fragment {
             Navigation.findNavController(v).navigate(WishListFragmentDirections.actionGlobalPostPageFragment(postId));
         });
 
+        refresh(view);
 
         return view;
+    }
+
+    private void refresh(View view) {
+        getWishList(view);
     }
 
     private void getWishList(View view) {
         System.out.println("--------- wish list btn was clicked ---------");
 
+//        Model.instance.setWishList(new LinkedList<>());
         //TODO: fix the function in the server and call the function below:
         Model.instance.getWishListFromServer(list -> {
-            Log.d("TAG", list.toString());
+
             for(int i=0; i<list.size(); i++){
                 Model.instance.addPostToWishList(list.get(i));
-//                data.add(list.get(i));
             }
-//            System.out.println("2222222222222");
-//            System.out.println(Model.instance.getWishList());
-            adapter.notifyDataSetChanged();
 
-//            Navigation.findNavController(view).navigate(WishListFragmentDirections.actionGlobalWishListFragment());
+//            Model.instance.setWishList(new LinkedList<>());
+//            for(int i=0; i<list.size(); i++){
+//                Model.instance.addPostToWishList(list.get(i));
+//            }
+//            List<String> idFromServer = new LinkedList<>();
+//            for(int j=0; j<list.size(); j++){
+//                idFromServer.add(list.get(j).getPostId());
+//            }
+//            List<String> idList = new LinkedList<>();
+//            for(int i=0; i<Model.instance.getWishList().size(); i++){
+//                idList.add(Model.instance.getWishList().get(i).getPostId());
+//            }
+//            for(int i=0; i<list.size(); i++){
+//                if(!idList.contains(idFromServer.get(i))){
+//                    Model.instance.addPostToWishList(list.get(i));
+//                }
+//                if(!idFromServer.contains(idList.get(i))){
+//                    Model.instance.deleteFromWishList(Model.instance.getWishList().get(idList.indexOf(idList.get(i))));
+//                }
+//            }
+            adapter.notifyDataSetChanged();
         });
     }
 

@@ -56,6 +56,10 @@ public class Model {
         this.wishList.add(post);
     }
 
+    public void deleteFromWishList(Post post){
+        this.wishList.remove(post);
+    }
+
     public Model(){
         this.count = 0;
         user = new User();
