@@ -15,6 +15,7 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -451,7 +452,35 @@ public class ModelServer {
                 listener.onComplete(false);
             }
         });
+    }
 
+    public void editPost(Post post, Model.editPostListener listener){
+        String token = sp.getString("ACCESS_TOKEN", "");
+        HashMap<String, Object> postMap = post.toJson();
+
+        Call<Void> call = service.editPost(token, postMap);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.code() == 200){
+                    listener.onComplete(true);
+                }
+                else{
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    Log.d("TAG", "failed in ModelServer in editPost 1");
+                    listener.onComplete(false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                Log.d("TAG", "failed in ModelServer in editPost 2");
+                listener.onComplete(false);
+            }
+        });
 
     }
 

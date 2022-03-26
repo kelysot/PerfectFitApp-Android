@@ -130,10 +130,20 @@ public class EditPostFragment extends Fragment {
         post.setLink(link);
         post.setPrice(price);
 
+        Model.instance.editPost(post, isSuccess -> {
+            if(isSuccess){
+               Post p = Model.instance.getPostById(post.getPostId());
+               int index = Model.instance.getAllPosts().indexOf(p);
+               Model.instance.getAllPosts().set(index, post);
 
-        //TODO: navigate to homepage or postpage
-        Navigation.findNavController(view)
-                .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
+                //TODO: navigate to homepage or postpage, need o do the refresh
+                Navigation.findNavController(view)
+                        .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
+            }
+            else{
+                //TODO
+            }
+        });
     }
 
 

@@ -87,6 +87,9 @@ public interface RetrofitInterface {
 
     @DELETE("/post/{postId}")
     Call<Void> deletePost(@Header("authorization") String token, @Path("postId") String postId);
+
+    @PATCH("/post")
+    Call<Void> editPost(@Header("authorization") String token, @Body HashMap<String, Object> post);
 //    Call<JsonArray> getWishList(@Header("authorization") String token, @Path("wishListId") List<String> wishListId);
 
     /*--------------------------------- Category -------------------------------*/

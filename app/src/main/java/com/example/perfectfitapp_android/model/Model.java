@@ -314,6 +314,16 @@ public class Model {
         modelServer.deletePost(postId, listener);
     }
 
+    /*--------------------------------------------------------*/
+
+    public interface editPostListener{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void editPost(Post post, editPostListener listener){
+        modelServer.editPost(post, listener);
+    }
+
 
     /******************************************************************************************/
 
