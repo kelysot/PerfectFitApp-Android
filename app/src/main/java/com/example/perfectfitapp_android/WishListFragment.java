@@ -46,9 +46,7 @@ public class WishListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_wish_list, container, false);
 
         getListBtn = view.findViewById(R.id.wishlist_get_list_btn);
-        getListBtn.setOnClickListener(v -> getWishList(view));
-
-//        data = Model.instance.getWishList();
+//        getListBtn.setOnClickListener(v -> getWishList(view));
 
         RecyclerView myWishList = view.findViewById(R.id.wishlist_rv);
         myWishList.setHasFixedSize(true);
@@ -73,7 +71,7 @@ public class WishListFragment extends Fragment {
     }
 
     private void refresh(View view) {
-        getWishList(view);
+//        getWishList(view);
         Model.instance.getWishListFromServer(list -> {
             viewModel.setData(list);
             adapter.notifyDataSetChanged();
@@ -81,38 +79,38 @@ public class WishListFragment extends Fragment {
         });
     }
 
-    private void getWishList(View view) {
-        System.out.println("--------- wish list btn was clicked ---------");
+//    private void getWishList(View view) {
+//        System.out.println("--------- wish list btn was clicked ---------");
 
-        //TODO: fix the function in the server and call the function below:
-        Model.instance.getWishListFromServer(list -> {
-
-            System.out.println("the wishList from the server: " + list);
-            List<String> idList = new LinkedList<>();
-            List<String> idFromServer = new LinkedList<>();
-            for (Post p: list){
-                idFromServer.add(p.getPostId());
-            }
-            for (Post p: Model.instance.getWishList()) {
-                idList.add(p.getPostId());
-            }
-
-            for(int i=0; i<list.size(); i++){
-                if(!idList.contains(list.get(i).getPostId())){
-                    Model.instance.addPostToWishList(list.get(i));
-                }
-            }
-//            if(Model.instance.getWishList().size() > 0){
-//                for(int j=0; j<Model.instance.getWishList().size(); j++){
-//                    if(!idFromServer.contains(idList.get(j))){
-//                        Model.instance.getWishList().remove(j);
-//                    }
+//        //TODO: fix the function in the server and call the function below:
+//        Model.instance.getWishListFromServer(list -> {
+//
+//            System.out.println("the wishList from the server: " + list);
+//            List<String> idList = new LinkedList<>();
+//            List<String> idFromServer = new LinkedList<>();
+//            for (Post p: list){
+//                idFromServer.add(p.getPostId());
+//            }
+//            for (Post p: Model.instance.getWishList()) {
+//                idList.add(p.getPostId());
+//            }
+//
+//            for(int i=0; i<list.size(); i++){
+//                if(!idList.contains(list.get(i).getPostId())){
+//                    Model.instance.addPostToWishList(list.get(i));
 //                }
 //            }
-//            data = Model.instance.getWishList();
-//            adapter.notifyDataSetChanged();
-        });
-    }
+////            if(Model.instance.getWishList().size() > 0){
+////                for(int j=0; j<Model.instance.getWishList().size(); j++){
+////                    if(!idFromServer.contains(idList.get(j))){
+////                        Model.instance.getWishList().remove(j);
+////                    }
+////                }
+////            }
+////            data = Model.instance.getWishList();
+////            adapter.notifyDataSetChanged();
+//        });
+//    }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView productNameTv, descriptionTv, categoryTv, subCategoryTv, userNameTv;

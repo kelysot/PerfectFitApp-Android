@@ -60,9 +60,9 @@ public class ProfileFragment extends Fragment {
 
         Profile profile = Model.instance.getProfile();
         userNameTv.setText(profile.getUserName());
-//        if (profile.getUserImageUrl() != null) {
-//            Picasso.get().load(profile.getUserImageUrl()).into(userPic);
-//        }
+        if (profile.getUserImageUrl() != null) {
+            Picasso.get().load(profile.getUserImageUrl()).into(userPic);
+        }
 
 
         //////////////////////////////////////////////////////////////////////////////////////
@@ -153,8 +153,6 @@ public class ProfileFragment extends Fragment {
 
             if(Model.instance.getProfile().getWishlist().contains(post.getPostId())){
                 Model.instance.getProfile().getWishlist().remove(post.getPostId());
-//                List<Post> wishPosts = Model.instance.getWishList();
-//                Model.instance.setWishList(wishPosts);
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if(isSuccess){
                         //TODO: change the color of the heart
@@ -167,7 +165,6 @@ public class ProfileFragment extends Fragment {
 
             }
             else{
-//                Model.instance.addPostToWishList(post);
                 Model.instance.getProfile().getWishlist().add(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if(isSuccess){

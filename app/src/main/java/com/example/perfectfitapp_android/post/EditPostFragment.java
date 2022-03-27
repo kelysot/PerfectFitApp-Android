@@ -55,7 +55,9 @@ public class EditPostFragment extends Fragment {
         ratingSk = view.findViewById(R.id.editpost_rating_seekbar);
 
         postId = EditPostFragmentArgs.fromBundle(getArguments()).getPostId();
-        post = Model.instance.getPostById(postId);
+//        post = Model.instance.getPostById(postId);
+
+        post = Model.instance.getPost();
 
         setAllDropDownMenus(view, post);
 
@@ -80,7 +82,7 @@ public class EditPostFragment extends Fragment {
     private void delete(View view) {
 
         deleteBtn.setEnabled(false);
-        Model.instance.deletePostByPost(post);
+//        Model.instance.deletePostByPost(post);
         Model.instance.deletePostFromServer(post.getPostId(), isSuccess -> {
             if(isSuccess){
                 Navigation.findNavController(view)

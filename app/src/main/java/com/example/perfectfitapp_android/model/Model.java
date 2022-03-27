@@ -26,7 +26,7 @@ public class Model {
     List<Category> categories = new LinkedList<Category>();
     List<SubCategory> subCategories = new ArrayList<>();
     ModelServer modelServer = new ModelServer();
-    List<Post> wishList = new ArrayList<>();
+//    List<Post> wishList = new ArrayList<>();
     Post post;
 
     public Post getPost() {
@@ -53,21 +53,21 @@ public class Model {
         this.subCategories = subCategories;
     }
 
-    public List<Post> getWishList() {
-        return wishList;
-    }
-
-    public void setWishList(List<Post> wishList) {
-        this.wishList = wishList;
-    }
-
-    public void addPostToWishList(Post post){
-        this.wishList.add(post);
-    }
-
-    public void deleteFromWishList(Post post){
-        this.wishList.remove(post);
-    }
+//    public List<Post> getWishList() {
+//        return wishList;
+//    }
+//
+//    public void setWishList(List<Post> wishList) {
+//        this.wishList = wishList;
+//    }
+//
+//    public void addPostToWishList(Post post){
+//        this.wishList.add(post);
+//    }
+//
+//    public void deleteFromWishList(Post post){
+//        this.wishList.remove(post);
+//    }
 
     public Model(){
         this.count = 0;
@@ -150,8 +150,8 @@ public class Model {
     public void deletePost(int pos){ data.remove(pos); }
     public void deletePostByPost(Post post){
 
-        int index = data.indexOf(post);
-        data.remove(index);
+//        int index = data.indexOf(post);
+//        data.remove(index);
     }
     public Post getPost(int pos){ return data.get(pos); }
 
