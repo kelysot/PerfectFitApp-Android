@@ -27,6 +27,15 @@ public class Model {
     List<SubCategory> subCategories = new ArrayList<>();
     ModelServer modelServer = new ModelServer();
     List<Post> wishList = new ArrayList<>();
+    Post post;
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
 
     public List<Category> getCategories() {
         return categories;
@@ -323,6 +332,27 @@ public class Model {
     public void editPost(Post post, editPostListener listener){
         modelServer.editPost(post, listener);
     }
+
+    /*--------------------------------------------------------*/
+
+    public interface getProfilePostsListener{
+        void onComplete(List<Post> list);
+    }
+
+    public void getProfilePosts(String userName, getProfilePostsListener listener){
+        modelServer.getProfilePosts(userName, listener);
+    }
+
+    /*--------------------------------------------------------*/
+
+    public interface getPostByIdListener{
+        void onComplete(Post post);
+    }
+
+    public void getPostById(String postId,getPostByIdListener listener ){
+        modelServer.getPostById(postId, listener);
+    }
+
 
 
     /******************************************************************************************/

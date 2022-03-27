@@ -92,6 +92,12 @@ public interface RetrofitInterface {
     Call<Void> editPost(@Header("authorization") String token, @Body HashMap<String, Object> post);
 //    Call<JsonArray> getWishList(@Header("authorization") String token, @Path("wishListId") List<String> wishListId);
 
+    @GET("/post/getProfilePosts/{userName}")
+    Call<JsonArray> getProfilePosts(@Header("authorization") String token, @Path("userName") String userName);
+
+    @GET("/post/getPostById/{postId}")
+    Call<JsonObject> getPostById(@Header("authorization") String token, @Path("postId") String postId);
+
     /*--------------------------------- Category -------------------------------*/
 
     @GET("/category/{gender}")

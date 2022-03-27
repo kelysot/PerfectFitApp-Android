@@ -481,6 +481,68 @@ public class ModelServer {
                 listener.onComplete(false);
             }
         });
+    }
+
+
+    public void getProfilePosts(String userName, Model.getProfilePostsListener listener){
+        String token = sp.getString("ACCESS_TOKEN", "");
+        Call<JsonArray> call = service.getProfilePosts(token, userName);
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if(response.code() == 200){
+//                    JsonArray profilePostsArray = response.body();
+//                    List<Post> posts = new ArrayList<>();
+                    List<Post> posts = Post.jsonArrayToPost(response.body());
+                    listener.onComplete(posts);
+                }
+                else{
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    Log.d("TAG", "failed in ModelServer in getProfilePosts 1");
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                Log.d("TAG", "failed in ModelServer in getProfilePosts 2");
+                listener.onComplete(null);
+            }
+        });
+    }
+
+
+    public void getPostById(String postId, Model.getPostByIdListener listener){
+        String token = sp.getString("ACCESS_TOKEN", "");
+        Call<JsonObject> call = service.getPostById(token, postId);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if(response.code() == 200){
+                    JsonElement js = response.body();
+                    Post post = Post.jsonElementToPost(js);
+                    listener.onComplete(post);
+                }
+                else{
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    Log.d("TAG", "failed in ModelServer in getProfilePosts 2");
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                Log.d("TAG", "failed in ModelServer in getProfilePosts 2");
+                listener.onComplete(null);
+            }
+        });
+
 
     }
 

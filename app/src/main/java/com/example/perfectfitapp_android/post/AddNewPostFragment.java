@@ -63,6 +63,8 @@ public class AddNewPostFragment extends Fragment {
     //TODO: Send sizeAdj and rating to server.
     private void post(View view) {
 
+        postBtn.setEnabled(false);
+
         String productName, sku, size, company, color, category, subCategory, description;
         String link, price;
 
@@ -104,6 +106,7 @@ public class AddNewPostFragment extends Fragment {
                         .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
             }
             else {
+                postBtn.setEnabled(true);
                 //TODO: Handle what we want in else.
                 Toast.makeText(MyApplication.getContext(), "Post didn't saved",
                         Toast.LENGTH_LONG).show();
@@ -158,7 +161,5 @@ public class AddNewPostFragment extends Fragment {
         colorAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, colorArr);
         colorAuto.setAdapter(colorAdapter);
         colorAuto.setThreshold(1);
-
-
     }
 }

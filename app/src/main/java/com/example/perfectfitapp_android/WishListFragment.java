@@ -1,9 +1,11 @@
 package com.example.perfectfitapp_android;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
+import com.example.perfectfitapp_android.profile.ProfileFragmentDirections;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,9 +27,17 @@ import java.util.List;
 
 public class WishListFragment extends Fragment {
 
-    List<Post> data;
+    WishListViewModel viewModel;
     MyAdapter adapter;
     Button getListBtn;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        viewModel = new ViewModelProvider(this).get(WishListViewModel.class);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +48,7 @@ public class WishListFragment extends Fragment {
         getListBtn = view.findViewById(R.id.wishlist_get_list_btn);
         getListBtn.setOnClickListener(v -> getWishList(view));
 
-        data = Model.instance.getWishList();
+//        data = Model.instance.getWishList();
 
         RecyclerView myWishList = view.findViewById(R.id.wishlist_rv);
         myWishList.setHasFixedSize(true);
@@ -47,9 +58,13 @@ public class WishListFragment extends Fragment {
         myWishList.setAdapter(adapter);
 
         adapter.setOnItemClickListener((v, position) -> {
-            String postId = data.get(position).getPostId();
+            String postId = viewModel.getData().get(position).getPostId();
             System.out.println("post " + postId + " was clicked");
-            Navigation.findNavController(v).navigate(WishListFragmentDirections.actionGlobalPostPageFragment(postId));
+            Model.instance.getPostById(postId, post -> {
+                //TODO: bring the post from appLocalDB
+                Model.instance.setPost(post);
+                Navigation.findNavController(v).navigate(WishListFragmentDirections.actionGlobalPostPageFragment(postId));
+            });
         });
 
         refresh(view);
@@ -60,7 +75,9 @@ public class WishListFragment extends Fragment {
     private void refresh(View view) {
         getWishList(view);
         Model.instance.getWishListFromServer(list -> {
-            Model.instance.setWishList(list);
+            viewModel.setData(list);
+            adapter.notifyDataSetChanged();
+//            Model.instance.setWishList(list);
         });
     }
 
@@ -92,8 +109,8 @@ public class WishListFragment extends Fragment {
 //                    }
 //                }
 //            }
-            data = Model.instance.getWishList();
-            adapter.notifyDataSetChanged();
+//            data = Model.instance.getWishList();
+//            adapter.notifyDataSetChanged();
         });
     }
 
@@ -136,7 +153,7 @@ public class WishListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            Post post = data.get(position);
+            Post post = viewModel.getData().get(position);
             holder.userNameTv.setText(post.getProfileId());
             holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
@@ -145,10 +162,12 @@ public class WishListFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(data != null)
-                return data.size();
-            else
+            if(viewModel.getData() == null) {
                 return 0;
+            }
+            else {
+                return viewModel.getData().size();
+            }
         }
     }
 }

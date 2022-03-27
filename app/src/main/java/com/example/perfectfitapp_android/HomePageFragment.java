@@ -1,10 +1,12 @@
 package com.example.perfectfitapp_android;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,11 +46,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomePageFragment extends Fragment {
 
-    List<Post> data;
+    HomePageViewModel viewModel;
     MyAdapter adapter;
     Button getPostBtn;
 
     TextView userName;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(HomePageViewModel.class);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,7 +69,7 @@ public class HomePageFragment extends Fragment {
 
         getPostBtn = view.findViewById(R.id.homepage_getpost_btn);
         getPostBtn.setOnClickListener(v -> getPost(view));
-        data = Model.instance.getAllPosts();
+//        data = Model.instance.getAllPosts();
 
         RecyclerView postsList = view.findViewById(R.id.postlist_rv);
         postsList.setHasFixedSize(true);
@@ -71,9 +79,13 @@ public class HomePageFragment extends Fragment {
         postsList.setAdapter(adapter);
 
         adapter.setOnItemClickListener((v, position) -> {
-            String postId = data.get(position).getPostId();
+            String postId = viewModel.getData().get(position).getPostId();
             System.out.println("post " + postId + " was clicked");
-            Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToPostPageFragment2(postId));
+            //TODO: bring the post from appLocalDB
+            Model.instance.getPostById(postId, post -> {
+                Model.instance.setPost(post);
+                Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToPostPageFragment2(postId));
+            });
         });
 
         //TODO: menu
@@ -85,53 +97,55 @@ public class HomePageFragment extends Fragment {
     }
 
     private void refresh(View view) {
-        //TODO: refresh function
-        getPost(view);
-        Model.instance.getWishListFromServer(list -> {
-            Model.instance.setWishList(list);
-            System.out.println("-----------------");
-            System.out.println(Model.instance.getWishList());
 
+        Model.instance.getAllPostsFromServer(postList -> {
+            viewModel.setData(postList);
+            adapter.notifyDataSetChanged();
         });
+
+//        Model.instance.getWishListFromServer(list -> {
+//            Model.instance.setWishList(list);
+//            System.out.println("-----------------");
+//            System.out.println(Model.instance.getWishList());
+//
+//        });
     }
 
     private void getPost(View view) {
 
-        System.out.println("button get post clicked");
-
         Model.instance.getAllPostsFromServer(postList -> {
-
-
-            if(postList != null){
-
-                List<String> idFromServer = new LinkedList<>();
-                List<String> postIdListModel = new LinkedList<>();
-
-                for (Post p: postList){
-                    idFromServer.add(p.getPostId()); // the id from server
-                }
-                for (Post p:Model.instance.getAllPosts()) {
-                    postIdListModel.add(p.getPostId()); // the id from the model
-                }
-
-                for(int i=0; i<idFromServer.size(); i++){
-                    if(!postIdListModel.contains(idFromServer.get(i))){
-                        Model.instance.addPost(postList.get(i));
-                    }
-                }
-                for(int j=0; j<postIdListModel.size(); j++){
-                    if(!idFromServer.contains(postIdListModel.get(j))){
-                        Post post = Model.instance.getPostById(postIdListModel.get(j));
-                        Model.instance.deletePostByPost(post);
-                    }
-                }
-                adapter.notifyDataSetChanged();
-            }
-            else{
-                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                        Toast.LENGTH_LONG).show();
-                Log.d("TAG", "failed in getAllPosts - getPost in HomePageFragment");
-            }
+            viewModel.setData(postList);
+            adapter.notifyDataSetChanged();
+//            if(postList != null){
+//
+//                List<String> idFromServer = new LinkedList<>();
+//                List<String> postIdListModel = new LinkedList<>();
+//
+//                for (Post p: postList){
+//                    idFromServer.add(p.getPostId()); // the id from server
+//                }
+//                for (Post p:Model.instance.getAllPosts()) {
+//                    postIdListModel.add(p.getPostId()); // the id from the model
+//                }
+//
+//                for(int i=0; i<idFromServer.size(); i++){
+//                    if(!postIdListModel.contains(idFromServer.get(i))){
+//                        Model.instance.addPost(postList.get(i));
+//                    }
+//                }
+//                for(int j=0; j<postIdListModel.size(); j++){
+//                    if(!idFromServer.contains(postIdListModel.get(j))){
+//                        Post post = Model.instance.getPostById(postIdListModel.get(j));
+//                        Model.instance.deletePostByPost(post);
+//                    }
+//                }
+//                adapter.notifyDataSetChanged();
+//            }
+//            else{
+//                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+//                        Toast.LENGTH_LONG).show();
+//                Log.d("TAG", "failed in getAllPosts - getPost in HomePageFragment");
+//            }
         });
     }
 
@@ -180,7 +194,7 @@ public class HomePageFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            Post post = data.get(position);
+            Post post = viewModel.getData().get(position);
             holder.userNameTv.setText(post.getProfileId());
             holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
@@ -224,7 +238,10 @@ public class HomePageFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return data.size();
+            if(viewModel.getData() == null){
+                return 0;
+            }
+            return viewModel.getData().size();
         }
     }
 

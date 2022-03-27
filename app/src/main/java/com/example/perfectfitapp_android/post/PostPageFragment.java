@@ -39,7 +39,9 @@ public class PostPageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_post_page, container, false);
 
         postId = PostPageFragmentArgs.fromBundle(getArguments()).getPostId();
-        Post post = Model.instance.getPostById(postId);
+        //TODO: delete all the Model.instance.post..
+
+        Post post = Model.instance.getPost();
 
         productNameEt = view.findViewById(R.id.postpage_productname_et);
         skuEt = view.findViewById(R.id.postpage_sku_et);
