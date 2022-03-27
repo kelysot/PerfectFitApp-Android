@@ -517,10 +517,11 @@ public class ModelServer {
 
     public void getPostById(String postId, Model.getPostByIdListener listener){
         String token = sp.getString("ACCESS_TOKEN", "");
-        Call<JsonObject> call = service.getPostById(token, postId);
-        call.enqueue(new Callback<JsonObject>() {
+        Call<JsonElement> call = service.getPostById(token, postId);
+
+        call.enqueue(new Callback<JsonElement>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 if(response.code() == 200){
                     JsonElement js = response.body();
                     Post post = Post.jsonElementToPost(js);
@@ -535,13 +536,37 @@ public class ModelServer {
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<JsonElement> call, Throwable t) {
                 Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                         Toast.LENGTH_LONG).show();
                 Log.d("TAG", "failed in ModelServer in getProfilePosts 2");
                 listener.onComplete(null);
             }
         });
+//        call.enqueue(new Callback<JsonElement>() {
+//            @Override
+//            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+//                if(response.code() == 200){
+//                    JsonElement js = response.body();
+//                    Post post = Post.jsonElementToPost(js);
+//                    listener.onComplete(post);
+//                }
+//                else{
+//                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+//                            Toast.LENGTH_LONG).show();
+//                    Log.d("TAG", "failed in ModelServer in getProfilePosts 2");
+//                    listener.onComplete(null);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<JsonObject> call, Throwable t) {
+//                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+//                        Toast.LENGTH_LONG).show();
+//                Log.d("TAG", "failed in ModelServer in getProfilePosts 2");
+//                listener.onComplete(null);
+//            }
+//        });
 
 
     }

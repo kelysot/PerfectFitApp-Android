@@ -7,6 +7,7 @@ import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.model.User;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
@@ -96,7 +97,7 @@ public interface RetrofitInterface {
     Call<JsonArray> getProfilePosts(@Header("authorization") String token, @Path("userName") String userName);
 
     @GET("/post/getPostById/{postId}")
-    Call<JsonObject> getPostById(@Header("authorization") String token, @Path("postId") String postId);
+    Call<JsonElement> getPostById(@Header("authorization") String token, @Path("postId") String postId);
 
     /*--------------------------------- Category -------------------------------*/
 

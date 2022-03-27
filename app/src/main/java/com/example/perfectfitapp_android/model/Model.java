@@ -73,6 +73,7 @@ public class Model {
         this.count = 0;
         user = new User();
         profile = new Profile();
+        post = new Post();
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
