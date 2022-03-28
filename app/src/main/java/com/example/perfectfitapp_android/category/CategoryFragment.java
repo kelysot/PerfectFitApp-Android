@@ -1,9 +1,11 @@
 package com.example.perfectfitapp_android.category;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import com.example.perfectfitapp_android.HomePageFragment;
 import com.example.perfectfitapp_android.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.R;
+import com.example.perfectfitapp_android.WishListViewModel;
 import com.example.perfectfitapp_android.model.Category;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
@@ -28,13 +31,18 @@ import java.util.List;
 
 public class CategoryFragment extends Fragment {
 
-    List<Category> data;
+    CategoryViewModel viewModel;
     MyAdapter adapter;
-    Button getCategories;
 
 
     public CategoryFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
     }
 
     @Override
@@ -43,12 +51,6 @@ public class CategoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_category, container, false);
 
-
-        getCategories = view.findViewById(R.id.get_categories);
-        getCategories.setOnClickListener(v -> getCategory(view));
-
-        data = Model.instance.getAllCategories();
-
         RecyclerView categoryList = view.findViewById(R.id.category_rv);
         categoryList.setHasFixedSize(true);
         categoryList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -56,25 +58,20 @@ public class CategoryFragment extends Fragment {
         adapter = new CategoryFragment.MyAdapter();
         categoryList.setAdapter(adapter);
 
-        //TODO: send Id when navigate to subCategories for now bring all the subCategories -->
-        // need to get from server: subCategory by the category id instead get all like its work now
         adapter.setOnItemClickListener((v, position) -> {
-            String categoryId = data.get(position).getCategoryId();
+            String categoryId = viewModel.getData().get(position).getCategoryId();
             Navigation.findNavController(v).navigate(CategoryFragmentDirections.actionCategoryFragmentToSubCategoryFragment(categoryId));
         });
+
+        refresh();
 
         return view;
     }
 
-    private void getCategory(View view) {
-        Model.instance.getAllCategoriesListener(new Model.GetAllCategoriesListener() {
-            @Override
-            public void onComplete(List<Category> categoryList) {
-                for (int i = 0; i < categoryList.size(); i++){
-                    Model.instance.addCategory(categoryList.get(i));
-                }
-                Navigation.findNavController(view).navigate(CategoryFragmentDirections.actionGlobalCategoryFragment());
-            }
+    private void refresh() {
+        Model.instance.getAllCategoriesListener(list -> {
+            viewModel.setData(list);
+            adapter.notifyDataSetChanged();
         });
     }
 
@@ -117,7 +114,7 @@ public class CategoryFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull CategoryFragment.MyViewHolder holder, int position) {
-            Category category = data.get(position);
+            Category category = viewModel.getData().get(position);
             holder.categoryNameTv.setText(category.getName());
             if (category.getPictureUrl() != null) {
                 Picasso.get().load(category.getPictureUrl()).into(holder.categoryImage);
@@ -126,10 +123,10 @@ public class CategoryFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(data != null)
-                return data.size();
-            else
+            if(viewModel.getData() == null)
                 return 0;
+            else
+                return viewModel.getData().size();
         }
     }
 }
