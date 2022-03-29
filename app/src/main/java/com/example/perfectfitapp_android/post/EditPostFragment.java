@@ -9,6 +9,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -21,6 +22,8 @@ import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
 
 
 public class EditPostFragment extends Fragment {
@@ -35,8 +38,10 @@ public class EditPostFragment extends Fragment {
 
     TextInputLayout sizeTxtIL, categoryTxtIL, subcategoryTxtIL, companyTxtIl, colorTxtIl;
     AutoCompleteTextView sizeAutoTv, categoryAuto, subCategoryAuto, companyAuto, colorAuto;
-    String[] sizeArr, categoryArr, subcategoryArr, companyArr, colorArr;
+    String[] sizeArr, companyArr, categoryArr, colorArr;
+    ArrayList<String> subcategoryArr;
     ArrayAdapter<String> sizeAdapter, categoryAdapter, subcategoryAdapter, companyAdapter, colorAdapter;
+    String chosenCategory;
 
 
     @Override
@@ -165,22 +170,48 @@ public class EditPostFragment extends Fragment {
 
         categoryTxtIL = view.findViewById(R.id.editpost_categories_txtil);
         categoryAuto = view.findViewById(R.id.editpost_category_auto);
-        categoryArr = getResources().getStringArray(R.array.categories);
+
+        int size = Model.instance.getCategories().size();
+        categoryArr = new String[size];
+        int i = 0;
+        for(String key : Model.instance.getCategoriesAndSubCategories().keySet()){
+            categoryArr[i]= key;
+            i++;
+        }
+//        categoryArr = getResources().getStringArray(R.array.categories);
 
         categoryAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, categoryArr);
         categoryAuto.setText(post.getCategoryId());
         categoryAuto.setAdapter(categoryAdapter);
+        categoryAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                chosenCategory = categoryAuto.getText().toString();
+
+                subCategoryAuto.setEnabled(true);
+                subcategoryTxtIL.setEnabled(true);
+                subcategoryArr= Model.instance.getCategoriesAndSubCategories().get(chosenCategory);
+
+                subcategoryAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, subcategoryArr);
+                subCategoryAuto.setAdapter(subcategoryAdapter);
+                subCategoryAuto.setThreshold(1);
+            }
+        });
         categoryAuto.setThreshold(1);
 
         /****** subCategories ******/
         subcategoryTxtIL = view.findViewById(R.id.editpost_subcategories_txtil);
         subCategoryAuto = view.findViewById(R.id.editpost_subcategory_auto);
-        subcategoryArr =  getResources().getStringArray(R.array.subcategories_shirts);
-
-        subcategoryAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, subcategoryArr);
         subCategoryAuto.setText(post.getSubCategoryId());
-        subCategoryAuto.setAdapter(subcategoryAdapter);
-        subCategoryAuto.setThreshold(1);
+
+        subCategoryAuto.setEnabled(false);
+        subcategoryTxtIL.setEnabled(false);
+//        subcategoryArr =  getResources().getStringArray(R.array.subcategories_shirts);
+//
+//        subcategoryAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, subcategoryArr);
+//        subCategoryAuto.setText(post.getSubCategoryId());
+//        subCategoryAuto.setAdapter(subcategoryAdapter);
+//        subCategoryAuto.setThreshold(1);
 
         /****** companies ******/
         companyTxtIl = view.findViewById(R.id.editpost_companies_txtil);
