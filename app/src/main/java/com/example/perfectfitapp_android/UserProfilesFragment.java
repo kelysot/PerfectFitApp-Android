@@ -20,10 +20,12 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.model.SubCategory;
 
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import okio.Timeout;
 
@@ -136,9 +138,25 @@ public class UserProfilesFragment extends Fragment {
                 profile.setStatus("true");
                 Model.instance.editProfile(null,profile, isSuccess -> {
                     if(isSuccess){
-                        Model.instance.setCategories(new LinkedList<>());
-                        Model.instance.setSubCategories(new LinkedList<>());
-                        Navigation.findNavController(addProfile).navigate(R.id.action_userProfilesFragment_to_homePageFragment);
+                        Model.instance.getAllCategoriesListener(categoryList -> {
+                            for(int i = 0; i< categoryList.size(); i++){
+                                int finalI = i;
+                                Model.instance.getSubCategoriesByCategoryId(categoryList.get(i).getCategoryId(), profile.getGender(), new Model.GetSubCategoriesByCategoryIdListener() {
+                                    @Override
+                                    public void onComplete(List<SubCategory> subCategoryList) {
+                                        ArrayList<String> subCategoryNames = new ArrayList<>();
+                                        for(int j = 0; j < subCategoryList.size(); j++){
+                                            subCategoryNames.add(subCategoryList.get(j).getName());
+                                        }
+                                        Model.instance.putCategoriesAndSubCategories(categoryList.get(finalI).getName(), subCategoryNames);
+                                        Log.d("TAG", Model.instance.getCategoriesAndSubCategories().toString());
+                                    }
+                                });
+
+                            }
+                            Model.instance.setCategories(categoryList);
+                            Navigation.findNavController(addProfile).navigate(R.id.action_userProfilesFragment_to_homePageFragment);
+                        });
                     }
                     else{
                         Log.d("TAG", "failed in UserProfileFragment 1");

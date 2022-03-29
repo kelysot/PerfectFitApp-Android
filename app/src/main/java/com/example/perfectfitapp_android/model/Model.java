@@ -7,8 +7,10 @@ import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.RetrofitInterface;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -23,8 +25,9 @@ public class Model {
     RetrofitInterface retrofitInterface;
     String BASE_URL = "http://10.0.2.2:4000";
     List<Post> data = new LinkedList<Post>();
-    List<Category> categories = new LinkedList<Category>();
+    List<Category> categories = new ArrayList<>();
     List<SubCategory> subCategories = new ArrayList<>();
+    Map<String, ArrayList<String>> categoriesAndSubCategories = new HashMap<>();
     ModelServer modelServer = new ModelServer();
 //    List<Post> wishList = new ArrayList<>();
     Post post;
@@ -53,7 +56,19 @@ public class Model {
         this.subCategories = subCategories;
     }
 
-//    public List<Post> getWishList() {
+    public Map<String, ArrayList<String>> getCategoriesAndSubCategories() {
+        return categoriesAndSubCategories;
+    }
+
+    public void setCategoriesAndSubCategories(Map<String, ArrayList<String>> categoriesAndSubCategories) {
+        this.categoriesAndSubCategories = categoriesAndSubCategories;
+    }
+
+    public void putCategoriesAndSubCategories(String category, ArrayList<String> subCategories) {
+        this.categoriesAndSubCategories.put(category, subCategories);
+    }
+
+    //    public List<Post> getWishList() {
 //        return wishList;
 //    }
 //
