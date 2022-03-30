@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class User {
 
-    String email, password;
+    String email, password, isConnected;
     ArrayList<String> profilesArray;
 
     public String getEmail() {
@@ -34,15 +34,25 @@ public class User {
         this.profilesArray = profilesArray;
     }
 
+    public String getIsConnected() {
+        return isConnected;
+    }
+
+    public void setIsConnected(String isConnected) {
+        this.isConnected = isConnected;
+    }
+
     public User(){
         this.email = "";
         this.password = "";
+        this.isConnected = "";
         profilesArray = new ArrayList<>();
     }
 
-    public User(String email, String password){
+    public User(String email, String password, String isConnected){
         this.email = email;
         this.password = password;
+        this.isConnected = isConnected;
         profilesArray = new ArrayList<>();
     }
 
@@ -51,6 +61,7 @@ public class User {
         HashMap<String, String> map = new HashMap<>();
         map.put("email", this.getEmail());
         map.put("password", this.getPassword());
+        map.put("isConnected", this.getIsConnected());
 
         return map;
         //TODO: list of profiles
@@ -60,6 +71,7 @@ public class User {
         User user = new User();
 
         user.setEmail(json.get("email").getAsString());
+        user.setIsConnected(json.get("isConnected").getAsString());
 //        user.setPassword(json.get("password").getAsString()); //TODO: need the password here?
         ArrayList<String> arr = new ArrayList<>();
         for (JsonElement j: json.get("profilesId").getAsJsonArray()) {

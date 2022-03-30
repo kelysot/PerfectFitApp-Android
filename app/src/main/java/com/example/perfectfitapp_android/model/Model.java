@@ -1,7 +1,11 @@
 package com.example.perfectfitapp_android.model;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+
+import androidx.core.os.HandlerCompat;
 
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.RetrofitInterface;
@@ -11,6 +15,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -18,6 +24,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Model {
 
     public static final Model instance = new Model();
+    public Executor executor = Executors.newFixedThreadPool(1);
+    public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
     int count = 0;
     User user;
     Profile profile;
