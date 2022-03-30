@@ -46,7 +46,7 @@ public class ModelServer {
     /******************************************************************************************/
 
     public void register(String email, String password, Model.RegisterListener listener) {
-        User user = new User(email, password);
+        User user = new User(email, password, "true");
         HashMap<String, String> userMap = user.toJson();
         Call<Void> call = service.executeRegister(userMap);
         call.enqueue(new Callback<Void>() {
