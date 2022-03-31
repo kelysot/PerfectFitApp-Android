@@ -112,6 +112,8 @@ public class EditProfileStep2Fragment extends Fragment {
 
     private void continueStep3(View view) {
         ModelProfile.instance.getEditProfile().setBodyType(bodyTypeTv.getText().toString());
-        Navigation.findNavController(view).navigate(R.id.action_editProfileStep2Fragment_to_editProfileStep3Fragment);
+        Navigation.findNavController(view).navigate(R.id.action_editProfileStep2Fragment2_to_editProfileStep3Fragment2);
+
+//        Navigation.findNavController(view).navigate(R.id.action_editProfileStep2Fragment_to_editProfileStep3Fragment);
     }
 }

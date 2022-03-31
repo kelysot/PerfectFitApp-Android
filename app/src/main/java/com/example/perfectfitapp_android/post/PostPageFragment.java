@@ -29,7 +29,7 @@ public class PostPageFragment extends Fragment {
     //TODO: date
     SeekBar sizeAdj, rating;
     ImageView image;
-    String postId;
+    String postId, postSource;
     ImageButton editBtn;
 
     @Override
@@ -37,6 +37,8 @@ public class PostPageFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_post_page, container, false);
+
+        postSource = PostPageFragmentArgs.fromBundle(getArguments()).getSource();
 
         postId = PostPageFragmentArgs.fromBundle(getArguments()).getPostId();
         //TODO: delete all the Model.instance.post..
@@ -94,9 +96,6 @@ public class PostPageFragment extends Fragment {
     }
 
     private void editPost(View view) {
-
-        Navigation.findNavController(view).navigate(PostPageFragmentDirections.actionPostPageFragmentToEditPostFragment(postId));
-
-
+        Navigation.findNavController(view).navigate(PostPageFragmentDirections.actionPostPageFragmentToEditPostFragment(postId, postSource));
     }
 }

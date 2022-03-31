@@ -94,7 +94,8 @@ public class EditProfileFragment extends Fragment {
         ModelProfile.instance.getEditProfile().setBirthday(birthday);
         ModelProfile.instance.getEditProfile().setGender(gender);
 
+        Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
 
-        Navigation.findNavController(view).navigate(R.id.action_editProfileFragment_to_editProfileStep2Fragment);
+//        Navigation.findNavController(view).navigate(R.id.action_editProfileFragment_to_editProfileStep2Fragment);
     }
 }

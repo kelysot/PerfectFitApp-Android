@@ -1,4 +1,4 @@
-package com.example.perfectfitapp_android;
+package com.example.perfectfitapp_android.user_profiles;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,11 +20,16 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.perfectfitapp_android.MainActivity;
+import com.example.perfectfitapp_android.MyApplication;
+import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.model.SubCategory;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,6 +53,11 @@ public class UserProfilesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_profiles, container, false);
 
         model = Model.instance;
+
+        /************* initilize categories *************/
+        Model.instance.setCategories(new LinkedList<>());
+        Model.instance.setSubCategories(new LinkedList<>());
+        Model.instance.setCategoriesAndSubCategories(new HashMap<>());
 
         addProfile = view.findViewById(R.id.user_profiles_addprofile_btn);
         addProfile.setOnClickListener(v-> addProfile(view));
@@ -107,31 +118,35 @@ public class UserProfilesFragment extends Fragment {
 
 
     private void moveToHomePageWithProfile(String userName) {
-
         setButtonsEnable(false);
         if(!Model.instance.getProfile().getUserName().isEmpty()){
-            Model.instance.getProfile().setStatus("false");
-            Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
-                if(isSuccess){
-                    changeProfile(userName);
-                }
-                else{
-                    // TODO
-                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                            Toast.LENGTH_LONG).show();
-                    Log.d("TAG", "failed in UserProfile in editProfile - change status to false");
-                    setButtonsEnable(true);
-                }
-            });
+            if(buttonList.contains(Model.instance.getProfile().getUserName())){
+                Model.instance.getProfile().setStatus("false");
+                System.out.println("the profile: " + Model.instance.getProfile());
+                System.out.println("----------------" + Model.instance.getProfile().getUserName());
+                Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
+                    if(isSuccess){
+                        changeProfile(userName);
+                    }
+                    else{
+                        // TODO dialog
+                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                Toast.LENGTH_LONG).show();
+                        Log.d("TAG", "failed in UserProfile in editProfile - change status to false");
+                        setButtonsEnable(true);
+                    }
+                });
+            }
+            else{ // no need to change the profile because it's deleted.
+                changeProfile(userName);
+            }
         }
         else{
             changeProfile(userName);
         }
     }
 
-
     public void changeProfile(String userName){
-
         Model.instance.getProfileFromServer(model.getUser().getEmail(), userName, profile -> {
             if(profile != null){
                 model.setProfile(profile);
@@ -150,12 +165,13 @@ public class UserProfilesFragment extends Fragment {
                                         }
                                         Model.instance.putCategoriesAndSubCategories(categoryList.get(finalI).getName(), subCategoryNames);
                                         Log.d("TAG", Model.instance.getCategoriesAndSubCategories().toString());
+
                                     }
                                 });
-
                             }
                             Model.instance.setCategories(categoryList);
-                            Navigation.findNavController(addProfile).navigate(R.id.action_userProfilesFragment_to_homePageFragment);
+                            startActivity(new Intent(getContext(), MainActivity.class));
+                            getActivity().finish();
                         });
                     }
                     else{
@@ -184,7 +200,7 @@ public class UserProfilesFragment extends Fragment {
                     Toast.LENGTH_LONG).show();
         }
         else{
-            Navigation.findNavController(view).navigate(R.id.action_userProfilesFragment_to_registerFragment2);
+            Navigation.findNavController(view).navigate(R.id.action_userProfilesFragment2_to_createProfileStep1Fragment2);
         }
     }
 
@@ -210,8 +226,10 @@ public class UserProfilesFragment extends Fragment {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()) {
             case R.id.profile_edit_menuItem:{
-                Navigation.findNavController(addProfile).navigate(UserProfilesFragmentDirections.actionUserProfilesFragmentToEditProfileFragment2());
+                // TODO: add the edit profile here
+                Navigation.findNavController(addProfile).navigate(R.id.action_userProfilesFragment2_to_editProfileFragment2);
                 return true;
+//                actionUserProfilesFragmentToEditProfileFragment2()
             }
             case R.id.profile_delete_menuItem:{
                 Model.instance.deleteProfile(longClickUserName,isSuccess -> {
@@ -220,6 +238,7 @@ public class UserProfilesFragment extends Fragment {
 //                        buttonList.get(posInArray).setVisibility(View.GONE);
 //                        buttonList.remove(posInArray);
                         setButtons();
+                        Navigation.findNavController(addProfile).navigate(R.id.action_global_userProfilesFragment2);
 
                     }else{
                         Log.d("TAG","not work");

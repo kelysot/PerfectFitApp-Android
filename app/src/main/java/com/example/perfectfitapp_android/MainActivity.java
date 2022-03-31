@@ -38,16 +38,16 @@ public class MainActivity extends AppCompatActivity {
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
         navCtl = navHost.getNavController();
 
-        navCtl.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-                if(navDestination.getId() == R.id.userProfilesFragment) {
-                    bottomNavigationView.setVisibility(View.GONE);
-                } else {
-                    bottomNavigationView.setVisibility(View.VISIBLE);
-                }
-            }
-        });
+//        navCtl.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+//            @Override
+//            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+//                if(navDestination.getId() == R.id.userProfilesFragment) {
+//                    bottomNavigationView.setVisibility(View.GONE);
+//                } else {
+//                    bottomNavigationView.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        });
 
         NavigationUI.setupWithNavController(bottomNavigationView, navCtl);
         NavigationUI.setupActionBarWithNavController(this, navCtl);

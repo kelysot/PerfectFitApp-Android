@@ -36,6 +36,7 @@ import java.util.List;
 
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.post.AddNewPostFragmentDirections;
+import com.example.perfectfitapp_android.user_profiles.UserProfilesActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -84,7 +85,7 @@ public class HomePageFragment extends Fragment {
             //TODO: bring the post from appLocalDB
             Model.instance.getPostById(postId, post -> {
                 Model.instance.setPost(post);
-                Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToPostPageFragment2(postId));
+                Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToPostPageFragment2(postId, "home"));
             });
         });
 
@@ -102,13 +103,6 @@ public class HomePageFragment extends Fragment {
             viewModel.setData(postList);
             adapter.notifyDataSetChanged();
         });
-
-//        Model.instance.getWishListFromServer(list -> {
-//            Model.instance.setWishList(list);
-//            System.out.println("-----------------");
-//            System.out.println(Model.instance.getWishList());
-//
-//        });
     }
 
     private void getPost(View view) {
@@ -261,7 +255,9 @@ public class HomePageFragment extends Fragment {
             return true;
         }
         else if(item.getItemId() == R.id.UserProfileFragment){
-            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalUserProfilesFragment());
+            startActivity(new Intent(getContext(), UserProfilesActivity.class));
+            getActivity().finish();
+//            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalUserProfilesFragment());
             return true;
         }
         else if(item.getItemId() == R.id.logout){

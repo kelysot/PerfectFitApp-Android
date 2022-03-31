@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/userProfilesFragment">
+    app:startDestination="@id/homePageFragment">
 
     <fragment
         android:id="@+id/homePageFragment"
@@ -36,6 +36,7 @@
         <argument
             android:name="postId"
             app:argType="string" />
+        <argument android:name="source" />
     </fragment>
     <fragment
         android:id="@+id/postPageFragment"
@@ -48,59 +49,13 @@
         <argument
             android:name="postId"
             app:argType="string" />
+        <argument android:name="source" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.perfectfitapp_android.profile.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" >
-        <action
-            android:id="@+id/action_profileFragment_to_editProfileFragment"
-            app:destination="@id/editProfileFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/userProfilesFragment"
-        android:name="com.example.perfectfitapp_android.UserProfilesFragment"
-        android:label="Profiles"
-        tools:layout="@layout/fragment_user_profiles">
-        <action
-            android:id="@+id/action_userProfilesFragment_to_registerFragment2"
-            app:destination="@id/createProfileStep1Fragment" />
-        <action
-            android:id="@+id/action_userProfilesFragment_to_homePageFragment"
-            app:destination="@id/homePageFragment" />
-        <action
-            android:id="@+id/action_userProfilesFragment_to_editProfileFragment2"
-            app:destination="@id/editProfileFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/createProfileStep1Fragment"
-        android:name="com.example.perfectfitapp_android.create_profile.CreateProfileStep1Fragment"
-        android:label="Create Profile - Step 1"
-        tools:layout="@layout/fragment_create_profile_step1">
-        <action
-            android:id="@+id/action_registerFragment2_to_registerStep2Fragment2"
-            app:destination="@id/createProfileStep2Fragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/createProfileStep2Fragment"
-        android:name="com.example.perfectfitapp_android.create_profile.CreateProfileStep2Fragment"
-        android:label="Create Profile - Step 2"
-        tools:layout="@layout/fragment_create_profile_step2">
-        <action
-            android:id="@+id/action_registerStep2Fragment2_to_registerStep3Fragment2"
-            app:destination="@id/createProfileStep3Fragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/createProfileStep3Fragment"
-        android:name="com.example.perfectfitapp_android.create_profile.CreateProfileStep3Fragment"
-        android:label="Create Profile - Step 3"
-        tools:layout="@layout/fragment_create_profile_step3">
-        <action
-            android:id="@+id/action_registerStep3Fragment2_to_homePageFragment"
-            app:destination="@id/homePageFragment" />
-    </fragment>
-    <action android:id="@+id/action_global_userProfilesFragment" app:destination="@id/userProfilesFragment" />
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.example.perfectfitapp_android.category.CategoryFragment"
@@ -114,29 +69,7 @@
     <action
         android:id="@+id/action_global_categoryFragment"
         app:destination="@id/categoryFragment" />
-    <fragment
-        android:id="@+id/editProfileFragment"
-        android:name="com.example.perfectfitapp_android.profile.EditProfileFragment"
-        android:label="Edit profile"
-        tools:layout="@layout/fragment_edit_profile" >
-        <action
-            android:id="@+id/action_editProfileFragment_to_editProfileStep2Fragment"
-            app:destination="@id/editProfileStep2Fragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/editProfileStep2Fragment"
-        android:name="com.example.perfectfitapp_android.profile.EditProfileStep2Fragment"
-        android:label="Edit profile step2"
-        tools:layout="@layout/fragment_edit_profile_step2" >
-        <action
-            android:id="@+id/action_editProfileStep2Fragment_to_editProfileStep3Fragment"
-            app:destination="@id/editProfileStep3Fragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/editProfileStep3Fragment"
-        android:name="com.example.perfectfitapp_android.profile.EditProfileStep3Fragment"
-        android:label="Edit profile step3"
-        tools:layout="@layout/fragment_edit_profile_step3" /><action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment"/>
+    <action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment"/>
     <fragment
         android:id="@+id/subCategoryFragment"
         android:name="com.example.perfectfitapp_android.sub_category.SubCategoryFragment"

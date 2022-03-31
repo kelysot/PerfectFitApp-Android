@@ -75,7 +75,8 @@ public class CreateProfileStep2Fragment extends Fragment {
 
     private void continueStep3(View view) {
         CreateProfileModel.instance.profile.setBodyType(bodyTypeTv.getText().toString());
-        Navigation.findNavController(view).navigate(R.id.action_registerStep2Fragment2_to_registerStep3Fragment2);
+//        Navigation.findNavController(view).navigate(R.id.action_registerStep2Fragment2_to_registerStep3Fragment2);
+        Navigation.findNavController(view).navigate(R.id.action_createProfileStep2Fragment2_to_createProfileStep3Fragment2);
     }
 
 

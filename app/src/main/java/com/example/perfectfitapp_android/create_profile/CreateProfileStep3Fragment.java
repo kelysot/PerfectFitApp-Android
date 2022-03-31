@@ -1,5 +1,6 @@
 package com.example.perfectfitapp_android.create_profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.perfectfitapp_android.MainActivity;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.RetrofitInterface;
 import com.example.perfectfitapp_android.model.Model;
@@ -97,7 +99,10 @@ public class CreateProfileStep3Fragment extends Fragment {
                 Model.instance.getProfileFromServer(email, userName, profile -> {
                     if(profile != null){
                         Model.instance.setProfile(profile);
-                        Navigation.findNavController(view).navigate(R.id.action_registerStep3Fragment2_to_homePageFragment);
+                        Navigation.findNavController(view).navigate(R.id.action_global_userProfilesFragment2);
+//                        startActivity(new Intent(getContext(), MainActivity.class));
+//                         getActivity().finish();
+//                        Navigation.findNavController(view).navigate(R.id.action_registerStep3Fragment2_to_homePageFragment);
                     }
                     else{
                         registerBtn.setEnabled(true);
@@ -109,10 +114,6 @@ public class CreateProfileStep3Fragment extends Fragment {
             }
         });
     }
-
-//    private void continueStep4(View view) {
-//        Navigation.findNavController(view).navigate(R.id.action_registerStep3Fragment2_to_homePageFragment);
-//    }
 
 
     private void pickDate(View view) {
