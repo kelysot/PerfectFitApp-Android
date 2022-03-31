@@ -28,13 +28,10 @@ public class CreateUserFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_create_user, container, false);
-
         emailEt = view.findViewById(R.id.create_user_email_et);
         passwordEt = view.findViewById(R.id.create_user_password_et);
-
         registerBtn = view.findViewById(R.id.create_user_register_btn);
         registerBtn.setOnClickListener(v-> register());
-
         return view;
     }
 
@@ -54,8 +51,6 @@ public class CreateUserFragment extends Fragment {
                                 Model.instance.setUser(user);
                                 startActivity(new Intent(getContext(), UserProfilesActivity.class));
                                 getActivity().finish();
-//                                startActivity(new Intent(getContext(), MainActivity.class));
-//                                getActivity().finish();
                             }
                             else{
                                 registerBtn.setEnabled(true);
@@ -72,6 +67,5 @@ public class CreateUserFragment extends Fragment {
                 registerBtn.setEnabled(true);
             }
         });
-
     }
 }
