@@ -81,7 +81,9 @@ public class EditProfileStep3Fragment extends Fragment {
                 int index = arr.indexOf(ModelProfile.instance.getPreviousName());
                 String userName = ModelProfile.instance.getEditProfile().getUserName();
                 Model.instance.getUser().getProfilesArray().set(index, userName);
-                Navigation.findNavController(view).navigate(R.id.action_global_profileFragment);
+
+                Navigation.findNavController(view).navigate(R.id.action_global_userProfilesFragment2);
+//                Navigation.findNavController(view).navigate(R.id.action_global_profileFragment);
             }
         });
     }

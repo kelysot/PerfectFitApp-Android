@@ -74,7 +74,8 @@ public class CreateProfileStep1Fragment extends Fragment {
                     CreateProfileModel.instance.profile.setLastName(lastName);
                     CreateProfileModel.instance.profile.setBirthday(birthday);
                     CreateProfileModel.instance.profile.setGender(gender);
-                    Navigation.findNavController(view).navigate(R.id.action_registerFragment2_to_registerStep2Fragment2);
+//                    Navigation.findNavController(view).navigate(R.id.action_registerFragment2_to_registerStep2Fragment2);
+                    Navigation.findNavController(view).navigate(R.id.action_createProfileStep1Fragment2_to_createProfileStep2Fragment2);
                 }
                 else{
                     Toast.makeText(MyApplication.getContext(), "The user name you choose already exist, please try another one.",

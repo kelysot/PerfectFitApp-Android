@@ -15,8 +15,11 @@
         android:theme="@style/Theme.PerfectFitAppAndroid"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".user_profiles.UserProfilesActivity"
+            android:exported="false" />
+        <activity
             android:name=".IntroActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,11 +28,10 @@
         </activity>
         <activity
             android:name=".login.LoginActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

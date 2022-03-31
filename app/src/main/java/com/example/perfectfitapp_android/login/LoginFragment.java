@@ -1,54 +1,22 @@
 package com.example.perfectfitapp_android.login;
 
 import android.content.Intent;
-import android.os.Binder;
 import android.os.Bundle;
 
-import androidx.annotation.BinderThread;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.renderscript.ScriptGroup;
-import android.util.Log;
-import android.util.Patterns;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.perfectfitapp_android.MainActivity;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
-import com.example.perfectfitapp_android.RetrofitInterface;
+import com.example.perfectfitapp_android.user_profiles.UserProfilesActivity;
 import com.example.perfectfitapp_android.model.Model;
-import com.example.perfectfitapp_android.model.User;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.gson.JsonObject;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.net.BindException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginFragment extends Fragment {
 
@@ -112,8 +80,10 @@ public class LoginFragment extends Fragment {
               Model.instance.getUserFromServer(localInputIEmail, user -> {
                   if(user != null){
                       Model.instance.setUser(user);
-                      startActivity(new Intent(getContext(), MainActivity.class));
+                      startActivity(new Intent(getContext(), UserProfilesActivity.class));
                       getActivity().finish();
+//                      startActivity(new Intent(getContext(), MainActivity.class));
+//                      getActivity().finish();
                   }
                   else{
                       loginBtn.setEnabled(true);

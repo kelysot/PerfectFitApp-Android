@@ -37,7 +37,7 @@ public class ProfileFragment extends Fragment {
     ProfileViewModel viewModel;
     ImageView userPic;
     TextView userNameTv;
-    ImageButton editProfileBtn;
+//    ImageButton editProfileBtn;
     MyAdapter adapter;
 
 
@@ -55,8 +55,8 @@ public class ProfileFragment extends Fragment {
 
         userPic = view.findViewById(R.id.profile_profile_img);
         userNameTv = view.findViewById(R.id.profile_user_name);
-        editProfileBtn = view.findViewById(R.id.profile_edit_profile_btn);
-        editProfileBtn.setOnClickListener(v-> editProfile(view));
+//        editProfileBtn = view.findViewById(R.id.profile_edit_profile_btn);
+//        editProfileBtn.setOnClickListener(v-> editProfile(view));
 
         Profile profile = Model.instance.getProfile();
         userNameTv.setText(profile.getUserName());
@@ -65,7 +65,6 @@ public class ProfileFragment extends Fragment {
         }
 
 
-        //////////////////////////////////////////////////////////////////////////////////////
         RecyclerView postsList = view.findViewById(R.id.profile_user_posts_rv);
         postsList.setHasFixedSize(true);
         postsList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -79,23 +78,21 @@ public class ProfileFragment extends Fragment {
             //TODO: bring the post from appLocalDB
             Model.instance.getPostById(postId, post -> {
                 Model.instance.setPost(post);
-                Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionGlobalPostPageFragment(postId));
+                Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionGlobalPostPageFragment(postId, "profile"));
             });
         });
 
-        refresh(view);
-        //////////////////////////////////////////////////////////////////////////////////////
+        refresh();
 
         return view;
     }
 
-    private void refresh(View view) {
+    private void refresh() {
 
         Model.instance.getProfilePosts(Model.instance.getProfile().getUserName(),postList -> {
             viewModel.setData(postList);
             adapter.notifyDataSetChanged();
         });
-
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -189,9 +186,9 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    private void editProfile(View view) {
-        Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment());
-    }
+//    private void editProfile(View view) {
+//        Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment());
+//    }
 
 
 }

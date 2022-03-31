@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_profiles_graph"
+    app:startDestination="@id/userProfilesFragment2">
+
+    <fragment
+        android:id="@+id/userProfilesFragment2"
+        android:name="com.example.perfectfitapp_android.user_profiles.UserProfilesFragment"
+        android:label="fragment_user_profiles"
+        tools:layout="@layout/fragment_user_profiles" >
+        <action
+            android:id="@+id/action_userProfilesFragment2_to_createProfileStep1Fragment2"
+            app:destination="@id/createProfileStep1Fragment2" />
+        <action
+            android:id="@+id/action_userProfilesFragment2_to_editProfileFragment2"
+            app:destination="@id/editProfileFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/createProfileStep1Fragment2"
+        android:name="com.example.perfectfitapp_android.create_profile.CreateProfileStep1Fragment"
+        android:label="fragment_create_profile_step1"
+        tools:layout="@layout/fragment_create_profile_step1" >
+        <action
+            android:id="@+id/action_createProfileStep1Fragment2_to_createProfileStep2Fragment2"
+            app:destination="@id/createProfileStep2Fragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/createProfileStep2Fragment2"
+        android:name="com.example.perfectfitapp_android.create_profile.CreateProfileStep2Fragment"
+        android:label="fragment_create_profile_step2"
+        tools:layout="@layout/fragment_create_profile_step2" >
+        <action
+            android:id="@+id/action_createProfileStep2Fragment2_to_createProfileStep3Fragment2"
+            app:destination="@id/createProfileStep3Fragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/createProfileStep3Fragment2"
+        android:name="com.example.perfectfitapp_android.create_profile.CreateProfileStep3Fragment"
+        android:label="fragment_create_profile_step3"
+        tools:layout="@layout/fragment_create_profile_step3" />
+    <fragment
+        android:id="@+id/editProfileFragment2"
+        android:name="com.example.perfectfitapp_android.profile.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment2_to_editProfileStep2Fragment2"
+            app:destination="@id/editProfileStep2Fragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileStep2Fragment2"
+        android:name="com.example.perfectfitapp_android.profile.EditProfileStep2Fragment"
+        android:label="fragment_edit_profile_step2"
+        tools:layout="@layout/fragment_edit_profile_step2" >
+        <action
+            android:id="@+id/action_editProfileStep2Fragment2_to_editProfileStep3Fragment2"
+            app:destination="@id/editProfileStep3Fragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileStep3Fragment2"
+        android:name="com.example.perfectfitapp_android.profile.EditProfileStep3Fragment"
+        android:label="fragment_edit_profile_step3"
+        tools:layout="@layout/fragment_edit_profile_step3" /><action android:id="@+id/action_global_userProfilesFragment2" app:destination="@id/userProfilesFragment2"/>
+</navigation>

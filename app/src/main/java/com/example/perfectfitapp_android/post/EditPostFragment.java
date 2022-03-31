@@ -42,6 +42,7 @@ public class EditPostFragment extends Fragment {
     ArrayList<String> subcategoryArr;
     ArrayAdapter<String> sizeAdapter, categoryAdapter, subcategoryAdapter, companyAdapter, colorAdapter;
     String chosenCategory;
+    String postSource;
 
 
     @Override
@@ -49,6 +50,8 @@ public class EditPostFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_edit_post, container, false);
+
+        postSource = PostPageFragmentArgs.fromBundle(getArguments()).getSource();
 
         productNameEt = view.findViewById(R.id.editpost_productname_et);
         skuEt = view.findViewById(R.id.editpost_sku_et);
@@ -75,23 +78,21 @@ public class EditPostFragment extends Fragment {
         //TODO: sizeAdjSk, ratingSk, price
 
         editBtn = view.findViewById(R.id.editpost_edit_btn);
-        editBtn.setOnClickListener(v -> edit(view));
+        editBtn.setOnClickListener(v -> edit());
 
         deleteBtn = view.findViewById(R.id.editpost_delete_btn);
-        deleteBtn.setOnClickListener(v -> delete(view));
+        deleteBtn.setOnClickListener(v -> delete());
 
         return view;
     }
 
 
-    private void delete(View view) {
+    private void delete() {
 
         deleteBtn.setEnabled(false);
-//        Model.instance.deletePostByPost(post);
         Model.instance.deletePostFromServer(post.getPostId(), isSuccess -> {
             if(isSuccess){
-                Navigation.findNavController(view)
-                        .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
+                toPage();
             }
             else{
                 deleteBtn.setEnabled(true);
@@ -101,7 +102,7 @@ public class EditPostFragment extends Fragment {
         });
     }
 
-    private void edit(View view) {
+    private void edit() {
 
         String productName, sku, size, company, color, category, subCategory, description;
         String link, price;
@@ -144,8 +145,7 @@ public class EditPostFragment extends Fragment {
                Model.instance.getAllPosts().set(index, post);
 
                 //TODO: navigate to homepage or postpage, need o do the refresh
-                Navigation.findNavController(view)
-                        .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
+                toPage();
             }
             else{
                 //TODO
@@ -233,4 +233,23 @@ public class EditPostFragment extends Fragment {
         colorAuto.setAdapter(colorAdapter);
         colorAuto.setThreshold(1);
     }
+
+    public void toPage(){
+        if(postSource.equals("home")){
+            Navigation.findNavController(editBtn)
+                    .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
+
+        }
+        else if(postSource.equals("profile")){
+            Navigation.findNavController(editBtn)
+                .navigate(AddNewPostFragmentDirections.actionGlobalProfileFragment());
+
+        }
+        else if(postSource.equals("wishlist")){
+            Navigation.findNavController(editBtn)
+                    .navigate(AddNewPostFragmentDirections.actionGlobalWishListFragment());
+
+        }
+    }
+
 }
