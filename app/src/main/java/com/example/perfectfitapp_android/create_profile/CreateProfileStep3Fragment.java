@@ -68,9 +68,6 @@ public class CreateProfileStep3Fragment extends Fragment {
         registerBtn = view.findViewById(R.id.register_step3_register_btn);
         registerBtn.setOnClickListener(v-> registerApp(view));
 
-//        continueBtn = view.findViewById(R.id.register_step3_continue_btn);
-//        continueBtn.setOnClickListener(v-> continueStep4(view));
-
         //TODO: set image by female or male
         return view;
     }
@@ -100,9 +97,6 @@ public class CreateProfileStep3Fragment extends Fragment {
                     if(profile != null){
                         Model.instance.setProfile(profile);
                         Navigation.findNavController(view).navigate(R.id.action_global_userProfilesFragment2);
-//                        startActivity(new Intent(getContext(), MainActivity.class));
-//                         getActivity().finish();
-//                        Navigation.findNavController(view).navigate(R.id.action_registerStep3Fragment2_to_homePageFragment);
                     }
                     else{
                         registerBtn.setEnabled(true);

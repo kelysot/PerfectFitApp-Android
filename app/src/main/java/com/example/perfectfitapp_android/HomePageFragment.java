@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.Display;
@@ -49,9 +50,9 @@ public class HomePageFragment extends Fragment {
 
     HomePageViewModel viewModel;
     MyAdapter adapter;
-    Button getPostBtn;
-
     TextView userName;
+    SwipeRefreshLayout swipeRefresh;
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -68,9 +69,8 @@ public class HomePageFragment extends Fragment {
         userName = view.findViewById(R.id.home_page_name_tv);
         userName.setText(Model.instance.getProfile().getUserName());
 
-        getPostBtn = view.findViewById(R.id.homepage_getpost_btn);
-        getPostBtn.setOnClickListener(v -> getPost(view));
-//        data = Model.instance.getAllPosts();
+        swipeRefresh = view.findViewById(R.id.postlist_swiperefresh);
+        swipeRefresh.setOnRefreshListener(() -> refresh());
 
         RecyclerView postsList = view.findViewById(R.id.postlist_rv);
         postsList.setHasFixedSize(true);
@@ -89,60 +89,18 @@ public class HomePageFragment extends Fragment {
             });
         });
 
-        //TODO: menu
         setHasOptionsMenu(true);
-
-        refresh(view);
-
+        refresh();
         return view;
     }
 
-    private void refresh(View view) {
-
+    private void refresh() {
         Model.instance.getAllPostsFromServer(postList -> {
             viewModel.setData(postList);
             adapter.notifyDataSetChanged();
+            swipeRefresh.setRefreshing(false);
         });
     }
-
-    private void getPost(View view) {
-
-        Model.instance.getAllPostsFromServer(postList -> {
-            viewModel.setData(postList);
-            adapter.notifyDataSetChanged();
-//            if(postList != null){
-//
-//                List<String> idFromServer = new LinkedList<>();
-//                List<String> postIdListModel = new LinkedList<>();
-//
-//                for (Post p: postList){
-//                    idFromServer.add(p.getPostId()); // the id from server
-//                }
-//                for (Post p:Model.instance.getAllPosts()) {
-//                    postIdListModel.add(p.getPostId()); // the id from the model
-//                }
-//
-//                for(int i=0; i<idFromServer.size(); i++){
-//                    if(!postIdListModel.contains(idFromServer.get(i))){
-//                        Model.instance.addPost(postList.get(i));
-//                    }
-//                }
-//                for(int j=0; j<postIdListModel.size(); j++){
-//                    if(!idFromServer.contains(postIdListModel.get(j))){
-//                        Post post = Model.instance.getPostById(postIdListModel.get(j));
-//                        Model.instance.deletePostByPost(post);
-//                    }
-//                }
-//                adapter.notifyDataSetChanged();
-//            }
-//            else{
-//                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-//                        Toast.LENGTH_LONG).show();
-//                Log.d("TAG", "failed in getAllPosts - getPost in HomePageFragment");
-//            }
-        });
-    }
-
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView productNameTv, descriptionTv,categoryTv, subCategoryTv, userNameTv;
@@ -214,7 +172,6 @@ public class HomePageFragment extends Fragment {
 
             }
             else{
-//                Model.instance.addPostToWishList(post);
                 Model.instance.getProfile().getWishlist().add(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if(isSuccess){
@@ -257,7 +214,6 @@ public class HomePageFragment extends Fragment {
         else if(item.getItemId() == R.id.UserProfileFragment){
             startActivity(new Intent(getContext(), UserProfilesActivity.class));
             getActivity().finish();
-//            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionGlobalUserProfilesFragment());
             return true;
         }
         else if(item.getItemId() == R.id.logout){

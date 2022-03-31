@@ -1,7 +1,10 @@
 package com.example.perfectfitapp_android.create_profile;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -31,7 +34,7 @@ public class CreateProfileStep1Fragment extends Fragment {
     String[] genderArr;
     ArrayAdapter<String> genderAdapter;
     ImageButton cameraBtn, galleryBtn;
-    Button continueBtn;
+    Button continueBtn, chooseDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +51,11 @@ public class CreateProfileStep1Fragment extends Fragment {
         galleryBtn = view.findViewById(R.id.register_step1_camera_imv);
         continueBtn = view.findViewById(R.id.register_step1_continue_btn);
         continueBtn.setOnClickListener(v-> continueStep2(view));
+
+        chooseDate = view.findViewById(R.id.register_step1_birthday_btn);
+        chooseDate.setOnClickListener(v -> {
+            pickDate(view);
+        });
 
         setAllDropDownMenus(view);
 
@@ -74,7 +82,6 @@ public class CreateProfileStep1Fragment extends Fragment {
                     CreateProfileModel.instance.profile.setLastName(lastName);
                     CreateProfileModel.instance.profile.setBirthday(birthday);
                     CreateProfileModel.instance.profile.setGender(gender);
-//                    Navigation.findNavController(view).navigate(R.id.action_registerFragment2_to_registerStep2Fragment2);
                     Navigation.findNavController(view).navigate(R.id.action_createProfileStep1Fragment2_to_createProfileStep2Fragment2);
                 }
                 else{
@@ -96,6 +103,19 @@ public class CreateProfileStep1Fragment extends Fragment {
         }
         genderAuto.setAdapter(genderAdapter);
         genderAuto.setThreshold(1);
+
+    }
+
+
+    private void pickDate(View view) {
+        showDatePickerDialog(view);
+
+    }
+
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getChildFragmentManager(), "datePicker");
+
 
     }
 }

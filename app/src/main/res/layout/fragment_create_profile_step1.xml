@@ -214,6 +214,16 @@
             app:layout_constraintStart_toEndOf="@+id/register_step1_camera_imv"
             app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv" />
 
+        <Button
+            android:id="@+id/register_step1_birthday_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Birthday"
+            app:layout_constraintEnd_toStartOf="@+id/register_step1_continue_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_step1_gender_txl" />
+
         <!--        android:shape="rectangle" android:padding="10dp"-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 

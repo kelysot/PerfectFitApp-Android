@@ -82,8 +82,6 @@ public class LoginFragment extends Fragment {
                       Model.instance.setUser(user);
                       startActivity(new Intent(getContext(), UserProfilesActivity.class));
                       getActivity().finish();
-//                      startActivity(new Intent(getContext(), MainActivity.class));
-//                      getActivity().finish();
                   }
                   else{
                       loginBtn.setEnabled(true);

@@ -6,33 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".HomePageFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/postlist_rv"
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/postlist_swiperefresh"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_page_name_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
 
-    <Button
-        android:id="@+id/homepage_getpost_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="125dp"
-        android:layout_marginEnd="15dp"
-        android:backgroundTint="@color/myWhite"
-        android:text="Get Post"
-        android:textColor="#4f4f4f"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/myGold"
-        app:strokeWidth="2dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/postlist_rv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_page_name_tv" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
     <TextView
         android:id="@+id/textView4"
