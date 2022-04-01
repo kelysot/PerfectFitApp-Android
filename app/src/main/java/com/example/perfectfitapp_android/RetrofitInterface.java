@@ -99,6 +99,9 @@ public interface RetrofitInterface {
     @GET("/post/getPostById/{postId}")
     Call<JsonElement> getPostById(@Header("authorization") String token, @Path("postId") String postId);
 
+    @GET("/post/getPostsBySubCategoryId/{subCategoryId}")
+    Call<JsonArray> getPostsBySubCategoryId(@Header("authorization") String token, @Path("subCategoryId") String subCategoryId);
+
     /*--------------------------------- Category -------------------------------*/
 
     @GET("/category/{gender}")
@@ -111,4 +114,7 @@ public interface RetrofitInterface {
 
     @GET("/subCategory/{categoryId}/{gender}")
     Call<JsonArray> getSubCategoriesByCategoryId(@Header("authorization") String token, @Path("categoryId") String categoryId , @Path("gender") String gender);
+
+    @GET("/subCategory/getSubCategoryById/{subCategoryId}")
+    Call<JsonElement> getSubCategoryById(@Header("authorization") String token, @Path("subCategoryId") String subCategoryId);
 }

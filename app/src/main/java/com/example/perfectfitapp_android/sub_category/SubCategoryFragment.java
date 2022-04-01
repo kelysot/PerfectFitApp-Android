@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.perfectfitapp_android.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.category.CategoryFragment;
+import com.example.perfectfitapp_android.category.CategoryFragmentDirections;
 import com.example.perfectfitapp_android.category.CategoryViewModel;
 import com.example.perfectfitapp_android.model.Category;
 import com.example.perfectfitapp_android.model.Model;
@@ -47,6 +48,7 @@ public class SubCategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sub_category, container, false);
         categoryId = SubCategoryFragmentArgs.fromBundle(getArguments()).getCategoryId();
+        Log.d("TAG", "categoryId"+ categoryId);
 
         RecyclerView subCategoryList = view.findViewById(R.id.subCategory_rv);
         subCategoryList.setHasFixedSize(true);
@@ -56,7 +58,9 @@ public class SubCategoryFragment extends Fragment {
         subCategoryList.setAdapter(adapter);
 
         adapter.setOnItemClickListener((v, position) -> {
-            System.out.println(viewModel.getData().get(position).getName());
+            String subCategoryId = viewModel.getData().get(position).getSubCategoryId();
+            Navigation.findNavController(v).navigate(SubCategoryFragmentDirections.actionSubCategoryFragmentToSubCategoryDetailsPostsFragment2(subCategoryId));
+//            System.out.println(viewModel.getData().get(position).getName());
         });
 
         refresh();

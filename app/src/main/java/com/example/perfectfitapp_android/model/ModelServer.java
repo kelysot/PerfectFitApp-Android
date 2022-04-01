@@ -571,6 +571,37 @@ public class ModelServer {
 
     }
 
+    public void getPostsBySubCategoryId(String subCategoryId, Model.GetPostsBySubCategoryIdListener listener){
+        String token = sp.getString("ACCESS_TOKEN", "");
+        Call<JsonArray> call = service.getPostsBySubCategoryId(token, subCategoryId);
+
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if(response.code() == 200){
+                    JsonArray postsJson = response.body();
+                    List<Post> posts = Post.jsonArrayToPost(postsJson);
+                    listener.onComplete(posts);
+                }
+                else{
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    Log.d("TAG", "failed in ModelServer in getProfilePosts 2");
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                Log.d("TAG", "failed in ModelServer in getProfilePosts 2");
+                listener.onComplete(null);
+            }
+        });
+
+    }
+
     /******************************************************************************************/
 
     /*--------------------------------- Category -------------------------------*/
@@ -657,6 +688,38 @@ public class ModelServer {
                 listener.onComplete(null);
             }
         });
+    }
+
+    public void getSubCategoryById(String subCategoryId, Model.GetSubCategoryById listener){
+        String token = sp.getString("ACCESS_TOKEN", "");
+        Call<JsonElement> call = service.getSubCategoryById(token, subCategoryId);
+
+        call.enqueue(new Callback<JsonElement>() {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                if(response.code() == 200){
+                    JsonElement js = response.body();
+                    SubCategory subCategory = SubCategory.jsonElementToSubCategory(js);
+                    listener.onComplete(subCategory);
+                }
+                else{
+                    Log.d("TAG", "444444");
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    Log.d("TAG", "failed in ModelServer in getProfilePosts 2");
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                Log.d("TAG", "failed in ModelServer in getProfilePosts 2");
+                listener.onComplete(null);
+            }
+        });
+
     }
 
 
