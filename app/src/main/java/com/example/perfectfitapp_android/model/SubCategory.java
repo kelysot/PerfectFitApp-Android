@@ -14,12 +14,14 @@ public class SubCategory {
     String categoryId;
     String name;
     String pictureUrl;
+    ArrayList<String> posts;
 
-    public SubCategory(String subCategoryId, String categoryId, String name, String pictureUrl) {
+    public SubCategory(String subCategoryId, String categoryId, String name, String pictureUrl, ArrayList<String> postsArray) {
         this.subCategoryId = subCategoryId;
         this.categoryId = categoryId;
         this.name = name;
         this.pictureUrl = pictureUrl;
+        this.posts = postsArray;
     }
 
     /*--------------------------------- Getters & Setters -------------------------------*/
@@ -62,13 +64,44 @@ public class SubCategory {
         this.pictureUrl = pictureUrl;
     }
 
+    /*------------------------------------------------------*/
+
+    public ArrayList<String> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(ArrayList<String> posts) {
+        this.posts = posts;
+    }
+
+    /*------------------------------------------------------*/
+
+    @Override
+    public String toString() {
+        return "SubCategory{" +
+                "subCategoryId='" + subCategoryId + '\'' +
+                ", categoryId='" + categoryId + '\'' +
+                ", name='" + name + '\'' +
+                ", pictureUrl='" + pictureUrl + '\'' +
+                ", posts=" + posts +
+                '}';
+    }
+
     public static SubCategory jsonObjectToSubCategory(JsonElement subCategoriesJson){
         String subCategoryId = subCategoriesJson.getAsJsonObject().get("_id").getAsString();
         String categoryId = subCategoriesJson.getAsJsonObject().get("categoryId").getAsString();
         String name = subCategoriesJson.getAsJsonObject().get("name").getAsString();
         String pictureUrl = subCategoriesJson.getAsJsonObject().get("pictureUrl").getAsString();
 
-        SubCategory subCategory = new SubCategory(subCategoryId, categoryId, name, pictureUrl);
+        JsonElement postsJson = subCategoriesJson.getAsJsonObject().get("posts");
+        ArrayList<String> postsArray = new ArrayList<>();
+        if(!postsJson.toString().equals("null") || !postsJson.isJsonNull()){
+            for (JsonElement similarProfile : postsJson.getAsJsonArray()) {
+                postsArray.add(similarProfile.getAsString());
+            }
+        }
+
+        SubCategory subCategory = new SubCategory(subCategoryId, categoryId, name, pictureUrl, postsArray);
         return subCategory;
     }
 
@@ -79,6 +112,7 @@ public class SubCategory {
         map.put("categoryId",this.categoryId);
         map.put("name",this.name);
         map.put("pictureUrl",this.pictureUrl);
+        map.put("posts",this.getPosts());
 
         return map;
     }
