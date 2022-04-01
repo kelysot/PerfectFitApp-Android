@@ -78,10 +78,22 @@
         <argument
             android:name="categoryId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_subCategoryFragment_to_subCategoryDetailsPostsFragment2"
+            app:destination="@id/subCategoryDetailsPostsFragment" />
     </fragment>
     <fragment
         android:id="@+id/wishListFragment"
         android:name="com.example.perfectfitapp_android.WishListFragment"
-        android:label="fragment_wish_list"
+        android:label="Wishlist"
         tools:layout="@layout/fragment_wish_list" /><action android:id="@+id/action_global_wishListFragment" app:destination="@id/wishListFragment"/><action android:id="@+id/action_global_postPageFragment" app:destination="@id/postPageFragment"/>
+    <fragment
+        android:id="@+id/subCategoryDetailsPostsFragment"
+        android:name="com.example.perfectfitapp_android.sub_category.SubCategoryDetailsPostsFragment"
+        android:label="Sub Category"
+        tools:layout="@layout/fragment_sub_category_details_posts" >
+        <argument
+            android:name="subCategoryId"
+            app:argType="string" />
+    </fragment>
 </navigation>

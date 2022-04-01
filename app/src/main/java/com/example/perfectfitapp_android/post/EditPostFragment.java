@@ -233,7 +233,7 @@ public class EditPostFragment extends Fragment {
         colorAuto.setAdapter(colorAdapter);
         colorAuto.setThreshold(1);
     }
-
+    //TODO: add subCategoryDetailsPostsFragment, check EditPostFragmentDirections / AddNewPostFragmentDirections
     public void toPage(){
         if(postSource.equals("home")){
             Navigation.findNavController(editBtn)
@@ -250,6 +250,13 @@ public class EditPostFragment extends Fragment {
                     .navigate(AddNewPostFragmentDirections.actionGlobalWishListFragment());
 
         }
+//        else if(postSource.equals("subCategoryDetailsPostsFragment")){
+//            Navigation.findNavController(editBtn)
+//                    .navigate(AddNewPostFragmentDirections.actionGlobalWishListFragment());
+//
+//        }
+
+
     }
 
 }

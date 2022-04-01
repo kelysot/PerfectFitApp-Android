@@ -87,7 +87,7 @@ public class SubCategory {
                 '}';
     }
 
-    public static SubCategory jsonObjectToSubCategory(JsonElement subCategoriesJson){
+    public static SubCategory jsonElementToSubCategory(JsonElement subCategoriesJson){
         String subCategoryId = subCategoriesJson.getAsJsonObject().get("_id").getAsString();
         String categoryId = subCategoriesJson.getAsJsonObject().get("categoryId").getAsString();
         String name = subCategoriesJson.getAsJsonObject().get("name").getAsString();
@@ -120,7 +120,7 @@ public class SubCategory {
     public static List<SubCategory> jsonArrayToSubCategory(JsonArray subCategoriesJson){
         List<SubCategory> subCategoryList = new ArrayList<>();
         for (int i=0;i<subCategoriesJson.size();i++){
-            subCategoryList.add(SubCategory.jsonObjectToSubCategory(subCategoriesJson.get(i)));
+            subCategoryList.add(SubCategory.jsonElementToSubCategory(subCategoriesJson.get(i)));
         }
         return subCategoryList;
     }

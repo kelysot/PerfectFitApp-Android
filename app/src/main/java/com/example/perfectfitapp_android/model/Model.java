@@ -377,6 +377,17 @@ public class Model {
         modelServer.getPostById(postId, listener);
     }
 
+    /*--------------------------------------------------------*/
+
+    public interface GetPostsBySubCategoryIdListener{
+        void onComplete(List<Post> post);
+    }
+
+    public void getPostsBySubCategoryId(String subCategoryId,GetPostsBySubCategoryIdListener listener ){
+        modelServer.getPostsBySubCategoryId(subCategoryId, listener);
+    }
+
+
 
 
     /******************************************************************************************/
@@ -413,5 +424,13 @@ public class Model {
 
     public void getSubCategoriesByCategoryId(String categoryId,String gender,GetSubCategoriesByCategoryIdListener listener){
         modelServer.getSubCategoriesByCategoryId(categoryId,gender,listener);
+    }
+
+    public interface GetSubCategoryById {
+        void onComplete(SubCategory subCategory);
+    }
+
+    public void getSubCategoryById(String subCategoryId ,GetSubCategoryById listener){
+        modelServer.getSubCategoryById(subCategoryId, listener);
     }
 }
