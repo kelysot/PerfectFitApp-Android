@@ -177,6 +177,8 @@ public class ModelServer {
     public void logout(Model.LogoutListener listener) {
 
         String token = sp.getString("ACCESS_TOKEN", "");
+//        String refreshToken = sp.getString("REFRESH_TOKEN", "");
+
 
         Call<Void> call = service.executeLogout(token);
         call.enqueue(new Callback<Void>() {
@@ -196,6 +198,13 @@ public class ModelServer {
                     Log.d("TAG2", response.message());
                     Toast.makeText(MyApplication.getContext(), "invalid request",
                             Toast.LENGTH_LONG).show();
+//                    getTokens(isSuccess -> {
+//                        if(isSuccess){
+//                            Toast.makeText(MyApplication.getContext(), "Please try again",
+//                                    Toast.LENGTH_LONG).show();
+//                        }
+//                    });
+
                     listener.onComplete(false);
                 }
             }

@@ -22,63 +22,57 @@
 
         <TextView
             android:id="@+id/postpage_category_tv"
+            style="@android:style/Widget.Holo.Light.TextView.SpinnerItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="Category"
             android:textColor="#7C7676"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView6"
+            style="Widget.Holo.Light.TextView.SpinnerItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="/"
             android:textColor="#7C7676"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/postpage_category_tv"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/postpage_subcategort_tv"
+            style="Widget.Holo.Light.TextView.SpinnerItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="SubCategory"
             android:textColor="#7C7676"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/textView6"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/postpage_image_imv"
-            android:layout_width="377dp"
-            android:layout_height="188dp"
-            android:layout_marginTop="24dp"
-            android:src="@android:drawable/ic_menu_gallery"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/postpage_subcategort_tv" />
-
 
         <TextView
             android:id="@+id/postpage_productname_et"
+            style="@android:style/Widget.Material.TextView.SpinnerItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:text="Product Name"
             android:textColor="@color/myGold"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/postpage_image_imv" />
@@ -87,7 +81,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout18"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:layout_width="399dp"
+            android:layout_width="360dp"
             android:layout_height="75dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
@@ -288,6 +282,18 @@
                 android:layout_height="wrap_content"
                 android:hint="Link" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/postpage_image_imv"
+            android:layout_width="341dp"
+            android:layout_height="236dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/pic1_shirts"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/postpage_subcategort_tv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
