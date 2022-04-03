@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import androidx.core.os.HandlerCompat;
+import androidx.lifecycle.LiveData;
 
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.RetrofitInterface;
@@ -316,6 +317,10 @@ public class Model {
     public void getAllPostsFromServer(GetAllPostsListener listener) {
         modelServer.getAllPosts(listener);
     }
+
+//    public LiveData<List<Post>> getAll(){
+//
+//    }
 
     /*--------------------------------------------------------*/
 

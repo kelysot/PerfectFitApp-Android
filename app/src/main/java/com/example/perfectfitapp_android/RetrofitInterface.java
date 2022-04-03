@@ -54,6 +54,9 @@ public interface RetrofitInterface {
     // http://10.0.2.2:4000/profile/1
     // Call<User> service.getUser(1);
 
+    @GET("/auth/refreshToken")
+    Call<JsonObject> getTokens (@Header("authorization") String token);
+
     /*--------------------------------- Profile -------------------------------*/
 
     /******************************************************************************************/
