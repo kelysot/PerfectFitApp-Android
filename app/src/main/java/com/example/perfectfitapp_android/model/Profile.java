@@ -13,6 +13,7 @@ import java.util.List;
 
 public class Profile {
 
+    //TODO: change status "active" to "true/false"
     //TODO:Add profileId in profile model in server side.
     String userId, profileId, firstName, lastName,gender, userName, birthday, userImageUrl;
     String shoulder, chest, basin, waist, foot, height, weight, bodyType, status;
