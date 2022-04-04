@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_homePageFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_addNewPostStep1Fragment"
+            app:destination="@id/addNewPostStep1Fragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewPostFragment"
@@ -95,5 +98,14 @@
         <argument
             android:name="subCategoryId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewPostStep1Fragment"
+        android:name="com.example.perfectfitapp_android.post.AddNewPostStep1Fragment"
+        android:label="fragment_add_new_post_step1"
+        tools:layout="@layout/fragment_add_new_post_step1" >
+        <action
+            android:id="@+id/action_addNewPostStep1Fragment_to_addNewPostFragment"
+            app:destination="@id/addNewPostFragment" />
     </fragment>
 </navigation>
