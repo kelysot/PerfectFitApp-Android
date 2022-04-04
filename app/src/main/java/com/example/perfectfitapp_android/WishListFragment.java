@@ -9,13 +9,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
@@ -29,6 +32,9 @@ public class WishListFragment extends Fragment {
 
     WishListViewModel viewModel;
     MyAdapter adapter;
+    SwipeRefreshLayout swipeRefresh;
+
+    //TODO: Can run from AppLocalDb
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -45,6 +51,9 @@ public class WishListFragment extends Fragment {
         RecyclerView myWishList = view.findViewById(R.id.wishlist_rv);
         myWishList.setHasFixedSize(true);
         myWishList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        swipeRefresh = view.findViewById(R.id.wishlist_postlist_swiperefresh);
+        swipeRefresh.setOnRefreshListener(() -> refresh());
 
         adapter = new MyAdapter();
         myWishList.setAdapter(adapter);
@@ -68,12 +77,14 @@ public class WishListFragment extends Fragment {
         Model.instance.getWishListFromServer(list -> {
             viewModel.setData(list);
             adapter.notifyDataSetChanged();
+            swipeRefresh.setRefreshing(false);
         });
     }
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView productNameTv, descriptionTv, categoryTv, subCategoryTv, userNameTv;
+        TextView descriptionTv, categoryTv, subCategoryTv, userNameTv;
+        ImageButton addToWishListBtn;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
@@ -81,6 +92,7 @@ public class WishListFragment extends Fragment {
             descriptionTv = itemView.findViewById(R.id.listrow_description_tv);
             categoryTv = itemView.findViewById(R.id.listrow_category_tv);
             subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
+            addToWishListBtn = itemView.findViewById(R.id.add_to_wish_list_btn);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
@@ -116,6 +128,22 @@ public class WishListFragment extends Fragment {
             holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
+            holder.addToWishListBtn.setImageResource(R.drawable.ic_red_heart);
+            holder.addToWishListBtn.setOnClickListener(v -> removeFromList(holder, post));
+        }
+
+        public void removeFromList(MyViewHolder holder, Post post){
+            Model.instance.getProfile().getWishlist().remove(post.getPostId());
+            Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
+                if(isSuccess){
+                    holder.addToWishListBtn.setImageResource(R.drawable.ic_heart);
+                }
+                else{
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+
         }
 
         @Override

@@ -95,7 +95,6 @@ public class AddNewPostFragment extends Fragment {
         //TODO: postId, profileId, date. pictureUrl, sizeadj, rating, price
 
         String date = "26/3/2022";
-        //String pictureUrl = "";
         sizeAdj = "";
         rating = "";
 
@@ -103,19 +102,20 @@ public class AddNewPostFragment extends Fragment {
         count.append(Model.instance.getCount());
         Model.instance.setCount(Model.instance.getCount()+1);
 
-        Post newPost = new Post(count.toString(), Model.instance.getProfile().getUserName(),  productName, sku, size, company, color, category,
+        Post newPost = new Post(count.toString(), Model.instance.getProfile().getUserName(), productName, sku, size, company, color, category,
                 subCategory, description, date,link, sizeAdj, rating, price);
 
+        newPost.setPicturesUrl(Model.instance.getNewPost().getPicturesUrl());
 
         Model.instance.addNewPost(newPost, post -> {
             if(post != null){
                 Model.instance.addPost(post);
+                Model.instance.setNewPost(new Post());
                 Navigation.findNavController(view)
                         .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
             }
             else {
                 postBtn.setEnabled(true);
-                //TODO: Handle what we want in else.
                 Toast.makeText(MyApplication.getContext(), "Post didn't saved",
                         Toast.LENGTH_LONG).show();
             }

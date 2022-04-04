@@ -18,6 +18,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:hint="Category"
+            app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -43,6 +44,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:hint="SubCategory"
+            app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/editpost_categories_txtil"
@@ -66,6 +68,7 @@
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editpost_subcategories_txtil">
@@ -82,6 +85,7 @@
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
@@ -99,10 +103,11 @@
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:hint="Size"
+            app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
-            android:hint="Size">
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
 
             <AutoCompleteTextView
                 android:id="@+id/editpost_size_auto"
@@ -110,11 +115,11 @@
                 android:layout_height="match_parent"
                 android:inputType="none" />
 
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/editpost_size_et"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint="size" />-->
+            <!--            <com.google.android.material.textfield.TextInputEditText-->
+            <!--                android:id="@+id/editpost_size_et"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:hint="size" />-->
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -124,9 +129,10 @@
             android:layout_height="53dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
+            android:hint="Company"
+            app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_size_txtil"
-            android:hint="Company">
+            app:layout_constraintTop_toBottomOf="@+id/editpost_size_txtil">
 
             <AutoCompleteTextView
                 android:id="@+id/editpost_company_auto"
@@ -134,11 +140,11 @@
                 android:layout_height="match_parent"
                 android:inputType="none" />
 
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/editpost_company_et"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint="company" />-->
+            <!--            <com.google.android.material.textfield.TextInputEditText-->
+            <!--                android:id="@+id/editpost_company_et"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:hint="company" />-->
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -148,10 +154,11 @@
             android:layout_height="53dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
+            android:hint="Color"
+            app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/editpost_companies_txtil"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_size_txtil"
-            android:hint="Color">
+            app:layout_constraintTop_toBottomOf="@+id/editpost_size_txtil">
 
             <AutoCompleteTextView
                 android:id="@+id/editpost_color_auto"
@@ -159,11 +166,11 @@
                 android:layout_height="match_parent"
                 android:inputType="none" />
 
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/editpost_color_et"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint="Color" />-->
+            <!--            <com.google.android.material.textfield.TextInputEditText-->
+            <!--                android:id="@+id/editpost_color_et"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:hint="Color" />-->
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -171,6 +178,7 @@
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editpost_colors_txtil">
@@ -187,6 +195,7 @@
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addnewpost_description_textInputLayout10">

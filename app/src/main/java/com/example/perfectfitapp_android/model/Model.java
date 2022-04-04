@@ -38,8 +38,16 @@ public class Model {
     List<SubCategory> subCategories = new ArrayList<>();
     Map<String, ArrayList<String>> categoriesAndSubCategories = new HashMap<>();
     ModelServer modelServer = new ModelServer();
-//    List<Post> wishList = new ArrayList<>();
     Post post;
+    Post newPost;
+
+    public Post getNewPost() {
+        return newPost;
+    }
+
+    public void setNewPost(Post newPost) {
+        this.newPost = newPost;
+    }
 
     public Post getPost() {
         return post;
@@ -77,27 +85,12 @@ public class Model {
         this.categoriesAndSubCategories.put(category, subCategories);
     }
 
-    //    public List<Post> getWishList() {
-//        return wishList;
-//    }
-//
-//    public void setWishList(List<Post> wishList) {
-//        this.wishList = wishList;
-//    }
-//
-//    public void addPostToWishList(Post post){
-//        this.wishList.add(post);
-//    }
-//
-//    public void deleteFromWishList(Post post){
-//        this.wishList.remove(post);
-//    }
-
     public Model(){
         this.count = 0;
         user = new User();
         profile = new Profile();
         post = new Post();
+        newPost = new Post();
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

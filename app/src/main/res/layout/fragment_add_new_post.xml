@@ -234,16 +234,6 @@
                 android:hint="SKU" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageView
-            android:id="@+id/addnewpost_image_imv"
-            android:layout_width="80dp"
-            android:layout_height="51dp"
-            android:layout_marginTop="20dp"
-            android:src="@android:drawable/ic_menu_camera"
-            app:layout_constraintEnd_toStartOf="@+id/addnewpost_post_btn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
-
         <Button
             android:id="@+id/addnewpost_post_btn"
             android:layout_width="177dp"
