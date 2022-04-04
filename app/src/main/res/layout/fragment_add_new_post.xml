@@ -12,12 +12,13 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/addnewpost_categories_txtil"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="190dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="200dp"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="15dp"
             android:hint="Category"
+            app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -32,14 +33,14 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/addnewpost_subcategories_txtil"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_width="190dp"
+            android:layout_width="200dp"
             android:layout_height="60dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="8dp"
             android:hint="SubCategory"
+            app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/addnewpost_categories_txtil"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -52,68 +53,15 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout5"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addnewpost_subcategories_txtil">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addnewpost_productname_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Product Name" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout6"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addnewpost_sku_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="SKU" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-
-            android:id="@+id/addnewpost_size_txtil"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_width="220dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:hint="Size"
-            android:textColorHint="#000000"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
-            app:passwordToggleTint="#CCC6C6">
-
-            <AutoCompleteTextView
-                android:id="@+id/addnewpost_size_auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="none" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/addnewpost_companies_txtil"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_width="149dp"
-            android:layout_height="53dp"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
             android:hint="Company"
+            app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addnewpost_size_txtil">
+            app:layout_constraintTop_toBottomOf="@+id/addnewpost_categories_txtil">
 
             <AutoCompleteTextView
                 android:id="@+id/addnewpost_company_auto"
@@ -123,17 +71,19 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/addnewpost_colors_txtil"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_width="149dp"
-            android:layout_height="53dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:hint="Color"
+            app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/addnewpost_companies_txtil"
-            app:layout_constraintTop_toBottomOf="@+id/addnewpost_size_txtil"
-            android:hint="Color">
+            app:layout_constraintTop_toBottomOf="@+id/addnewpost_subcategories_txtil">
 
             <AutoCompleteTextView
                 android:id="@+id/addnewpost_color_auto"
@@ -143,14 +93,78 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout10"
-            android:layout_width="409dp"
+
+            android:id="@+id/addnewpost_size_txtil"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:hint="Size"
+            android:textColorHint="#000000"
+            app:boxBackgroundColor="@color/myWhite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addnewpost_companies_txtil"
+            app:passwordToggleTint="#CCC6C6">
+
+            <AutoCompleteTextView
+                android:id="@+id/addnewpost_size_auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout12"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:boxBackgroundColor="@color/myWhite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/addnewpost_size_txtil"
+            app:layout_constraintTop_toBottomOf="@+id/addnewpost_colors_txtil">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addnewpost_price_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Price" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout5"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addnewpost_colors_txtil">
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout12">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addnewpost_productname_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Product Name" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addnewpost_description_textInputLayout10"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            app:boxBackgroundColor="@color/myWhite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addnewpost_description_et"
@@ -159,14 +173,18 @@
                 android:hint="Description" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout11"
-            android:layout_width="409dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout10">
+            app:layout_constraintTop_toBottomOf="@+id/addnewpost_description_textInputLayout10">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addnewpost_link_et"
@@ -180,7 +198,7 @@
             android:layout_width="140dp"
             android:layout_height="48dp"
             android:layout_marginStart="48dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout11" />
 
@@ -188,47 +206,75 @@
             android:id="@+id/addnewpost_rating_seekbar"
             android:layout_width="140dp"
             android:layout_height="48dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.762"
             app:layout_constraintStart_toEndOf="@+id/addnewpost_sizeadjustment_seekbar"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout11" />
 
-        <ImageView
-            android:id="@+id/addnewpost_image_imv"
-            android:layout_width="80dp"
-            android:layout_height="51dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="30dp"
-            android:src="@android:drawable/ic_menu_camera"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout12" />
+
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout12"
-            android:layout_width="409dp"
+            android:id="@+id/textInputLayout6"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addnewpost_sizeadjustment_seekbar">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addnewpost_price_et"
+                android:id="@+id/addnewpost_sku_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Price" />
+                android:hint="SKU" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/addnewpost_image_imv"
+            android:layout_width="80dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="20dp"
+            android:src="@android:drawable/ic_menu_camera"
+            app:layout_constraintEnd_toStartOf="@+id/addnewpost_post_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
 
         <Button
             android:id="@+id/addnewpost_post_btn"
             android:layout_width="177dp"
             android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
             android:text="Post"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addnewpost_image_imv" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="409dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addnewpost_categories_txtil" />
+
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="1dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="15dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toStartOf="@+id/addnewpost_subcategories_txtil"
+            app:layout_constraintHorizontal_bias="0.472"
+            app:layout_constraintStart_toEndOf="@+id/addnewpost_categories_txtil"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

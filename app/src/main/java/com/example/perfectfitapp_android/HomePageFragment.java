@@ -103,7 +103,7 @@ public class HomePageFragment extends Fragment {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView productNameTv, descriptionTv,categoryTv, subCategoryTv, userNameTv;
+        TextView descriptionTv,categoryTv, subCategoryTv, userNameTv;
 
         ImageButton addToWishList;
 
@@ -114,13 +114,11 @@ public class HomePageFragment extends Fragment {
             descriptionTv = itemView.findViewById(R.id.listrow_description_tv);
             categoryTv = itemView.findViewById(R.id.listrow_category_tv);
             subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
-
             addToWishList = itemView.findViewById(R.id.add_to_wish_list_btn);
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 listener.onItemClick(v, pos);
             });
-
         }
     }
 
@@ -151,41 +149,44 @@ public class HomePageFragment extends Fragment {
             holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
-            holder.addToWishList.setOnClickListener(v -> addToWishList(post));
+            holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
+            if(checkIfInsideWishList(holder, post)){
+                holder.addToWishList.setImageResource(R.drawable.ic_red_heart);
+            }
+            else{
+                holder.addToWishList.setImageResource(R.drawable.ic_heart);
+            }
         }
 
-        private void addToWishList(Post post) {
+        private void addToWishList(MyViewHolder holder, Post post) {
 
-            if(Model.instance.getProfile().getWishlist().contains(post.getPostId())){
+            if(checkIfInsideWishList(holder, post)){
                 Model.instance.getProfile().getWishlist().remove(post.getPostId());
-//                List<Post> wishPosts = Model.instance.getWishList();
-//                Model.instance.setWishList(wishPosts);
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if(isSuccess){
-                        //TODO: change the color of the heart
-                        System.out.println("after remove " + Model.instance.getProfile().getWishlist());
+                        holder.addToWishList.setImageResource(R.drawable.ic_heart);
                     }
                     else{
-                        //TODO: toast
+                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                Toast.LENGTH_LONG).show();
                     }
                 });
-
             }
             else{
                 Model.instance.getProfile().getWishlist().add(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if(isSuccess){
+                        holder.addToWishList.setImageResource(R.drawable.ic_red_heart);
                         System.out.println("the posts added to the list");
                         System.out.println(Model.instance.getProfile().getWishlist());
                     }
                     else{
-                        //TODO: toast
+                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                Toast.LENGTH_LONG).show();
                     }
                 });
-                //TODO: if post is already in the wishlist - we need to remove it
             }
         }
-
 
         @Override
         public int getItemCount() {
@@ -193,6 +194,15 @@ public class HomePageFragment extends Fragment {
                 return 0;
             }
             return viewModel.getData().size();
+        }
+    }
+
+    public boolean checkIfInsideWishList(MyViewHolder holder, Post post){
+        if(Model.instance.getProfile().getWishlist().contains(post.getPostId())){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 
