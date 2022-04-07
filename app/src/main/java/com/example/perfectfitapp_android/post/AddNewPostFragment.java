@@ -105,7 +105,7 @@ public class AddNewPostFragment extends Fragment {
         Post newPost = new Post(count.toString(), Model.instance.getProfile().getUserName(), productName, sku, size, company, color, category,
                 subCategory, description, date,link, sizeAdj, rating, price);
 
-        newPost.setPicturesUrl(Model.instance.getNewPost().getPicturesUrl());
+//        newPost.setPicturesUrl(Model.instance.getNewPost().getPicturesUrl());
 
         Model.instance.addNewPost(newPost, post -> {
             if(post != null){
