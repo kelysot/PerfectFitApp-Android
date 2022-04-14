@@ -120,4 +120,10 @@ public interface RetrofitInterface {
 
     @GET("/subCategory/getSubCategoryById/{subCategoryId}")
     Call<JsonElement> getSubCategoryById(@Header("authorization") String token, @Path("subCategoryId") String subCategoryId);
+
+    /*--------------------------------- Comment -------------------------------*/
+
+    @GET("/comment/{postId}")
+    Call<JsonArray> getCommentsByPostId(@Header("authorization") String token, @Path("postId") String postId );
+
 }

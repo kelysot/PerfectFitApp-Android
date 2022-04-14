@@ -764,6 +764,39 @@ public class ModelServer {
         });
 
     }
+
+    /******************************************************************************************/
+
+    /*--------------------------------- Comment -------------------------------*/
+
+    /******************************************************************************************/
+
+    public void getCommentsByPostId(String postId, Model.GetCommentsByPostId listener){
+        String token = sp.getString("ACCESS_TOKEN", "");
+        Call<JsonArray> call = service.getCommentsByPostId(token, postId);
+
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if (response.isSuccessful()) {
+                    JsonArray commentsJson = response.body();
+                    List<Comment> comments = Comment.jsonArrayToCategory(commentsJson);
+                    listener.onComplete(comments);
+                }
+                else {
+                    Log.d("TAG", "failed in getCommentsByPostId");
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                listener.onComplete(null);
+            }
+        });
+    }
 }
 
 

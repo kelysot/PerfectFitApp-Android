@@ -106,6 +106,8 @@ public class HomePageFragment extends Fragment {
         TextView descriptionTv,categoryTv, subCategoryTv, userNameTv;
 
         ImageButton addToWishList;
+        
+        Button commentsBtn;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
@@ -115,6 +117,7 @@ public class HomePageFragment extends Fragment {
             categoryTv = itemView.findViewById(R.id.listrow_category_tv);
             subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
             addToWishList = itemView.findViewById(R.id.add_to_wish_list_btn);
+            commentsBtn = itemView.findViewById(R.id.listrow_comments_btn);
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 listener.onItemClick(v, pos);
@@ -156,6 +159,10 @@ public class HomePageFragment extends Fragment {
             else{
                 holder.addToWishList.setImageResource(R.drawable.ic_heart);
             }
+
+            holder.commentsBtn.setOnClickListener((v) -> {
+                Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToCommentFragment(post.getPostId()));
+            });
         }
 
         private void addToWishList(MyViewHolder holder, Post post) {
