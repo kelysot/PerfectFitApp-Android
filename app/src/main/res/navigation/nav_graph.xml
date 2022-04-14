@@ -92,7 +92,11 @@
         android:id="@+id/wishListFragment"
         android:name="com.example.perfectfitapp_android.WishListFragment"
         android:label="Wishlist"
-        tools:layout="@layout/fragment_wish_list" /><action android:id="@+id/action_global_wishListFragment" app:destination="@id/wishListFragment"/><action android:id="@+id/action_global_postPageFragment" app:destination="@id/postPageFragment"/>
+        tools:layout="@layout/fragment_wish_list" >
+        <action
+            android:id="@+id/action_wishListFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
+    </fragment><action android:id="@+id/action_global_wishListFragment" app:destination="@id/wishListFragment"/><action android:id="@+id/action_global_postPageFragment" app:destination="@id/postPageFragment"/>
     <fragment
         android:id="@+id/subCategoryDetailsPostsFragment"
         android:name="com.example.perfectfitapp_android.sub_category.SubCategoryDetailsPostsFragment"

@@ -85,6 +85,7 @@ public class WishListFragment extends Fragment {
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView descriptionTv, categoryTv, subCategoryTv, userNameTv;
         ImageButton addToWishListBtn;
+        Button commentsBtn;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
@@ -93,6 +94,7 @@ public class WishListFragment extends Fragment {
             categoryTv = itemView.findViewById(R.id.listrow_category_tv);
             subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
             addToWishListBtn = itemView.findViewById(R.id.add_to_wish_list_btn);
+            commentsBtn = itemView.findViewById(R.id.listrow_comments_btn);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
@@ -130,6 +132,10 @@ public class WishListFragment extends Fragment {
             holder.subCategoryTv.setText(post.getSubCategoryId());
             holder.addToWishListBtn.setImageResource(R.drawable.ic_red_heart);
             holder.addToWishListBtn.setOnClickListener(v -> removeFromList(holder, post));
+
+            holder.commentsBtn.setOnClickListener((v) -> {
+                Navigation.findNavController(v).navigate(WishListFragmentDirections.actionWishListFragmentToCommentFragment(post.getPostId()));
+            });
         }
 
         public void removeFromList(MyViewHolder holder, Post post){
