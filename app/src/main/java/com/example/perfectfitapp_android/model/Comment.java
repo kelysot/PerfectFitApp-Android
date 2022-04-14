@@ -1,13 +1,29 @@
 package com.example.perfectfitapp_android.model;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Comment {
 
-    String profileId, date, text;
+    String commentId, profileId, postId, date, text;
 
-    public Comment(String profileId, String date, String text) {
+    public Comment(String commentId, String profileId, String postId, String date, String text) {
+        this.commentId = commentId;
         this.profileId = profileId;
+        this.postId = postId;
         this.date = date;
         this.text = text;
+    }
+
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(String commentId) {
+        this.commentId = commentId;
     }
 
     public String getProfileId() {
@@ -32,5 +48,44 @@ public class Comment {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "commentId='" + commentId + '\'' +
+                ", profileId='" + profileId + '\'' +
+                ", postId='" + postId + '\'' +
+                ", date='" + date + '\'' +
+                ", text='" + text + '\'' +
+                '}';
+    }
+
+    public static Comment jsonObjectToComment(JsonElement commentsJson){
+        String commentId = commentsJson.getAsJsonObject().get("_id").getAsString();
+        String profileId = commentsJson.getAsJsonObject().get("profileId").getAsString();
+        String postId = commentsJson.getAsJsonObject().get("postId").getAsString();
+        String date = commentsJson.getAsJsonObject().get("date").getAsString();
+        String text = commentsJson.getAsJsonObject().get("text").getAsString();
+
+        Comment comment = new Comment(commentId, profileId, postId, date, text);
+
+        return comment;
+    }
+
+    public static List<Comment> jsonArrayToCategory(JsonArray commentsJson){
+        List<Comment> commentsList = new ArrayList<>();
+        for (int i = 0; i < commentsJson.size(); i++) {
+            commentsList.add(Comment.jsonObjectToComment(commentsJson.get(i)));
+        }
+        return commentsList;
     }
 }

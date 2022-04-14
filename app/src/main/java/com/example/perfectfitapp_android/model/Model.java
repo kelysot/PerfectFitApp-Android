@@ -431,4 +431,20 @@ public class Model {
     public void getSubCategoryById(String subCategoryId ,GetSubCategoryById listener){
         modelServer.getSubCategoryById(subCategoryId, listener);
     }
+
+
+    /******************************************************************************************/
+
+    /*--------------------------------- Comment -------------------------------*/
+
+    /******************************************************************************************/
+
+    public interface GetCommentsByPostId {
+        void onComplete(List<Comment> comments);
+    }
+
+    public void getCommentsByPostId(String postId ,GetCommentsByPostId listener) {
+        modelServer.getCommentsByPostId(postId, listener);
+    }
+
 }

@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_homePageFragment_to_addNewPostStep1Fragment"
             app:destination="@id/addNewPostStep1Fragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewPostFragment"
@@ -107,5 +110,14 @@
         <action
             android:id="@+id/action_addNewPostStep1Fragment_to_addNewPostFragment"
             app:destination="@id/addNewPostFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentFragment"
+        android:name="com.example.perfectfitapp_android.comment.CommentFragment"
+        android:label="fragment_comment"
+        tools:layout="@layout/fragment_comment" >
+        <argument
+            android:name="postId"
+            app:argType="string" />
     </fragment>
 </navigation>
