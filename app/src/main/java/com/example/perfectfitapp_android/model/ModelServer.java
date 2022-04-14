@@ -771,7 +771,7 @@ public class ModelServer {
 
     /******************************************************************************************/
 
-    public void getCommentsByPostId(String postId, Model.GetCommentsByPostId listener){
+    public void getCommentsByPostId(String postId, Model.GetCommentsByPostIdListener listener){
         String token = sp.getString("ACCESS_TOKEN", "");
         Call<JsonArray> call = service.getCommentsByPostId(token, postId);
 
@@ -791,6 +791,36 @@ public class ModelServer {
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                listener.onComplete(null);
+            }
+        });
+    }
+
+    public void addNewComment(Comment comment, Model.AddNewCommentListener listener) {
+        HashMap<String, Object> commentMap = comment.toJson();
+        String token = sp.getString("ACCESS_TOKEN", "");
+        Call<JsonObject> call = service.addNewComment(token, commentMap);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                Log.d("TAG", response.body().toString());
+                if (response.code() == 200) {
+
+                    Comment newComment = new Comment();
+                    newComment = Comment.jsonElementToComment(response.body().get("comment"));
+                    listener.onComplete(newComment);
+                } else if (response.code() == 400) {
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
                 Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                         Toast.LENGTH_LONG).show();
                 listener.onComplete(null);

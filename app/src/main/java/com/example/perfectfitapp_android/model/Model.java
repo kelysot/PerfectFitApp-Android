@@ -439,12 +439,22 @@ public class Model {
 
     /******************************************************************************************/
 
-    public interface GetCommentsByPostId {
+    public interface GetCommentsByPostIdListener {
         void onComplete(List<Comment> comments);
     }
 
-    public void getCommentsByPostId(String postId ,GetCommentsByPostId listener) {
+    public void getCommentsByPostId(String postId ,GetCommentsByPostIdListener listener) {
         modelServer.getCommentsByPostId(postId, listener);
+    }
+
+    /*--------------------------------------------------------*/
+
+    public interface AddNewCommentListener {
+        void onComplete(Comment comment);
+    }
+
+    public void addNewComment(Comment comment, AddNewCommentListener listener) {
+        modelServer.addNewComment(comment, listener);
     }
 
 }

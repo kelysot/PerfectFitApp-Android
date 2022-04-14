@@ -126,4 +126,7 @@ public interface RetrofitInterface {
     @GET("/comment/{postId}")
     Call<JsonArray> getCommentsByPostId(@Header("authorization") String token, @Path("postId") String postId );
 
+    @POST("/comment")
+    Call<JsonObject> addNewComment(@Header("authorization") String token, @Body HashMap<String, Object> map);
+
 }
