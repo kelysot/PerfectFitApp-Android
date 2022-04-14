@@ -4,11 +4,20 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Comment {
 
     String commentId, profileId, postId, date, text;
+
+    public Comment(){
+        this.commentId = "";
+        this.profileId = "";
+        this.postId = "";
+        this.date = "";
+        this.text = "";
+    }
 
     public Comment(String commentId, String profileId, String postId, String date, String text) {
         this.commentId = commentId;
@@ -67,6 +76,31 @@ public class Comment {
                 ", date='" + date + '\'' +
                 ", text='" + text + '\'' +
                 '}';
+    }
+
+    public HashMap<String, Object> toJson() {
+        HashMap<String, Object> json = new HashMap<String, Object>();
+        json.put("_id", commentId );
+        json.put("profileId", profileId);
+        json.put("postId", postId);
+        json.put("date", date);
+        json.put("text", text);
+
+//        json.put("updateDate", FieldValue.serverTimestamp());
+
+        return json;
+    }
+
+    public static Comment jsonElementToComment(JsonElement commentJson){
+        String id = commentJson.getAsJsonObject().get("_id").getAsString();
+        String profileId = commentJson.getAsJsonObject().get("profileId").getAsString();
+        String postId = commentJson.getAsJsonObject().get("postId").getAsString();
+        String date = commentJson.getAsJsonObject().get("date").getAsString();
+        String text = commentJson.getAsJsonObject().get("text").getAsString();
+
+        Comment comment = new Comment(id, profileId, postId, date , text);
+
+        return comment;
     }
 
     public static Comment jsonObjectToComment(JsonElement commentsJson){
