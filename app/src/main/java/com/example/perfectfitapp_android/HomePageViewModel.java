@@ -1,20 +1,26 @@
 package com.example.perfectfitapp_android;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 
 import java.util.List;
 
 public class HomePageViewModel extends ViewModel {
 
-    List<Post> data;
+    LiveData<List<Post>> data;
 
-    public List<Post> getData() {
+    public HomePageViewModel(){
+        data = Model.instance.getAll();
+    }
+
+    public LiveData<List<Post>> getData() {
         return data;
     }
 
-    public void setData(List<Post> data) {
+    public void setData(LiveData<List<Post>> data) {
         this.data = data;
     }
 }
