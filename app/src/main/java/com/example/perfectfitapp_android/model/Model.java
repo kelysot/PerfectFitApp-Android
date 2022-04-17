@@ -13,6 +13,8 @@ import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.RetrofitInterface;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,6 +42,8 @@ public class Model {
     Map<String, ArrayList<String>> categoriesAndSubCategories = new HashMap<>();
     ModelServer modelServer = new ModelServer();
     Post post, newPost;
+    String lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getString("PostsLastUpdateDate", "");
+
 
     /************************************  LoadingState  ************************************/
     public enum PostListLoadingState{
@@ -349,58 +353,33 @@ public class Model {
 
         // get last local update date
 
-        Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostsLastUpdateDate", 0);
-
         // server - get all updates since lastLocalUpdateDate
 
         // need to send the last update date
 
         modelServer.getAllPosts(postList -> {
-
-
             executor.execute(() -> {
 
-                Long lud = new Long(0);
                 // add all records to the local db
-                for (Post p: postList) {
-                    if(lud < post.getUpdateDate()){
-                        lud = post.getUpdateDate();
-                    }
-                }
+                Collections.reverse(postList);
+                String lud = postList.get(0).getDate();
+                System.out.println("the lud --------------------------- " + lud);
+
+                //TODO: we can get the relevant posts from the server - no need to check here the time!
+                // only need to get the posts from the server and add them to the list!
 
                 // update last local update date
 
                 MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).edit()
-                        .putLong("PostsLastUpdateDate", lud).commit();
-
+                        .putString("PostsLastUpdateDate", lud).commit();
 
                 // return all data to caller
 
                 //TODO: from local db
                 postsList.postValue(postList);
                 postListLoadingState.postValue(PostListLoadingState.loaded);
-
-
             });
-
-
-
-
-
-
         });
-
-
-
-
-        modelServer.getAllPosts(postList -> {
-            postsList.setValue(postList);
-            postListLoadingState.setValue(PostListLoadingState.loaded);
-        });
-
-
-
-
     }
 
     /*--------------------------------------------------------*/
