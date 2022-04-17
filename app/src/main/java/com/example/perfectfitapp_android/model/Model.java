@@ -41,21 +41,16 @@ public class Model {
     ModelServer modelServer = new ModelServer();
     Post post, newPost;
 
-
     /************************************  LoadingState  ************************************/
-    enum PostListLoadingState{
+    public enum PostListLoadingState{
         loading,
         loaded
     }
 
-    MutableLiveData<PostListLoadingState> postListLoadingState = new MutableLiveData<PostListLoadingState>();
+    public MutableLiveData<PostListLoadingState> postListLoadingState = new MutableLiveData<PostListLoadingState>();
 
-    public LiveData<PostListLoadingState> getPostListLoadingState() {
+    public MutableLiveData<PostListLoadingState> getPostListLoadingState() {
         return postListLoadingState;
-    }
-
-    public void setPostListLoadingState(MutableLiveData<PostListLoadingState> postListLoadingState) {
-        this.postListLoadingState = postListLoadingState;
     }
 
     /***************************************************************************************/
@@ -105,7 +100,7 @@ public class Model {
         this.categoriesAndSubCategories.put(category, subCategories);
     }
 
-    public Model(){
+    private Model(){
         this.count = 0;
         user = new User();
         profile = new Profile();
@@ -195,6 +190,14 @@ public class Model {
 
 
     /******************************************************************************************/
+
+    public interface getDatesListener{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void getDates(String date, getDatesListener listener) {
+        modelServer.getDatesFromServer(date ,listener);
+    }
 
     /*--------------------------------- User -------------------------------*/
 
@@ -344,11 +347,60 @@ public class Model {
     public void refreshPostsList(){
         postListLoadingState.setValue(PostListLoadingState.loading);
 
+        // get last local update date
+
+        Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostsLastUpdateDate", 0);
+
+        // server - get all updates since lastLocalUpdateDate
+
+        // need to send the last update date
+
+        modelServer.getAllPosts(postList -> {
+
+
+            executor.execute(() -> {
+
+                Long lud = new Long(0);
+                // add all records to the local db
+                for (Post p: postList) {
+                    if(lud < post.getUpdateDate()){
+                        lud = post.getUpdateDate();
+                    }
+                }
+
+                // update last local update date
+
+                MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).edit()
+                        .putLong("PostsLastUpdateDate", lud).commit();
+
+
+                // return all data to caller
+
+                //TODO: from local db
+                postsList.postValue(postList);
+                postListLoadingState.postValue(PostListLoadingState.loaded);
+
+
+            });
+
+
+
+
+
+
+        });
+
+
+
+
         modelServer.getAllPosts(postList -> {
             postsList.setValue(postList);
             postListLoadingState.setValue(PostListLoadingState.loaded);
-
         });
+
+
+
+
     }
 
     /*--------------------------------------------------------*/

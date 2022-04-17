@@ -827,6 +827,26 @@ public class ModelServer {
             }
         });
     }
+
+    public void getDatesFromServer(String date, Model.getDatesListener listener) {
+        String token = sp.getString("ACCESS_TOKEN", "");
+
+        Call<JsonArray> call = service.getDates(token, date);
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if(response.code() == 200){
+                    System.out.println("222222222222222222222222222222222222222222");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+
+            }
+        });
+
+    }
 }
 
 

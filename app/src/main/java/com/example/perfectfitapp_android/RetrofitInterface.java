@@ -129,4 +129,10 @@ public interface RetrofitInterface {
     @POST("/comment")
     Call<JsonObject> addNewComment(@Header("authorization") String token, @Body HashMap<String, Object> map);
 
+    /*--------------------------------- Dates -------------------------------*/
+
+    @GET("/post/getDates/{date}")
+    Call<JsonArray> getDates (@Header("authorization") String token, @Path("date") String dates);
+
+
 }

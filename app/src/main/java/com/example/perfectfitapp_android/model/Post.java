@@ -7,6 +7,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +24,7 @@ public class Post {
     String price;
     ArrayList<String> likes, picturesUrl;
     ArrayList<String> comments;
+    Long updateDate = new Long(0);
 
     /*--------------------------------- Getters & Setters -------------------------------*/
 
@@ -350,7 +353,10 @@ public class Post {
         json.put("likes", likes);
         json.put("comments", comments);
 
-//        json.put("updateDate", FieldValue.serverTimestamp());
+        Date currentTime = Calendar.getInstance().getTime();
+
+        System.out.println(currentTime);
+        json.put("updateDate", currentTime);
 
         return json;
     }
@@ -462,4 +468,8 @@ public class Post {
     }
 
 
+    //TODO: ...
+    public Long getUpdateDate() {
+        return updateDate;
+    }
 }

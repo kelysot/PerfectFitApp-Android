@@ -52,6 +52,7 @@ public class HomePageFragment extends Fragment {
     MyAdapter adapter;
     TextView userName;
     SwipeRefreshLayout swipeRefresh;
+    Button checkDate;
 
 
     @Override
@@ -70,7 +71,7 @@ public class HomePageFragment extends Fragment {
         userName.setText(Model.instance.getProfile().getUserName());
 
         swipeRefresh = view.findViewById(R.id.postlist_swiperefresh);
-        swipeRefresh.setOnRefreshListener(() -> refresh());
+        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshPostsList());
 
         RecyclerView postsList = view.findViewById(R.id.postlist_rv);
         postsList.setHasFixedSize(true);
@@ -90,16 +91,27 @@ public class HomePageFragment extends Fragment {
         });
 
         setHasOptionsMenu(true);
-        viewModel.getData().observe(getViewLifecycleOwner(), posts -> {
-            refresh();
+        viewModel.getData().observe(getViewLifecycleOwner(), posts -> { refresh(); });
+        swipeRefresh.setRefreshing(Model.instance.getPostListLoadingState().getValue() == Model.PostListLoadingState.loading);
+        Model.instance.getPostListLoadingState().observe(getViewLifecycleOwner(), postListLoadingState -> {
+
+            if(postListLoadingState == Model.PostListLoadingState.loading){
+                swipeRefresh.setRefreshing(true);
+            }
+            else{
+                swipeRefresh.setRefreshing(false);
+            }
         });
-//        Model.instance.getPostListLoadingState().observe(getViewLifecycleOwner(), new Observer<Model.PostListLoadingState>() {
-//            @Override
-//            public void onChanged(Model.PostListLoadingState postListLoadingState) {
-//
-//            }
-//        });
-//        refresh();
+
+
+        checkDate = view.findViewById(R.id.check_date);
+        checkDate.setOnClickListener(v -> {
+            Model.instance.getDates("Sun Apr 17 2022 14:25:28 GMT+0300",isSuccess -> {
+                //TODO:
+            });
+        });
+
+
         return view;
     }
 
