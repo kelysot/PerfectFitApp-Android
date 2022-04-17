@@ -7,6 +7,7 @@ import android.util.Log;
 
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.RetrofitInterface;
@@ -38,8 +39,27 @@ public class Model {
     List<SubCategory> subCategories = new ArrayList<>();
     Map<String, ArrayList<String>> categoriesAndSubCategories = new HashMap<>();
     ModelServer modelServer = new ModelServer();
-    Post post;
-    Post newPost;
+    Post post, newPost;
+
+
+    /************************************  LoadingState  ************************************/
+    enum PostListLoadingState{
+        loading,
+        loaded
+    }
+
+    MutableLiveData<PostListLoadingState> postListLoadingState = new MutableLiveData<PostListLoadingState>();
+
+    public LiveData<PostListLoadingState> getPostListLoadingState() {
+        return postListLoadingState;
+    }
+
+    public void setPostListLoadingState(MutableLiveData<PostListLoadingState> postListLoadingState) {
+        this.postListLoadingState = postListLoadingState;
+    }
+
+    /***************************************************************************************/
+
 
     public Post getNewPost() {
         return newPost;
@@ -97,6 +117,7 @@ public class Model {
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
+        postListLoadingState.setValue(PostListLoadingState.loaded);
     }
 
     public RetrofitInterface getRetrofitInterface() {
@@ -307,13 +328,28 @@ public class Model {
         void onComplete(List<Post> postList);
     }
 
-    public void getAllPostsFromServer(GetAllPostsListener listener) {
-        modelServer.getAllPosts(listener);
+//    public void getAllPostsFromServer(GetAllPostsListener listener) {
+//        modelServer.getAllPosts(listener);
+//    }
+
+    MutableLiveData<List<Post>> postsList = new MutableLiveData<List<Post>>();
+    public LiveData<List<Post>> getAll(){
+        refreshPostsList();
+//        if(postsList.getValue() == null){
+//            refreshPostsList();
+//        }
+        return  postsList;
     }
 
-//    public LiveData<List<Post>> getAll(){
-//
-//    }
+    public void refreshPostsList(){
+        postListLoadingState.setValue(PostListLoadingState.loading);
+
+        modelServer.getAllPosts(postList -> {
+            postsList.setValue(postList);
+            postListLoadingState.setValue(PostListLoadingState.loaded);
+
+        });
+    }
 
     /*--------------------------------------------------------*/
 
@@ -384,9 +420,6 @@ public class Model {
     public void getPostsBySubCategoryId(String subCategoryId,GetPostsBySubCategoryIdListener listener ){
         modelServer.getPostsBySubCategoryId(subCategoryId, listener);
     }
-
-
-
 
     /******************************************************************************************/
 

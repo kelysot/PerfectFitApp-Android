@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -45,7 +46,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
 public class HomePageFragment extends Fragment {
 
     HomePageViewModel viewModel;
@@ -80,7 +80,7 @@ public class HomePageFragment extends Fragment {
         postsList.setAdapter(adapter);
 
         adapter.setOnItemClickListener((v, position) -> {
-            String postId = viewModel.getData().get(position).getPostId();
+            String postId = viewModel.getData().getValue().get(position).getPostId();
             System.out.println("post " + postId + " was clicked");
             //TODO: bring the post from appLocalDB
             Model.instance.getPostById(postId, post -> {
@@ -90,16 +90,27 @@ public class HomePageFragment extends Fragment {
         });
 
         setHasOptionsMenu(true);
-        refresh();
+        viewModel.getData().observe(getViewLifecycleOwner(), posts -> {
+            refresh();
+        });
+//        Model.instance.getPostListLoadingState().observe(getViewLifecycleOwner(), new Observer<Model.PostListLoadingState>() {
+//            @Override
+//            public void onChanged(Model.PostListLoadingState postListLoadingState) {
+//
+//            }
+//        });
+//        refresh();
         return view;
     }
 
     private void refresh() {
-        Model.instance.getAllPostsFromServer(postList -> {
-            viewModel.setData(postList);
-            adapter.notifyDataSetChanged();
-            swipeRefresh.setRefreshing(false);
-        });
+    adapter.notifyDataSetChanged();
+    swipeRefresh.setRefreshing(false);
+//        Model.instance.getAllPostsFromServer(postList -> {
+//            viewModel.setData(postList);
+//            adapter.notifyDataSetChanged();
+//            swipeRefresh.setRefreshing(false);
+//        });
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -147,7 +158,7 @@ public class HomePageFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            Post post = viewModel.getData().get(position);
+            Post post = viewModel.getData().getValue().get(position);
             holder.userNameTv.setText(post.getProfileId());
             holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
@@ -197,10 +208,10 @@ public class HomePageFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(viewModel.getData() == null){
+            if(viewModel.getData().getValue() == null){
                 return 0;
             }
-            return viewModel.getData().size();
+            return viewModel.getData().getValue().size();
         }
     }
 
@@ -234,30 +245,26 @@ public class HomePageFragment extends Fragment {
             return true;
         }
         else if(item.getItemId() == R.id.logout){
-            Model.instance.logout(new Model.LogoutListener() {
-                @Override
-                public void onComplete(Boolean isSuccess) {
-                    if(isSuccess){
-                        Model.instance.getProfile().setStatus("false");
-                        Model.instance.editProfile(null, Model.instance.getProfile(), new Model.EditProfile() {
-                            @Override
-                            public void onComplete(Boolean isSuccess) {
-                                if(isSuccess){
-                                    startActivity(new Intent(getContext(), LoginActivity.class));
-                                    getActivity().finish();
-                                }
-                                else {
-                                    Toast.makeText(MyApplication.getContext(), "Can't change to false",
-                                            Toast.LENGTH_LONG).show();
-                                }
+            Model.instance.logout(isSuccess -> {
+                if(isSuccess){
+                    Model.instance.getProfile().setStatus("false");
+                    Model.instance.editProfile(null, Model.instance.getProfile(), new Model.EditProfile() {
+                        @Override
+                        public void onComplete(Boolean isSuccess) {
+                            if(isSuccess){
+                                startActivity(new Intent(getContext(), LoginActivity.class));
+                                getActivity().finish();
                             }
-                        });
-                    }
-                    else{
-                        Toast.makeText(MyApplication.getContext(), "Can't logout",
-                                Toast.LENGTH_LONG).show();
-                    }
-//                    NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.lo);
+                            else {
+                                Toast.makeText(MyApplication.getContext(), "Can't change to false",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
+                else{
+                    Toast.makeText(MyApplication.getContext(), "Can't logout",
+                            Toast.LENGTH_LONG).show();
                 }
             });
             return true;
