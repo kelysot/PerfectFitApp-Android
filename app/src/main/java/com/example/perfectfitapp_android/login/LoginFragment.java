@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,8 +76,9 @@ public class LoginFragment extends Fragment {
 //        }
 
 
-      Model.instance.logIn(localInputIEmail, localInputPassword, isSuccess -> {
-          if(isSuccess){
+      Model.instance.logIn(localInputIEmail, localInputPassword, user1 -> {
+          if(user1 != null){
+              Log.d("TAG", "111111111");
               Model.instance.getUserFromServer(localInputIEmail, user -> {
                   if(user != null){
                       Model.instance.setUser(user);

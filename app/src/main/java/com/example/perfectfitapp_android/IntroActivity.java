@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.perfectfitapp_android.login.LoginActivity;
+import com.example.perfectfitapp_android.model.AppLocalDb;
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.model.User;
+import com.example.perfectfitapp_android.user_profiles.UserProfilesActivity;
 
 public class IntroActivity extends AppCompatActivity {
 
@@ -23,10 +26,14 @@ public class IntroActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            Log.d("TAG2", Model.instance.getUser().getIsConnected());
-            if (Model.instance.getUser().getIsConnected().equals("true")){
+//            Model.instance.isSignIn()
+            if (Model.instance.isSignIn()){
                 Model.instance.mainThread.post(() -> {
-                    toFeedActivity();
+                    Model.instance.getUserFromRoom(user -> {
+                        Model.instance.setUser(user);
+                        toFeedActivity();
+                    });
+
                 });
             }else{
                 Model.instance.mainThread.post(() -> {
@@ -43,7 +50,7 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     private void toFeedActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, UserProfilesActivity.class);
         startActivity(intent);
         finish();
     }

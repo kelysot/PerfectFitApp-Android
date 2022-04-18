@@ -209,11 +209,17 @@ public class Model {
 
 
     public interface RegisterListener{
-        void onComplete(Boolean isSuccess);
+        void onComplete(User user);
     }
 
     public void register(String email, String password, RegisterListener listener){
-        modelServer.register(email, password, listener);
+        modelServer.register(email, password, user ->{
+            executor.execute(() -> {
+                AppLocalDb.db.userDao().insertUser(user);
+                listener.onComplete(user);
+
+            });
+        });
     }
 
     /*--------------------------------------------------------*/
@@ -229,11 +235,16 @@ public class Model {
     /*--------------------------------------------------------*/
 
     public interface LogInListener{
-        void onComplete(Boolean isSuccess);
+        void onComplete(User user);
     }
 
     public void logIn(String email, String password, LogInListener listener){
-        modelServer.logIn(email, password, listener);
+        modelServer.logIn(email, password, user -> {
+            executor.execute(() -> {
+                AppLocalDb.db.userDao().insertUser(user);
+                listener.onComplete(user);
+            });
+        });
     }
 
 
@@ -255,7 +266,34 @@ public class Model {
     }
 
     public void logout(LogoutListener listener){
-        modelServer.logout(listener);
+        modelServer.logout(isSuccess -> {
+            executor.execute(() -> {
+                User user = AppLocalDb.db.userDao().getUserRoom();
+                Log.d("TAG11", AppLocalDb.db.userDao().getUserRoom().toString());
+                AppLocalDb.db.userDao().deleteByUserEmail(user.getEmail());
+//                Log.d("TAG11", AppLocalDb.db.userDao().getUserRoom().toString());
+                listener.onComplete(isSuccess);
+            });
+        });
+    }
+
+    public Boolean isSignIn(){
+        User user = AppLocalDb.db.userDao().getUserRoom();
+        if(user != null)
+            Log.d("TAG22", user.getEmail());
+        return user != null;
+    }
+
+    public interface GetUserFromRoomListener{
+        void onComplete(User user);
+    }
+
+    public void getUserFromRoom(GetUserFromRoomListener listener){
+        executor.execute(() -> {
+            User user = AppLocalDb.db.userDao().getUserRoom();
+            Log.d("TAG3", user.getEmail());
+            listener.onComplete(user);
+        });
     }
 
     /******************************************************************************************/
