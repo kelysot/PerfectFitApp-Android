@@ -48,28 +48,31 @@ public class ModelServer {
     public void register(String email, String password, Model.RegisterListener listener) {
         User user = new User(email, password, "true");
         HashMap<String, String> userMap = user.toJson();
-        Call<Void> call = service.executeRegister(userMap);
-        call.enqueue(new Callback<Void>() {
+        Call<JsonObject> call = service.executeRegister(userMap);
+        call.enqueue(new Callback<JsonObject>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.code() == 200) {
-                    listener.onComplete(true);
+                    User user = new User();
+                    user = User.jsonObjectToUser(response.body().getAsJsonObject());
+                    listener.onComplete(user);
                 } else if (response.code() == 400) {
-                    Log.d("TAG", "failed to register in ModelServer 1");
-                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                    Toast.makeText(MyApplication.getContext(), "Wrong email or password",
                             Toast.LENGTH_LONG).show();
-                    listener.onComplete(false);
+                    listener.onComplete(null);
+                    Log.d("TAG", "failed in Register in ModelServer 2");
                 }
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<JsonObject> call, Throwable t) {
                 Log.d("TAG", "failed to register in ModelServer 2");
                 Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                         Toast.LENGTH_LONG).show();
-                listener.onComplete(false);
+                listener.onComplete(null);
             }
         });
+
     }
 
     public void getUser(String email, Model.GetUserListener listener) {
@@ -116,34 +119,35 @@ public class ModelServer {
         map.put("email", email);
         map.put("password", password);
         map.put("profilesArray", null);
-        Call<User> call = service.executeLogin(map);
+        Call<JsonObject> call = service.executeLogin(map);
 
-        call.enqueue(new Callback<User>() {
-
+        call.enqueue(new Callback<JsonObject>() {
             @Override
-            public void onResponse(Call<User> call, retrofit2.Response<User> response) {
-
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                JsonObject js = response.body().get("user").getAsJsonObject();
+                Log.d("TAG", js.toString());
                 if (response.code() == 200) {
-                    listener.onComplete(true);
+                    User user = new User();
+                    user = User.jsonObjectToUser(response.body().get("user").getAsJsonObject());
+                    listener.onComplete(user);
                 } else if (response.code() == 404) {
                     Toast.makeText(MyApplication.getContext(), "Wrong Credentials",
                             Toast.LENGTH_LONG).show();
                     Log.d("TAG", "failed in LogIn in ModelServer 1");
-                    listener.onComplete(false);
+                    listener.onComplete(null);
                 } else if (response.code() == 400) {
                     Toast.makeText(MyApplication.getContext(), "Wrong email or password",
                             Toast.LENGTH_LONG).show();
-                    listener.onComplete(false);
+                    listener.onComplete(null);
                     Log.d("TAG", "failed in LogIn in ModelServer 2");
                 }
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<JsonObject> call, Throwable t) {
                 Log.d("TAG", "failed in LogIn in ModelServer 3");
-                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                        Toast.LENGTH_LONG).show();
-                listener.onComplete(false);
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later", Toast.LENGTH_LONG).show();
+                listener.onComplete(null);
             }
         });
 
@@ -233,6 +237,7 @@ public class ModelServer {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
                 if (response.code() == 200) {
                     Profile profile = new Profile();
                     profile = profile.jsonObjectToProfile(response.body());

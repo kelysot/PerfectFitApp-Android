@@ -44,8 +44,8 @@ public class CreateUserFragment extends Fragment {
 
         Model.instance.checkIfEmailExist(email, isSuccess -> {
             if(isSuccess){
-                Model.instance.register(email, password, isSuccess1 -> {
-                    if(isSuccess1){
+                Model.instance.register(email, password, user1 -> {
+                    if(user1 != null){
                         Model.instance.getUserFromServer(email, user -> {
                             if(user != null){
                                 Model.instance.setUser(user);

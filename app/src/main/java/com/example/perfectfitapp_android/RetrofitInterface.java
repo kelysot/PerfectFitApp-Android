@@ -35,10 +35,10 @@ public interface RetrofitInterface {
     /******************************************************************************************/
 
     @POST("/auth/login")
-    Call<User> executeLogin(@Body HashMap<String, String> map);
+    Call<JsonObject> executeLogin(@Body HashMap<String, String> map);
 
     @POST("/auth/register")
-    Call<Void> executeRegister (@Body HashMap<String,String> map);
+    Call<JsonObject> executeRegister (@Body HashMap<String,String> map);
 
     @POST("/auth/logout")
     Call<Void> executeLogout(@Header("authorization") String token);
