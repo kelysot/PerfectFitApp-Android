@@ -1,22 +1,38 @@
 package com.example.perfectfitapp_android.model;
 
+import static com.google.gson.internal.bind.TypeAdapters.URL;
+
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
+import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.RetrofitInterface;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,6 +53,121 @@ public class ModelServer {
                 .build();
 
         service = retrofit.create(RetrofitInterface.class);
+    }
+
+    public void uploadImage(Bitmap imageBytes, Context context, Model.UploadImageListener listener) throws IOException {
+      //  RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), imageBytes);
+
+
+        File filesDir = context.getFilesDir();
+        File file = new File(filesDir, "image" + ".png");
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        imageBytes.compress(Bitmap.CompressFormat.PNG, 0, bos);
+        byte[] bitmapdata = bos.toByteArray();
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            fos.write(bitmapdata);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            fos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload");
+
+        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
+
+
+
+
+        Call<JsonObject> call = service.uploadImage(body, name);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.isSuccessful()) {
+                    JsonObject responseBody = response.body();
+                    Log.d("TAG", responseBody.toString());
+                    String mImageUrl = URL + responseBody.get("path").toString();
+                    Log.d("TAG", mImageUrl);
+                    listener.onComplete(mImageUrl);
+
+                } else {
+
+                    ResponseBody errorBody = response.errorBody();
+                    Gson gson = new Gson();
+
+                    try {
+
+                        Response errorResponse = gson.fromJson(errorBody.string(), Response.class);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+
+                Log.d("TAG", "onFailure: " + t.getLocalizedMessage());
+
+            }
+
+
+        });
+//        File filesDir = MyApplication.getContext().getFilesDir();
+//        File file = new File(filesDir, "image" + ".png");
+//
+//
+//        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//        mBitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
+//        byte[] bitmapdata = bos.toByteArray();
+//
+//
+//        FileOutputStream fos = new FileOutputStream(file);
+//        fos.write(bitmapdata);
+//        fos.flush();
+//        fos.close();
+//
+//        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+//        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
+//        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload");
+//
+//        Call<ResponseBody> call = service.uploadImage(body, name);
+//        call.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                if (response.code() == 200) {
+//                    Toast.makeText(MyApplication.getContext(), response.code() + " ", Toast.LENGTH_SHORT).show();
+//                    listener.onComplete(true);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                Toast.makeText(MyApplication.getContext(), "Request failed", Toast.LENGTH_SHORT).show();
+//                t.printStackTrace();
+//                listener.onComplete(false);
+//            }
+//        });
     }
 
     /******************************************************************************************/
