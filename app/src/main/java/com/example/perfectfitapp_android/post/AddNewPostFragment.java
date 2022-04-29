@@ -35,12 +35,14 @@ public class AddNewPostFragment extends Fragment {
     EditText productNameEt, skuEt, descriptionEt, linkEt, priceEt;
     SeekBar sizeAdjSk, ratingSk;
     Button postBtn;
+    String img = "";
     //TODO: date
 
     TextInputLayout sizeTxtIL, categoryTxtIL, subcategoryTxtIL, companyTxtIl, colorTxtIl;
     AutoCompleteTextView sizeAutoTv, categoryAuto, subCategoryAuto, companyAuto, colorAuto;
     String[] sizeArr, companyArr, categoryArr, colorArr;
     ArrayList<String> subcategoryArr;
+    ArrayList<String> pics = new ArrayList<>();
     ArrayAdapter<String> sizeAdapter, categoryAdapter, subcategoryAdapter, companyAdapter, colorAdapter;
     String chosenCategory;
 
@@ -49,6 +51,11 @@ public class AddNewPostFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_add_new_post, container, false);
+
+        img = AddNewPostFragmentArgs.fromBundle(getArguments()).getEncodedImage();
+        Log.d("TAG", img);
+        pics.add(pics.size(), img);
+        Log.d("TAG", pics.toString());
 
         productNameEt = view.findViewById(R.id.addnewpost_productname_et);
         skuEt = view.findViewById(R.id.addnewpost_sku_et);
@@ -103,7 +110,7 @@ public class AddNewPostFragment extends Fragment {
         Model.instance.setCount(Model.instance.getCount()+1);
 
         Post newPost = new Post(count.toString(), Model.instance.getProfile().getUserName(), productName, sku, size, company, color, category,
-                subCategory, description, date,link, sizeAdj, rating, price);
+                subCategory, description, date,link, sizeAdj, rating, pics, price, null, null);
 
 //        newPost.setPicturesUrl(Model.instance.getNewPost().getPicturesUrl());
 

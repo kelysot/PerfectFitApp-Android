@@ -196,13 +196,19 @@ public class Model {
 
 
     public interface UploadImageListener{
-//        void onComplete(Boolean isSuccess);
         void onComplete(String mImageUrl);
     }
 
-//    public void uploadImage(Bitmap mBitmap, UploadImageListener listener) throws IOException {
-    public void uploadImage(Bitmap mBitmap, Context context, UploadImageListener listener) throws IOException {
+    public void uploadImage(Bitmap mBitmap, Context context, UploadImageListener listener) {
         modelServer.uploadImage(mBitmap, context ,listener);
+    }
+
+    public interface GetImagesListener{
+        void onComplete(Bitmap bitmap);
+    }
+
+    public void getImages(String urlImage, GetImagesListener listener) {
+        modelServer.getImages(urlImage ,listener);
     }
 
     /******************************************************************************************/

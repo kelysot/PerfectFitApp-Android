@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
@@ -55,9 +56,8 @@ public class ModelServer {
         service = retrofit.create(RetrofitInterface.class);
     }
 
-    public void uploadImage(Bitmap imageBytes, Context context, Model.UploadImageListener listener) throws IOException {
+    public void uploadImage(Bitmap imageBytes, Context context, Model.UploadImageListener listener) {
       //  RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), imageBytes);
-
 
         File filesDir = context.getFilesDir();
         File file = new File(filesDir, "image" + ".png");
@@ -88,15 +88,10 @@ public class ModelServer {
             e.printStackTrace();
         }
 
-
-
         RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload");
 
         MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
-
-
-
 
         Call<JsonObject> call = service.uploadImage(body, name);
         call.enqueue(new Callback<JsonObject>() {
@@ -105,69 +100,53 @@ public class ModelServer {
                 if (response.isSuccessful()) {
                     JsonObject responseBody = response.body();
                     Log.d("TAG", responseBody.toString());
-                    String mImageUrl = URL + responseBody.get("path").toString();
+//                    String mImageUrl = URL + responseBody.get("path").toString();
+                    String mImageUrl = responseBody.get("path").toString();
                     Log.d("TAG", mImageUrl);
                     listener.onComplete(mImageUrl);
 
                 } else {
-
-                    ResponseBody errorBody = response.errorBody();
-                    Gson gson = new Gson();
-
-                    try {
-
-                        Response errorResponse = gson.fromJson(errorBody.string(), Response.class);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    Toast.makeText(MyApplication.getContext(), "Didn't Upload pics.",
+                            Toast.LENGTH_LONG).show();
+                    listener.onComplete(null);
                 }
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-
                 Log.d("TAG", "onFailure: " + t.getLocalizedMessage());
+                listener.onComplete(null);
 
             }
 
-
         });
-//        File filesDir = MyApplication.getContext().getFilesDir();
-//        File file = new File(filesDir, "image" + ".png");
-//
-//
-//        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//        mBitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
-//        byte[] bitmapdata = bos.toByteArray();
-//
-//
-//        FileOutputStream fos = new FileOutputStream(file);
-//        fos.write(bitmapdata);
-//        fos.flush();
-//        fos.close();
-//
-//        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
-//        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
-//        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload");
-//
-//        Call<ResponseBody> call = service.uploadImage(body, name);
-//        call.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                if (response.code() == 200) {
-//                    Toast.makeText(MyApplication.getContext(), response.code() + " ", Toast.LENGTH_SHORT).show();
-//                    listener.onComplete(true);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                Toast.makeText(MyApplication.getContext(), "Request failed", Toast.LENGTH_SHORT).show();
-//                t.printStackTrace();
-//                listener.onComplete(false);
-//            }
-//        });
+    }
+
+    public void getImages(String urlImage, Model.GetImagesListener listener){
+        Call<ResponseBody> call = service.getImage(urlImage);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.code() == 200){
+                    if(response.body() != null){
+                        Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
+                        listener.onComplete(bitmap);
+                    }
+                }
+                else{
+                    Toast.makeText(MyApplication.getContext(), "Didn't get pics.",
+                            Toast.LENGTH_LONG).show();
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("TAG", "onFailure: " + t.getLocalizedMessage());
+                listener.onComplete(null);
+            }
+        });
+
     }
 
     /******************************************************************************************/

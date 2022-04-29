@@ -36,16 +36,12 @@ import retrofit2.http.Path;
 
 public interface RetrofitInterface {
 
-//    @POST("upload/url")
-//    Call<Void> uploadImage(@Header("authorization") String token, @Body String url);
-
-//    @Multipart
-//    @POST("/upload")
-//    Call<ResponseBody> uploadImage(@Part MultipartBody.Part image, @Part("upload") RequestBody name);
-
     @Multipart
-    @POST("/upload/images/upload")
+    @POST("images/upload")
     Call<JsonObject> uploadImage(@Part MultipartBody.Part image, @Part("upload") RequestBody name);
+
+    @GET("/images/image/{imageName}")
+    Call<ResponseBody> getImage(@Path("imageName") String imageName);
 
     /*--------------------------------- User -------------------------------*/
 
