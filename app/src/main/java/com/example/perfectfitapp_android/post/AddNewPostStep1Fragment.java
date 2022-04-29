@@ -125,7 +125,7 @@ private String mImageUrl = "";
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
                     mBitmap = BitmapFactory.decodeStream(imageStream);
-//                    profilepic.setImageBitmap(imageBitmap);
+                    image.setImageBitmap(mBitmap);
 
 //                    Bundle extras = data.getExtras();
 //                    mBitmap = (Bitmap) extras.get("data");
@@ -161,7 +161,12 @@ private String mImageUrl = "";
         return byteBuff.toByteArray();
     }
 
-
+    private void moveStep2() {
+        ArrayList<String> picturesArr = new ArrayList<>();
+        Model.instance.getNewPost().setPicturesUrl(picturesArr);
+        Navigation.findNavController(okBtn)
+                .navigate(AddNewPostStep1FragmentDirections.actionAddNewPostStep1FragmentToAddNewPostFragment(mImageUrl));
+    }
 
 
 //    private void askPermissions() {
@@ -447,12 +452,7 @@ private String mImageUrl = "";
 ////    }
 //
 //
-    private void moveStep2() {
-        ArrayList<String> picturesArr = new ArrayList<>();
-        Model.instance.getNewPost().setPicturesUrl(picturesArr);
-        Navigation.findNavController(okBtn)
-                .navigate(AddNewPostStep1FragmentDirections.actionAddNewPostStep1FragmentToAddNewPostFragment(""));
-    }
+
 
 //    @Override
 //    public void onClick(View v) {
