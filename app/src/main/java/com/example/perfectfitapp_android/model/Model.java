@@ -1,6 +1,7 @@
 package com.example.perfectfitapp_android.model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -12,6 +13,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.RetrofitInterface;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -193,6 +195,16 @@ public class Model {
     public Post getPost(int pos){ return data.get(pos); }
 
 
+    public interface UploadImageListener{
+//        void onComplete(Boolean isSuccess);
+        void onComplete(String mImageUrl);
+    }
+
+//    public void uploadImage(Bitmap mBitmap, UploadImageListener listener) throws IOException {
+    public void uploadImage(Bitmap mBitmap, Context context, UploadImageListener listener) throws IOException {
+        modelServer.uploadImage(mBitmap, context ,listener);
+    }
+
     /******************************************************************************************/
 
     public interface getDatesListener{
@@ -239,7 +251,9 @@ public class Model {
     }
 
     public void logIn(String email, String password, LogInListener listener){
+        Log.d("TAG", email);
         modelServer.logIn(email, password, user -> {
+            Log.d("TAG", user.getEmail());
             executor.execute(() -> {
                 AppLocalDb.db.userDao().insertUser(user);
                 listener.onComplete(user);
