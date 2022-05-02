@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +27,10 @@ import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Comment;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
+import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.post.AddNewPostFragmentDirections;
 import com.example.perfectfitapp_android.post.PostPageFragmentArgs;
+import com.squareup.picasso.Picasso;
 
 public class CommentFragment extends Fragment {
 
@@ -100,12 +103,14 @@ public class CommentFragment extends Fragment {
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView userNameTv, textTV, date;
+        ImageView userPic;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             userNameTv = itemView.findViewById(R.id.comment_lr_user_name);
             textTV = itemView.findViewById(R.id.comment_lr_user_text);
             date = itemView.findViewById(R.id.comment_lr_time);
+            userPic = itemView.findViewById(R.id.comment_lr_user_img);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
@@ -140,6 +145,24 @@ public class CommentFragment extends Fragment {
             holder.userNameTv.setText(comment.getProfileId());
             holder.textTV.setText(comment.getText());
             holder.date.setText(comment.getDate());
+
+            Model.instance.getProfileByUserName(comment.getProfileId(), new Model.GetProfileByUserName() {
+                @Override
+                public void onComplete(Profile profile) {
+                    String userImg = profile.getUserImageUrl();
+                    if(userImg != null && !userImg.equals("")){
+                        Model.instance.getImages(userImg, bitmap -> {
+                            holder.userPic.setImageBitmap(bitmap);
+                        });
+                    }
+                    else {
+                        Picasso.get()
+                                .load(R.drawable.avatar).resize(250, 180)
+                                .centerCrop()
+                                .into(holder.userPic);
+                    }
+                }
+            });
         }
         @Override
         public int getItemCount() {
