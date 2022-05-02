@@ -343,6 +343,13 @@ public class Model {
         modelServer.getProfileFromServer(email,userName, listener);
     }
 
+    public interface GetProfileByUserName {
+        void onComplete(Profile profile);
+    }
+
+    public void getProfileByUserName(String userName, GetProfileByUserName listener) {
+        modelServer.getProfileByUserName(userName, listener);
+    }
     /*--------------------------------------------------------*/
 
     public interface  CreateProfileListener{
@@ -580,5 +587,6 @@ public class Model {
     public void addNewComment(Comment comment, AddNewCommentListener listener) {
         modelServer.addNewComment(comment, listener);
     }
+
 
 }

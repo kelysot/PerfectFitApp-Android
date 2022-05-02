@@ -1,13 +1,21 @@
 package com.example.perfectfitapp_android.create_profile;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +29,17 @@ import android.widget.Toast;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.post.AddNewPostStep1FragmentDirections;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.InputStream;
+
 
 public class CreateProfileStep1Fragment extends Fragment {
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_PIC = 2;
+    private String mImageUrl = "";
 
     TextInputEditText firstNameEt, lastNameEt, birthdayEt, userNameEt;
     ImageView image;
@@ -35,6 +49,7 @@ public class CreateProfileStep1Fragment extends Fragment {
     ArrayAdapter<String> genderAdapter;
     ImageButton cameraBtn, galleryBtn;
     Button continueBtn, chooseDate;
+    Bitmap mBitmap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,9 +63,12 @@ public class CreateProfileStep1Fragment extends Fragment {
         image = view.findViewById(R.id.register_step1_image_imv);
 
         cameraBtn = view.findViewById(R.id.register_step1_camera_imv);
-        galleryBtn = view.findViewById(R.id.register_step1_camera_imv);
+        galleryBtn = view.findViewById(R.id.register_step1_gallery_imv);
         continueBtn = view.findViewById(R.id.register_step1_continue_btn);
         continueBtn.setOnClickListener(v-> continueStep2(view));
+
+        cameraBtn.setOnClickListener(v -> openCam());
+        galleryBtn.setOnClickListener(v -> openGallery());
 
         chooseDate = view.findViewById(R.id.register_step1_birthday_btn);
         chooseDate.setOnClickListener(v -> {
@@ -65,7 +83,53 @@ public class CreateProfileStep1Fragment extends Fragment {
         return view;
     }
 
+    public void openCam() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+    }
+
+    public void openGallery() {
+        Intent photoPicerIntent = new Intent(Intent.ACTION_PICK);
+        photoPicerIntent.setType("image/*");
+        startActivityForResult(photoPicerIntent, REQUEST_IMAGE_PIC);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            if (resultCode == RESULT_OK) {
+                Bundle extras = data.getExtras();
+                mBitmap = (Bitmap) extras.get("data");
+                image.setImageBitmap(mBitmap);
+            }
+        } else if (requestCode == REQUEST_IMAGE_PIC) {
+            if (resultCode == RESULT_OK) {
+                try {
+                    final Uri imageUri = data.getData();
+                    final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
+                    mBitmap = BitmapFactory.decodeStream(imageStream);
+                    image.setImageBitmap(mBitmap);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
     private void continueStep2(View view) {
+
+        if (mBitmap != null) {
+            Model.instance.uploadImage(mBitmap, getActivity(), url -> {
+                mImageUrl = url;
+                checkIfUserNameExist(view);
+            });
+        }
+        else checkIfUserNameExist(view);
+    }
+
+    public void checkIfUserNameExist(View view){
 
         String firstName = firstNameEt.getText().toString();
         String lastName = lastNameEt.getText().toString();
@@ -82,6 +146,7 @@ public class CreateProfileStep1Fragment extends Fragment {
                     CreateProfileModel.instance.profile.setLastName(lastName);
                     CreateProfileModel.instance.profile.setBirthday(birthday);
                     CreateProfileModel.instance.profile.setGender(gender);
+                    CreateProfileModel.instance.profile.setUserImageUrl(mImageUrl);
                     Navigation.findNavController(view).navigate(R.id.action_createProfileStep1Fragment2_to_createProfileStep2Fragment2);
                 }
                 else{

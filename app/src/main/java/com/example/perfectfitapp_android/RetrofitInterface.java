@@ -36,6 +36,9 @@ import retrofit2.http.Path;
 
 public interface RetrofitInterface {
 
+
+    /*--------------------------------- Images -------------------------------*/
+
     @Multipart
     @POST("images/upload")
     Call<ResponseBody> uploadImage(@Part MultipartBody.Part image, @Part("upload") RequestBody name);
@@ -88,6 +91,9 @@ public interface RetrofitInterface {
 
     @DELETE("/profile/{userName}")
     Call<Void> deleteProfile(@Header("authorization") String token, @Path("userName") String userName);
+
+    @GET("/profile/getProfile/{userName}")
+    Call<JsonElement> getProfileByUserName(@Header("authorization") String token, @Path("userName") String userName);
 
     /*--------------------------------- Post -------------------------------*/
 

@@ -42,6 +42,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.post.AddNewPostFragmentDirections;
 import com.example.perfectfitapp_android.user_profiles.UserProfilesActivity;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -138,7 +139,7 @@ public class HomePageFragment extends Fragment {
         ImageButton addToWishList;
         
         Button commentsBtn;
-        ShapeableImageView postPic;
+        ShapeableImageView postPic, userPic;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
@@ -150,6 +151,7 @@ public class HomePageFragment extends Fragment {
             addToWishList = itemView.findViewById(R.id.add_to_wish_list_btn);
             commentsBtn = itemView.findViewById(R.id.listrow_comments_btn);
             postPic = itemView.findViewById(R.id.listrow_post_img);
+            userPic = itemView.findViewById(R.id.listrow_avatar_imv);
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 listener.onItemClick(v, pos);
@@ -186,12 +188,29 @@ public class HomePageFragment extends Fragment {
             holder.subCategoryTv.setText(post.getSubCategoryId());
             holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
 
-            if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0 ) {
-                Model.instance.getImages(post.getPicturesUrl().get(0), new Model.GetImagesListener() {
-                    @Override
-                    public void onComplete(Bitmap bitmap) {
-                        holder.postPic.setImageBitmap(bitmap);
+            Model.instance.getProfileByUserName(post.getProfileId(), new Model.GetProfileByUserName() {
+                @Override
+                public void onComplete(Profile profile) {
+                    String userImg = profile.getUserImageUrl();
+                    Log.d("TAG11", userImg);
+                    if(userImg != null && !userImg.equals("")){
+                        Model.instance.getImages(userImg, bitmap -> {
+                            holder.userPic.setImageBitmap(bitmap);
+                        });
                     }
+                    else {
+                        Picasso.get()
+                                .load(R.drawable.avatar).resize(250, 180)
+                                .centerCrop()
+                                .into(holder.userPic);
+                    }
+                }
+            });
+
+
+            if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0 ) {
+                Model.instance.getImages(post.getPicturesUrl().get(0), bitmap -> {
+                    holder.postPic.setImageBitmap(bitmap);
                 });
             }
             else {
