@@ -38,6 +38,7 @@ public class ProfileFragment extends Fragment {
     ProfileViewModel viewModel;
     ImageView userPic;
     TextView userNameTv;
+    TextView numOfPosts;
 //    ImageButton editProfileBtn;
     MyAdapter adapter;
 
@@ -56,11 +57,13 @@ public class ProfileFragment extends Fragment {
 
         userPic = view.findViewById(R.id.profile_profile_img);
         userNameTv = view.findViewById(R.id.profile_user_name);
+        numOfPosts = view.findViewById(R.id.profile_num_posts_tv);
 //        editProfileBtn = view.findViewById(R.id.profile_edit_profile_btn);
 //        editProfileBtn.setOnClickListener(v-> editProfile(view));
 
         Profile profile = Model.instance.getProfile();
         userNameTv.setText(profile.getUserName());
+        numOfPosts.setText(String.valueOf(profile.getMyPostsListId().size()));
         String userImg = profile.getUserImageUrl();
         if(userImg != null && !userImg.equals("")){
             Model.instance.getImages(userImg, bitmap -> {
