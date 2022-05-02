@@ -109,6 +109,9 @@
         <argument
             android:name="subCategoryId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_subCategoryDetailsPostsFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewPostStep1Fragment"
