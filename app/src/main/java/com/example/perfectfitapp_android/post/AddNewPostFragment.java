@@ -53,9 +53,9 @@ public class AddNewPostFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_new_post, container, false);
 
         img = AddNewPostFragmentArgs.fromBundle(getArguments()).getEncodedImage();
-        Log.d("TAG", img);
-        pics.add(pics.size(), img);
-        Log.d("TAG", pics.toString());
+
+        if(!img.equals("")) pics.add(pics.size(), img);
+        else pics = null;
 
         productNameEt = view.findViewById(R.id.addnewpost_productname_et);
         skuEt = view.findViewById(R.id.addnewpost_sku_et);
