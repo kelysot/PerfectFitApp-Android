@@ -1,10 +1,19 @@
 package com.example.perfectfitapp_android.post;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +23,8 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -23,13 +34,20 @@ import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
 public class EditPostFragment extends Fragment {
 
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_PIC = 2;
+    Bitmap mBitmap;
+
     EditText productNameEt, skuEt, sizeEt, companyEt, colorEt, categoryEt, subCategoryEt, descriptionEt;
     EditText linkEt, priceEt;
+    ImageView postImg;
+    ImageButton cameraBtn, galleryBtn;
     //TODO: date
     SeekBar sizeAdjSk, ratingSk;
     Button editBtn, deleteBtn;
@@ -43,6 +61,7 @@ public class EditPostFragment extends Fragment {
     ArrayAdapter<String> sizeAdapter, categoryAdapter, subcategoryAdapter, companyAdapter, colorAdapter;
     String chosenCategory;
     String postSource;
+    ArrayList<String> pics = new ArrayList<>();
 
 
     @Override
@@ -62,6 +81,10 @@ public class EditPostFragment extends Fragment {
         sizeAdjSk = view.findViewById(R.id.editpost_sizeadjustment_seekbar);
         ratingSk = view.findViewById(R.id.editpost_rating_seekbar);
 
+        postImg = view.findViewById(R.id.editpost_image_imv);
+        cameraBtn = view.findViewById(R.id.editpost_camera_imv);
+        galleryBtn = view.findViewById(R.id.editpost_gallery_imv);
+
         postId = EditPostFragmentArgs.fromBundle(getArguments()).getPostId();
 //        post = Model.instance.getPostById(postId);
 
@@ -75,6 +98,12 @@ public class EditPostFragment extends Fragment {
         linkEt.setText(post.getLink());
         priceEt.setText(post.getPrice());
 
+        if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0 ) {
+            Model.instance.getImages(post.getPicturesUrl().get(0), bitmap -> {
+                postImg.setImageBitmap(bitmap);
+            });
+        }
+
         //TODO: sizeAdjSk, ratingSk, price
 
         editBtn = view.findViewById(R.id.editpost_edit_btn);
@@ -83,9 +112,52 @@ public class EditPostFragment extends Fragment {
         deleteBtn = view.findViewById(R.id.editpost_delete_btn);
         deleteBtn.setOnClickListener(v -> delete());
 
+        cameraBtn.setOnClickListener(v -> openCam());
+        galleryBtn.setOnClickListener(v -> openGallery());
+
         return view;
     }
 
+    public void openCam() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+    }
+
+    public void openGallery() {
+        Intent photoPicerIntent = new Intent(Intent.ACTION_PICK);
+        photoPicerIntent.setType("image/*");
+        startActivityForResult(photoPicerIntent, REQUEST_IMAGE_PIC);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            if (resultCode == RESULT_OK) {
+                Bundle extras = data.getExtras();
+                mBitmap = (Bitmap) extras.get("data");
+                int width = getActivity().getResources().getDisplayMetrics().widthPixels;
+                int height = (width*mBitmap.getHeight())/mBitmap.getWidth();
+                mBitmap = Bitmap.createScaledBitmap(mBitmap, width, height, true);
+                postImg.setImageBitmap(mBitmap);
+            }
+        } else if (requestCode == REQUEST_IMAGE_PIC) {
+            if (resultCode == RESULT_OK) {
+                try {
+                    final Uri imageUri = data.getData();
+                    final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
+                    mBitmap = BitmapFactory.decodeStream(imageStream);
+                    int width = getActivity().getResources().getDisplayMetrics().widthPixels;
+                    int height = (width*mBitmap.getHeight())/mBitmap.getWidth();
+                    mBitmap = Bitmap.createScaledBitmap(mBitmap, width, height, true);
+                    postImg.setImageBitmap(mBitmap);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
 
     private void delete() {
 
@@ -120,7 +192,7 @@ public class EditPostFragment extends Fragment {
         subCategory = subCategoryAuto.getText().toString();
         price = priceEt.getText().toString();
 
-        //TODO: postId, profileId, date. pictureUrl, sizeadj, rating, price
+        //TODO: postId, profileId, date , sizeadj, rating, price
 
         String date = "8/3/2022";
         String pictureUrl = "";
@@ -138,11 +210,27 @@ public class EditPostFragment extends Fragment {
         post.setLink(link);
         post.setPrice(price);
 
+
+        if (mBitmap != null) {
+            Model.instance.uploadImage(mBitmap, getActivity(), url -> {
+                pics.add(pics.size(), url);
+                post.setPicturesUrl(pics);
+                editPage();
+            });
+        }
+        else {
+            pics = null;
+            editPage();
+        }
+
+    }
+
+    public void editPage(){
         Model.instance.editPost(post, isSuccess -> {
             if(isSuccess){
-               Post p = Model.instance.getPostById(post.getPostId());
-               int index = Model.instance.getAllPosts().indexOf(p);
-               Model.instance.getAllPosts().set(index, post);
+//                Post p = Model.instance.getPostById(post.getPostId());
+//                int index = Model.instance.getAllPosts().indexOf(p);
+//                Model.instance.getAllPosts().set(index, post);
 
                 //TODO: navigate to homepage or postpage, need o do the refresh
                 toPage();
@@ -152,7 +240,6 @@ public class EditPostFragment extends Fragment {
             }
         });
     }
-
 
     private void setAllDropDownMenus(View view, Post post) {
 

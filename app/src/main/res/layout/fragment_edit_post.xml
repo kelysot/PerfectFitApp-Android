@@ -10,6 +10,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageButton
+            android:id="@+id/editpost_camera_imv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@android:drawable/ic_menu_camera"
+            app:layout_constraintBottom_toTopOf="@+id/editpost_delete_btn"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/editpost_gallery_imv"
+            android:layout_width="52dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@android:drawable/ic_menu_gallery"
+            app:layout_constraintBottom_toTopOf="@+id/editpost_delete_btn"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/editpost_categories_txtil"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
@@ -227,16 +247,6 @@
             app:layout_constraintStart_toEndOf="@+id/editpost_sizeadjustment_seekbar"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout11" />
 
-        <ImageView
-            android:id="@+id/editpost_image_imv"
-            android:layout_width="80dp"
-            android:layout_height="51dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="30dp"
-            android:src="@android:drawable/ic_menu_camera"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout12" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout12"
             android:layout_width="409dp"
@@ -258,23 +268,34 @@
             android:layout_width="180dp"
             android:layout_height="48dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="180dp"
             android:layout_marginEnd="15dp"
             android:text="Edit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/editpost_delete_btn"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_image_imv" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout12" />
 
         <Button
             android:id="@+id/editpost_delete_btn"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="180dp"
             android:backgroundTint="#D10808"
             android:text="Delete"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_image_imv" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout12" />
+
+        <ImageView
+            android:id="@+id/editpost_image_imv"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/pic1_shirts"
+            app:layout_constraintBottom_toTopOf="@+id/editpost_edit_btn"
+            app:layout_constraintEnd_toStartOf="@+id/editpost_gallery_imv"
+            app:layout_constraintStart_toEndOf="@+id/editpost_camera_imv"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout12"
+            app:layout_constraintVertical_bias="0.466" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
