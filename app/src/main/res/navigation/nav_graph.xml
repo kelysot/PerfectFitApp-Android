@@ -116,7 +116,7 @@
     <fragment
         android:id="@+id/addNewPostStep1Fragment"
         android:name="com.example.perfectfitapp_android.post.AddNewPostStep1Fragment"
-        android:label="fragment_add_new_post_step1"
+        android:label="Add new post - step 1"
         tools:layout="@layout/fragment_add_new_post_step1" >
         <action
             android:id="@+id/action_addNewPostStep1Fragment_to_addNewPostFragment"
@@ -125,7 +125,7 @@
     <fragment
         android:id="@+id/commentFragment"
         android:name="com.example.perfectfitapp_android.comment.CommentFragment"
-        android:label="fragment_comment"
+        android:label="Comments"
         tools:layout="@layout/fragment_comment" >
         <argument
             android:name="postId"

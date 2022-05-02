@@ -27,6 +27,7 @@ import androidx.navigation.Navigation;
 
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.provider.SyncStateContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,6 +102,9 @@ public class AddNewPostStep1Fragment extends Fragment {
             if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 mBitmap = (Bitmap) extras.get("data");
+                int width = getActivity().getResources().getDisplayMetrics().widthPixels;
+                int height = (width*mBitmap.getHeight())/mBitmap.getWidth();
+                mBitmap = Bitmap.createScaledBitmap(mBitmap, width, height, true);
                 image.setImageBitmap(mBitmap);
             }
         } else if (requestCode == REQUEST_IMAGE_PIC) {
@@ -109,6 +113,9 @@ public class AddNewPostStep1Fragment extends Fragment {
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
                     mBitmap = BitmapFactory.decodeStream(imageStream);
+                    int width = getActivity().getResources().getDisplayMetrics().widthPixels;
+                    int height = (width*mBitmap.getHeight())/mBitmap.getWidth();
+                    mBitmap = Bitmap.createScaledBitmap(mBitmap, width, height, true);
                     image.setImageBitmap(mBitmap);
                 } catch (Exception e) {
                     e.printStackTrace();
