@@ -192,7 +192,6 @@ public class HomePageFragment extends Fragment {
                 @Override
                 public void onComplete(Profile profile) {
                     String userImg = profile.getUserImageUrl();
-                    Log.d("TAG11", userImg);
                     if(userImg != null && !userImg.equals("")){
                         Model.instance.getImages(userImg, bitmap -> {
                             holder.userPic.setImageBitmap(bitmap);
