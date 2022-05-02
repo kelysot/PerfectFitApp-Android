@@ -57,8 +57,6 @@ public class ModelServer {
     }
 
     public void uploadImage(Bitmap imageBytes, Context context, Model.UploadImageListener listener) {
-      //  RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), imageBytes);
-
         File filesDir = context.getFilesDir();
         File file = new File(filesDir, "image" + ".png");
 
@@ -87,38 +85,31 @@ public class ModelServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload");
 
-        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
-
-        Call<JsonObject> call = service.uploadImage(body, name);
-        call.enqueue(new Callback<JsonObject>() {
+        Call<ResponseBody> call = service.uploadImage(body,name);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                if (response.isSuccessful()) {
-                    JsonObject responseBody = response.body();
-                    Log.d("TAG", responseBody.toString());
-//                    String mImageUrl = URL + responseBody.get("path").toString();
-                    String mImageUrl = responseBody.get("path").toString();
-                    Log.d("TAG", mImageUrl);
-                    listener.onComplete(mImageUrl);
+            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response1) {
+                if (response1.code()==200) {
+                    try {
+                        listener.onComplete(response1.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                 } else {
-                    Toast.makeText(MyApplication.getContext(), "Didn't Upload pics.",
-                            Toast.LENGTH_LONG).show();
                     listener.onComplete(null);
                 }
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                Log.d("TAG", "onFailure: " + t.getLocalizedMessage());
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 listener.onComplete(null);
 
             }
-
         });
     }
 
@@ -129,8 +120,15 @@ public class ModelServer {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.code() == 200){
                     if(response.body() != null){
-                        Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
-                        listener.onComplete(bitmap);
+                        try {
+                            Bitmap bitmap = convertCompressedByteArrayToBitmap(response.body().bytes());
+                            listener.onComplete(bitmap);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else {
+                        listener.onComplete(null);
                     }
                 }
                 else{
@@ -146,8 +144,12 @@ public class ModelServer {
                 listener.onComplete(null);
             }
         });
-
     }
+
+    public static Bitmap convertCompressedByteArrayToBitmap(byte[] src){
+        return BitmapFactory.decodeByteArray(src, 0, src.length);
+    }
+
 
     /******************************************************************************************/
 
