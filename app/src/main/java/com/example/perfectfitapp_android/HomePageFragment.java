@@ -2,6 +2,8 @@ package com.example.perfectfitapp_android;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +35,8 @@ import com.example.perfectfitapp_android.login.LoginActivity;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 
+import java.io.File;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,6 +44,8 @@ import java.util.List;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.post.AddNewPostFragmentDirections;
 import com.example.perfectfitapp_android.user_profiles.UserProfilesActivity;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -131,6 +138,7 @@ public class HomePageFragment extends Fragment {
         ImageButton addToWishList;
         
         Button commentsBtn;
+        ShapeableImageView postPic;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
@@ -141,6 +149,7 @@ public class HomePageFragment extends Fragment {
             subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
             addToWishList = itemView.findViewById(R.id.add_to_wish_list_btn);
             commentsBtn = itemView.findViewById(R.id.listrow_comments_btn);
+            postPic = itemView.findViewById(R.id.listrow_post_img);
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 listener.onItemClick(v, pos);
@@ -176,6 +185,21 @@ public class HomePageFragment extends Fragment {
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
             holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
+            Log.d("TAG", post.getPicturesUrl().toString());
+            if (post.getPicturesUrl() != null || !post.getPicturesUrl().isEmpty()) {
+                Model.instance.getImages(post.getPicturesUrl().get(0), new Model.GetImagesListener() {
+                    @Override
+                    public void onComplete(Bitmap bitmap) {
+                        holder.postPic.setImageBitmap(bitmap);
+                    }
+                });
+            }
+            else {
+                Picasso.get()
+                        .load(R.drawable.pic1_shirts).resize(250, 180)
+                        .centerCrop()
+                        .into(holder.postPic);
+            }
             if(checkIfInsideWishList(holder, post)){
                 holder.addToWishList.setImageResource(R.drawable.ic_red_heart);
             }

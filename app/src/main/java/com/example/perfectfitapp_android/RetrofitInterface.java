@@ -38,7 +38,7 @@ public interface RetrofitInterface {
 
     @Multipart
     @POST("images/upload")
-    Call<JsonObject> uploadImage(@Part MultipartBody.Part image, @Part("upload") RequestBody name);
+    Call<ResponseBody> uploadImage(@Part MultipartBody.Part image, @Part("upload") RequestBody name);
 
     @GET("/images/image/{imageName}")
     Call<ResponseBody> getImage(@Path("imageName") String imageName);

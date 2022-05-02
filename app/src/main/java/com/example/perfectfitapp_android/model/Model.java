@@ -420,17 +420,19 @@ public class Model {
 
                 // add all records to the local db
                 Collections.reverse(postList);
-                String lud = postList.get(0).getDate();
-                System.out.println("the lud --------------------------- " + lud);
+                if(!postList.isEmpty()) {
+                    String lud = postList.get(0).getDate();
+                    System.out.println("the lud --------------------------- " + lud);
 
-                //TODO: we can get the relevant posts from the server - no need to check here the time!
-                // only need to get the posts from the server and add them to the list!
 
-                // update last local update date
+                    //TODO: we can get the relevant posts from the server - no need to check here the time!
+                    // only need to get the posts from the server and add them to the list!
 
-                MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).edit()
-                        .putString("PostsLastUpdateDate", lud).commit();
+                    // update last local update date
 
+                    MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).edit()
+                            .putString("PostsLastUpdateDate", lud).commit();
+                }
                 // return all data to caller
 
                 //TODO: from local db
