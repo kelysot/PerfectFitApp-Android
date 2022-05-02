@@ -102,8 +102,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView productNameTv, descriptionTv, categoryTv, subCategoryTv, userNameTv;
         ShapeableImageView postPic, userPic;
-        ImageButton addToWishList;
-        Button commentsBtn;
+        ImageButton addToWishList, commentsBtn;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);

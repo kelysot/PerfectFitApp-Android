@@ -12,17 +12,15 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.RetrofitInterface;
-import com.example.perfectfitapp_android.model.ModelServerCalls.CategoryModelServer;
-import com.example.perfectfitapp_android.model.ModelServerCalls.CommentModelServer;
-import com.example.perfectfitapp_android.model.ModelServerCalls.ImagesModelServer;
-import com.example.perfectfitapp_android.model.ModelServerCalls.PostModelServer;
-import com.example.perfectfitapp_android.model.ModelServerCalls.ProfileModelServer;
-import com.example.perfectfitapp_android.model.ModelServerCalls.SubCategoryModelServer;
-import com.example.perfectfitapp_android.model.ModelServerCalls.UserModelServer;
+import com.example.perfectfitapp_android.model.ModelServer.CategoryModelServer;
+import com.example.perfectfitapp_android.model.ModelServer.CommentModelServer;
+import com.example.perfectfitapp_android.model.ModelServer.ImagesModelServer;
+import com.example.perfectfitapp_android.model.ModelServer.PostModelServer;
+import com.example.perfectfitapp_android.model.ModelServer.ProfileModelServer;
+import com.example.perfectfitapp_android.model.ModelServer.SubCategoryModelServer;
+import com.example.perfectfitapp_android.model.ModelServer.UserModelServer;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;

@@ -119,13 +119,13 @@ public class HomePageFragment extends Fragment {
             });
         });
 
-
+        Model.instance.refreshPostsList();
         return view;
     }
 
     private void refresh() {
-    adapter.notifyDataSetChanged();
-    swipeRefresh.setRefreshing(false);
+        adapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
 //        Model.instance.getAllPostsFromServer(postList -> {
 //            viewModel.setData(postList);
 //            adapter.notifyDataSetChanged();
@@ -136,9 +136,8 @@ public class HomePageFragment extends Fragment {
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView descriptionTv,categoryTv, subCategoryTv, userNameTv;
 
-        ImageButton addToWishList;
+        ImageButton addToWishList, addToLikes, commentsBtn;
         
-        Button commentsBtn;
         ShapeableImageView postPic, userPic;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
@@ -149,6 +148,7 @@ public class HomePageFragment extends Fragment {
             categoryTv = itemView.findViewById(R.id.listrow_category_tv);
             subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
             addToWishList = itemView.findViewById(R.id.add_to_wish_list_btn);
+            addToLikes = itemView.findViewById(R.id.listrow_post_likes_btn);
             commentsBtn = itemView.findViewById(R.id.listrow_comments_btn);
             postPic = itemView.findViewById(R.id.listrow_post_img);
             userPic = itemView.findViewById(R.id.listrow_avatar_imv);
@@ -187,6 +187,7 @@ public class HomePageFragment extends Fragment {
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
             holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
+            holder.addToLikes.setOnClickListener(v-> addToLikes(holder, post));
 
             Model.instance.getProfileByUserName(post.getProfileId(), new Model.GetProfileByUserName() {
                 @Override
@@ -231,6 +232,37 @@ public class HomePageFragment extends Fragment {
             });
         }
 
+      //  TODO: every time get to page need to refresh the page.
+        private void addToLikes(MyViewHolder holder, Post post) {
+            String userName = Model.instance.getProfile().getUserName();
+            if(checkIfInsideLikes(post)){
+                post.getLikes().remove(userName);
+                Model.instance.editPost(post, isSuccess -> {
+                    if(isSuccess){
+                        holder.addToLikes.setImageResource(R.drawable.ic_heart);
+                    }
+                    else {
+                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            }
+            else{
+                post.getLikes().add(userName);
+                Model.instance.editPost(post, isSuccess -> {
+                    if(isSuccess){
+                        holder.addToLikes.setImageResource(R.drawable.ic_red_heart);
+                    }
+                    else{
+                        Log.d("TAG333", "11111");
+                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        }
+
         private void addToWishList(MyViewHolder holder, Post post) {
 
             if(checkIfInsideWishList(holder, post)){
@@ -272,6 +304,16 @@ public class HomePageFragment extends Fragment {
 
     public boolean checkIfInsideWishList(MyViewHolder holder, Post post){
         if(Model.instance.getProfile().getWishlist().contains(post.getPostId())){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean checkIfInsideLikes(Post post){
+        Log.d("TAG", post.getLikes().toString());
+        if(post.getLikes().contains(Model.instance.getProfile().getUserName())){
             return true;
         }
         else{

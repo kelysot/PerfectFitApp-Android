@@ -30,6 +30,7 @@ import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.post.PostPageFragmentDirections;
 import com.example.perfectfitapp_android.sub_category.SubCategoryDetailsPostsFragment;
+import com.example.perfectfitapp_android.sub_category.SubCategoryDetailsPostsFragmentDirections;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
@@ -108,7 +109,7 @@ public class ProfileFragment extends Fragment {
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView productNameTv, descriptionTv,categoryTv, subCategoryTv, userNameTv;
         ShapeableImageView postPic, userPic;
-        ImageButton addToWishList;
+        ImageButton addToWishList, commentsBtn;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
@@ -119,6 +120,7 @@ public class ProfileFragment extends Fragment {
             subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
             postPic = itemView.findViewById(R.id.listrow_post_img);
             userPic = itemView.findViewById(R.id.listrow_avatar_imv);
+            commentsBtn = itemView.findViewById(R.id.listrow_comments_btn);
 
             addToWishList = itemView.findViewById(R.id.add_to_wish_list_btn);
             itemView.setOnClickListener(v -> {
@@ -194,6 +196,10 @@ public class ProfileFragment extends Fragment {
             else{
                 holder.addToWishList.setImageResource(R.drawable.ic_star);
             }
+
+            holder.commentsBtn.setOnClickListener((v) -> {
+                Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionProfileFragmentToCommentFragment(post.getPostId()));
+            });
         }
 
         private void addToWishList(MyViewHolder holder, Post post) {

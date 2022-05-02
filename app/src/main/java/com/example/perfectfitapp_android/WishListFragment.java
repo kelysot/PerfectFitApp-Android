@@ -87,8 +87,7 @@ public class WishListFragment extends Fragment {
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView descriptionTv, categoryTv, subCategoryTv, userNameTv;
-        ImageButton addToWishListBtn;
-        Button commentsBtn;
+        ImageButton addToWishListBtn, commentsBtn;
         ShapeableImageView postPic, userPic;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {

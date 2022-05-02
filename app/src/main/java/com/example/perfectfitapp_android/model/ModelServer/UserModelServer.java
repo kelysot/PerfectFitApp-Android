@@ -1,4 +1,4 @@
-package com.example.perfectfitapp_android.model.ModelServerCalls;
+package com.example.perfectfitapp_android.model.ModelServer;
 
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -152,7 +152,6 @@ public class UserModelServer {
 
     }
 
-    //TODO: Understand why logout is Forbidden.
     public void logout(Model.LogoutListener listener) {
 
         String token = server.sp.getString("ACCESS_TOKEN", "");
