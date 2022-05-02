@@ -27,6 +27,7 @@ import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.post.PostPageFragmentDirections;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -60,8 +61,11 @@ public class ProfileFragment extends Fragment {
 
         Profile profile = Model.instance.getProfile();
         userNameTv.setText(profile.getUserName());
-        if (profile.getUserImageUrl() != null) {
-            Picasso.get().load(profile.getUserImageUrl()).into(userPic);
+        String userImg = profile.getUserImageUrl();
+        if(userImg != null && !userImg.equals("")){
+            Model.instance.getImages(userImg, bitmap -> {
+                userPic.setImageBitmap(bitmap);
+            });
         }
 
 
@@ -97,7 +101,7 @@ public class ProfileFragment extends Fragment {
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView productNameTv, descriptionTv,categoryTv, subCategoryTv, userNameTv;
-
+        ShapeableImageView postPic, userPic;
         ImageButton addToWishList;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
@@ -107,6 +111,8 @@ public class ProfileFragment extends Fragment {
             descriptionTv = itemView.findViewById(R.id.listrow_description_tv);
             categoryTv = itemView.findViewById(R.id.listrow_category_tv);
             subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
+            postPic = itemView.findViewById(R.id.listrow_post_img);
+            userPic = itemView.findViewById(R.id.listrow_avatar_imv);
 
             addToWishList = itemView.findViewById(R.id.add_to_wish_list_btn);
             itemView.setOnClickListener(v -> {
@@ -144,6 +150,37 @@ public class ProfileFragment extends Fragment {
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
             holder.addToWishList.setOnClickListener(v -> addToWishList(post));
+
+            Model.instance.getProfileByUserName(post.getProfileId(), new Model.GetProfileByUserName() {
+                @Override
+                public void onComplete(Profile profile) {
+                    String userImg = profile.getUserImageUrl();
+                    if(userImg != null && !userImg.equals("")){
+                        Model.instance.getImages(userImg, bitmap -> {
+                            holder.userPic.setImageBitmap(bitmap);
+                        });
+                    }
+                    else {
+                        Picasso.get()
+                                .load(R.drawable.avatar).resize(250, 180)
+                                .centerCrop()
+                                .into(holder.userPic);
+                    }
+                }
+            });
+
+
+            if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0 ) {
+                Model.instance.getImages(post.getPicturesUrl().get(0), bitmap -> {
+                    holder.postPic.setImageBitmap(bitmap);
+                });
+            }
+            else {
+                Picasso.get()
+                        .load(R.drawable.pic1_shirts).resize(250, 180)
+                        .centerCrop()
+                        .into(holder.postPic);
+            }
         }
 
         private void addToWishList(Post post) {
