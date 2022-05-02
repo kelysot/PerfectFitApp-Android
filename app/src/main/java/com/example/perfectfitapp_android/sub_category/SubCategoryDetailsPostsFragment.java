@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,12 +31,15 @@ import com.example.perfectfitapp_android.model.Profile;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
+import java.util.Collections;
+
 public class SubCategoryDetailsPostsFragment extends Fragment {
 
     SubCategoryDetailsPostsViewModel viewModel;
     MyAdapter adapter;
     String subCategoryId;
     TextView subCategoryName;
+    SwipeRefreshLayout swipeRefresh;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -63,6 +67,9 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
         mySubCategoryDetailsPosts.setHasFixedSize(true);
         mySubCategoryDetailsPosts.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        swipeRefresh = view.findViewById(R.id.subCategory_posts_swiperefresh);
+        swipeRefresh.setOnRefreshListener(() -> refresh());
+
         adapter = new MyAdapter();
         mySubCategoryDetailsPosts.setAdapter(adapter);
 
@@ -85,7 +92,9 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
     private void refresh() {
 
         Model.instance.getPostsBySubCategoryId(subCategoryId, posts -> {
+            Collections.reverse(posts);
             viewModel.setData(posts);
+            swipeRefresh.setRefreshing(false);
             adapter.notifyDataSetChanged();
         });
     }
