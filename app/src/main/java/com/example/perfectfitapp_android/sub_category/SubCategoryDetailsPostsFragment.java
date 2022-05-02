@@ -14,12 +14,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.perfectfitapp_android.HomePageFragment;
+import com.example.perfectfitapp_android.HomePageFragmentDirections;
+import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.WishListFragmentDirections;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
+import com.example.perfectfitapp_android.model.Profile;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.squareup.picasso.Picasso;
 
 public class SubCategoryDetailsPostsFragment extends Fragment {
 
@@ -83,6 +92,9 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView productNameTv, descriptionTv, categoryTv, subCategoryTv, userNameTv;
+        ShapeableImageView postPic, userPic;
+        ImageButton addToWishList;
+        Button commentsBtn;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
@@ -90,6 +102,10 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
             descriptionTv = itemView.findViewById(R.id.listrow_description_tv);
             categoryTv = itemView.findViewById(R.id.listrow_category_tv);
             subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
+            postPic = itemView.findViewById(R.id.listrow_post_img);
+            userPic = itemView.findViewById(R.id.listrow_avatar_imv);
+            addToWishList = itemView.findViewById(R.id.add_to_wish_list_btn);
+            commentsBtn = itemView.findViewById(R.id.listrow_comments_btn);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
@@ -125,6 +141,79 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
             holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
+            holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
+
+            Model.instance.getProfileByUserName(post.getProfileId(), new Model.GetProfileByUserName() {
+                @Override
+                public void onComplete(Profile profile) {
+                    String userImg = profile.getUserImageUrl();
+                    if(userImg != null && !userImg.equals("")){
+                        Model.instance.getImages(userImg, bitmap -> {
+                            holder.userPic.setImageBitmap(bitmap);
+                        });
+                    }
+                    else {
+                        Picasso.get()
+                                .load(R.drawable.avatar).resize(250, 180)
+                                .centerCrop()
+                                .into(holder.userPic);
+                    }
+                }
+            });
+
+
+            if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0 ) {
+                Model.instance.getImages(post.getPicturesUrl().get(0), bitmap -> {
+                    holder.postPic.setImageBitmap(bitmap);
+                });
+            }
+            else {
+                Picasso.get()
+                        .load(R.drawable.pic1_shirts).resize(250, 180)
+                        .centerCrop()
+                        .into(holder.postPic);
+            }
+
+            if(checkIfInsideWishList(holder, post)){
+                holder.addToWishList.setImageResource(R.drawable.ic_red_heart);
+            }
+            else{
+                holder.addToWishList.setImageResource(R.drawable.ic_heart);
+            }
+
+            holder.commentsBtn.setOnClickListener((v) -> {
+                Navigation.findNavController(v).navigate(SubCategoryDetailsPostsFragmentDirections.actionSubCategoryDetailsPostsFragmentToCommentFragment(post.getPostId()));
+            });
+        }
+
+        private void addToWishList(MyViewHolder holder, Post post) {
+
+            if(checkIfInsideWishList(holder, post)){
+                Model.instance.getProfile().getWishlist().remove(post.getPostId());
+                Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
+                    if(isSuccess){
+                        holder.addToWishList.setImageResource(R.drawable.ic_heart);
+                    }
+                    else{
+                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+            else{
+                Model.instance.getProfile().getWishlist().add(post.getPostId());
+                Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
+                    if(isSuccess){
+                        holder.addToWishList.setImageResource(R.drawable.ic_red_heart);
+                        System.out.println("the posts added to the list");
+                        System.out.println(Model.instance.getProfile().getWishlist());
+                    }
+                    else{
+                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
         }
 
         @Override
@@ -134,6 +223,15 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
             }
             else {
                 return viewModel.getData().size();
+            }
+        }
+
+        public boolean checkIfInsideWishList(MyViewHolder holder, Post post){
+            if(Model.instance.getProfile().getWishlist().contains(post.getPostId())){
+                return true;
+            }
+            else{
+                return false;
             }
         }
     }

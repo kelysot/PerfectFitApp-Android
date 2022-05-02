@@ -22,7 +22,10 @@ import android.widget.Toast;
 
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
+import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.profile.ProfileFragmentDirections;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -86,6 +89,7 @@ public class WishListFragment extends Fragment {
         TextView descriptionTv, categoryTv, subCategoryTv, userNameTv;
         ImageButton addToWishListBtn;
         Button commentsBtn;
+        ShapeableImageView postPic, userPic;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
@@ -95,6 +99,8 @@ public class WishListFragment extends Fragment {
             subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
             addToWishListBtn = itemView.findViewById(R.id.add_to_wish_list_btn);
             commentsBtn = itemView.findViewById(R.id.listrow_comments_btn);
+            postPic = itemView.findViewById(R.id.listrow_post_img);
+            userPic = itemView.findViewById(R.id.listrow_avatar_imv);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
@@ -132,6 +138,37 @@ public class WishListFragment extends Fragment {
             holder.subCategoryTv.setText(post.getSubCategoryId());
             holder.addToWishListBtn.setImageResource(R.drawable.ic_red_heart);
             holder.addToWishListBtn.setOnClickListener(v -> removeFromList(holder, post));
+
+            Model.instance.getProfileByUserName(post.getProfileId(), new Model.GetProfileByUserName() {
+                @Override
+                public void onComplete(Profile profile) {
+                    String userImg = profile.getUserImageUrl();
+                    if(userImg != null && !userImg.equals("")){
+                        Model.instance.getImages(userImg, bitmap -> {
+                            holder.userPic.setImageBitmap(bitmap);
+                        });
+                    }
+                    else {
+                        Picasso.get()
+                                .load(R.drawable.avatar).resize(250, 180)
+                                .centerCrop()
+                                .into(holder.userPic);
+                    }
+                }
+            });
+
+
+            if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0 ) {
+                Model.instance.getImages(post.getPicturesUrl().get(0), bitmap -> {
+                    holder.postPic.setImageBitmap(bitmap);
+                });
+            }
+            else {
+                Picasso.get()
+                        .load(R.drawable.pic1_shirts).resize(250, 180)
+                        .centerCrop()
+                        .into(holder.postPic);
+            }
 
             holder.commentsBtn.setOnClickListener((v) -> {
                 Navigation.findNavController(v).navigate(WishListFragmentDirections.actionWishListFragmentToCommentFragment(post.getPostId()));
