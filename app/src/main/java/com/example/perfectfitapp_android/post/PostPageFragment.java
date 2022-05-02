@@ -19,6 +19,7 @@ import com.example.perfectfitapp_android.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
+import com.squareup.picasso.Picasso;
 
 public class PostPageFragment extends Fragment {
 
@@ -78,6 +79,18 @@ public class PostPageFragment extends Fragment {
         descriptionEt.setText(post.getDescription());
         priceEt.setText(post.getPrice());
         linkEt.setText(post.getLink());
+
+        if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0 ) {
+            Model.instance.getImages(post.getPicturesUrl().get(0), bitmap -> {
+                image.setImageBitmap(bitmap);
+            });
+        }
+        else {
+            Picasso.get()
+                    .load(R.drawable.pic1_shirts).resize(250, 180)
+                    .centerCrop()
+                    .into(image);
+        }
 
         productNameEt.setEnabled(false);
         skuEt.setEnabled(false);

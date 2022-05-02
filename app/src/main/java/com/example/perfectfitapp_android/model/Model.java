@@ -146,6 +146,7 @@ public class Model {
     }
 
     public List<Post> getAllPosts(){
+        Log.d("TAG44", data.toString());
         return data;
     }
 
@@ -170,6 +171,7 @@ public class Model {
     }
 
     public Post getPostById(String postId) {
+        Log.d("TAG666", data.toString());
         for (Post s:data) {
             if (s.getPostId().equals(postId)){
                 return s;
