@@ -18,15 +18,19 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.perfectfitapp_android.HomePageFragment;
 import com.example.perfectfitapp_android.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.HomePageViewModel;
+import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.post.PostPageFragmentDirections;
+import com.example.perfectfitapp_android.sub_category.SubCategoryDetailsPostsFragment;
+import com.example.perfectfitapp_android.sub_category.SubCategoryDetailsPostsFragmentDirections;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
@@ -105,7 +109,7 @@ public class ProfileFragment extends Fragment {
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView productNameTv, descriptionTv,categoryTv, subCategoryTv, userNameTv;
         ShapeableImageView postPic, userPic;
-        ImageButton addToWishList;
+        ImageButton addToWishList, commentsBtn;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
@@ -116,6 +120,7 @@ public class ProfileFragment extends Fragment {
             subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
             postPic = itemView.findViewById(R.id.listrow_post_img);
             userPic = itemView.findViewById(R.id.listrow_avatar_imv);
+            commentsBtn = itemView.findViewById(R.id.listrow_comments_btn);
 
             addToWishList = itemView.findViewById(R.id.add_to_wish_list_btn);
             itemView.setOnClickListener(v -> {
@@ -152,7 +157,7 @@ public class ProfileFragment extends Fragment {
             holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
-            holder.addToWishList.setOnClickListener(v -> addToWishList(post));
+            holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
 
             Model.instance.getProfileByUserName(post.getProfileId(), new Model.GetProfileByUserName() {
                 @Override
@@ -184,35 +189,46 @@ public class ProfileFragment extends Fragment {
                         .centerCrop()
                         .into(holder.postPic);
             }
+
+            if(checkIfInsideWishList(holder, post)){
+                holder.addToWishList.setImageResource(R.drawable.ic_full_star);
+            }
+            else{
+                holder.addToWishList.setImageResource(R.drawable.ic_star);
+            }
+
+            holder.commentsBtn.setOnClickListener((v) -> {
+                Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionProfileFragmentToCommentFragment(post.getPostId()));
+            });
         }
 
-        private void addToWishList(Post post) {
+        private void addToWishList(MyViewHolder holder, Post post) {
 
-            if(Model.instance.getProfile().getWishlist().contains(post.getPostId())){
+            if(checkIfInsideWishList(holder, post)){
                 Model.instance.getProfile().getWishlist().remove(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if(isSuccess){
-                        //TODO: change the color of the heart
-                        System.out.println("after remove " + Model.instance.getProfile().getWishlist());
+                        holder.addToWishList.setImageResource(R.drawable.ic_star);
                     }
                     else{
-                        //TODO: toast
+                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                Toast.LENGTH_LONG).show();
                     }
                 });
-
             }
             else{
                 Model.instance.getProfile().getWishlist().add(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if(isSuccess){
+                        holder.addToWishList.setImageResource(R.drawable.ic_full_star);
                         System.out.println("the posts added to the list");
                         System.out.println(Model.instance.getProfile().getWishlist());
                     }
                     else{
-                        //TODO: toast
+                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                Toast.LENGTH_LONG).show();
                     }
                 });
-                //TODO: if post is already in the wishlist - we need to remove it
             }
         }
 
@@ -222,6 +238,15 @@ public class ProfileFragment extends Fragment {
                 return 0;
             }
             return viewModel.getData().size();
+        }
+
+        public boolean checkIfInsideWishList(MyViewHolder holder, Post post){
+            if(Model.instance.getProfile().getWishlist().contains(post.getPostId())){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
     }
 

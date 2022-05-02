@@ -1,4 +1,4 @@
-package com.example.perfectfitapp_android.model.ModelServerCalls;
+package com.example.perfectfitapp_android.model.ModelServer;
 
 import android.content.Context;
 import android.graphics.Bitmap;

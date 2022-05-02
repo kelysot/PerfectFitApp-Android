@@ -1,4 +1,4 @@
-package com.example.perfectfitapp_android.model.ModelServerCalls;
+package com.example.perfectfitapp_android.model.ModelServer;
 
 import android.util.Log;
 import android.widget.Toast;
@@ -115,6 +115,7 @@ public class PostModelServer {
         String token = server.sp.getString("ACCESS_TOKEN", "");
         HashMap<String, Object> postMap = post.toJson();
 
+        Log.d("TAG11", postMap.toString());
         Call<Void> call = server.service.editPost(token, postMap);
         call.enqueue(new Callback<Void>() {
             @Override
@@ -286,4 +287,5 @@ public class PostModelServer {
         });
 
     }
+
 }

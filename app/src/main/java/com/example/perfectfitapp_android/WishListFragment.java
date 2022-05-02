@@ -87,8 +87,7 @@ public class WishListFragment extends Fragment {
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView descriptionTv, categoryTv, subCategoryTv, userNameTv;
-        ImageButton addToWishListBtn;
-        Button commentsBtn;
+        ImageButton addToWishListBtn, commentsBtn;
         ShapeableImageView postPic, userPic;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
@@ -136,7 +135,7 @@ public class WishListFragment extends Fragment {
             holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
-            holder.addToWishListBtn.setImageResource(R.drawable.ic_red_heart);
+            holder.addToWishListBtn.setImageResource(R.drawable.ic_full_star);
             holder.addToWishListBtn.setOnClickListener(v -> removeFromList(holder, post));
 
             Model.instance.getProfileByUserName(post.getProfileId(), new Model.GetProfileByUserName() {
@@ -170,6 +169,7 @@ public class WishListFragment extends Fragment {
                         .into(holder.postPic);
             }
 
+
             holder.commentsBtn.setOnClickListener((v) -> {
                 Navigation.findNavController(v).navigate(WishListFragmentDirections.actionWishListFragmentToCommentFragment(post.getPostId()));
             });
@@ -179,7 +179,8 @@ public class WishListFragment extends Fragment {
             Model.instance.getProfile().getWishlist().remove(post.getPostId());
             Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                 if(isSuccess){
-                    holder.addToWishListBtn.setImageResource(R.drawable.ic_heart);
+                    holder.addToWishListBtn.setImageResource(R.drawable.ic_star);
+                    refresh();
                 }
                 else{
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
