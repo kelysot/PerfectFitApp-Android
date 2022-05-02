@@ -12,6 +12,13 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.RetrofitInterface;
+import com.example.perfectfitapp_android.model.ModelServerCalls.CategoryModelServer;
+import com.example.perfectfitapp_android.model.ModelServerCalls.CommentModelServer;
+import com.example.perfectfitapp_android.model.ModelServerCalls.ImagesModelServer;
+import com.example.perfectfitapp_android.model.ModelServerCalls.PostModelServer;
+import com.example.perfectfitapp_android.model.ModelServerCalls.ProfileModelServer;
+import com.example.perfectfitapp_android.model.ModelServerCalls.SubCategoryModelServer;
+import com.example.perfectfitapp_android.model.ModelServerCalls.UserModelServer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,9 +49,20 @@ public class Model {
     List<Category> categories = new ArrayList<>();
     List<SubCategory> subCategories = new ArrayList<>();
     Map<String, ArrayList<String>> categoriesAndSubCategories = new HashMap<>();
-    ModelServer modelServer = new ModelServer();
+//    ModelServer modelServer = new ModelServer();
+
     Post post, newPost;
     String lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getString("PostsLastUpdateDate", "");
+
+    /************************************  Model Server  ************************************/
+
+    ImagesModelServer imagesModelServer = new ImagesModelServer();
+    UserModelServer userModelServer = new UserModelServer();
+    ProfileModelServer profileModelServer = new ProfileModelServer();
+    PostModelServer postModelServer = new PostModelServer();
+    CommentModelServer commentModelServer = new CommentModelServer();
+    CategoryModelServer categoryModelServer = new CategoryModelServer();
+    SubCategoryModelServer subCategoryModelServer = new SubCategoryModelServer();
 
 
     /************************************  LoadingState  ************************************/
@@ -202,7 +220,7 @@ public class Model {
     }
 
     public void uploadImage(Bitmap mBitmap, Context context, UploadImageListener listener) {
-        modelServer.uploadImage(mBitmap, context ,listener);
+        imagesModelServer.uploadImage(mBitmap, context ,listener);
     }
 
     public interface GetImagesListener{
@@ -210,7 +228,7 @@ public class Model {
     }
 
     public void getImages(String urlImage, GetImagesListener listener) {
-        modelServer.getImages(urlImage ,listener);
+        imagesModelServer.getImages(urlImage ,listener);
     }
 
     /******************************************************************************************/
@@ -220,7 +238,7 @@ public class Model {
     }
 
     public void getDates(String date, getDatesListener listener) {
-        modelServer.getDatesFromServer(date ,listener);
+        postModelServer.getDatesFromServer(date ,listener);
     }
 
     /*--------------------------------- User -------------------------------*/
@@ -233,7 +251,7 @@ public class Model {
     }
 
     public void register(String email, String password, RegisterListener listener){
-        modelServer.register(email, password, user ->{
+        userModelServer.register(email, password, user ->{
             executor.execute(() -> {
                 AppLocalDb.db.userDao().insertUser(user);
                 listener.onComplete(user);
@@ -249,7 +267,7 @@ public class Model {
     }
 
     public void getUserFromServer(String email, GetUserListener listener){
-        modelServer.getUser(email, listener);
+        userModelServer.getUser(email, listener);
     }
 
     /*--------------------------------------------------------*/
@@ -260,7 +278,7 @@ public class Model {
 
     public void logIn(String email, String password, LogInListener listener){
         Log.d("TAG", email);
-        modelServer.logIn(email, password, user -> {
+        userModelServer.logIn(email, password, user -> {
             Log.d("TAG", user.getEmail());
             executor.execute(() -> {
                 AppLocalDb.db.userDao().insertUser(user);
@@ -277,7 +295,7 @@ public class Model {
     }
 
     public void checkIfEmailExist(String email, CheckIfEmailExist listener){
-        modelServer.checkIfEmailExist(email, listener);
+        userModelServer.checkIfEmailExist(email, listener);
 
     }
 
@@ -288,7 +306,7 @@ public class Model {
     }
 
     public void logout(LogoutListener listener){
-        modelServer.logout(isSuccess -> {
+        userModelServer.logout(isSuccess -> {
             executor.execute(() -> {
                 User user = AppLocalDb.db.userDao().getUserRoom();
                 Log.d("TAG11", AppLocalDb.db.userDao().getUserRoom().toString());
@@ -342,7 +360,7 @@ public class Model {
     }
 
     public void getProfileFromServer(String email, String userName,GetProfileListener listener) {
-        modelServer.getProfileFromServer(email,userName, listener);
+        profileModelServer.getProfileFromServer(email,userName, listener);
     }
 
     public interface GetProfileByUserName {
@@ -350,7 +368,7 @@ public class Model {
     }
 
     public void getProfileByUserName(String userName, GetProfileByUserName listener) {
-        modelServer.getProfileByUserName(userName, listener);
+        profileModelServer.getProfileByUserName(userName, listener);
     }
     /*--------------------------------------------------------*/
 
@@ -359,7 +377,7 @@ public class Model {
     }
 
     public void createProfile(Profile profile, CreateProfileListener listener){
-        modelServer.createProfile(profile, listener);
+        profileModelServer.createProfile(profile, listener);
 
     }
 
@@ -370,7 +388,7 @@ public class Model {
     }
 
     public void checkIfUserNameExist(String userName, CheckIfUserNameExist listener){
-        modelServer.checkIfUserNameExist(userName, listener);
+        profileModelServer.checkIfUserNameExist(userName, listener);
 
     }
 
@@ -381,7 +399,7 @@ public class Model {
     }
 
     public void editProfile(String previousName, Profile profile, EditProfile listener){
-        modelServer.editProfile(previousName, profile, listener);
+        profileModelServer.editProfile(previousName, profile, listener);
     }
 
     public interface DeleteProfileListener{
@@ -389,7 +407,7 @@ public class Model {
     }
 
     public void deleteProfile(String userName, DeleteProfileListener listener){
-        modelServer.deleteProfile(userName, listener);
+        profileModelServer.deleteProfile(userName, listener);
     }
 
     /******************************************************************************************/
@@ -424,7 +442,7 @@ public class Model {
 
         // need to send the last update date
 
-        modelServer.getAllPosts(postList -> {
+        postModelServer.getAllPosts(postList -> {
             executor.execute(() -> {
 
                 // add all records to the local db
@@ -458,7 +476,7 @@ public class Model {
     }
 
     public void addNewPost(Post post, AddNewPostListener listener) {
-        modelServer.addNewPost(post, listener);
+        postModelServer.addNewPost(post, listener);
     }
 
     /*--------------------------------------------------------*/
@@ -468,7 +486,7 @@ public class Model {
     }
 
     public void getWishListFromServer(getWishListListener listener) {
-        modelServer.getWishList(listener);
+        postModelServer.getWishList(listener);
     }
 
     /*--------------------------------------------------------*/
@@ -478,7 +496,7 @@ public class Model {
     }
 
     public void deletePostFromServer(String postId, deletePostFromServerListener listener){
-        modelServer.deletePost(postId, listener);
+        postModelServer.deletePost(postId, listener);
     }
 
     /*--------------------------------------------------------*/
@@ -488,7 +506,7 @@ public class Model {
     }
 
     public void editPost(Post post, editPostListener listener){
-        modelServer.editPost(post, listener);
+        postModelServer.editPost(post, listener);
     }
 
     /*--------------------------------------------------------*/
@@ -498,7 +516,7 @@ public class Model {
     }
 
     public void getProfilePosts(String userName, getProfilePostsListener listener){
-        modelServer.getProfilePosts(userName, listener);
+        postModelServer.getProfilePosts(userName, listener);
     }
 
     /*--------------------------------------------------------*/
@@ -508,7 +526,7 @@ public class Model {
     }
 
     public void getPostById(String postId,getPostByIdListener listener ){
-        modelServer.getPostById(postId, listener);
+        postModelServer.getPostById(postId, listener);
     }
 
     /*--------------------------------------------------------*/
@@ -518,7 +536,7 @@ public class Model {
     }
 
     public void getPostsBySubCategoryId(String subCategoryId,GetPostsBySubCategoryIdListener listener ){
-        modelServer.getPostsBySubCategoryId(subCategoryId, listener);
+        postModelServer.getPostsBySubCategoryId(subCategoryId, listener);
     }
 
     /******************************************************************************************/
@@ -532,7 +550,7 @@ public class Model {
     }
 
     public void getAllCategoriesListener(GetAllCategoriesListener listener) {
-        modelServer.getAllCategoriesListener(listener);
+        categoryModelServer.getAllCategoriesListener(listener);
     }
 
     /******************************************************************************************/
@@ -546,7 +564,7 @@ public class Model {
     }
 
     public void getAllSubCategories(GetAllSubCategoriesListener listener) {
-        modelServer.getAllSubCategories(listener);
+        subCategoryModelServer.getAllSubCategories(listener);
     }
 
     public interface GetSubCategoriesByCategoryIdListener {
@@ -554,7 +572,7 @@ public class Model {
     }
 
     public void getSubCategoriesByCategoryId(String categoryId,String gender,GetSubCategoriesByCategoryIdListener listener){
-        modelServer.getSubCategoriesByCategoryId(categoryId,gender,listener);
+        subCategoryModelServer.getSubCategoriesByCategoryId(categoryId,gender,listener);
     }
 
     public interface GetSubCategoryById {
@@ -562,7 +580,7 @@ public class Model {
     }
 
     public void getSubCategoryById(String subCategoryId ,GetSubCategoryById listener){
-        modelServer.getSubCategoryById(subCategoryId, listener);
+        subCategoryModelServer.getSubCategoryById(subCategoryId, listener);
     }
 
 
@@ -577,7 +595,7 @@ public class Model {
     }
 
     public void getCommentsByPostId(String postId ,GetCommentsByPostIdListener listener) {
-        modelServer.getCommentsByPostId(postId, listener);
+        commentModelServer.getCommentsByPostId(postId, listener);
     }
 
     /*--------------------------------------------------------*/
@@ -587,7 +605,7 @@ public class Model {
     }
 
     public void addNewComment(Comment comment, AddNewCommentListener listener) {
-        modelServer.addNewComment(comment, listener);
+        commentModelServer.addNewComment(comment, listener);
     }
 
 
