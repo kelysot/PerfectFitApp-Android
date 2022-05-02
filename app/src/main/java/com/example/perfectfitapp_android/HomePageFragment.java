@@ -185,8 +185,8 @@ public class HomePageFragment extends Fragment {
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
             holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
-            Log.d("TAG", post.getPicturesUrl().toString());
-            if (post.getPicturesUrl() != null || !post.getPicturesUrl().isEmpty()) {
+
+            if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0 ) {
                 Model.instance.getImages(post.getPicturesUrl().get(0), new Model.GetImagesListener() {
                     @Override
                     public void onComplete(Bitmap bitmap) {
@@ -200,6 +200,7 @@ public class HomePageFragment extends Fragment {
                         .centerCrop()
                         .into(holder.postPic);
             }
+
             if(checkIfInsideWishList(holder, post)){
                 holder.addToWishList.setImageResource(R.drawable.ic_red_heart);
             }
