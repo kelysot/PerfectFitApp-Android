@@ -346,13 +346,13 @@ public class Profile {
 
     public static Profile jsonElementToProfile(JsonElement profilesJson){
         String userId = profilesJson.getAsJsonObject().get("_id").getAsString();
-        String profileId = profilesJson.getAsJsonObject().get("profileId").getAsString();
+        String profileId = profilesJson.getAsJsonObject().get("userId").getAsString();
         String firstName = profilesJson.getAsJsonObject().get("firstName").getAsString();
         String lastName = profilesJson.getAsJsonObject().get("lastName").getAsString();
         String gender = profilesJson.getAsJsonObject().get("gender").getAsString();
         String userName = profilesJson.getAsJsonObject().get("userName").getAsString();
         String birthday = profilesJson.getAsJsonObject().get("birthday").getAsString();
-        String userImageUrl = profilesJson.getAsJsonObject().get("userImageUrl").getAsString();
+        String userImageUrl = profilesJson.getAsJsonObject().get("pictureUrl").getAsString();
         String shoulder = profilesJson.getAsJsonObject().get("shoulder").getAsString();
         String chest = profilesJson.getAsJsonObject().get("chest").getAsString();
         String basin = profilesJson.getAsJsonObject().get("basin").getAsString();

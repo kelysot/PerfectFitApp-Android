@@ -427,6 +427,32 @@ public class ModelServer {
         });
     }
 
+    public void getProfileByUserName(String userName, Model.GetProfileByUserName listener) {
+
+        String token = sp.getString("ACCESS_TOKEN", "");
+
+        Call<JsonElement> call = service.getProfileByUserName(token, userName);
+
+        call.enqueue(new Callback<JsonElement>() {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                if (response.code() == 200) {
+                    JsonElement js = response.body();
+                    Profile profile = Profile.jsonElementToProfile(js);
+                    listener.onComplete(profile);
+                } else if (response.code() == 400) {
+                    listener.onComplete(null);
+                }
+            }
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                listener.onComplete(null);
+            }
+        });
+    }
+
     public void editProfile(String previousName, Profile profile, Model.EditProfile listener) {
         HashMap<String, Object> profileMap = profile.toJson();
 
