@@ -66,6 +66,7 @@ public class EditProfileStep3Fragment extends Fragment {
         ModelProfile.instance.getEditProfile().setChest(chestEt.getText().toString());
         ModelProfile.instance.getEditProfile().setBasin(basinEt.getText().toString());
         ModelProfile.instance.getEditProfile().setWaist(waistEt.getText().toString());
+        ModelProfile.instance.getEditProfile().setHeight(heightEt.getText().toString());
         ModelProfile.instance.getEditProfile().setWeight(weightEt.getText().toString());
         ModelProfile.instance.getEditProfile().setFoot(footEt.getText().toString());
         ModelProfile.instance.getEditProfile().setShoulder(shoulderEt.getText().toString());
