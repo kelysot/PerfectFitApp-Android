@@ -288,7 +288,7 @@ public class PostModelServer {
     }
 
 
-    public void getSuitablePosts(String profileId){
+    public void getSuitablePosts(String profileId, Model.getSuitablePostsListener listener){
         String token = server.sp.getString("ACCESS_TOKEN", "");
 
         Call<JsonArray> call = server.service.getSuitablePosts(token, profileId);
@@ -296,6 +296,16 @@ public class PostModelServer {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
 
+                if(response.code() == 200){
+                    JsonArray js = response.body();
+                    List<Post> list = Post.jsonArrayToPost(js);
+                    System.out.println("the list is: " + list);
+                    listener.onComplete(list);
+                }
+                else{
+
+
+                }
             }
 
             @Override

@@ -122,7 +122,10 @@ public class HomePageFragment extends Fragment {
         sutPosts = view.findViewById(R.id.sutPosts);
         sutPosts.setOnClickListener(v -> {
             System.out.println("----------------------------------- " + Model.instance.getProfile().getUserName());
-            Model.instance.getSuitablePosts(Model.instance.getProfile().getUserName());
+            Model.instance.getSuitablePosts(Model.instance.getProfile().getUserName(), posts -> {
+                //TODO:
+
+            });
         });
 
         Model.instance.refreshPostsList();

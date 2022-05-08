@@ -440,13 +440,14 @@ public class Model {
 
         // need to send the last update date
 
-        postModelServer.getAllPosts(postList -> {
+
+        postModelServer.getSuitablePosts(Model.instance.getProfile().getUserName(), posts -> {
             executor.execute(() -> {
 
                 // add all records to the local db
-                Collections.reverse(postList);
-                if(!postList.isEmpty()) {
-                    String lud = postList.get(0).getDate();
+//                Collections.reverse(posts);
+                if(!posts.isEmpty()) {
+                    String lud = posts.get(0).getDate();
                     System.out.println("the lud --------------------------- " + lud);
 
 
@@ -461,10 +462,36 @@ public class Model {
                 // return all data to caller
 
                 //TODO: from local db
-                postsList.postValue(postList);
+                postsList.postValue(posts);
                 postListLoadingState.postValue(PostListLoadingState.loaded);
             });
         });
+
+//        postModelServer.getAllPosts(postList -> {
+//            executor.execute(() -> {
+//
+//                // add all records to the local db
+//                Collections.reverse(postList);
+//                if(!postList.isEmpty()) {
+//                    String lud = postList.get(0).getDate();
+//                    System.out.println("the lud --------------------------- " + lud);
+//
+//
+//                    //TODO: we can get the relevant posts from the server - no need to check here the time!
+//                    // only need to get the posts from the server and add them to the list!
+//
+//                    // update last local update date
+//
+//                    MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).edit()
+//                            .putString("PostsLastUpdateDate", lud).commit();
+//                }
+//                // return all data to caller
+//
+//                //TODO: from local db
+//                postsList.postValue(postList);
+//                postListLoadingState.postValue(PostListLoadingState.loaded);
+//            });
+//        });
     }
 
     /*--------------------------------------------------------*/
@@ -543,8 +570,8 @@ public class Model {
         void onComplete(List<Post> post);
     }
 
-    public void getSuitablePosts(String profileId){
-        postModelServer.getSuitablePosts(profileId);
+    public void getSuitablePosts(String profileId, getSuitablePostsListener listener){
+        postModelServer.getSuitablePosts(profileId, listener);
     }
 
     /******************************************************************************************/
