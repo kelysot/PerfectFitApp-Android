@@ -285,7 +285,24 @@ public class PostModelServer {
 
             }
         });
+    }
 
+
+    public void getSuitablePosts(String profileId){
+        String token = server.sp.getString("ACCESS_TOKEN", "");
+
+        Call<JsonArray> call = server.service.getSuitablePosts(token, profileId);
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+
+            }
+        });
     }
 
 }

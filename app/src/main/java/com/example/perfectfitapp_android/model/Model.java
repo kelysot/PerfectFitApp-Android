@@ -537,6 +537,16 @@ public class Model {
         postModelServer.getPostsBySubCategoryId(subCategoryId, listener);
     }
 
+    /*--------------------------------------------------------*/
+
+    public interface  getSuitablePostsListener{
+        void onComplete(List<Post> post);
+    }
+
+    public void getSuitablePosts(String profileId){
+        postModelServer.getSuitablePosts(profileId);
+    }
+
     /******************************************************************************************/
 
     /*--------------------------------- Category -------------------------------*/

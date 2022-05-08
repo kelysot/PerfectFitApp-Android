@@ -124,6 +124,8 @@ public interface RetrofitInterface {
     @GET("/post/getPostsBySubCategoryId/{subCategoryId}")
     Call<JsonArray> getPostsBySubCategoryId(@Header("authorization") String token, @Path("subCategoryId") String subCategoryId);
 
+    @GET("/post/getSuitablePosts/{profileId}")
+    Call<JsonArray> getSuitablePosts(@Header("authorization") String token, @Path("profileId") String profileId);
     /*--------------------------------- Category -------------------------------*/
 
     @GET("/category/{gender}")

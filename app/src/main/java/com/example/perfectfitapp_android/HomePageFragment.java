@@ -60,7 +60,7 @@ public class HomePageFragment extends Fragment {
     MyAdapter adapter;
     TextView userName;
     SwipeRefreshLayout swipeRefresh;
-    Button checkDate;
+    Button checkDate, sutPosts;
 
 
     @Override
@@ -117,6 +117,12 @@ public class HomePageFragment extends Fragment {
             Model.instance.getDates("Sun Apr 17 2022 14:54:53 GMT+0300",isSuccess -> {
                 //TODO:
             });
+        });
+
+        sutPosts = view.findViewById(R.id.sutPosts);
+        sutPosts.setOnClickListener(v -> {
+            System.out.println("----------------------------------- " + Model.instance.getProfile().getUserName());
+            Model.instance.getSuitablePosts(Model.instance.getProfile().getUserName());
         });
 
         Model.instance.refreshPostsList();
