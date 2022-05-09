@@ -10,6 +10,7 @@ import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.perfectfitapp_android.HomePageViewModel;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.RetrofitInterface;
 import com.example.perfectfitapp_android.model.ModelServer.CategoryModelServer;
@@ -162,7 +163,6 @@ public class Model {
     }
 
     public List<Post> getAllPosts(){
-        Log.d("TAG44", data.toString());
         return data;
     }
 
@@ -187,7 +187,6 @@ public class Model {
     }
 
     public Post getPostById(String postId) {
-        Log.d("TAG666", data.toString());
         for (Post s:data) {
             if (s.getPostId().equals(postId)){
                 return s;
@@ -275,9 +274,7 @@ public class Model {
     }
 
     public void logIn(String email, String password, LogInListener listener){
-        Log.d("TAG", email);
         userModelServer.logIn(email, password, user -> {
-            Log.d("TAG", user.getEmail());
             executor.execute(() -> {
                 AppLocalDb.db.userDao().insertUser(user);
                 listener.onComplete(user);
@@ -307,9 +304,7 @@ public class Model {
         userModelServer.logout(isSuccess -> {
             executor.execute(() -> {
                 User user = AppLocalDb.db.userDao().getUserRoom();
-                Log.d("TAG11", AppLocalDb.db.userDao().getUserRoom().toString());
                 AppLocalDb.db.userDao().deleteByUserEmail(user.getEmail());
-//                Log.d("TAG11", AppLocalDb.db.userDao().getUserRoom().toString());
                 listener.onComplete(isSuccess);
             });
         });
@@ -317,8 +312,6 @@ public class Model {
 
     public Boolean isSignIn(){
         User user = AppLocalDb.db.userDao().getUserRoom();
-        if(user != null)
-            Log.d("TAG22", user.getEmail());
         return user != null;
     }
 
@@ -329,7 +322,6 @@ public class Model {
     public void getUserFromRoom(GetUserFromRoomListener listener){
         executor.execute(() -> {
             User user = AppLocalDb.db.userDao().getUserRoom();
-            Log.d("TAG3", user.getEmail());
             listener.onComplete(user);
         });
     }

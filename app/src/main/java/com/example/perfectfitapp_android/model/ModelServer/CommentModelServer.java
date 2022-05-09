@@ -55,7 +55,6 @@ public class CommentModelServer {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
-                Log.d("TAG", response.body().toString());
                 if (response.code() == 200) {
 
                     Comment newComment = new Comment();

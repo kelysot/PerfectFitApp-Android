@@ -83,7 +83,6 @@ public class SubCategoryModelServer {
                     listener.onComplete(subCategory);
                 }
                 else{
-                    Log.d("TAG", "444444");
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
                     Log.d("TAG", "failed in ModelServer in getProfilePosts 2");

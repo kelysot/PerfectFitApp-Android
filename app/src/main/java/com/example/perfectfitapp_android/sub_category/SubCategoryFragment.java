@@ -48,7 +48,6 @@ public class SubCategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sub_category, container, false);
         categoryId = SubCategoryFragmentArgs.fromBundle(getArguments()).getCategoryId();
-        Log.d("TAG", "categoryId"+ categoryId);
 
         RecyclerView subCategoryList = view.findViewById(R.id.subCategory_rv);
         subCategoryList.setHasFixedSize(true);

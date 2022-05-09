@@ -362,8 +362,6 @@ public class Post {
     }
 
     public static Post jsonObjectToPost(JsonObject postsJson) {
-        Log.d("TAG1", postsJson.getAsString());
-        Log.d("TAG1", postsJson.get("_id").getAsString());
         String id = postsJson.get("_id").getAsString();
         String profileId = postsJson.get("profileId").getAsString();
         String productName = postsJson.get("productName").getAsString();

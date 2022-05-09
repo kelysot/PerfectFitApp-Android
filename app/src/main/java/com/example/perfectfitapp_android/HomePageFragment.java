@@ -229,11 +229,18 @@ public class HomePageFragment extends Fragment {
                         .into(holder.postPic);
             }
 
-            if(checkIfInsideWishList(holder, post)){
+            if(checkIfInsideWishList(post)){
                 holder.addToWishList.setImageResource(R.drawable.ic_full_star);
             }
             else{
                 holder.addToWishList.setImageResource(R.drawable.ic_star);
+            }
+
+            if(checkIfInsideLikes(post)){
+                holder.addToLikes.setImageResource(R.drawable.ic_red_heart);
+            }
+            else{
+                holder.addToLikes.setImageResource(R.drawable.ic_heart);
             }
 
             holder.commentsBtn.setOnClickListener((v) -> {
@@ -241,7 +248,6 @@ public class HomePageFragment extends Fragment {
             });
         }
 
-      //  TODO: every time get to page need to refresh the page.
         private void addToLikes(MyViewHolder holder, Post post) {
             String userName = Model.instance.getProfile().getUserName();
             if(checkIfInsideLikes(post)){
@@ -264,7 +270,6 @@ public class HomePageFragment extends Fragment {
                         holder.addToLikes.setImageResource(R.drawable.ic_red_heart);
                     }
                     else{
-                        Log.d("TAG333", "11111");
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }
@@ -274,7 +279,7 @@ public class HomePageFragment extends Fragment {
 
         private void addToWishList(MyViewHolder holder, Post post) {
 
-            if(checkIfInsideWishList(holder, post)){
+            if(checkIfInsideWishList(post)){
                 Model.instance.getProfile().getWishlist().remove(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if(isSuccess){
@@ -311,23 +316,12 @@ public class HomePageFragment extends Fragment {
         }
     }
 
-    public boolean checkIfInsideWishList(MyViewHolder holder, Post post){
-        if(Model.instance.getProfile().getWishlist().contains(post.getPostId())){
-            return true;
-        }
-        else{
-            return false;
-        }
+    public boolean checkIfInsideWishList(Post post){
+        return Model.instance.getProfile().getWishlist().contains(post.getPostId());
     }
 
     public boolean checkIfInsideLikes(Post post){
-        Log.d("TAG", post.getLikes().toString());
-        if(post.getLikes().contains(Model.instance.getProfile().getUserName())){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return post.getLikes().contains(Model.instance.getProfile().getUserName());
     }
 
 

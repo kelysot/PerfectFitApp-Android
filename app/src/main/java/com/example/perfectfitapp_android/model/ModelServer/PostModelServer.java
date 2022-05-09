@@ -55,19 +55,13 @@ public class PostModelServer {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Log.d("TAG", response.toString());
-
                 if (response.code() == 200) {
-                    Log.d("TAG", response.body().toString());
-                    Log.d("TAG", response.body().get("post").getAsJsonObject().get("productName").toString());
-
                     Post newPost = new Post();
                     newPost = Post.jsonElementToPost(response.body().get("post"));
                     listener.onComplete(newPost);
                 } else if (response.code() == 400) {
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
-                    Log.d("TAG", response.toString());
                     listener.onComplete(null);
                 }
             }
@@ -115,7 +109,6 @@ public class PostModelServer {
         String token = server.sp.getString("ACCESS_TOKEN", "");
         HashMap<String, Object> postMap = post.toJson();
 
-        Log.d("TAG11", postMap.toString());
         Call<Void> call = server.service.editPost(token, postMap);
         call.enqueue(new Callback<Void>() {
             @Override
