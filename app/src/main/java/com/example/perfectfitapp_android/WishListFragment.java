@@ -86,8 +86,8 @@ public class WishListFragment extends Fragment {
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView descriptionTv, categoryTv, subCategoryTv, userNameTv;
-        ImageButton addToWishListBtn, commentsBtn;
+        TextView descriptionTv, categoryTv, subCategoryTv, userNameTv, likesNumberTV;
+        ImageButton addToWishListBtn, commentsBtn, addToLikes;
         ShapeableImageView postPic, userPic;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
@@ -100,6 +100,8 @@ public class WishListFragment extends Fragment {
             commentsBtn = itemView.findViewById(R.id.listrow_comments_btn);
             postPic = itemView.findViewById(R.id.listrow_post_img);
             userPic = itemView.findViewById(R.id.listrow_avatar_imv);
+            likesNumberTV = itemView.findViewById(R.id.listrow_post_likes_number);
+            addToLikes = itemView.findViewById(R.id.listrow_post_likes_btn);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
@@ -135,8 +137,10 @@ public class WishListFragment extends Fragment {
             holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
+            holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
             holder.addToWishListBtn.setImageResource(R.drawable.ic_full_star);
             holder.addToWishListBtn.setOnClickListener(v -> removeFromList(holder, post));
+            holder.addToLikes.setOnClickListener(v-> addToLikes(holder, post));
 
             Model.instance.getProfileByUserName(post.getProfileId(), new Model.GetProfileByUserName() {
                 @Override
@@ -169,10 +173,45 @@ public class WishListFragment extends Fragment {
                         .into(holder.postPic);
             }
 
+            if(checkIfInsideLikes(post)){
+                holder.addToLikes.setImageResource(R.drawable.ic_red_heart);
+            }
+            else{
+                holder.addToLikes.setImageResource(R.drawable.ic_heart);
+            }
 
             holder.commentsBtn.setOnClickListener((v) -> {
                 Navigation.findNavController(v).navigate(WishListFragmentDirections.actionWishListFragmentToCommentFragment(post.getPostId()));
             });
+        }
+
+        private void addToLikes(MyViewHolder holder, Post post) {
+            String userName = Model.instance.getProfile().getUserName();
+            if(checkIfInsideLikes(post)){
+                post.getLikes().remove(userName);
+                Model.instance.editPost(post, isSuccess -> {
+                    if(isSuccess){
+                        holder.addToLikes.setImageResource(R.drawable.ic_heart);
+                    }
+                    else {
+                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            }
+            else{
+                post.getLikes().add(userName);
+                Model.instance.editPost(post, isSuccess -> {
+                    if(isSuccess){
+                        holder.addToLikes.setImageResource(R.drawable.ic_red_heart);
+                    }
+                    else{
+                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
         }
 
         public void removeFromList(MyViewHolder holder, Post post){
@@ -188,6 +227,10 @@ public class WishListFragment extends Fragment {
                 }
             });
 
+        }
+
+        public boolean checkIfInsideLikes(Post post){
+            return post.getLikes().contains(Model.instance.getProfile().getUserName());
         }
 
         @Override

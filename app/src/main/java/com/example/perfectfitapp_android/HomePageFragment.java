@@ -143,7 +143,7 @@ public class HomePageFragment extends Fragment {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView descriptionTv,categoryTv, subCategoryTv, userNameTv;
+        TextView descriptionTv,categoryTv, subCategoryTv, userNameTv, likesNumberTV;
 
         ImageButton addToWishList, addToLikes, commentsBtn;
         
@@ -161,6 +161,7 @@ public class HomePageFragment extends Fragment {
             commentsBtn = itemView.findViewById(R.id.listrow_comments_btn);
             postPic = itemView.findViewById(R.id.listrow_post_img);
             userPic = itemView.findViewById(R.id.listrow_avatar_imv);
+            likesNumberTV = itemView.findViewById(R.id.listrow_post_likes_number);
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 listener.onItemClick(v, pos);
@@ -195,6 +196,7 @@ public class HomePageFragment extends Fragment {
             holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
+            holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
             holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
             holder.addToLikes.setOnClickListener(v-> addToLikes(holder, post));
 
