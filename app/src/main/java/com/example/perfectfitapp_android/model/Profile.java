@@ -521,12 +521,12 @@ public class Profile {
         return map;
     }
 
-//    public static List<Profile> jsonArrayToProfile(JsonArray profilesJson){
-//        List<Profile> profilesList = new ArrayList<>();
-//        for (int i = 0; i < profilesJson.size(); i++) {
-//            profilesList.add(Profile.jsonObjectToProfile(profilesJson.get(i)));
-//        }
-//        return profilesList;
-//    }
+    public static List<Profile> jsonArrayToProfile(JsonArray profilesJson){
+        List<Profile> profilesList = new ArrayList<>();
+        for (int i = 0; i < profilesJson.size(); i++) {
+            profilesList.add(Profile.jsonElementToProfile(profilesJson.get(i)));
+        }
+        return profilesList;
+    }
 
 }

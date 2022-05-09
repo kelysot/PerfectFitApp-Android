@@ -392,12 +392,24 @@ public class Model {
         profileModelServer.editProfile(previousName, profile, listener);
     }
 
+    /*--------------------------------------------------------*/
+
     public interface DeleteProfileListener{
         void onComplete(Boolean isSuccess);
     }
 
     public void deleteProfile(String userName, DeleteProfileListener listener){
         profileModelServer.deleteProfile(userName, listener);
+    }
+
+    /*--------------------------------------------------------*/
+
+    public interface GetProfilesByUserNamesListener{
+        void onComplete(List<Profile> profilesList);
+    }
+
+    public void getProfilesByUserNames(List<String> userNames, GetProfilesByUserNamesListener listener){
+        profileModelServer.getProfilesByUserNames(userNames, listener);
     }
 
     /******************************************************************************************/

@@ -245,7 +245,13 @@ public class HomePageFragment extends Fragment {
                 holder.addToLikes.setImageResource(R.drawable.ic_heart);
             }
 
-            holder.commentsBtn.setOnClickListener((v) -> {
+            if(post.getLikes().size() != 0){
+                holder.likesNumberTV.setOnClickListener(v -> {
+                    Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToLikesFragment(post.getPostId()));
+                });
+            }
+
+            holder.commentsBtn.setOnClickListener(v -> {
                 Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToCommentFragment(post.getPostId()));
             });
         }
@@ -256,6 +262,7 @@ public class HomePageFragment extends Fragment {
                 post.getLikes().remove(userName);
                 Model.instance.editPost(post, isSuccess -> {
                     if(isSuccess){
+                        holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
                         holder.addToLikes.setImageResource(R.drawable.ic_heart);
                     }
                     else {
@@ -269,6 +276,7 @@ public class HomePageFragment extends Fragment {
                 post.getLikes().add(userName);
                 Model.instance.editPost(post, isSuccess -> {
                     if(isSuccess){
+                        holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
                         holder.addToLikes.setImageResource(R.drawable.ic_red_heart);
                     }
                     else{

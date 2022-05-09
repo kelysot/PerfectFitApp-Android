@@ -5,11 +5,14 @@ import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -185,6 +188,36 @@ public class ProfileModelServer {
                         Toast.LENGTH_LONG).show();
                 Log.d("TAG","onFailure");
                 listener.onComplete(false);
+            }
+        });
+    }
+
+    public void getProfilesByUserNames(List<String> userNames, Model.GetProfilesByUserNamesListener listener){
+        String token = server.sp.getString("ACCESS_TOKEN", "");
+        Call<JsonArray> call = server.service.getProfilesByUserNames(token, userNames);
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if(response.code() == 200){
+
+                    List<Profile> profiles = Profile.jsonArrayToProfile(response.body());
+                    listener.onComplete(profiles);
+                }
+                else{
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    Log.d("TAG", "failed in ModelServer in getProfilePosts 1");
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Log.d("TAG111", t.getMessage());
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                Log.d("TAG", "failed in ModelServer in getProfilePosts 2");
+                listener.onComplete(null);
             }
         });
     }
