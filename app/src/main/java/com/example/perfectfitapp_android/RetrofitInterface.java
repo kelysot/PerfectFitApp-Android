@@ -33,6 +33,7 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface RetrofitInterface {
 
@@ -94,6 +95,9 @@ public interface RetrofitInterface {
 
     @GET("/profile/getProfile/{userName}")
     Call<JsonElement> getProfileByUserName(@Header("authorization") String token, @Path("userName") String userName);
+
+    @GET("/profile/getProfilesByUserNames/{userNames}")
+    Call<JsonArray> getProfilesByUserNames(@Header("authorization") String token, @Path("userNames") List<String> userNames);
 
     /*--------------------------------- Post -------------------------------*/
 
