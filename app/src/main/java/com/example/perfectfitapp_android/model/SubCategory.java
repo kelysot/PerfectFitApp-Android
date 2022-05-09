@@ -88,6 +88,10 @@ public class SubCategory {
     }
 
     public static SubCategory jsonElementToSubCategory(JsonElement subCategoriesJson){
+        String isDeleted = subCategoriesJson.getAsJsonObject().get("isDeleted").getAsString();
+        if(isDeleted.equals("true")){
+            return null;
+        }
         String subCategoryId = subCategoriesJson.getAsJsonObject().get("_id").getAsString();
         String categoryId = subCategoriesJson.getAsJsonObject().get("categoryId").getAsString();
         String name = subCategoriesJson.getAsJsonObject().get("name").getAsString();
@@ -120,7 +124,9 @@ public class SubCategory {
     public static List<SubCategory> jsonArrayToSubCategory(JsonArray subCategoriesJson){
         List<SubCategory> subCategoryList = new ArrayList<>();
         for (int i=0;i<subCategoriesJson.size();i++){
-            subCategoryList.add(SubCategory.jsonElementToSubCategory(subCategoriesJson.get(i)));
+            SubCategory subCategory = SubCategory.jsonElementToSubCategory(subCategoriesJson.get(i));
+            if(subCategory != null)
+                subCategoryList.add(subCategory);
         }
         return subCategoryList;
     }

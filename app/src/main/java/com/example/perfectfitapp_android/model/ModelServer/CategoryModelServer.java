@@ -25,7 +25,6 @@ public class CategoryModelServer {
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 if (response.isSuccessful()) {
                     JsonArray categoriesJson = response.body();
-//                    Log.d("TAG12", response.body().toString());
                     List<Category> categories = Category.jsonArrayToCategory(categoriesJson);
                     listener.onComplete(categories);
                 } else {
