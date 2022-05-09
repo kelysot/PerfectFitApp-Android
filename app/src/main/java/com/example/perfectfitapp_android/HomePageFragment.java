@@ -250,6 +250,9 @@ public class HomePageFragment extends Fragment {
                     Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToLikesFragment(post.getPostId()));
                 });
             }
+            else {
+                holder.likesNumberTV.setOnClickListener(v -> {}); //So when user click on likes and when its empty he wont get into post page but won't get anything.
+            }
 
             holder.commentsBtn.setOnClickListener(v -> {
                 Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToCommentFragment(post.getPostId()));
@@ -264,6 +267,7 @@ public class HomePageFragment extends Fragment {
                     if(isSuccess){
                         holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
                         holder.addToLikes.setImageResource(R.drawable.ic_heart);
+                        refresh();
                     }
                     else {
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
@@ -278,6 +282,7 @@ public class HomePageFragment extends Fragment {
                     if(isSuccess){
                         holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
                         holder.addToLikes.setImageResource(R.drawable.ic_red_heart);
+                        refresh();
                     }
                     else{
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",

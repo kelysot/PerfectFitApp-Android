@@ -199,6 +199,15 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                 holder.addToLikes.setImageResource(R.drawable.ic_heart);
             }
 
+            if(post.getLikes().size() != 0){
+                holder.likesNumberTV.setOnClickListener(v -> {
+                    Navigation.findNavController(v).navigate(SubCategoryDetailsPostsFragmentDirections.actionSubCategoryDetailsPostsFragmentToLikesFragment(post.getPostId()));
+                });
+            }
+            else {
+                holder.likesNumberTV.setOnClickListener(v -> {}); //So when user click on likes and when its empty he wont get into post page but won't get anything.
+            }
+
             holder.commentsBtn.setOnClickListener((v) -> {
                 Navigation.findNavController(v).navigate(SubCategoryDetailsPostsFragmentDirections.actionSubCategoryDetailsPostsFragmentToCommentFragment(post.getPostId()));
             });
@@ -210,7 +219,9 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                 post.getLikes().remove(userName);
                 Model.instance.editPost(post, isSuccess -> {
                     if(isSuccess){
+                        holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
                         holder.addToLikes.setImageResource(R.drawable.ic_heart);
+                        refresh();
                     }
                     else {
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
@@ -223,7 +234,9 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                 post.getLikes().add(userName);
                 Model.instance.editPost(post, isSuccess -> {
                     if(isSuccess){
+                        holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
                         holder.addToLikes.setImageResource(R.drawable.ic_red_heart);
+                        refresh();
                     }
                     else{
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",

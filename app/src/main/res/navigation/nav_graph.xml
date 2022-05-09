@@ -72,6 +72,9 @@
         <action
             android:id="@+id/action_profileFragment_to_commentFragment"
             app:destination="@id/commentFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_likesFragment"
+            app:destination="@id/likesFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -107,6 +110,9 @@
         <action
             android:id="@+id/action_wishListFragment_to_commentFragment"
             app:destination="@id/commentFragment" />
+        <action
+            android:id="@+id/action_wishListFragment_to_likesFragment"
+            app:destination="@id/likesFragment" />
     </fragment><action android:id="@+id/action_global_wishListFragment" app:destination="@id/wishListFragment"/><action android:id="@+id/action_global_postPageFragment" app:destination="@id/postPageFragment"/>
     <fragment
         android:id="@+id/subCategoryDetailsPostsFragment"
@@ -119,6 +125,9 @@
         <action
             android:id="@+id/action_subCategoryDetailsPostsFragment_to_commentFragment"
             app:destination="@id/commentFragment" />
+        <action
+            android:id="@+id/action_subCategoryDetailsPostsFragment_to_likesFragment"
+            app:destination="@id/likesFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewPostStep1Fragment"
