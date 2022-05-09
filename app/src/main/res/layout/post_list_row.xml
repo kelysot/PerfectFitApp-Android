@@ -102,7 +102,7 @@
             android:layout_marginTop="8dp"
             android:text="Likes"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listrow_post_likes_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/listrow_post_likes_number" />
 
         <TextView
             android:id="@+id/listrow_category_tv"
@@ -158,6 +158,18 @@
             app:layout_constraintStart_toEndOf="@+id/listrow_post_likes_btn"
             app:layout_constraintTop_toBottomOf="@+id/listrow_post_img"
             app:srcCompat="@drawable/ic_add_comment" />
+
+        <TextView
+            android:id="@+id/listrow_post_likes_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="13dp"
+            android:text="likes"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/listrow_post_likes_btn"
+            app:layout_constraintTop_toBottomOf="@+id/listrow_post_likes_btn" />
 
         <!--            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize8Percent"-->
         <!--            app:srcCompat="@drawable/image_place"-->

@@ -99,9 +99,9 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView productNameTv, descriptionTv, categoryTv, subCategoryTv, userNameTv;
-        ShapeableImageView postPic, userPic;
-        ImageButton addToWishList, commentsBtn;
+        TextView productNameTv, descriptionTv, categoryTv, subCategoryTv, userNameTv, likesNumberTV;
+        ShapeableImageView postPic, userPic ;
+        ImageButton addToWishList, commentsBtn, addToLikes;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
@@ -113,6 +113,8 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
             userPic = itemView.findViewById(R.id.listrow_avatar_imv);
             addToWishList = itemView.findViewById(R.id.add_to_wish_list_btn);
             commentsBtn = itemView.findViewById(R.id.listrow_comments_btn);
+            likesNumberTV = itemView.findViewById(R.id.listrow_post_likes_number);
+            addToLikes = itemView.findViewById(R.id.listrow_post_likes_btn);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
@@ -148,7 +150,9 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
             holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
+            holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
             holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
+            holder.addToLikes.setOnClickListener(v-> addToLikes(holder, post));
 
             Model.instance.getProfileByUserName(post.getProfileId(), new Model.GetProfileByUserName() {
                 @Override
@@ -181,11 +185,18 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                         .into(holder.postPic);
             }
 
-            if(checkIfInsideWishList(holder, post)){
+            if(checkIfInsideWishList(post)){
                 holder.addToWishList.setImageResource(R.drawable.ic_full_star);
             }
             else{
                 holder.addToWishList.setImageResource(R.drawable.ic_star);
+            }
+
+            if(checkIfInsideLikes(post)){
+                holder.addToLikes.setImageResource(R.drawable.ic_red_heart);
+            }
+            else{
+                holder.addToLikes.setImageResource(R.drawable.ic_heart);
             }
 
             holder.commentsBtn.setOnClickListener((v) -> {
@@ -193,9 +204,38 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
             });
         }
 
+        private void addToLikes(MyViewHolder holder, Post post) {
+            String userName = Model.instance.getProfile().getUserName();
+            if(checkIfInsideLikes(post)){
+                post.getLikes().remove(userName);
+                Model.instance.editPost(post, isSuccess -> {
+                    if(isSuccess){
+                        holder.addToLikes.setImageResource(R.drawable.ic_heart);
+                    }
+                    else {
+                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            }
+            else{
+                post.getLikes().add(userName);
+                Model.instance.editPost(post, isSuccess -> {
+                    if(isSuccess){
+                        holder.addToLikes.setImageResource(R.drawable.ic_red_heart);
+                    }
+                    else{
+                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        }
+
         private void addToWishList(MyViewHolder holder, Post post) {
 
-            if(checkIfInsideWishList(holder, post)){
+            if(checkIfInsideWishList(post)){
                 Model.instance.getProfile().getWishlist().remove(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if(isSuccess){
@@ -233,13 +273,12 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
             }
         }
 
-        public boolean checkIfInsideWishList(MyViewHolder holder, Post post){
-            if(Model.instance.getProfile().getWishlist().contains(post.getPostId())){
-                return true;
-            }
-            else{
-                return false;
-            }
+        public boolean checkIfInsideWishList(Post post){
+            return Model.instance.getProfile().getWishlist().contains(post.getPostId());
+        }
+
+        public boolean checkIfInsideLikes(Post post){
+            return post.getLikes().contains(Model.instance.getProfile().getUserName());
         }
     }
 
