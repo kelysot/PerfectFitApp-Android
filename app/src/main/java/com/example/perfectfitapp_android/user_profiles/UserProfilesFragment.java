@@ -164,7 +164,6 @@ public class UserProfilesFragment extends Fragment {
                                             subCategoryNames.add(subCategoryList.get(j).getName());
                                         }
                                         Model.instance.putCategoriesAndSubCategories(categoryList.get(finalI).getName(), subCategoryNames);
-                                        Log.d("TAG", Model.instance.getCategoriesAndSubCategories().toString());
 
                                     }
                                 });

@@ -54,7 +54,6 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_sub_category_details_posts, container, false);
 
         subCategoryId = SubCategoryDetailsPostsFragmentArgs.fromBundle(getArguments()).getSubCategoryId();
-        Log.d("TAG", "subCategoryId"+ subCategoryId);
 
         Model.instance.getSubCategoryById(subCategoryId, subCategory -> {
             viewModel.setSubCategory(subCategory);

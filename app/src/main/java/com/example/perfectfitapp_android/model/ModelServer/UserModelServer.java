@@ -100,7 +100,6 @@ public class UserModelServer {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 JsonObject js = response.body().get("user").getAsJsonObject();
-                Log.d("TAG", js.toString());
                 if (response.code() == 200) {
                     User user = new User();
                     user = User.jsonObjectToUser(response.body().get("user").getAsJsonObject());
@@ -173,7 +172,6 @@ public class UserModelServer {
                             Toast.LENGTH_LONG).show();
                     listener.onComplete(false);
                 } else if (response.code() == 403) {
-                    Log.d("TAG2", response.message());
                     Toast.makeText(MyApplication.getContext(), "invalid request",
                             Toast.LENGTH_LONG).show();
 //                    getTokens(isSuccess -> {
