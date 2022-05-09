@@ -90,6 +90,10 @@ public class Category {
     }
 
     public static Category jsonObjectToCategory(JsonElement categoriesJson){
+        String isDeleted = categoriesJson.getAsJsonObject().get("isDeleted").getAsString();
+        if(isDeleted.equals("true")){
+            return null;
+        }
         String categoryId = categoriesJson.getAsJsonObject().get("_id").getAsString();
         String name = categoriesJson.getAsJsonObject().get("name").getAsString();
         String pictureUrl = categoriesJson.getAsJsonObject().get("pictureUrl").getAsString();
@@ -125,7 +129,9 @@ public class Category {
     public static List<Category> jsonArrayToCategory(JsonArray categoriesJson){
         List<Category> categoryList = new ArrayList<>();
         for (int i = 0; i < categoriesJson.size(); i++) {
-            categoryList.add(Category.jsonObjectToCategory(categoriesJson.get(i)));
+            Category category = Category.jsonObjectToCategory(categoriesJson.get(i));
+            if(category != null)
+                categoryList.add(category);
         }
         return categoryList;
     }
