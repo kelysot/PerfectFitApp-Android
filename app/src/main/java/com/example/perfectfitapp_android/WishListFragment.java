@@ -86,7 +86,7 @@ public class WishListFragment extends Fragment {
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView descriptionTv, categoryTv, subCategoryTv, userNameTv, likesNumberTV;
+        TextView descriptionTv, categoryTv, subCategoryTv, userNameTv, likesNumberTV, timeAgoTv;
         ImageButton addToWishListBtn, commentsBtn, addToLikes;
         ShapeableImageView postPic, userPic;
 
@@ -102,6 +102,7 @@ public class WishListFragment extends Fragment {
             userPic = itemView.findViewById(R.id.listrow_avatar_imv);
             likesNumberTV = itemView.findViewById(R.id.listrow_post_likes_number);
             addToLikes = itemView.findViewById(R.id.listrow_post_likes_btn);
+            timeAgoTv = itemView.findViewById(R.id.listrow_time_ago_tv);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
@@ -141,6 +142,7 @@ public class WishListFragment extends Fragment {
             holder.addToWishListBtn.setImageResource(R.drawable.ic_full_star);
             holder.addToWishListBtn.setOnClickListener(v -> removeFromList(holder, post));
             holder.addToLikes.setOnClickListener(v-> addToLikes(holder, post));
+            Model.instance.timeSince(post.getDate(), timeAgo -> holder.timeAgoTv.setText(timeAgo));
 
             Model.instance.getProfileByUserName(post.getProfileId(), new Model.GetProfileByUserName() {
                 @Override
