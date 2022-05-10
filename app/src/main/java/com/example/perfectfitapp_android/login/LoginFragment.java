@@ -1,5 +1,6 @@
 package com.example.perfectfitapp_android.login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -91,8 +92,12 @@ public class LoginFragment extends Fragment {
               });
           }
           else{
-              loginBtn.setEnabled(true);
-              Toast.makeText(MyApplication.getContext(), "No Connection, please try later", Toast.LENGTH_LONG).show();
+              getActivity().runOnUiThread(new Runnable() {
+                  @Override
+                  public void run() {
+                      loginBtn.setEnabled(true);
+                  }
+              });
           }
       });
     }
