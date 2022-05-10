@@ -454,11 +454,11 @@ public class Model {
                     String lud = posts.get(0).getDate();
                     System.out.println("the lud --------------------------- " + lud);
 
-                    for( int i=0 ; i < posts.size(); i++){
-                        if (posts.get(i).getIsDeleted().equals("false")){
-                            finalList.add(posts.get(i));
-                        }
-                    }
+//                    for( int i=0 ; i < posts.size(); i++){
+//                        if (posts.get(i).getIsDeleted().equals("false")){
+//                            finalList.add(posts.get(i));
+//                        }
+//                    }
                     //TODO: we can get the relevant posts from the server - no need to check here the time!
                     // only need to get the posts from the server and add them to the list!
 
@@ -470,7 +470,7 @@ public class Model {
                 // return all data to caller
 
                 //TODO: from local db
-                postsList.postValue(finalList);
+                postsList.postValue(posts);
                 postListLoadingState.postValue(PostListLoadingState.loaded);
             });
         });

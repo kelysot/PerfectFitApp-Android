@@ -144,13 +144,14 @@ public class PostModelServer {
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 if(response.code() == 200){
                     List<Post> posts = Post.jsonArrayToPost(response.body());
-                    List<Post> finalList = new LinkedList<>();
-                    for(int i=0; i<posts.size(); i++){
-                        if(posts.get(i).getIsDeleted().equals("false")){
-                            finalList.add(posts.get(i));
-                        }
-                    }
-                    listener.onComplete(finalList);
+                    /**** we get the posts checked of isDeleted from the server ****/
+//                    List<Post> finalList = new LinkedList<>();
+//                    for(int i=0; i<posts.size(); i++){
+//                        if(posts.get(i).getIsDeleted().equals("false")){
+//                            finalList.add(posts.get(i));
+//                        }
+//                    }
+                    listener.onComplete(posts);
                 }
                 else{
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
