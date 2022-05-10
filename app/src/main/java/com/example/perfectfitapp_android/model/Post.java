@@ -19,7 +19,7 @@ public class Post {
 
     // TODO: need to fix postId
     String profileId, productName, SKU, size, company, color, categoryId, subCategoryId;
-    String description,date, link, sizeAdjustment, rating;
+    String description,date, link, sizeAdjustment, rating, isDeleted;
     String postId;
     String price;
     ArrayList<String> likes, picturesUrl;
@@ -27,6 +27,14 @@ public class Post {
     Long updateDate = new Long(0);
 
     /*--------------------------------- Getters & Setters -------------------------------*/
+
+    public String getIsDeleted(){
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted){
+        this.isDeleted = isDeleted;
+    }
 
     public String getProfileId() {
         return profileId;
@@ -229,12 +237,13 @@ public class Post {
         this.picturesUrl = new ArrayList<>();
         this.likes = new ArrayList<>();
         this.comments = new ArrayList<>();
+        this.isDeleted = "false";
     }
 
     public Post(String postId, String profileId, String productName, String sku, String size, String company,
                 String color, String categoryId, String subCategoryId, String description,
                 String date, String link, String sizeAdjustment, String rating,
-                String price) {
+                String price, String isDeleted) {
 
         //TODO: postId
         this.postId = postId;
@@ -255,12 +264,13 @@ public class Post {
         this.picturesUrl = new ArrayList<>();
         this.likes = new ArrayList<>();
         this.comments = new ArrayList<>();
+        this.isDeleted = isDeleted;
     }
 
     public Post(String postId, String profileId, String productName, String sku, String size, String company,
                 String color, String categoryId, String subCategoryId, String description,
                 String date, String link, String sizeAdjustment, String rating, ArrayList<String> picturesUrl,
-                String price, ArrayList<String> likes, ArrayList<String> comments) {
+                String price, ArrayList<String> likes, ArrayList<String> comments, String isDeleted) {
 
         //TODO: postId, likes, comments
         this.postId = postId;
@@ -281,6 +291,7 @@ public class Post {
         this.picturesUrl = picturesUrl;
         this.likes = likes;
         this.comments = comments;
+        this.isDeleted = isDeleted;
     }
 
 /************************************ Json ************************************/
@@ -304,6 +315,7 @@ public class Post {
         ArrayList<String> picturesUrl = (ArrayList<String>) json.get("picturesUrl");
         ArrayList<String> likes = (ArrayList<String>) json.get("likes");
         ArrayList<String> comments = (ArrayList<String>) json.get("comments");
+        String isDeleted = (String) json.get("isDeleted");
 
 //        Timestamp ts = (Timestamp) json.get("updateDate");
 //        Long updateDate = ts.getSeconds();
@@ -313,7 +325,7 @@ public class Post {
 //        post.setUpdateDate(updateDate);
 
        Post post = new Post(postId, profileId, productName, sku, size, company, color, categoryId, subCategoryId,
-               description, date, link, sizeAdjustment, rating, picturesUrl, price, likes, comments);
+               description, date, link, sizeAdjustment, rating, picturesUrl, price, likes, comments, isDeleted);
 
         return post;
     }
@@ -352,6 +364,7 @@ public class Post {
         json.put("date", date);
         json.put("likes", likes);
         json.put("comments", comments);
+        json.put("isDeleted", isDeleted);
 
         Date currentTime = Calendar.getInstance().getTime();
 
@@ -362,6 +375,7 @@ public class Post {
     }
 
     public static Post jsonObjectToPost(JsonObject postsJson) {
+        String isDeleted = postsJson.get("isDeleted").getAsString();
         String id = postsJson.get("_id").getAsString();
         String profileId = postsJson.get("profileId").getAsString();
         String productName = postsJson.get("productName").getAsString();
@@ -405,11 +419,12 @@ public class Post {
         Post post = new Post(id, profileId, productName, sku, size, company,
                 color, categoryId, subCategoryId, description,
                 date, link, sizeAdjustment, rating, picturesUrl,
-                price, likes, comments);
+                price, likes, comments, isDeleted);
         return post;
     }
 
     public static Post jsonElementToPost(JsonElement postsJson){
+        String isDeleted = postsJson.getAsJsonObject().get("isDeleted").getAsString();
         String id = postsJson.getAsJsonObject().get("_id").getAsString();
         String profileId = postsJson.getAsJsonObject().get("profileId").getAsString();
         String productName = postsJson.getAsJsonObject().get("productName").getAsString();
@@ -453,7 +468,7 @@ public class Post {
         Post post = new Post(id, profileId, productName, sku, size, company,
                 color, categoryId, subCategoryId, description,
                 date, link, sizeAdjustment, rating, picturesUrl,
-                price, likes, comments);
+                price, likes, comments, isDeleted);
         return post;
     }
 

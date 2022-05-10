@@ -12,6 +12,7 @@ import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -142,10 +143,14 @@ public class PostModelServer {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 if(response.code() == 200){
-//                    JsonArray profilePostsArray = response.body();
-//                    List<Post> posts = new ArrayList<>();
                     List<Post> posts = Post.jsonArrayToPost(response.body());
-                    listener.onComplete(posts);
+                    List<Post> finalList = new LinkedList<>();
+                    for(int i=0; i<posts.size(); i++){
+                        if(posts.get(i).getIsDeleted().equals("false")){
+                            finalList.add(posts.get(i));
+                        }
+                    }
+                    listener.onComplete(finalList);
                 }
                 else{
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",

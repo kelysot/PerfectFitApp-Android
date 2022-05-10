@@ -379,7 +379,6 @@ public class Model {
 
     public void checkIfUserNameExist(String userName, CheckIfUserNameExist listener){
         profileModelServer.checkIfUserNameExist(userName, listener);
-
     }
 
     /*--------------------------------------------------------*/
@@ -448,13 +447,18 @@ public class Model {
         postModelServer.getSuitablePosts(Model.instance.getProfile().getUserName(), posts -> {
             executor.execute(() -> {
 
+                List<Post> finalList = new LinkedList<>();
                 // add all records to the local db
 //                Collections.reverse(posts);
                 if(!posts.isEmpty()) {
                     String lud = posts.get(0).getDate();
                     System.out.println("the lud --------------------------- " + lud);
 
-
+                    for( int i=0 ; i < posts.size(); i++){
+                        if (posts.get(i).getIsDeleted().equals("false")){
+                            finalList.add(posts.get(i));
+                        }
+                    }
                     //TODO: we can get the relevant posts from the server - no need to check here the time!
                     // only need to get the posts from the server and add them to the list!
 
@@ -466,7 +470,7 @@ public class Model {
                 // return all data to caller
 
                 //TODO: from local db
-                postsList.postValue(posts);
+                postsList.postValue(finalList);
                 postListLoadingState.postValue(PostListLoadingState.loaded);
             });
         });
