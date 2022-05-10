@@ -99,6 +99,9 @@ public interface RetrofitInterface {
     @GET("/profile/getProfilesByUserNames/{userNames}")
     Call<JsonArray> getProfilesByUserNames(@Header("authorization") String token, @Path("userNames") List<String> userNames);
 
+    @GET("/profile")
+    Call<JsonArray> getAllProfile(@Header("authorization") String token);
+
     /*--------------------------------- Post -------------------------------*/
 
     /******************************************************************************************/

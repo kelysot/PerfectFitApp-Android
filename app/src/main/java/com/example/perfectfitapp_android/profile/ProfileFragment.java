@@ -67,7 +67,6 @@ public class ProfileFragment extends Fragment {
         numOfPosts = view.findViewById(R.id.profile_num_posts_tv);
 
         if(!getArguments().isEmpty()){
-            Log.d("TAG",getArguments().toString());
             profileId = ProfileFragmentArgs.fromBundle(getArguments()).getProfileId();
             Model.instance.getProfileByUserName(profileId, new Model.GetProfileByUserName() {
                 @Override

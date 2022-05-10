@@ -49,6 +49,7 @@ public class Model {
     List<Category> categories = new ArrayList<>();
     List<SubCategory> subCategories = new ArrayList<>();
     List<Notification> notifications = new ArrayList<>();
+    List<Profile> profiles = new ArrayList<>();
     Map<String, ArrayList<String>> categoriesAndSubCategories = new HashMap<>();
 //    ModelServer modelServer = new ModelServer();
 
@@ -132,6 +133,14 @@ public class Model {
 
     public void setNotifications(List<Notification> notifications) {
         this.notifications = notifications;
+    }
+
+    public List<Profile> getProfiles() {
+        return profiles;
+    }
+
+    public void setProfiles(List<Profile> profiles) {
+        this.profiles = profiles;
     }
 
     private Model(){
@@ -345,16 +354,16 @@ public class Model {
 
     /******************************************************************************************/
 
-    List<Profile> profiles = new LinkedList<>();
-
-    public Profile getProfileById(String profileId) {
-        for (Profile s:profiles) {
-            if (s.getProfileId().equals(profileId)){
-                return s;
-            }
-        }
-        return null;
-    }
+//    List<Profile> profiles = new LinkedList<>();
+//
+//    public Profile getProfileById(String profileId) {
+//        for (Profile s:profiles) {
+//            if (s.getProfileId().equals(profileId)){
+//                return s;
+//            }
+//        }
+//        return null;
+//    }
 
     /*--------------------------------------------------------*/
 
@@ -422,6 +431,16 @@ public class Model {
 
     public void getProfilesByUserNames(List<String> userNames, GetProfilesByUserNamesListener listener){
         profileModelServer.getProfilesByUserNames(userNames, listener);
+    }
+
+    /*--------------------------------------------------------*/
+
+    public interface GetAllProfileListener {
+        void onComplete(List<Profile> profileList);
+    }
+
+    public void getAllProfile(GetAllProfileListener listener) {
+        profileModelServer.getAllProfile(listener);
     }
 
     /******************************************************************************************/
