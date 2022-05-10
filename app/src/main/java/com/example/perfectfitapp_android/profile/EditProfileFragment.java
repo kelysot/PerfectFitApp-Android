@@ -144,6 +144,7 @@ public class EditProfileFragment extends Fragment {
         ModelProfile.instance.getEditProfile().setBirthday(birthday);
         ModelProfile.instance.getEditProfile().setGender(gender);
 
+
         if (mBitmap != null) {
             Model.instance.uploadImage(mBitmap, getActivity(), url -> {
                 ModelProfile.instance.getEditProfile().setUserImageUrl(url);
@@ -151,7 +152,5 @@ public class EditProfileFragment extends Fragment {
         }
 
         Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
-
-//        Navigation.findNavController(view).navigate(R.id.action_editProfileFragment_to_editProfileStep2Fragment);
     }
 }

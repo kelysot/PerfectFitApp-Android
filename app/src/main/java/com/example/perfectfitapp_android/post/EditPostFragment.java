@@ -324,17 +324,17 @@ public class EditPostFragment extends Fragment {
     public void toPage(){
         if(postSource.equals("home")){
             Navigation.findNavController(editBtn)
-                    .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
+                    .navigate(EditPostFragmentDirections.actionGlobalHomePageFragment());
 
         }
         else if(postSource.equals("profile")){
             Navigation.findNavController(editBtn)
-                .navigate(AddNewPostFragmentDirections.actionGlobalProfileFragment());
+                .navigate(EditPostFragmentDirections.actionGlobalProfileFragment(Model.instance.getProfile().getUserName()));
 
         }
         else if(postSource.equals("wishlist")){
             Navigation.findNavController(editBtn)
-                    .navigate(AddNewPostFragmentDirections.actionGlobalWishListFragment());
+                    .navigate(EditPostFragmentDirections.actionGlobalWishListFragment());
 
         }
 //        else if(postSource.equals("subCategoryDetailsPostsFragment")){

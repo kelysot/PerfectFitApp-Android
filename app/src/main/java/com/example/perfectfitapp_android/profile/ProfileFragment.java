@@ -25,6 +25,7 @@ import com.example.perfectfitapp_android.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.HomePageViewModel;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
+import com.example.perfectfitapp_android.comment.CommentFragmentArgs;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
@@ -35,6 +36,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class ProfileFragment extends Fragment {
@@ -45,6 +47,7 @@ public class ProfileFragment extends Fragment {
     TextView numOfPosts;
 //    ImageButton editProfileBtn;
     MyAdapter adapter;
+    String profileId;
 
 
     @Override
@@ -62,18 +65,40 @@ public class ProfileFragment extends Fragment {
         userPic = view.findViewById(R.id.profile_profile_img);
         userNameTv = view.findViewById(R.id.profile_user_name);
         numOfPosts = view.findViewById(R.id.profile_num_posts_tv);
-//        editProfileBtn = view.findViewById(R.id.profile_edit_profile_btn);
-//        editProfileBtn.setOnClickListener(v-> editProfile(view));
 
-        Profile profile = Model.instance.getProfile();
-        userNameTv.setText(profile.getUserName());
-        numOfPosts.setText(String.valueOf(profile.getMyPostsListId().size()));
-        String userImg = profile.getUserImageUrl();
-        if(userImg != null && !userImg.equals("")){
-            Model.instance.getImages(userImg, bitmap -> {
-                userPic.setImageBitmap(bitmap);
+        if(!getArguments().isEmpty()){
+            Log.d("TAG",getArguments().toString());
+            profileId = ProfileFragmentArgs.fromBundle(getArguments()).getProfileId();
+            Model.instance.getProfileByUserName(profileId, new Model.GetProfileByUserName() {
+                @Override
+                public void onComplete(Profile profile) {
+                    userNameTv.setText(profile.getUserName());
+                    numOfPosts.setText(String.valueOf(profile.getMyPostsListId().size()));
+                    String userImg = profile.getUserImageUrl();
+                    if(userImg != null && !userImg.equals("")){
+                        Model.instance.getImages(userImg, bitmap -> {
+                            userPic.setImageBitmap(bitmap);
+                        });
+                    }
+                }
             });
         }
+        else {
+            Profile profile = Model.instance.getProfile();
+            profileId = profile.getUserName();
+            userNameTv.setText(profile.getUserName());
+            numOfPosts.setText(String.valueOf(profile.getMyPostsListId().size()));
+            String userImg = profile.getUserImageUrl();
+            if(userImg != null && !userImg.equals("")){
+                Model.instance.getImages(userImg, bitmap -> {
+                    userPic.setImageBitmap(bitmap);
+                });
+            }
+        }
+
+
+//        editProfileBtn = view.findViewById(R.id.profile_edit_profile_btn);
+//        editProfileBtn.setOnClickListener(v-> editProfile(view));
 
 
         RecyclerView postsList = view.findViewById(R.id.profile_user_posts_rv);
@@ -99,11 +124,16 @@ public class ProfileFragment extends Fragment {
     }
 
     private void refresh() {
-
-        Model.instance.getProfilePosts(Model.instance.getProfile().getUserName(),postList -> {
-            viewModel.setData(postList);
-            adapter.notifyDataSetChanged();
+        Model.instance.getProfileByUserName(profileId, new Model.GetProfileByUserName() {
+            @Override
+            public void onComplete(Profile profile) {
+                Model.instance.getProfilePosts(profile.getUserName(),postList -> {
+                    viewModel.setData(postList);
+                    adapter.notifyDataSetChanged();
+                });
+            }
         });
+
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
