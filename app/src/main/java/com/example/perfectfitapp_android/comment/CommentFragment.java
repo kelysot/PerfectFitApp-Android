@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Comment;
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.model.Notification;
 import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.post.AddNewPostFragmentDirections;
@@ -63,14 +65,14 @@ public class CommentFragment extends Fragment {
         commentET = view.findViewById(R.id.comment_new_comment_text);
 
         addBtn = view.findViewById(R.id.comment_add_btn);
-        addBtn.setOnClickListener(v -> addPost());
+        addBtn.setOnClickListener(v -> addComment());
 
         refresh();
 
         return view;
     }
 
-    private void addPost() {
+    private void addComment() {
         addBtn.setEnabled(false);
         String text, date;
 
@@ -84,12 +86,22 @@ public class CommentFragment extends Fragment {
                refresh();
                commentET.setText("");
                addBtn.setEnabled(true);
+
+               //TODO: Add date on notification.
+               Model.instance.getPostById(postId, post -> {
+                   if(!Model.instance.getProfile().getUserName().equals(post.getProfileId())){
+                       Notification notification =  new Notification("0", Model.instance.getProfile().getUserName(),
+                               post.getProfileId(), Model.instance.getProfile().getUserName() + " commented on your post", "10/5/22");
+                       Model.instance.addNewNotification(notification, notification1 -> {});
+                   }
+               });
            }
            else{
                addBtn.setEnabled(true);
                Toast.makeText(MyApplication.getContext(), "Comment didn't saved",
                        Toast.LENGTH_LONG).show();
            }
+
 
         });
     }
