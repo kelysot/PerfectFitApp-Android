@@ -275,6 +275,7 @@ public class PostModelServer {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 if(response.code() == 200){
+                    Log.d("TAG111", response.body().toString());
                     System.out.println("222222222222222222222222222222222222222222");
                 }
             }
@@ -282,6 +283,32 @@ public class PostModelServer {
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
 
+            }
+        });
+    }
+
+    public void timeSince(String date, Model.TimeSinceListener listener) {
+        String token = server.sp.getString("ACCESS_TOKEN", "");
+
+        Call<JsonElement> call = server.service.timeSince(token, date);
+        call.enqueue(new Callback<JsonElement>() {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                if(response.code() == 200){
+                    String timeAgo = response.body().getAsJsonObject().get("timeAgo").getAsString();
+                    listener.onComplete(timeAgo);
+                }
+                else {
+                    listener.onComplete(null);
+                    Log.d("TAG", "failed in timeSince");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t) {
+                Log.d("TAG", t.getMessage());
+                Log.d("TAG", "failed in timeSince");
+                listener.onComplete(null);
             }
         });
     }

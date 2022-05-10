@@ -6,26 +6,19 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.perfectfitapp_android.R;
-import com.example.perfectfitapp_android.WishListFragment;
-import com.example.perfectfitapp_android.WishListFragmentDirections;
-import com.example.perfectfitapp_android.WishListViewModel;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Notification;
-import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
-import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -143,7 +136,8 @@ public class NotificationFragment extends Fragment {
             Notification notification = viewModel.getData().get(position);
             holder.userNameTv.setText(notification.getProfileIdFrom());
             holder.typeTV.setText(notification.getNotificationType());
-            holder.dateTV.setText(notification.getDate());
+
+            Model.instance.timeSince(notification.getDate(), timeAgo -> holder.dateTV.setText(timeAgo));
 
             Model.instance.getProfileByUserName(notification.getProfileIdFrom(), new Model.GetProfileByUserName() {
                 @Override

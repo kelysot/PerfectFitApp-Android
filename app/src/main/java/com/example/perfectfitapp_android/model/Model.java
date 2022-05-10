@@ -258,6 +258,14 @@ public class Model {
         postModelServer.getDatesFromServer(date ,listener);
     }
 
+    public interface TimeSinceListener{
+        void onComplete(String timeAgo);
+    }
+
+    public void timeSince(String date, TimeSinceListener listener) {
+        postModelServer.timeSince(date ,listener);
+    }
+
     /*--------------------------------- User -------------------------------*/
 
     /******************************************************************************************/
