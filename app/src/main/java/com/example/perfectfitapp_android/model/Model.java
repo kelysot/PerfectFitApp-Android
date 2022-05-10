@@ -16,6 +16,7 @@ import com.example.perfectfitapp_android.RetrofitInterface;
 import com.example.perfectfitapp_android.model.ModelServer.CategoryModelServer;
 import com.example.perfectfitapp_android.model.ModelServer.CommentModelServer;
 import com.example.perfectfitapp_android.model.ModelServer.ImagesModelServer;
+import com.example.perfectfitapp_android.model.ModelServer.NotificationModelServer;
 import com.example.perfectfitapp_android.model.ModelServer.PostModelServer;
 import com.example.perfectfitapp_android.model.ModelServer.ProfileModelServer;
 import com.example.perfectfitapp_android.model.ModelServer.SubCategoryModelServer;
@@ -47,6 +48,7 @@ public class Model {
     List<Post> data = new LinkedList<Post>();
     List<Category> categories = new ArrayList<>();
     List<SubCategory> subCategories = new ArrayList<>();
+    List<Notification> notifications = new ArrayList<>();
     Map<String, ArrayList<String>> categoriesAndSubCategories = new HashMap<>();
 //    ModelServer modelServer = new ModelServer();
 
@@ -62,6 +64,7 @@ public class Model {
     CommentModelServer commentModelServer = new CommentModelServer();
     CategoryModelServer categoryModelServer = new CategoryModelServer();
     SubCategoryModelServer subCategoryModelServer = new SubCategoryModelServer();
+    NotificationModelServer notificationModelServer = new NotificationModelServer();
 
 
     /************************************  LoadingState  ************************************/
@@ -121,6 +124,14 @@ public class Model {
 
     public void putCategoriesAndSubCategories(String category, ArrayList<String> subCategories) {
         this.categoriesAndSubCategories.put(category, subCategories);
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
     }
 
     private Model(){
@@ -653,5 +664,37 @@ public class Model {
         commentModelServer.addNewComment(comment, listener);
     }
 
+    /******************************************************************************************/
 
+    /*--------------------------------- Notification -------------------------------*/
+
+    /******************************************************************************************/
+
+    public interface GetNotificationsByIdsListener{
+        void onComplete(List<Notification> notificationsList);
+    }
+
+    public void getNotificationsByIds(List<String> notificationsIds, GetNotificationsByIdsListener listener){
+        notificationModelServer.getNotificationsByIds(notificationsIds, listener);
+    }
+
+    /*--------------------------------------------------------*/
+
+    public interface AddNewNotificationListener {
+        void onComplete(Notification notification);
+    }
+
+    public void addNewNotification(Notification notification, AddNewNotificationListener listener) {
+        notificationModelServer.addNewNotification(notification, listener);
+    }
+
+    /*--------------------------------------------------------*/
+
+    public interface GetAllNotificationListener {
+        void onComplete(List<Notification> notificationList);
+    }
+
+    public void getAllNotification(GetAllNotificationListener listener) {
+        notificationModelServer.getAllNotification(listener);
+    }
 }

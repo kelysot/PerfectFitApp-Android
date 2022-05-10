@@ -159,5 +159,14 @@ public interface RetrofitInterface {
     @GET("/post/getDates/{date}")
     Call<JsonArray> getDates (@Header("authorization") String token, @Path("date") String dates);
 
+    /*--------------------------------- Notifications -------------------------------*/
 
+    @GET("/notification/getNotificationsByIds/{notificationsIds}")
+    Call<JsonArray> getNotificationsByIds(@Header("authorization") String token, @Path("notificationsIds") String json);
+
+    @POST("/notification")
+    Call<JsonObject> addNewNotification(@Header("authorization") String token, @Body HashMap<String, Object> map);
+
+    @GET("/notification")
+    Call<JsonArray> getAllNotification(@Header("authorization") String token);
 }
