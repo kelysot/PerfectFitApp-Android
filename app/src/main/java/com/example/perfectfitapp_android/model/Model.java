@@ -276,7 +276,9 @@ public class Model {
     public void logIn(String email, String password, LogInListener listener){
         userModelServer.logIn(email, password, user -> {
             executor.execute(() -> {
-                AppLocalDb.db.userDao().insertUser(user);
+                if(user != null){
+                    AppLocalDb.db.userDao().insertUser(user);
+                }
                 listener.onComplete(user);
             });
         });

@@ -99,7 +99,7 @@ public class UserModelServer {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonObject js = response.body().get("user").getAsJsonObject();
+                //JsonObject js = response.body().get("user").getAsJsonObject();
                 if (response.code() == 200) {
                     User user = new User();
                     user = User.jsonObjectToUser(response.body().get("user").getAsJsonObject());
