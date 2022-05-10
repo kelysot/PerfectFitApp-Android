@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.model.Notification;
 import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
 import com.google.gson.JsonArray;
@@ -217,6 +218,31 @@ public class ProfileModelServer {
                 Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                         Toast.LENGTH_LONG).show();
                 Log.d("TAG", "failed in ModelServer in getProfilePosts 2");
+                listener.onComplete(null);
+            }
+        });
+    }
+
+    public void getAllProfile(Model.GetAllProfileListener listener) {
+
+        String token = server.sp.getString("ACCESS_TOKEN", "");
+        Call<JsonArray> call = server.service.getAllProfile(token);
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if(response.isSuccessful()){
+                    JsonArray profileJson = response.body();
+                    List<Profile> profiles = Profile.jsonArrayToProfile(profileJson);
+                    listener.onComplete(profiles);
+                }else{
+                    Log.d("TAG", "failed in getAllSubCategories1 in ModelServer");
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Log.d("TAG", "failed in getAllSubCategories2 in ModelServer");
                 listener.onComplete(null);
             }
         });
