@@ -119,6 +119,7 @@ public class AddNewPostFragment extends Fragment {
             if(post != null){
                 Model.instance.addPost(post);
                 Model.instance.setNewPost(new Post());
+                Model.instance.getProfile().getMyPostsListId().add(post.getPostId());
                 Navigation.findNavController(view)
                         .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
             }
