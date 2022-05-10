@@ -180,6 +180,16 @@ public class WishListFragment extends Fragment {
                 holder.addToLikes.setImageResource(R.drawable.ic_heart);
             }
 
+            // Move to different pages from post.
+
+            holder.userNameTv.setOnClickListener(v -> {
+                Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionGlobalProfileFragment(post.getProfileId()));
+            });
+
+            holder.userPic.setOnClickListener(v -> {
+                Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionGlobalProfileFragment(post.getProfileId()));
+            });
+
             if(post.getLikes().size() != 0){
                 holder.likesNumberTV.setOnClickListener(v -> {
                     Navigation.findNavController(v).navigate(WishListFragmentDirections.actionWishListFragmentToLikesFragment(post.getPostId()));
