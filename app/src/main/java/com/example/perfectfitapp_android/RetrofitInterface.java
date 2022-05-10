@@ -162,6 +162,9 @@ public interface RetrofitInterface {
     @GET("/post/getDates/{date}")
     Call<JsonArray> getDates (@Header("authorization") String token, @Path("date") String dates);
 
+    @GET("/post/timeSince/{date}")
+    Call<JsonElement> timeSince (@Header("authorization") String token, @Path("date") String dates);
+
     /*--------------------------------- Notifications -------------------------------*/
 
     @GET("/notification/getNotificationsByIds/{notificationsIds}")
