@@ -13,10 +13,10 @@
         android:id="@+id/categoryFragment"
         android:icon="@drawable/ic_search"
         android:title="Category"/>
-<!--    <item-->
-<!--        android:id="@+id/menu_notification"-->
-<!--        android:icon="@drawable/ic_notification"-->
-<!--        android:title="Notification"/>-->
+    <item
+        android:id="@+id/notificationFragment"
+        android:icon="@drawable/ic_notification"
+        android:title="Notification"/>
     <item
         android:id="@+id/wishListFragment"
         android:icon="@drawable/ic_wishlist"

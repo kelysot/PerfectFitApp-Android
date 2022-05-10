@@ -154,10 +154,15 @@
     <fragment
         android:id="@+id/likesFragment"
         android:name="com.example.perfectfitapp_android.likes.LikesFragment"
-        android:label="fragment_likes"
+        android:label="Likes"
         tools:layout="@layout/fragment_likes" >
         <argument
             android:name="postId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.example.perfectfitapp_android.notification.NotificationFragment"
+        android:label="Notifications"
+        tools:layout="@layout/fragment_notification" /><action android:id="@+id/action_global_notificationFragment" app:destination="@id/notificationFragment"/>
 </navigation>

@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.example.perfectfitapp_android.login.LoginActivity;
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.model.Notification;
 import com.example.perfectfitapp_android.model.Post;
 
 import java.io.File;
@@ -299,6 +300,11 @@ public class HomePageFragment extends Fragment {
                                 Toast.LENGTH_LONG).show();
                     }
                 });
+
+                //TODO: Add correct date.
+                Notification notification =  new Notification("0", Model.instance.getProfile().getUserName(),
+                        post.getProfileId(), Model.instance.getProfile().getUserName() + " liked your post", "10/5/22");
+                Model.instance.addNewNotification(notification, notification1 -> {});
             }
         }
 
