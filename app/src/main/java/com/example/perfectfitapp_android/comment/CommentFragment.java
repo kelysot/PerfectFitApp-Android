@@ -156,7 +156,7 @@ public class CommentFragment extends Fragment {
             Comment comment = viewModel.getData().get(position);
             holder.userNameTv.setText(comment.getProfileId());
             holder.textTV.setText(comment.getText());
-            holder.date.setText(comment.getDate());
+            Model.instance.timeSince(comment.getDate(), timeAgo -> holder.date.setText(timeAgo));
 
             Model.instance.getProfileByUserName(comment.getProfileId(), new Model.GetProfileByUserName() {
                 @Override

@@ -295,7 +295,7 @@ public class PostModelServer {
             @Override
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 if(response.code() == 200){
-                    String timeAgo = response.body().getAsJsonObject().get("timeAgo").getAsString();
+                    String timeAgo = response.body().getAsJsonObject().get("timeAgo").getAsString() + " ago";
                     listener.onComplete(timeAgo);
                 }
                 else {
