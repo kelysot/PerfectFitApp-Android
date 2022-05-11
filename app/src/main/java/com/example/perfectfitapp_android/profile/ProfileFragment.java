@@ -27,6 +27,7 @@ import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.comment.CommentFragmentArgs;
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.model.Notification;
 import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.post.PostPageFragmentDirections;
@@ -283,6 +284,12 @@ public class ProfileFragment extends Fragment {
                                 Toast.LENGTH_LONG).show();
                     }
                 });
+
+                if(!Model.instance.getProfile().getUserName().equals(post.getProfileId())){
+                    Notification notification =  new Notification("0", Model.instance.getProfile().getUserName(),
+                            post.getProfileId(), Model.instance.getProfile().getUserName() + " liked your post", "10/5/22", post.getPostId());
+                    Model.instance.addNewNotification(notification, notification1 -> {});
+                }
             }
         }
 
