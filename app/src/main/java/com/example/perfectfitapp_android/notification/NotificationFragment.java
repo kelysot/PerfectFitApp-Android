@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,14 +53,13 @@ public class NotificationFragment extends Fragment {
         notificationList.setAdapter(adapter);
 
         //TODO: Add post id to notification if we want to go to post by click on notification.
-//        adapter.setOnItemClickListener((v, position) -> {
-//            String notificationId = viewModel.getData().get(position).getNotificationId();
-//            System.out.println("post " + postId + " was clicked");
-//            Model.instance.getPostById(postId, post -> {
-//                Model.instance.setPost(post);
-//                Navigation.findNavController(v).navigate(WishListFragmentDirections.actionGlobalPostPageFragment(postId, "wishlist"));
-//            });
-//        });
+        adapter.setOnItemClickListener((v, position) -> {
+            String notificationId = viewModel.getData().get(position).getNotificationId();
+            System.out.println("post " + notificationId + " was clicked");
+            Model.instance.getNotificationById(notificationId, notification -> {
+                Navigation.findNavController(v).navigate(NotificationFragmentDirections.actionGlobalPostPageFragment(notification.getPostId(), "notification"));
+            });
+        });
 
         refresh();
 

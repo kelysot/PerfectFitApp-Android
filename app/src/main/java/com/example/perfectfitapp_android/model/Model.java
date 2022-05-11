@@ -724,4 +724,14 @@ public class Model {
     public void getAllNotification(GetAllNotificationListener listener) {
         notificationModelServer.getAllNotification(listener);
     }
+
+    /*--------------------------------------------------------*/
+
+    public interface GetNotificationByIdListener {
+        void onComplete(Notification notification);
+    }
+
+    public void getNotificationById(String subCategoryId ,GetNotificationByIdListener listener){
+        notificationModelServer.getNotificationById(subCategoryId, listener);
+    }
 }

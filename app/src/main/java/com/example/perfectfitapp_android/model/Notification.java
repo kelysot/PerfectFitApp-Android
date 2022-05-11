@@ -10,14 +10,15 @@ import java.util.List;
 
 public class Notification {
 
-    String notificationId, profileIdFrom, profileIdMine, notificationType, date;
+    String notificationId, profileIdFrom, profileIdMine, notificationType, date, postId;
 
-    public Notification(String notificationId, String profileIdFrom, String profileIdMine, String notificationType, String date) {
+    public Notification(String notificationId, String profileIdFrom, String profileIdMine, String notificationType, String date, String postId) {
         this.notificationId =  notificationId;
         this.profileIdMine = profileIdMine;
         this.profileIdFrom = profileIdFrom;
         this.notificationType = notificationType;
         this.date = date;
+        this.postId = postId;
     }
 
     public Notification() {}
@@ -74,6 +75,16 @@ public class Notification {
 
     /*------------------------------------------------------*/
 
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
+    /*------------------------------------------------------*/
+
     @Override
     public String toString() {
         return "Notification{" +
@@ -82,6 +93,7 @@ public class Notification {
                 ", profileIdMine='" + profileIdMine + '\'' +
                 ", notificationType='" + notificationType + '\'' +
                 ", date='" + date + '\'' +
+                ", postId='" + postId + '\'' +
                 '}';
     }
 
@@ -96,6 +108,7 @@ public class Notification {
         map.put("profileIdFrom", this.getProfileIdFrom());
         map.put("notificationType", this.getNotificationType());
         map.put("date", this.getDate());
+        map.put("postId", this.getPostId());
 
         return map;
     }
@@ -107,8 +120,9 @@ public class Notification {
         String profileIdFrom = notificationJson.get("profileIdFrom").getAsString();
         String notificationType = notificationJson.get("notificationType").getAsString();
         String date = notificationJson.get("date").getAsString();
+        String postId = notificationJson.get("postId").getAsString();
 
-        Notification notification =  new Notification(notificationId, profileIdFrom, profileIdMine, notificationType, date);
+        Notification notification =  new Notification(notificationId, profileIdFrom, profileIdMine, notificationType, date, postId);
         return notification;
     }
     /*------------------------------------------------------*/
@@ -119,8 +133,9 @@ public class Notification {
         String profileIdFrom = notificationJson.getAsJsonObject().get("profileIdFrom").getAsString();
         String notificationType = notificationJson.getAsJsonObject().get("notificationType").getAsString();
         String date = notificationJson.getAsJsonObject().get("date").getAsString();
+        String postId = notificationJson.getAsJsonObject().get("postId").getAsString();
 
-        Notification notification =  new Notification(notificationId, profileIdFrom, profileIdMine, notificationType, date);
+        Notification notification =  new Notification(notificationId, profileIdFrom, profileIdMine, notificationType, date, postId);
         return notification;
     }
 
