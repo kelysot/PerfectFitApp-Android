@@ -11,6 +11,7 @@ import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.model.SubCategory;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
@@ -105,5 +106,36 @@ public class NotificationModelServer {
                 listener.onComplete(null);
             }
         });
+    }
+
+    public void getNotificationById(String notificationId, Model.GetNotificationByIdListener listener){
+        String token = server.sp.getString("ACCESS_TOKEN", "");
+        Call<JsonElement> call = server.service.getNotificationById(token, notificationId);
+
+        call.enqueue(new Callback<JsonElement>() {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                if(response.code() == 200){
+                    JsonElement js = response.body();
+                    Notification notification = Notification.jsonElementToNotification(js);
+                    listener.onComplete(notification);
+                }
+                else{
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    Log.d("TAG", "failed in ModelServer in getProfilePosts 2");
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                Log.d("TAG", "failed in ModelServer in getProfilePosts 2");
+                listener.onComplete(null);
+            }
+        });
+
     }
 }
