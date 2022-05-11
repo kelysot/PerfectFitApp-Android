@@ -304,7 +304,6 @@ public class HomePageFragment extends Fragment {
                     }
                 });
 
-                //TODO: Add correct date.
                 if(!Model.instance.getProfile().getUserName().equals(post.getProfileId())){
                     Notification notification =  new Notification("0", Model.instance.getProfile().getUserName(),
                             post.getProfileId(), Model.instance.getProfile().getUserName() + " liked your post", "10/5/22", post.getPostId());
