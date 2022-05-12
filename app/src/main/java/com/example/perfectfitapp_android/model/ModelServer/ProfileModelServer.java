@@ -223,6 +223,7 @@ public class ProfileModelServer {
         });
     }
 
+    //Not used - if won't needed we can delete.
     public void getAllProfile(Model.GetAllProfileListener listener) {
 
         String token = server.sp.getString("ACCESS_TOKEN", "");

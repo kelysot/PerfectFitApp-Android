@@ -168,7 +168,7 @@ public interface RetrofitInterface {
     /*--------------------------------- Notifications -------------------------------*/
 
     @GET("/notification/getNotificationsByIds/{notificationsIds}")
-    Call<JsonArray> getNotificationsByIds(@Header("authorization") String token, @Path("notificationsIds") String json);
+    Call<JsonArray> getNotificationsByIds(@Header("authorization") String token, @Path("notificationsIds") List<String> notificationsIds);
 
     @POST("/notification")
     Call<JsonObject> addNewNotification(@Header("authorization") String token, @Body HashMap<String, Object> map);

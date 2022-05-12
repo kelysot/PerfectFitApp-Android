@@ -53,30 +53,11 @@ public class LikesFragment extends Fragment {
         postId = LikesFragmentArgs.fromBundle(getArguments()).getPostId();
 
         Model.instance.getPostById(postId, post -> {
-
-            Model.instance.getAllProfile(profileList -> {
-                Model.instance.setProfiles(profileList);
-                List<Profile> list = new ArrayList<>();
-                for (int i = 0; i < profileList.size(); i++){
-                    Profile profile = profileList.get(i);
-                    for (String like: post.getLikes()) {
-                        if(profile.getUserName().equals(like)){
-                            list.add(profile);
-                            break;
-                        }
-                    }
-                }
-                viewModel.setData(list);
+            Model.instance.getProfilesByUserNames(post.getLikes(), profilesList -> {
+                Log.d("TAG", profilesList.toString());
+                viewModel.setData(profilesList);
                 adapter.notifyDataSetChanged();
             });
-
-//            Model.instance.getProfilesByUserNames(post.getLikes(), new Model.GetProfilesByUserNamesListener() {
-//                @Override
-//                public void onComplete(List<Profile> profilesList) {
-//                    viewModel.setData(profilesList);
-//                    adapter.notifyDataSetChanged();
-//                }
-//            });
         });
 
         RecyclerView likesList = view.findViewById(R.id.likes_rv);

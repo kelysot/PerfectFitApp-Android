@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -517,6 +518,15 @@ public class Profile {
         map.put("notifications", this.getNotifications());
         map.put("wishlist", this.getWishlist());
         map.put("myPostsListId", this.getMyPostsListId());
+
+        return map;
+    }
+
+    public static HashMap<String, List<Object>> toJson(List<String> userNames){
+
+        HashMap<String, List<Object>> map = new HashMap<>();
+
+        map.put("userNames", Arrays.asList(userNames.toArray()));
 
         return map;
     }
