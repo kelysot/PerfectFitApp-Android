@@ -71,48 +71,36 @@ public class NotificationFragment extends Fragment {
     }
 
     private void refresh() {
+        count = 0;
+        List<Notification> list = new ArrayList<>();
 
-        Model.instance.getAllNotification(new Model.GetAllNotificationListener() {
-            @Override
-            public void onComplete(List<Notification> notificationList) {
-                Model.instance.setNotifications(notificationList);
-                Model.instance.getProfileByUserName(Model.instance.getProfile().getUserName(), new Model.GetProfileByUserName() {
-                    @Override
-                    public void onComplete(Profile profile) {
-                        count = 0;
-                        List<Notification> list = new ArrayList<>();
-                        for (int i = 0; i < Model.instance.getNotifications().size(); i++){
-                            Notification n = Model.instance.getNotifications().get(i);
-                            for (String notification:profile.getNotifications()) {
-                                if(n.getNotificationId().equals(notification)){
-                                    list.add(n);
-                                    if(n.getSeen().equals("false")){
-                                        count++;
-                                        n.setSeen("true");
-                                        Model.instance.editNotification(n, new Model.EditNotificationListener() {
-                                            @Override
-                                            public void onComplete(Boolean isSuccess) {
-                                                if(!isSuccess){
-                                                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                                            Toast.LENGTH_LONG).show();
-                                                    Log.d("TAG", "failed in editNotification");
-                                                }
-                                            }
-                                        });
-                                    }
-                                    break;
+        List<String> notifications = Model.instance.getProfile().getNotifications();
+        if(!notifications.isEmpty()){
+            Model.instance.getNotificationsByIds(notifications , notificationsList -> {
+                if(notificationsList != null){
+                    for (int i = 0; i < notificationsList.size(); i++){
+                        Notification notification = notificationsList.get(i);
+                        list.add(notification);
+                        if(notification.getSeen().equals("false")){
+                            count++;
+                            notification.setSeen("true");
+                            Model.instance.editNotification(notification, isSuccess -> {
+                                if(!isSuccess){
+                                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                            Toast.LENGTH_LONG).show();
+                                    Log.d("TAG", "failed in editNotification");
                                 }
-                            }
+                            });
                         }
-                        if(count != 0){
-                            Model.instance.removeBadge();
-                        }
-                        viewModel.setData(list);
-                        adapter.notifyDataSetChanged();
                     }
-                });
-            }
-        });
+                    if(count != 0){
+                        Model.instance.removeBadge();
+                    }
+                    viewModel.setData(list);
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        }
 
     }
 

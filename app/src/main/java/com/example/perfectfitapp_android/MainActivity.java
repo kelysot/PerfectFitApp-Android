@@ -15,6 +15,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -46,23 +47,15 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         Model.instance.setBottomNavigationView(bottomNavigationView);
 
-        Model.instance.getAllNotification(notificationList -> {
-            Model.instance.setNotifications(notificationList);
-            Model.instance.getProfileByUserName(Model.instance.getProfile().getUserName(), new Model.GetProfileByUserName() {
-                @Override
-                public void onComplete(Profile profile) {
-                    count = 0;
-                    List<Notification> list = new ArrayList<>();
-                    for (int i = 0; i < Model.instance.getNotifications().size(); i++){
-                        Notification n = Model.instance.getNotifications().get(i);
-                        for (String notification:profile.getNotifications()) {
-                            if(n.getNotificationId().equals(notification)){
-                                list.add(n);
-                                if(n.getSeen().equals("false")){
-                                    count++;
-                                }
-                                break;
-                            }
+
+        //Check if the user have notifications
+        List<String> notifications = Model.instance.getProfile().getNotifications();
+        if(!notifications.isEmpty()){
+            Model.instance.getNotificationsByIds(notifications , notificationsList -> {
+                if(notificationsList != null){
+                    for (int i = 0; i < notificationsList.size(); i++){
+                        if(notificationsList.get(i).getSeen().equals("false")){
+                            count++;
                         }
                     }
                     if(count != 0){
@@ -70,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
-        });
+        }
 
         mAppBarConfiguration = new AppBarConfiguration.Builder().build();
 

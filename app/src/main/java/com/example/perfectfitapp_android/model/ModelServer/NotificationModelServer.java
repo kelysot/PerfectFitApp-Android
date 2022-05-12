@@ -27,8 +27,8 @@ public class NotificationModelServer {
 
     public void getNotificationsByIds(List<String> notificationsIds, Model.GetNotificationsByIdsListener listener){
         String token = server.sp.getString("ACCESS_TOKEN", "");
-        String json = new Gson().toJson(notificationsIds);
-        Call<JsonArray> call = server.service.getNotificationsByIds(token, json);
+
+        Call<JsonArray> call = server.service.getNotificationsByIds(token, notificationsIds);
         call.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
@@ -38,7 +38,7 @@ public class NotificationModelServer {
                     listener.onComplete(notifications);
                 }
                 else{
-                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later111",
                             Toast.LENGTH_LONG).show();
                     Log.d("TAG", "failed in ModelServer in getNotificationsByIds 1");
                     listener.onComplete(null);
@@ -47,7 +47,7 @@ public class NotificationModelServer {
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later222",
                         Toast.LENGTH_LONG).show();
                 Log.d("TAG", "failed in ModelServer in getNotificationsByIds 2");
                 listener.onComplete(null);
@@ -84,6 +84,7 @@ public class NotificationModelServer {
         });
     }
 
+    //Not used - if won't needed we can delete.
     public void getAllNotification(Model.GetAllNotificationListener listener) {
 
         String token = server.sp.getString("ACCESS_TOKEN", "");
