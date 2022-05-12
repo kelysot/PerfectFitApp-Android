@@ -178,4 +178,7 @@ public interface RetrofitInterface {
 
     @GET("/notification/getNotificationById/{notificationId}")
     Call<JsonElement> getNotificationById(@Header("authorization") String token, @Path("notificationId") String notificationId);
+
+    @PATCH("/notification")
+    Call<Void> editNotification(@Header("authorization") String token, @Body HashMap<String, Object> notification);
 }

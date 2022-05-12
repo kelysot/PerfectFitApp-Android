@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
@@ -12,6 +15,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.perfectfitapp_android.HomePageViewModel;
 import com.example.perfectfitapp_android.MyApplication;
+import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.RetrofitInterface;
 import com.example.perfectfitapp_android.model.ModelServer.CategoryModelServer;
 import com.example.perfectfitapp_android.model.ModelServer.CommentModelServer;
@@ -21,6 +25,10 @@ import com.example.perfectfitapp_android.model.ModelServer.PostModelServer;
 import com.example.perfectfitapp_android.model.ModelServer.ProfileModelServer;
 import com.example.perfectfitapp_android.model.ModelServer.SubCategoryModelServer;
 import com.example.perfectfitapp_android.model.ModelServer.UserModelServer;
+import com.example.perfectfitapp_android.notification.NotificationCounter;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,6 +59,8 @@ public class Model {
     List<Notification> notifications = new ArrayList<>();
     List<Profile> profiles = new ArrayList<>();
     Map<String, ArrayList<String>> categoriesAndSubCategories = new HashMap<>();
+    BottomNavigationView bottomNavigationView;
+
 //    ModelServer modelServer = new ModelServer();
 
     Post post, newPost;
@@ -141,6 +151,14 @@ public class Model {
 
     public void setProfiles(List<Profile> profiles) {
         this.profiles = profiles;
+    }
+
+    public BottomNavigationView getBottomNavigationView() {
+        return bottomNavigationView;
+    }
+
+    public void setBottomNavigationView(BottomNavigationView bottomNavigationView) {
+        this.bottomNavigationView = bottomNavigationView;
     }
 
     private Model(){
@@ -733,5 +751,36 @@ public class Model {
 
     public void getNotificationById(String subCategoryId ,GetNotificationByIdListener listener){
         notificationModelServer.getNotificationById(subCategoryId, listener);
+    }
+
+    /*--------------------------------------------------------*/
+
+    public interface EditNotificationListener{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void editNotification(Notification notification, EditNotificationListener listener){
+        notificationModelServer.editNotification(notification, listener);
+    }
+
+    public void removeBadge() {
+        BottomNavigationMenuView bottomNavigationMenuView = (BottomNavigationMenuView) Model.instance.getBottomNavigationView().getChildAt(0);
+        View v = bottomNavigationMenuView.getChildAt(3);
+        BottomNavigationItemView itemView = (BottomNavigationItemView) v;
+        itemView.removeViewAt(itemView.getChildCount()-1);
+    }
+
+    public void addBadge(int count){
+        BottomNavigationMenuView bottomNavigationMenuView =
+                (BottomNavigationMenuView) Model.instance.getBottomNavigationView().getChildAt(0);
+        View v = bottomNavigationMenuView.getChildAt(3);
+        BottomNavigationItemView itemView = (BottomNavigationItemView) v;
+
+        View badge = LayoutInflater.from(MyApplication.getContext())
+                .inflate(R.layout.bell, itemView, true);
+
+        NotificationCounter notificationCounter = new NotificationCounter(badge);
+        notificationCounter.setNotificationNumber(count);
+
     }
 }
