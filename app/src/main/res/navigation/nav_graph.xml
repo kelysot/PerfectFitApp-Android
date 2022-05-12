@@ -89,6 +89,9 @@
             android:id="@+id/action_categoryFragment_to_subCategoryFragment"
             app:destination="@id/subCategoryFragment"
             app:popUpTo="@id/categoryFragment" />
+        <action
+            android:id="@+id/action_categoryFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_categoryFragment"
@@ -108,7 +111,7 @@
     </fragment>
     <fragment
         android:id="@+id/wishListFragment"
-        android:name="com.example.perfectfitapp_android.WishListFragment"
+        android:name="com.example.perfectfitapp_android.wishlist.WishListFragment"
         android:label="Wishlist"
         tools:layout="@layout/fragment_wish_list" >
         <action
@@ -165,4 +168,22 @@
         android:name="com.example.perfectfitapp_android.notification.NotificationFragment"
         android:label="Notifications"
         tools:layout="@layout/fragment_notification" /><action android:id="@+id/action_global_notificationFragment" app:destination="@id/notificationFragment"/>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.perfectfitapp_android.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_searchFeatureFragment"
+            app:destination="@id/searchFeatureFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFeatureFragment"
+        android:name="com.example.perfectfitapp_android.search.SearchFeatureFragment"
+        android:label="fragment_search_feature"
+        tools:layout="@layout/fragment_search_feature" >
+        <argument
+            android:name="feature"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -10,7 +10,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,21 +17,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.perfectfitapp_android.HomePageFragment;
-import com.example.perfectfitapp_android.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.R;
-import com.example.perfectfitapp_android.WishListViewModel;
 import com.example.perfectfitapp_android.model.Category;
 import com.example.perfectfitapp_android.model.Model;
-import com.example.perfectfitapp_android.model.Post;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 public class CategoryFragment extends Fragment {
 
     CategoryViewModel viewModel;
     MyAdapter adapter;
+    Button filterBtn;
 
 
     public CategoryFragment() {
@@ -54,6 +48,12 @@ public class CategoryFragment extends Fragment {
         RecyclerView categoryList = view.findViewById(R.id.category_rv);
         categoryList.setHasFixedSize(true);
         categoryList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        filterBtn = view.findViewById(R.id.category_filter_btn);
+        filterBtn.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(CategoryFragmentDirections.actionCategoryFragmentToSearchFragment());
+
+        });
 
         adapter = new CategoryFragment.MyAdapter();
         categoryList.setAdapter(adapter);

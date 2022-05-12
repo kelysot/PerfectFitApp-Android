@@ -1,4 +1,4 @@
-package com.example.perfectfitapp_android;
+package com.example.perfectfitapp_android.wishlist;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,25 +11,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.perfectfitapp_android.HomePageFragmentDirections;
+import com.example.perfectfitapp_android.MyApplication;
+import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Notification;
 import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
-import com.example.perfectfitapp_android.profile.ProfileFragmentDirections;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
-
-import java.util.LinkedList;
-import java.util.List;
 
 
 public class WishListFragment extends Fragment {

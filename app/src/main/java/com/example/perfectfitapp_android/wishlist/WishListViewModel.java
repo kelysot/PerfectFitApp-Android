@@ -1,4 +1,4 @@
-package com.example.perfectfitapp_android;
+package com.example.perfectfitapp_android.wishlist;
 
 import androidx.lifecycle.ViewModel;
 
