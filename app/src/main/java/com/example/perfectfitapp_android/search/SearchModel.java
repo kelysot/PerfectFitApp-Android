@@ -1,6 +1,7 @@
 package com.example.perfectfitapp_android.search;
 
 import com.example.perfectfitapp_android.create_profile.CreateProfileModel;
+import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.model.User;
 
@@ -15,6 +16,7 @@ import kotlin.collections.ArrayDeque;
 public class SearchModel {
 
     HashMap<String, List<String>> map;
+    List<Post> list;
 
     public static final SearchModel instance = new SearchModel();
 
@@ -25,5 +27,6 @@ public class SearchModel {
         map.put("Companies", new ArrayList<>());
         map.put("Colors", new ArrayList<>());
         map.put("BodyTypes", new ArrayList<>());
+        list = new ArrayList<>();
     }
 }

@@ -640,6 +640,18 @@ public class Model {
         postModelServer.getSuitablePosts(profileId, listener);
     }
 
+    /*--------------------------------------------------------*/
+
+    public interface getSearchPostsListener{
+        void onComplete(List<Post> posts);
+    }
+
+    public void getSearchPosts(HashMap<String, List<String>> map, getSearchPostsListener listener){
+        postModelServer.getSearchPosts(map, listener);
+    }
+
+
+
     /******************************************************************************************/
 
     /*--------------------------------- Category -------------------------------*/

@@ -14,7 +14,12 @@ import android.widget.EditText;
 
 import com.example.perfectfitapp_android.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.R;
+import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.sub_category.SubCategoryDetailsPostsFragmentDirections;
+import com.google.gson.JsonArray;
+
+import java.util.List;
 
 
 public class SearchFragment extends Fragment {
@@ -75,7 +80,30 @@ public class SearchFragment extends Fragment {
 
         searchBtn = view.findViewById(R.id.search_search_btn);
         searchBtn.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchPostsFragment());
+            //TODO: check if isEmpty
+            if(SearchModel.instance.map.get("Sizes").isEmpty()){
+                // need to: SearchModel.instance.map == all sizes
+            }
+            if(SearchModel.instance.map.get("Categories").isEmpty()){
+
+            }
+            if(SearchModel.instance.map.get("Colors").isEmpty()){
+
+            }if(SearchModel.instance.map.get("Companies").isEmpty()){
+
+            }
+            if(SearchModel.instance.map.get("BodyTypes").isEmpty()){
+
+            }
+            Model.instance.getSearchPosts(SearchModel.instance.map, posts -> {
+                if(posts != null){
+                    SearchModel.instance.list = posts;
+                    Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchPostsFragment());
+                }
+                else{
+                    System.out.println("problem at searchFragment 1");
+                }
+            });
         });
 
         return view;
