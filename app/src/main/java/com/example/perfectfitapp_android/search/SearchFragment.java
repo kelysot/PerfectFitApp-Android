@@ -1,5 +1,6 @@
 package com.example.perfectfitapp_android.search;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,7 +19,7 @@ import com.example.perfectfitapp_android.sub_category.SubCategoryDetailsPostsFra
 
 public class SearchFragment extends Fragment {
 
-    Button categoryBtn, sizeBtn, companyBtn, colorBtn, bodyTypeBtn;
+    Button categoryBtn, sizeBtn, companyBtn, colorBtn, bodyTypeBtn, showMapBtn;
     EditText priceFrom, priceTo;
 
     @Override
@@ -34,6 +35,22 @@ public class SearchFragment extends Fragment {
         bodyTypeBtn = view.findViewById(R.id.search_bodytype_btn);
         priceFrom = view.findViewById(R.id.search_price_from_et);
         priceTo = view.findViewById(R.id.search_price_to_et);
+
+        if(!SearchModel.instance.map.get("Categories").isEmpty()){
+            categoryBtn.setTextColor(Color.BLUE);
+        }
+        if(!SearchModel.instance.map.get("Sizes").isEmpty()){
+            sizeBtn.setTextColor(Color.BLUE);
+        }
+        if(!SearchModel.instance.map.get("Companies").isEmpty()){
+            companyBtn.setTextColor(Color.BLUE);
+        }
+        if(!SearchModel.instance.map.get("Colors").isEmpty()){
+            colorBtn.setTextColor(Color.BLUE);
+        }
+        if(!SearchModel.instance.map.get("BodyTypes").isEmpty()){
+            bodyTypeBtn.setTextColor(Color.BLUE);
+        }
 
         categoryBtn.setOnClickListener(v -> {
             Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchFeatureFragment("category"));
@@ -52,8 +69,11 @@ public class SearchFragment extends Fragment {
         });
 
 
+        showMapBtn = view.findViewById(R.id.showmap_btn);
 
-
+        showMapBtn.setOnClickListener(v -> {
+            System.out.println(SearchModel.instance.map);
+        });
 
         return view;
     }
