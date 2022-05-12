@@ -19,7 +19,7 @@ import com.example.perfectfitapp_android.sub_category.SubCategoryDetailsPostsFra
 
 public class SearchFragment extends Fragment {
 
-    Button categoryBtn, sizeBtn, companyBtn, colorBtn, bodyTypeBtn, showMapBtn;
+    Button categoryBtn, sizeBtn, companyBtn, colorBtn, bodyTypeBtn, showMapBtn, searchBtn;
     EditText priceFrom, priceTo;
 
     @Override
@@ -68,11 +68,14 @@ public class SearchFragment extends Fragment {
             Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchFeatureFragment("bodyType"));
         });
 
-
         showMapBtn = view.findViewById(R.id.showmap_btn);
-
         showMapBtn.setOnClickListener(v -> {
             System.out.println(SearchModel.instance.map);
+        });
+
+        searchBtn = view.findViewById(R.id.search_search_btn);
+        searchBtn.setOnClickListener(v -> {
+            Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchPostsFragment());
         });
 
         return view;

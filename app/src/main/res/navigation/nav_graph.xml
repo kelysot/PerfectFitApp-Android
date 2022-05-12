@@ -176,6 +176,9 @@
         <action
             android:id="@+id/action_searchFragment_to_searchFeatureFragment"
             app:destination="@id/searchFeatureFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_searchPostsFragment"
+            app:destination="@id/searchPostsFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFeatureFragment"
@@ -186,4 +189,9 @@
             android:name="feature"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/searchPostsFragment"
+        android:name="com.example.perfectfitapp_android.search.SearchPostsFragment"
+        android:label="fragment_search_posts"
+        tools:layout="@layout/fragment_search_posts" />
 </navigation>
