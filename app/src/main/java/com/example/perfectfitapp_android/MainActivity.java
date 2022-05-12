@@ -15,16 +15,28 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 
+import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.model.Notification;
+import com.example.perfectfitapp_android.model.Profile;
+import com.example.perfectfitapp_android.notification.NotificationCounter;
 import com.example.perfectfitapp_android.profile.ProfileFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     NavController navCtl;
+    int count = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +44,33 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        Model.instance.setBottomNavigationView(bottomNavigationView);
+
+        Model.instance.getAllNotification(notificationList -> {
+            Model.instance.setNotifications(notificationList);
+            Model.instance.getProfileByUserName(Model.instance.getProfile().getUserName(), new Model.GetProfileByUserName() {
+                @Override
+                public void onComplete(Profile profile) {
+                    count = 0;
+                    List<Notification> list = new ArrayList<>();
+                    for (int i = 0; i < Model.instance.getNotifications().size(); i++){
+                        Notification n = Model.instance.getNotifications().get(i);
+                        for (String notification:profile.getNotifications()) {
+                            if(n.getNotificationId().equals(notification)){
+                                list.add(n);
+                                if(n.getSeen().equals("false")){
+                                    count++;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    if(count != 0){
+                        Model.instance.addBadge(count);
+                    }
+                }
+            });
+        });
 
         mAppBarConfiguration = new AppBarConfiguration.Builder().build();
 

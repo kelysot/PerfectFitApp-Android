@@ -62,6 +62,7 @@ public class NotificationModelServer {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.d("TAG", response.message());
                 if (response.code() == 200) {
                     Notification newNotification  = new Notification();
                     newNotification = Notification.jsonElementToNotification(response.body().get("notification"));
@@ -137,5 +138,34 @@ public class NotificationModelServer {
             }
         });
 
+    }
+
+    public void editNotification(Notification notification, Model.EditNotificationListener listener){
+        String token = server.sp.getString("ACCESS_TOKEN", "");
+        HashMap<String, Object> notificationMap = notification.toJson();
+
+        Call<Void> call = server.service.editNotification(token, notificationMap);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.code() == 200){
+                    listener.onComplete(true);
+                }
+                else{
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    Log.d("TAG", "failed in ModelServer in editPost 1");
+                    listener.onComplete(false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                Log.d("TAG", "failed in ModelServer in editPost 2");
+                listener.onComplete(false);
+            }
+        });
     }
 }

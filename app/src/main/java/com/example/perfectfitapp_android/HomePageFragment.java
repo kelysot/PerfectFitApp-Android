@@ -1,5 +1,7 @@
 package com.example.perfectfitapp_android;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,6 +9,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -46,6 +50,9 @@ import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.post.AddNewPostFragmentDirections;
 import com.example.perfectfitapp_android.user_profiles.UserProfilesActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
@@ -62,7 +69,6 @@ public class HomePageFragment extends Fragment {
     TextView userName;
     SwipeRefreshLayout swipeRefresh;
     Button checkDate;
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -297,7 +303,7 @@ public class HomePageFragment extends Fragment {
 
                 if(!Model.instance.getProfile().getUserName().equals(post.getProfileId())){
                     Notification notification =  new Notification("0", Model.instance.getProfile().getUserName(),
-                            post.getProfileId(), Model.instance.getProfile().getUserName() + " liked your post", "10/5/22", post.getPostId());
+                            post.getProfileId(), Model.instance.getProfile().getUserName() + " liked your post", "10/5/22", post.getPostId(), "false");
                     Model.instance.addNewNotification(notification, notification1 -> {});
                 }
             }

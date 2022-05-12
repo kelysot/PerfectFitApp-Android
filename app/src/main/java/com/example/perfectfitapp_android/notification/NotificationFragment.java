@@ -10,12 +10,15 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Notification;
@@ -29,6 +32,7 @@ public class NotificationFragment extends Fragment {
 
     NotificationViewModel viewModel;
     MyAdapter adapter;
+    int count = 0;
 
     public NotificationFragment() {
     }
@@ -67,6 +71,7 @@ public class NotificationFragment extends Fragment {
     }
 
     private void refresh() {
+
         Model.instance.getAllNotification(new Model.GetAllNotificationListener() {
             @Override
             public void onComplete(List<Notification> notificationList) {
@@ -74,15 +79,33 @@ public class NotificationFragment extends Fragment {
                 Model.instance.getProfileByUserName(Model.instance.getProfile().getUserName(), new Model.GetProfileByUserName() {
                     @Override
                     public void onComplete(Profile profile) {
+                        count = 0;
                         List<Notification> list = new ArrayList<>();
                         for (int i = 0; i < Model.instance.getNotifications().size(); i++){
                             Notification n = Model.instance.getNotifications().get(i);
                             for (String notification:profile.getNotifications()) {
                                 if(n.getNotificationId().equals(notification)){
                                     list.add(n);
+                                    if(n.getSeen().equals("false")){
+                                        count++;
+                                        n.setSeen("true");
+                                        Model.instance.editNotification(n, new Model.EditNotificationListener() {
+                                            @Override
+                                            public void onComplete(Boolean isSuccess) {
+                                                if(!isSuccess){
+                                                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                                            Toast.LENGTH_LONG).show();
+                                                    Log.d("TAG", "failed in editNotification");
+                                                }
+                                            }
+                                        });
+                                    }
                                     break;
                                 }
                             }
+                        }
+                        if(count != 0){
+                            Model.instance.removeBadge();
                         }
                         viewModel.setData(list);
                         adapter.notifyDataSetChanged();
