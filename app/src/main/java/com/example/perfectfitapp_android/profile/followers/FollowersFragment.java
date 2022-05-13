@@ -1,4 +1,4 @@
-package com.example.perfectfitapp_android.likes;
+package com.example.perfectfitapp_android.profile.followers;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,59 +17,56 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.perfectfitapp_android.R;
-import com.example.perfectfitapp_android.comment.CommentFragment;
-import com.example.perfectfitapp_android.comment.CommentFragmentArgs;
-import com.example.perfectfitapp_android.comment.CommentViewModel;
-import com.example.perfectfitapp_android.model.Comment;
+import com.example.perfectfitapp_android.likes.LikesFragment;
+import com.example.perfectfitapp_android.likes.LikesFragmentArgs;
+import com.example.perfectfitapp_android.likes.LikesViewModel;
 import com.example.perfectfitapp_android.model.Model;
-import com.example.perfectfitapp_android.model.Notification;
 import com.example.perfectfitapp_android.model.Profile;
-import com.example.perfectfitapp_android.profile.followers.FollowersFragmentDirections;
+import com.example.perfectfitapp_android.profile.ProfileFragmentDirections;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.List;
+public class FollowersFragment extends Fragment {
 
-public class LikesFragment extends Fragment {
 
-    LikesViewModel viewModel;
+    FollowersViewModel viewModel;
     MyAdapter adapter;
-    String postId;
+    String profileId;
 
 
-    public LikesFragment() {}
+    public FollowersFragment() {}
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        viewModel = new ViewModelProvider(this).get(LikesViewModel.class);
+        viewModel = new ViewModelProvider(this).get(FollowersViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_likes, container, false);
+        View view = inflater.inflate(R.layout.fragment_followers, container, false);
 
-        postId = LikesFragmentArgs.fromBundle(getArguments()).getPostId();
+        profileId = FollowersFragmentArgs.fromBundle(getArguments()).getProfileId();
 
-        Model.instance.getPostById(postId, post -> {
-            Model.instance.getProfilesByUserNames(post.getLikes(), profilesList -> {
-                viewModel.setData(profilesList);
+        Model.instance.getProfileByUserName(profileId, profile -> {
+            Model.instance.getProfilesByUserNames(profile.getFollowers(), profilesList -> {
+                viewModel.setFollowersProfiles(profilesList);
                 adapter.notifyDataSetChanged();
             });
         });
 
-        RecyclerView likesList = view.findViewById(R.id.likes_rv);
-        likesList.setHasFixedSize(true);
-        likesList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        RecyclerView followersList = view.findViewById(R.id.followers_rv);
+        followersList.setHasFixedSize(true);
+        followersList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new MyAdapter();
-        likesList.setAdapter(adapter);
+        followersList.setAdapter(adapter);
 
         adapter.setOnItemClickListener((v, position) -> {
-            String userName = viewModel.getData().get(position).getUserName();
-            Navigation.findNavController(v).navigate(LikesFragmentDirections.actionGlobalProfileFragment(userName));
+            String userName = viewModel.getFollowersProfiles().get(position).getUserName();
+            Navigation.findNavController(v).navigate(FollowersFragmentDirections.actionGlobalProfileFragment(userName));
         });
 
         return view;
@@ -114,7 +110,7 @@ public class LikesFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            Profile profile = viewModel.getData().get(position);
+            Profile profile = viewModel.getFollowersProfiles().get(position);
             holder.userNameTv.setText(profile.getUserName());
 
             String userImg = profile.getUserImageUrl();
@@ -134,10 +130,10 @@ public class LikesFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(viewModel.getData() == null){
+            if(viewModel.getFollowersProfiles() == null){
                 return 0;
             }
-            return viewModel.getData().size();
+            return viewModel.getFollowersProfiles().size();
         }
     }
 }

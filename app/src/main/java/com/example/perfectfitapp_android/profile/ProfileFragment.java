@@ -39,7 +39,7 @@ public class ProfileFragment extends Fragment {
     ImageView userPic;
     TextView userNameTv;
     TextView numOfPosts, numOfFollowers, numOfFollowing;
-//    ImageButton editProfileBtn;
+    //    ImageButton editProfileBtn;
     MyAdapter adapter;
     String profileId;
     Button followBtn;
@@ -79,13 +79,13 @@ public class ProfileFragment extends Fragment {
         swipeRefresh.setOnRefreshListener(() -> refresh());
 
 
-        if(!getArguments().isEmpty()){
+        if (!getArguments().isEmpty()) {
             profileId = ProfileFragmentArgs.fromBundle(getArguments()).getProfileId();
             Model.instance.getProfileByUserName(profileId, profile -> {
                 userNameTv.setText(profile.getUserName());
                 numOfPosts.setText(String.valueOf(profile.getMyPostsListId().size()));
                 String userImg = profile.getUserImageUrl();
-                if(userImg != null && !userImg.equals("")){
+                if (userImg != null && !userImg.equals("")) {
                     Model.instance.getImages(userImg, bitmap -> {
                         userPic.setImageBitmap(bitmap);
                     });
@@ -93,47 +93,41 @@ public class ProfileFragment extends Fragment {
 
                 followersSize = profile.getFollowers().size();
                 numOfFollowing.setText(String.valueOf(profile.getTrackers().size()));
-                numOfFollowers.setText(String.valueOf(profile.getFollowers().size()));
+
+                int followersSize = profile.getFollowers().size();
+                numOfFollowers.setText(String.valueOf(followersSize));
+                numOfFollowers.setOnClickListener(v -> moveToFollowersList(v, profileId));
 
                 String currentUserName = Model.instance.getProfile().getUserName();
-                if(!profile.getUserName().equals(currentUserName)){ //Check if the user go to his profile by click on his name or picture.
+                if (!profile.getUserName().equals(currentUserName)) { //Check if the user go to his profile by click on his name or picture.
                     followBtn.setVisibility(View.VISIBLE);
-                    if(profile.getTrackers().contains(currentUserName))
+                    if (profile.getTrackers().contains(currentUserName))
                         followBtn.setText("Following");
                     else
                         followBtn.setText("Follow");
 
                     followBtn.setOnClickListener(v -> checkIfFollow(profileId, currentUserName));
-                }
-                else
+                } else
                     followBtn.setVisibility(View.GONE);
 
-
-
-
-//                    if(followersSize > 0){
-//                        numOfFollowers.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//
-//                            }
-//                        });
-//                    }
             });
-        }
-        else {
+        } else {
             Profile profile = Model.instance.getProfile();
             profileId = profile.getUserName();
             userNameTv.setText(profile.getUserName());
             numOfPosts.setText(String.valueOf(profile.getMyPostsListId().size()));
             String userImg = profile.getUserImageUrl();
-            if(userImg != null && !userImg.equals("")){
+            if (userImg != null && !userImg.equals("")) {
                 Model.instance.getImages(userImg, bitmap -> {
                     userPic.setImageBitmap(bitmap);
                 });
             }
             numOfFollowing.setText(String.valueOf(profile.getTrackers().size()));
-            numOfFollowers.setText(String.valueOf(profile.getFollowers().size()));
+
+            int followersSize = profile.getFollowers().size();
+            numOfFollowers.setText(String.valueOf(followersSize));
+            numOfFollowers.setOnClickListener(v -> moveToFollowersList(v, profileId));
+
             followBtn.setVisibility(View.GONE);
         }
 
@@ -165,34 +159,31 @@ public class ProfileFragment extends Fragment {
     }
 
     private void refresh() {
-      //        swipeRefresh.setRefreshing(true);
+        //        swipeRefresh.setRefreshing(true);
         Model.instance.getProfileByUserName(profileId, profile -> {
             if (profile != null) {
-                Model.instance.getProfilePosts(profile.getUserName(),postList -> {
-                    if(postList != null){
+                Model.instance.getProfilePosts(profile.getUserName(), postList -> {
+                    if (postList != null) {
                         swipeRefresh.setRefreshing(false);
                         viewModel.setData(postList);
                         adapter.notifyDataSetChanged();
-                    }
-                    else {
+                    } else {
                         swipeRefresh.setRefreshing(false);
                         //TODO: create a popup
                     }
                 });
-            }
-            else
-            {
+            } else {
                 swipeRefresh.setRefreshing(false);
                 //TODO: create a popup
             }
         });
     }
 
-    
-        //If current profile follow clicked profile.
+
+    //If current profile follow clicked profile.
     private void checkIfFollow(String profileId, String currentUserName) {
         Model.instance.getProfileByUserName(profileId, profile -> {
-            if(profile.getFollowers().contains(currentUserName)){
+            if (profile.getFollowers().contains(currentUserName)) {
                 removeFollower(profile, currentUserName);
 
             } else {  //If current profile not following clicked profile.
@@ -200,9 +191,9 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-    }      
-          
-          
+    }
+
+
     private void addFollower(Profile profile, String currentUserName) {
         followBtn.setText("Follow");
         profile.getFollowers().add(currentUserName);
@@ -247,8 +238,16 @@ public class ProfileFragment extends Fragment {
 
     }
 
+    private void moveToFollowersList(View v, String profileId) {
+        Model.instance.getProfileByUserName(profileId, profile -> {
+            if (profile.getFollowers().size() > 0) {
+                Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionProfileFragmentToFollowersFragment(profileId));
+            }
+        });
+    }
+
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView productNameTv, descriptionTv,categoryTv, subCategoryTv, userNameTv, likesNumberTV, timeAgoTv;
+        TextView productNameTv, descriptionTv, categoryTv, subCategoryTv, userNameTv, likesNumberTV, timeAgoTv;
         ShapeableImageView postPic, userPic;
         ImageButton addToWishList, commentsBtn, addToLikes;
 
@@ -303,19 +302,18 @@ public class ProfileFragment extends Fragment {
             holder.subCategoryTv.setText(post.getSubCategoryId());
             holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
             holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
-            holder.addToLikes.setOnClickListener(v-> addToLikes(holder, post));
+            holder.addToLikes.setOnClickListener(v -> addToLikes(holder, post));
             Model.instance.timeSince(post.getDate(), timeAgo -> holder.timeAgoTv.setText(timeAgo));
 
             Model.instance.getProfileByUserName(post.getProfileId(), new Model.GetProfileByUserName() {
                 @Override
                 public void onComplete(Profile profile) {
                     String userImg = profile.getUserImageUrl();
-                    if(userImg != null && !userImg.equals("")){
+                    if (userImg != null && !userImg.equals("")) {
                         Model.instance.getImages(userImg, bitmap -> {
                             holder.userPic.setImageBitmap(bitmap);
                         });
-                    }
-                    else {
+                    } else {
                         Picasso.get()
                                 .load(R.drawable.avatar).resize(250, 180)
                                 .centerCrop()
@@ -325,39 +323,36 @@ public class ProfileFragment extends Fragment {
             });
 
 
-            if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0 ) {
+            if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0) {
                 Model.instance.getImages(post.getPicturesUrl().get(0), bitmap -> {
                     holder.postPic.setImageBitmap(bitmap);
                 });
-            }
-            else {
+            } else {
                 Picasso.get()
                         .load(R.drawable.pic1_shirts).resize(250, 180)
                         .centerCrop()
                         .into(holder.postPic);
             }
 
-            if(checkIfInsideWishList(post)){
+            if (checkIfInsideWishList(post)) {
                 holder.addToWishList.setImageResource(R.drawable.ic_full_star);
-            }
-            else{
+            } else {
                 holder.addToWishList.setImageResource(R.drawable.ic_star);
             }
 
-            if(checkIfInsideLikes(post)){
+            if (checkIfInsideLikes(post)) {
                 holder.addToLikes.setImageResource(R.drawable.ic_red_heart);
-            }
-            else{
+            } else {
                 holder.addToLikes.setImageResource(R.drawable.ic_heart);
             }
 
-            if(post.getLikes().size() != 0){
+            if (post.getLikes().size() != 0) {
                 holder.likesNumberTV.setOnClickListener(v -> {
                     Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionProfileFragmentToLikesFragment(post.getPostId()));
                 });
-            }
-            else {
-                holder.likesNumberTV.setOnClickListener(v -> {}); //So when user click on likes and when its empty he wont get into post page but won't get anything.
+            } else {
+                holder.likesNumberTV.setOnClickListener(v -> {
+                }); //So when user click on likes and when its empty he wont get into post page but won't get anything.
             }
 
             holder.commentsBtn.setOnClickListener((v) -> {
@@ -367,66 +362,61 @@ public class ProfileFragment extends Fragment {
 
         private void addToLikes(MyViewHolder holder, Post post) {
             String userName = Model.instance.getProfile().getUserName();
-            if(checkIfInsideLikes(post)){
+            if (checkIfInsideLikes(post)) {
                 post.getLikes().remove(userName);
                 Model.instance.editPost(post, isSuccess -> {
-                    if(isSuccess){
+                    if (isSuccess) {
                         holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
                         holder.addToLikes.setImageResource(R.drawable.ic_heart);
                         refresh();
-                    }
-                    else {
+                    } else {
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }
                 });
 
-            }
-            else{
+            } else {
                 post.getLikes().add(userName);
                 Model.instance.editPost(post, isSuccess -> {
-                    if(isSuccess){
+                    if (isSuccess) {
                         holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
                         holder.addToLikes.setImageResource(R.drawable.ic_red_heart);
                         refresh();
-                    }
-                    else{
+                    } else {
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }
                 });
 
-                if(!Model.instance.getProfile().getUserName().equals(post.getProfileId())){
-                    Notification notification =  new Notification("0", Model.instance.getProfile().getUserName(),
+                if (!Model.instance.getProfile().getUserName().equals(post.getProfileId())) {
+                    Notification notification = new Notification("0", Model.instance.getProfile().getUserName(),
                             post.getProfileId(), Model.instance.getProfile().getUserName() + " liked your post", "10/5/22", post.getPostId(), "false");
-                    Model.instance.addNewNotification(notification, notification1 -> {});
+                    Model.instance.addNewNotification(notification, notification1 -> {
+                    });
                 }
             }
         }
 
         private void addToWishList(MyViewHolder holder, Post post) {
 
-            if(checkIfInsideWishList(post)){
+            if (checkIfInsideWishList(post)) {
                 Model.instance.getProfile().getWishlist().remove(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
-                    if(isSuccess){
+                    if (isSuccess) {
                         holder.addToWishList.setImageResource(R.drawable.ic_star);
-                    }
-                    else{
+                    } else {
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }
                 });
-            }
-            else{
+            } else {
                 Model.instance.getProfile().getWishlist().add(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
-                    if(isSuccess){
+                    if (isSuccess) {
                         holder.addToWishList.setImageResource(R.drawable.ic_full_star);
                         System.out.println("the posts added to the list");
                         System.out.println(Model.instance.getProfile().getWishlist());
-                    }
-                    else{
+                    } else {
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }
@@ -436,17 +426,17 @@ public class ProfileFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(viewModel.getData() == null){
+            if (viewModel.getData() == null) {
                 return 0;
             }
             return viewModel.getData().size();
         }
 
-        public boolean checkIfInsideWishList(Post post){
+        public boolean checkIfInsideWishList(Post post) {
             return Model.instance.getProfile().getWishlist().contains(post.getPostId());
         }
 
-        public boolean checkIfInsideLikes(Post post){
+        public boolean checkIfInsideLikes(Post post) {
             return post.getLikes().contains(Model.instance.getProfile().getUserName());
         }
     }
