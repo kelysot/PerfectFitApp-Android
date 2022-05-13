@@ -69,6 +69,7 @@ public class WishListFragment extends Fragment {
             });
         });
 
+        Model.instance.checkNotification();
         refresh();
 
         return view;

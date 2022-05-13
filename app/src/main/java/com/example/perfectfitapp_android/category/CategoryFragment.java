@@ -63,6 +63,7 @@ public class CategoryFragment extends Fragment {
             Navigation.findNavController(v).navigate(CategoryFragmentDirections.actionCategoryFragmentToSubCategoryFragment(categoryId));
         });
 
+        Model.instance.checkNotification();
         refresh();
 
         return view;
