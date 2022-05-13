@@ -47,24 +47,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         Model.instance.setBottomNavigationView(bottomNavigationView);
 
-
-        //Check if the user have notifications
-        List<String> notifications = Model.instance.getProfile().getNotifications();
-        if(!notifications.isEmpty()){
-            Model.instance.getNotificationsByIds(notifications , notificationsList -> {
-                if(notificationsList != null){
-                    for (int i = 0; i < notificationsList.size(); i++){
-                        if(notificationsList.get(i).getSeen().equals("false")){
-                            count++;
-                        }
-                    }
-                    if(count != 0){
-                        Model.instance.addBadge(count);
-                    }
-                }
-            });
-        }
-
         mAppBarConfiguration = new AppBarConfiguration.Builder().build();
 
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);

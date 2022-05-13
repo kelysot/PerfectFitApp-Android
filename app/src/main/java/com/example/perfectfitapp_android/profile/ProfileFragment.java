@@ -158,6 +158,7 @@ public class ProfileFragment extends Fragment {
             });
         });
 
+        Model.instance.checkNotification();
         refresh();
 
         return view;

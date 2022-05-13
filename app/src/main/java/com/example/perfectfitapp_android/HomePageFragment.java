@@ -126,6 +126,7 @@ public class HomePageFragment extends Fragment {
             });
         });
 
+        Model.instance.checkNotification();
         Model.instance.refreshPostsList();
         return view;
     }
