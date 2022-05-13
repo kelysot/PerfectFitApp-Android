@@ -21,24 +21,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.perfectfitapp_android.HomePageFragment;
-import com.example.perfectfitapp_android.HomePageFragmentDirections;
-import com.example.perfectfitapp_android.HomePageViewModel;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
-import com.example.perfectfitapp_android.comment.CommentFragmentArgs;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Notification;
 import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
-import com.example.perfectfitapp_android.post.PostPageFragmentDirections;
-import com.example.perfectfitapp_android.sub_category.SubCategoryDetailsPostsFragment;
-import com.example.perfectfitapp_android.sub_category.SubCategoryDetailsPostsFragmentDirections;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class ProfileFragment extends Fragment {
@@ -46,10 +38,12 @@ public class ProfileFragment extends Fragment {
     ProfileViewModel viewModel;
     ImageView userPic;
     TextView userNameTv;
-    TextView numOfPosts;
+    TextView numOfPosts, numOfFollowers, numOfFollowing;
 //    ImageButton editProfileBtn;
     MyAdapter adapter;
     String profileId;
+    Button followBtn;
+    int followersSize = 0;
     SwipeRefreshLayout swipeRefresh;
 
 
@@ -69,24 +63,62 @@ public class ProfileFragment extends Fragment {
         userNameTv = view.findViewById(R.id.profile_user_name);
         numOfPosts = view.findViewById(R.id.profile_num_posts_tv);
 
+        numOfFollowers = view.findViewById(R.id.profile_num_followers_tv);
+        numOfFollowing = view.findViewById(R.id.profile_num_following_tv);
+        followBtn = view.findViewById(R.id.profile_follow_btn);
+
+//        if(followingSize > 0){
+//            numOfFollowing.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    //TODO:fffff
+//                }
+//            });
+//        }
         swipeRefresh = view.findViewById(R.id.profile_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> refresh());
 
 
         if(!getArguments().isEmpty()){
             profileId = ProfileFragmentArgs.fromBundle(getArguments()).getProfileId();
-            Model.instance.getProfileByUserName(profileId, new Model.GetProfileByUserName() {
-                @Override
-                public void onComplete(Profile profile) {
-                    userNameTv.setText(profile.getUserName());
-                    numOfPosts.setText(String.valueOf(profile.getMyPostsListId().size()));
-                    String userImg = profile.getUserImageUrl();
-                    if(userImg != null && !userImg.equals("")){
-                        Model.instance.getImages(userImg, bitmap -> {
-                            userPic.setImageBitmap(bitmap);
-                        });
-                    }
+            Model.instance.getProfileByUserName(profileId, profile -> {
+                userNameTv.setText(profile.getUserName());
+                numOfPosts.setText(String.valueOf(profile.getMyPostsListId().size()));
+                String userImg = profile.getUserImageUrl();
+                if(userImg != null && !userImg.equals("")){
+                    Model.instance.getImages(userImg, bitmap -> {
+                        userPic.setImageBitmap(bitmap);
+                    });
                 }
+
+                followersSize = profile.getFollowers().size();
+                numOfFollowing.setText(String.valueOf(profile.getTrackers().size()));
+                numOfFollowers.setText(String.valueOf(profile.getFollowers().size()));
+
+                String currentUserName = Model.instance.getProfile().getUserName();
+                if(!profile.getUserName().equals(currentUserName)){ //Check if the user go to his profile by click on his name or picture.
+                    followBtn.setVisibility(View.VISIBLE);
+                    if(profile.getTrackers().contains(currentUserName))
+                        followBtn.setText("Following");
+                    else
+                        followBtn.setText("Follow");
+
+                    followBtn.setOnClickListener(v -> checkIfFollow(profileId, currentUserName));
+                }
+                else
+                    followBtn.setVisibility(View.GONE);
+
+
+
+
+//                    if(followersSize > 0){
+//                        numOfFollowers.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//
+//                            }
+//                        });
+//                    }
             });
         }
         else {
@@ -100,6 +132,9 @@ public class ProfileFragment extends Fragment {
                     userPic.setImageBitmap(bitmap);
                 });
             }
+            numOfFollowing.setText(String.valueOf(profile.getTrackers().size()));
+            numOfFollowers.setText(String.valueOf(profile.getFollowers().size()));
+            followBtn.setVisibility(View.GONE);
         }
 
 
@@ -130,7 +165,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void refresh() {
-//        swipeRefresh.setRefreshing(true);
+      //        swipeRefresh.setRefreshing(true);
         Model.instance.getProfileByUserName(profileId, profile -> {
             if (profile != null) {
                 Model.instance.getProfilePosts(profile.getUserName(),postList -> {
@@ -151,6 +186,65 @@ public class ProfileFragment extends Fragment {
                 //TODO: create a popup
             }
         });
+    }
+
+    
+        //If current profile follow clicked profile.
+    private void checkIfFollow(String profileId, String currentUserName) {
+        Model.instance.getProfileByUserName(profileId, profile -> {
+            if(profile.getFollowers().contains(currentUserName)){
+                removeFollower(profile, currentUserName);
+
+            } else {  //If current profile not following clicked profile.
+                addFollower(profile, currentUserName);
+            }
+        });
+
+    }      
+          
+          
+    private void addFollower(Profile profile, String currentUserName) {
+        followBtn.setText("Follow");
+        profile.getFollowers().add(currentUserName);
+        Model.instance.editProfile(null, profile, isSuccess -> { // Change the profile we inside followers list.
+            if (isSuccess) {
+                Model.instance.getProfile().getTrackers().add(profile.getUserName());
+                Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess1 -> { // Change my profile trackers list.
+                    if (isSuccess1) {
+                        followBtn.setText("Following");
+                        followersSize++;
+                        numOfFollowers.setText(String.valueOf(followersSize));
+                    } else
+                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later11",
+                                Toast.LENGTH_LONG).show();
+                });
+            } else
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later11",
+                        Toast.LENGTH_LONG).show();
+        });
+
+    }
+
+    private void removeFollower(Profile profile, String currentUserName) {
+        followBtn.setText("Following");
+        profile.getFollowers().remove(currentUserName);
+        Model.instance.editProfile(null, profile, isSuccess -> { // Change the profile we inside followers list.
+            if (isSuccess) {
+                Model.instance.getProfile().getTrackers().remove(profile.getUserName());
+                Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess1 -> { // Change my profile trackers list.
+                    if (isSuccess1) {
+                        followBtn.setText("Follow");
+                        followersSize--;
+                        numOfFollowers.setText(String.valueOf(followersSize));
+                    } else
+                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later11",
+                                Toast.LENGTH_LONG).show();
+                });
+            } else
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+        });
+
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
