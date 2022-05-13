@@ -79,6 +79,9 @@
             android:name="profileId"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_followersFragment"
+            app:destination="@id/followersFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -194,4 +197,13 @@
         android:name="com.example.perfectfitapp_android.search.SearchPostsFragment"
         android:label="fragment_search_posts"
         tools:layout="@layout/fragment_search_posts" />
+    <fragment
+        android:id="@+id/followersFragment"
+        android:name="com.example.perfectfitapp_android.profile.followers.FollowersFragment"
+        android:label="fragment_followers"
+        tools:layout="@layout/fragment_followers" >
+        <argument
+            android:name="profileId"
+            app:argType="string" />
+    </fragment>
 </navigation>
