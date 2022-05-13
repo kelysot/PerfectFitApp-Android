@@ -321,7 +321,6 @@ public class PostModelServer {
         call.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-
                 if(response.code() == 200){
                     JsonArray js = response.body();
                     List<Post> list = Post.jsonArrayToPost(js);
@@ -329,16 +328,66 @@ public class PostModelServer {
                     listener.onComplete(list);
                 }
                 else{
+                    listener.onComplete(null);
+                    Log.d("TAG", "failed in getSuitablePosts 1");
+                }
+            }
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                listener.onComplete(null);
+                Log.d("TAG", "failed in getSuitablePosts 2");
+            }
+        });
+    }
 
 
+    public void getSearchPosts(HashMap<String, List<String >> map, Model.getSearchPostsListener listener){
+        String token = server.sp.getString("ACCESS_TOKEN", "");
+
+        Call<JsonArray> call = server.service.getSearchPosts(token, map);
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if(response.code() == 200){
+                    System.out.println("we did it " + response.body());
+                    List<Post> list = Post.jsonArrayToPost(response.body());
+                    listener.onComplete(list);
+                }
+                else{
+                    listener.onComplete(null);
+                    Log.d("TAG", "failed in getSearchPosts 1");
                 }
             }
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-
+                listener.onComplete(null);
+                Log.d("TAG", "failed in getSearchPosts 2");
             }
         });
+//        Call<JsonArray> call = server.service.getSearchPosts(token);
+
+//        call.enqueue(new Callback<JsonArray>() {
+//            @Override
+//            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+//                if(response.code() == 200){
+//
+//                }
+//                else{
+//                    listener.onComplete(null);
+//                    Log.d("TAG", "failed in getSearchPosts 1");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<JsonArray> call, Throwable t) {
+//                listener.onComplete(null);
+//                Log.d("TAG", "failed in getSearchPosts 2");
+//            }
+//        });
     }
+
+
+
 
 }

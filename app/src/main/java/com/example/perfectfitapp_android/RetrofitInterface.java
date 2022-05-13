@@ -133,6 +133,15 @@ public interface RetrofitInterface {
 
     @GET("/post/getSuitablePosts/{profileId}")
     Call<JsonArray> getSuitablePosts(@Header("authorization") String token, @Path("profileId") String profileId);
+
+//    @GET("/post/getSearchPosts}")
+//    Call<JsonArray> getSearchPosts(@Header("authorization") String token, @Query("map") HashMap<String, List<String>> map);
+//
+//    @GET ("/post/getSearchPosts")
+//    Call<JsonArray> getSearchPosts(@Header("authorization") String token, @Query("map") HashMap<String, List<String>> map);
+
+    @POST ("/post/getSearchPosts")
+    Call<JsonArray> getSearchPosts(@Header("authorization") String token, @Body HashMap<String, List<String>> map);
     /*--------------------------------- Category -------------------------------*/
 
     @GET("/category/{gender}")

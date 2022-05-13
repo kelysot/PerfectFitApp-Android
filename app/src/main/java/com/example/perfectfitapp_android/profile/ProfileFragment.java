@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,6 +44,7 @@ public class ProfileFragment extends Fragment {
     String profileId;
     Button followBtn;
     int followersSize = 0;
+    SwipeRefreshLayout swipeRefresh;
 
 
     @Override
@@ -73,6 +75,8 @@ public class ProfileFragment extends Fragment {
 //                }
 //            });
 //        }
+        swipeRefresh = view.findViewById(R.id.profile_swiperefresh);
+        swipeRefresh.setOnRefreshListener(() -> refresh());
 
 
         if(!getArguments().isEmpty()){
@@ -161,13 +165,31 @@ public class ProfileFragment extends Fragment {
     }
 
     private void refresh() {
-        Model.instance.getProfileByUserName(profileId, profile -> Model.instance.getProfilePosts(profile.getUserName(), postList -> {
-            viewModel.setData(postList);
-            adapter.notifyDataSetChanged();
-        }));
+      //        swipeRefresh.setRefreshing(true);
+        Model.instance.getProfileByUserName(profileId, profile -> {
+            if (profile != null) {
+                Model.instance.getProfilePosts(profile.getUserName(),postList -> {
+                    if(postList != null){
+                        swipeRefresh.setRefreshing(false);
+                        viewModel.setData(postList);
+                        adapter.notifyDataSetChanged();
+                    }
+                    else {
+                        swipeRefresh.setRefreshing(false);
+                        //TODO: create a popup
+                    }
+                });
+            }
+            else
+            {
+                swipeRefresh.setRefreshing(false);
+                //TODO: create a popup
+            }
+        });
     }
 
-    //If current profile follow clicked profile.
+    
+        //If current profile follow clicked profile.
     private void checkIfFollow(String profileId, String currentUserName) {
         Model.instance.getProfileByUserName(profileId, profile -> {
             if(profile.getFollowers().contains(currentUserName)){
@@ -178,8 +200,9 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-    }
-
+    }      
+          
+          
     private void addFollower(Profile profile, String currentUserName) {
         followBtn.setText("Follow");
         profile.getFollowers().add(currentUserName);
