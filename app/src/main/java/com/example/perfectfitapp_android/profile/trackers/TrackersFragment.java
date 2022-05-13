@@ -1,4 +1,4 @@
-package com.example.perfectfitapp_android.profile.followers;
+package com.example.perfectfitapp_android.profile.trackers;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,53 +17,52 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.perfectfitapp_android.R;
-import com.example.perfectfitapp_android.likes.LikesFragment;
-import com.example.perfectfitapp_android.likes.LikesFragmentArgs;
-import com.example.perfectfitapp_android.likes.LikesViewModel;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Profile;
-import com.example.perfectfitapp_android.profile.ProfileFragmentDirections;
+import com.example.perfectfitapp_android.profile.followers.FollowersFragment;
+import com.example.perfectfitapp_android.profile.followers.FollowersFragmentArgs;
+import com.example.perfectfitapp_android.profile.followers.FollowersFragmentDirections;
+import com.example.perfectfitapp_android.profile.followers.FollowersViewModel;
 import com.squareup.picasso.Picasso;
 
-public class FollowersFragment extends Fragment {
+public class TrackersFragment extends Fragment {
 
-    FollowersViewModel viewModel;
+    TrackersViewModel viewModel;
     MyAdapter adapter;
     String profileId;
 
-    public FollowersFragment() {}
+    public TrackersFragment() {}
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        viewModel = new ViewModelProvider(this).get(FollowersViewModel.class);
+        viewModel = new ViewModelProvider(this).get(TrackersViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_followers, container, false);
+        View view =  inflater.inflate(R.layout.fragment_trackers, container, false);
 
-        profileId = FollowersFragmentArgs.fromBundle(getArguments()).getProfileId();
+        profileId = TrackersFragmentArgs.fromBundle(getArguments()).getProfileId();
 
         Model.instance.getProfileByUserName(profileId, profile -> {
             Model.instance.getProfilesByUserNames(profile.getFollowers(), profilesList -> {
-                viewModel.setFollowersProfiles(profilesList);
+                viewModel.setTrackersProfiles(profilesList);
                 adapter.notifyDataSetChanged();
             });
         });
 
-
-        RecyclerView followersList = view.findViewById(R.id.followers_rv);
-        followersList.setHasFixedSize(true);
-        followersList.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView trackersList = view.findViewById(R.id.trackers_rv);
+        trackersList.setHasFixedSize(true);
+        trackersList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new MyAdapter();
-        followersList.setAdapter(adapter);
+        trackersList.setAdapter(adapter);
 
         adapter.setOnItemClickListener((v, position) -> {
-            String userName = viewModel.getFollowersProfiles().get(position).getUserName();
+            String userName = viewModel.getTrackersProfiles().get(position).getUserName();
             Navigation.findNavController(v).navigate(FollowersFragmentDirections.actionGlobalProfileFragment(userName));
         });
 
@@ -108,7 +107,7 @@ public class FollowersFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            Profile profile = viewModel.getFollowersProfiles().get(position);
+            Profile profile = viewModel.getTrackersProfiles().get(position);
             holder.userNameTv.setText(profile.getUserName());
 
             String userImg = profile.getUserImageUrl();
@@ -128,10 +127,10 @@ public class FollowersFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(viewModel.getFollowersProfiles() == null){
+            if(viewModel.getTrackersProfiles() == null){
                 return 0;
             }
-            return viewModel.getFollowersProfiles().size();
+            return viewModel.getTrackersProfiles().size();
         }
     }
 }

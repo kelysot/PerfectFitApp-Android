@@ -45,6 +45,7 @@ public class ProfileFragment extends Fragment {
     Button followBtn;
     int followersSize = 0;
     SwipeRefreshLayout swipeRefresh;
+    View followersView, followingView;
 
 
     @Override
@@ -66,6 +67,8 @@ public class ProfileFragment extends Fragment {
         numOfFollowers = view.findViewById(R.id.profile_num_followers_tv);
         numOfFollowing = view.findViewById(R.id.profile_num_following_tv);
         followBtn = view.findViewById(R.id.profile_follow_btn);
+        followersView = view.findViewById(R.id.profile_followers_view);
+        followingView = view.findViewById(R.id.profile_following_view);
 
 //        if(followingSize > 0){
 //            numOfFollowing.setOnClickListener(new View.OnClickListener() {
@@ -93,10 +96,11 @@ public class ProfileFragment extends Fragment {
 
                 followersSize = profile.getFollowers().size();
                 numOfFollowing.setText(String.valueOf(profile.getTrackers().size()));
+                followingView.setOnClickListener(v -> moveToTrackersList(v));
 
                 int followersSize = profile.getFollowers().size();
                 numOfFollowers.setText(String.valueOf(followersSize));
-                numOfFollowers.setOnClickListener(v -> moveToFollowersList(v, profileId));
+                followersView.setOnClickListener(v -> moveToFollowersList(v));
 
                 String currentUserName = Model.instance.getProfile().getUserName();
                 if (!profile.getUserName().equals(currentUserName)) { //Check if the user go to his profile by click on his name or picture.
@@ -123,10 +127,11 @@ public class ProfileFragment extends Fragment {
                 });
             }
             numOfFollowing.setText(String.valueOf(profile.getTrackers().size()));
+            followingView.setOnClickListener(v -> moveToTrackersList(v));
 
             int followersSize = profile.getFollowers().size();
             numOfFollowers.setText(String.valueOf(followersSize));
-            numOfFollowers.setOnClickListener(v -> moveToFollowersList(v, profileId));
+            followersView.setOnClickListener(v -> moveToFollowersList(v));
 
             followBtn.setVisibility(View.GONE);
         }
@@ -238,10 +243,18 @@ public class ProfileFragment extends Fragment {
 
     }
 
-    private void moveToFollowersList(View v, String profileId) {
+    private void moveToFollowersList(View v) {
         Model.instance.getProfileByUserName(profileId, profile -> {
             if (profile.getFollowers().size() > 0) {
                 Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionProfileFragmentToFollowersFragment(profileId));
+            }
+        });
+    }
+
+    private void moveToTrackersList(View v) {
+        Model.instance.getProfileByUserName(profileId, profile -> {
+            if (profile.getFollowers().size() > 0) {
+                Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionProfileFragmentToTrackersFragment(profileId));
             }
         });
     }

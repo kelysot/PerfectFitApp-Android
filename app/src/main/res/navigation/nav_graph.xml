@@ -82,6 +82,9 @@
         <action
             android:id="@+id/action_profileFragment_to_followersFragment"
             app:destination="@id/followersFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_trackersFragment"
+            app:destination="@id/trackersFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -174,7 +177,7 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.perfectfitapp_android.search.SearchFragment"
-        android:label="fragment_search"
+        android:label="Search"
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_searchFragment_to_searchFeatureFragment"
@@ -186,7 +189,7 @@
     <fragment
         android:id="@+id/searchFeatureFragment"
         android:name="com.example.perfectfitapp_android.search.SearchFeatureFragment"
-        android:label="fragment_search_feature"
+        android:label="Search Feature"
         tools:layout="@layout/fragment_search_feature" >
         <argument
             android:name="feature"
@@ -195,13 +198,26 @@
     <fragment
         android:id="@+id/searchPostsFragment"
         android:name="com.example.perfectfitapp_android.search.SearchPostsFragment"
-        android:label="fragment_search_posts"
-        tools:layout="@layout/fragment_search_posts" />
+        android:label="Search Posts"
+        tools:layout="@layout/fragment_search_posts" >
+        <action
+            android:id="@+id/action_searchPostsFragment_self"
+            app:destination="@id/searchPostsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/followersFragment"
         android:name="com.example.perfectfitapp_android.profile.followers.FollowersFragment"
-        android:label="fragment_followers"
+        android:label="Followers"
         tools:layout="@layout/fragment_followers" >
+        <argument
+            android:name="profileId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/trackersFragment"
+        android:name="com.example.perfectfitapp_android.profile.trackers.TrackersFragment"
+        android:label="Trackers"
+        tools:layout="@layout/fragment_trackers" >
         <argument
             android:name="profileId"
             app:argType="string" />
