@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,6 +50,7 @@ public class ProfileFragment extends Fragment {
 //    ImageButton editProfileBtn;
     MyAdapter adapter;
     String profileId;
+    SwipeRefreshLayout swipeRefresh;
 
 
     @Override
@@ -66,6 +68,10 @@ public class ProfileFragment extends Fragment {
         userPic = view.findViewById(R.id.profile_profile_img);
         userNameTv = view.findViewById(R.id.profile_user_name);
         numOfPosts = view.findViewById(R.id.profile_num_posts_tv);
+
+        swipeRefresh = view.findViewById(R.id.profile_swiperefresh);
+        swipeRefresh.setOnRefreshListener(() -> refresh());
+
 
         if(!getArguments().isEmpty()){
             profileId = ProfileFragmentArgs.fromBundle(getArguments()).getProfileId();
@@ -124,16 +130,27 @@ public class ProfileFragment extends Fragment {
     }
 
     private void refresh() {
-        Model.instance.getProfileByUserName(profileId, new Model.GetProfileByUserName() {
-            @Override
-            public void onComplete(Profile profile) {
+//        swipeRefresh.setRefreshing(true);
+        Model.instance.getProfileByUserName(profileId, profile -> {
+            if (profile != null) {
                 Model.instance.getProfilePosts(profile.getUserName(),postList -> {
-                    viewModel.setData(postList);
-                    adapter.notifyDataSetChanged();
+                    if(postList != null){
+                        swipeRefresh.setRefreshing(false);
+                        viewModel.setData(postList);
+                        adapter.notifyDataSetChanged();
+                    }
+                    else {
+                        swipeRefresh.setRefreshing(false);
+                        //TODO: create a popup
+                    }
                 });
             }
+            else
+            {
+                swipeRefresh.setRefreshing(false);
+                //TODO: create a popup
+            }
         });
-
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
