@@ -29,8 +29,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/email_24"
-            android:hint="email"
-            android:inputType="textEmailAddress" />
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:textSize="16dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -56,17 +57,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_password"
-            android:hint="password"
-            android:inputType="textPassword" />
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textSize="16dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/login_login_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="60dp"
         android:backgroundTint="#191919"
         android:text="Log In"
         android:textColor="#FFFFFF"
@@ -94,7 +96,7 @@
         android:backgroundTint="@color/myWhite"
         android:shadowColor="@null"
         android:text="Sign Up"
-        android:textColor="#E4965F"
+        android:textColor="#CA9B6C"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

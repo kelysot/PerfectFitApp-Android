@@ -40,7 +40,7 @@
                 android:id="@+id/register_step3_shoulder_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="shoulder"
+                android:hint="Shoulder"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,7 +62,7 @@
                 android:id="@+id/register_step3_chest_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="chest"
+                android:hint="Chest"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,7 +84,7 @@
                 android:id="@+id/register_step3_basin_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="basin"
+                android:hint="Basin"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -106,7 +106,7 @@
                 android:id="@+id/register_step3_waist_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="waist"
+                android:hint="Waist"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -128,7 +128,7 @@
                 android:id="@+id/register_step3_height_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="height"
+                android:hint="Height"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -150,7 +150,7 @@
                 android:id="@+id/register_step3_weight_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="weight"
+                android:hint="Weight"
                 android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -174,7 +174,7 @@
                 android:id="@+id/register_step3_foot_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="foot"
+                android:hint="Foot"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -194,18 +194,18 @@
             android:id="@+id/register_step3_register_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/myGold"
+            android:backgroundTint="#CA9B6C"
             android:text="Create Profile"
-            android:textColor="#4f4f4f"
+            android:textColor="#FFFFFF"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout25" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_step3_explanation_image" />
 
-<!--        <Button-->
+        <!--        <Button-->
 <!--            android:id="@+id/register_step3_continue_btn"-->
 <!--            android:layout_width="130dp"-->
 <!--            android:layout_height="46dp"-->

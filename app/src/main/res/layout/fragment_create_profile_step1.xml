@@ -4,48 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FAFAFA"
     tools:context=".create_profile.CreateProfileStep1Fragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#FAFAFA">
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="35dp"
             android:text="Create New Profile"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/register_step1_image_imv"
-            android:layout_width="264dp"
-            android:layout_height="147dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_marginTop="25dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/avatar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout3"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="15dp"
             app:boxBackgroundColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_step1_camera_imv">
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayout4"
+            app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_step1_name_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#FAFAFA"
                 android:hint="First Name"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -54,28 +60,30 @@
             android:id="@+id/textInputLayout26"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="15dp"
             app:boxBackgroundColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textInputLayout3"
-            app:layout_constraintTop_toBottomOf="@+id/register_step1_camera_imv">
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayout4"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayout3">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_step1_lastname_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#FAFAFA"
                 android:hint="Last Name"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout4"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="45dp"
             app:boxBackgroundColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
@@ -83,6 +91,7 @@
                 android:id="@+id/register_step1_username_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#FAFAFA"
                 android:drawableStart="@drawable/ic_user"
                 android:drawableLeft="@drawable/ic_user"
                 android:hint="User Name"
@@ -90,48 +99,47 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/textInputLayout7"-->
-<!--            android:layout_width="300dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="8dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            app:boxBackgroundColor="@color/white"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">-->
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/textInputLayout7"-->
+        <!--            android:layout_width="300dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="8dp"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            app:boxBackgroundColor="@color/white"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">-->
 
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/register_step1_email_et"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:drawableLeft="@drawable/email_24"-->
-<!--                android:drawableStart="@drawable/email_24"-->
-<!--                android:hint="Email"-->
-<!--                android:inputType="textEmailAddress"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:id="@+id/register_step1_email_et"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:drawableLeft="@drawable/email_24"-->
+        <!--                android:drawableStart="@drawable/email_24"-->
+        <!--                android:hint="Email"-->
+        <!--                android:inputType="textEmailAddress"/>-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
 
 
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/textInputLayout9"-->
+        <!--            android:layout_width="300dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="8dp"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            app:boxBackgroundColor="@color/white"-->
+        <!--            app:endIconMode="password_toggle"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/textInputLayout7">-->
 
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/textInputLayout9"-->
-<!--            android:layout_width="300dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="8dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            app:boxBackgroundColor="@color/white"-->
-<!--            app:endIconMode="password_toggle"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/textInputLayout7">-->
-
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/register_step1_password_et"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:drawableLeft="@drawable/ic_password"-->
-<!--                android:drawableStart="@drawable/ic_password"-->
-<!--                android:hint="Password"-->
-<!--                android:inputType="textPassword" />-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:id="@+id/register_step1_password_et"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:drawableLeft="@drawable/ic_password"-->
+        <!--                android:drawableStart="@drawable/ic_password"-->
+        <!--                android:hint="Password"-->
+        <!--                android:inputType="textPassword" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -139,7 +147,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="170dp"
             android:layout_height="60dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:hint="Gender"
             app:boxBackgroundColor="@color/white"
@@ -150,6 +158,7 @@
                 android:id="@+id/register_step1_gender_et"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#FAFAFA"
                 android:inputType="none" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -157,9 +166,11 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="170dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="70dp"
             app:boxBackgroundColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/register_step1_continue_btn"
             app:layout_constraintStart_toEndOf="@+id/register_step1_gender_txl"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
@@ -167,6 +178,7 @@
                 android:id="@+id/register_step1_birthday_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#FAFAFA"
                 android:hint="Birthday"
                 android:inputType="date" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -175,28 +187,41 @@
             android:id="@+id/register_step1_continue_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="227dp"
-            android:layout_marginTop="35dp"
-            android:layout_marginEnd="15dp"
-            android:backgroundTint="@color/myGold"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="80dp"
+            android:backgroundTint="#CA9B6C"
             android:text="Continue"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_step1_gender_txl"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/register_step1_birthday_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="50dp"
+            android:text="Birthday"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_step1_gender_txl" />
 
         <ImageButton
             android:id="@+id/register_step1_camera_imv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="264dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="24dp"
-            android:backgroundTint="@color/myWhite"
-            android:src="@drawable/ic_camera"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout26"
-            app:layout_constraintEnd_toStartOf="@+id/register_step1_gallery_imv"
+            android:layout_width="40dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="90dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="50dp"
+            android:background="#FAFAFA"
+            android:src="@drawable/ic_addphotoo"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv" />
 
@@ -204,25 +229,14 @@
             android:id="@+id/register_step1_gallery_imv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="24dp"
-            android:backgroundTint="@color/myWhite"
-            android:src="@drawable/ic_photo_library"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="90dp"
+            android:layout_marginBottom="50dp"
+            android:background="#FAFAFA"
+            android:src="@drawable/ic_add_photolibary"
             app:layout_constraintBottom_toTopOf="@+id/textInputLayout26"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/register_step1_camera_imv"
             app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv" />
-
-        <Button
-            android:id="@+id/register_step1_birthday_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Birthday"
-            app:layout_constraintEnd_toStartOf="@+id/register_step1_continue_btn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_step1_gender_txl" />
 
         <!--        android:shape="rectangle" android:padding="10dp"-->
     </androidx.constraintlayout.widget.ConstraintLayout>
