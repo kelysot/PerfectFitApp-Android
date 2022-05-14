@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FAFAFA"
     tools:context=".login.LoginFragment">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -63,11 +64,12 @@
         android:id="@+id/login_login_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="32dp"
-        android:backgroundTint="@color/myGold"
+        android:layout_marginEnd="50dp"
+        android:backgroundTint="#191919"
         android:text="Log In"
+        android:textColor="#FFFFFF"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,17 +94,22 @@
         android:backgroundTint="@color/myWhite"
         android:shadowColor="@null"
         android:text="Sign Up"
-        android:textColor="@color/myGold"
+        android:textColor="#E4965F"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="600dp"
-        android:layout_height="250dp"
-        android:src="@drawable/logoo"
+        android:id="@+id/imageView4"
+        android:layout_width="271dp"
+        android:layout_height="117dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="29dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
