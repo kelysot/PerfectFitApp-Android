@@ -37,8 +37,8 @@
                 android:id="@+id/edit_profile_step3_shoulder_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="shoulder" />
+                android:hint="Shoulder"
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -56,8 +56,8 @@
                 android:id="@+id/edit_profile_step3_chest_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="chest" />
+                android:hint="Chest"
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -75,8 +75,8 @@
                 android:id="@+id/edit_profile_step3_basin_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="basin" />
+                android:hint="Basin"
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -94,8 +94,8 @@
                 android:id="@+id/edit_profile_step3_waist_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="waist" />
+                android:hint="Waist"
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -113,8 +113,8 @@
                 android:id="@+id/edit_profile_step3_height_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="height" />
+                android:hint="Height"
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -132,8 +132,8 @@
                 android:id="@+id/edit_profile_step3_weight_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="weight" />
+                android:hint="Weight"
+                android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -152,8 +152,8 @@
                 android:id="@+id/edit_profile_step3_foot_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="foot" />
+                android:hint="Foot"
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
@@ -169,14 +169,15 @@
             android:id="@+id/edit_profile_step3_savechanges_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="20dp"
+            android:backgroundTint="#CA9B6C"
             android:text="Save Changes"
-            app:cornerRadius="20dp"
+            app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_25" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_profile_step3_explanation_image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
