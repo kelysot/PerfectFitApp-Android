@@ -376,6 +376,16 @@ public class Model {
 
     /******************************************************************************************/
 
+    /*--------------------------------- General -------------------------------*/
+
+    public interface generalListener{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void general( generalListener listener){
+        userModelServer.general( listener);
+
+    }
     /*--------------------------------- Profile -------------------------------*/
 
     /******************************************************************************************/

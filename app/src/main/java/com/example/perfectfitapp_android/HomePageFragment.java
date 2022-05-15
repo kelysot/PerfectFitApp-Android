@@ -68,7 +68,7 @@ public class HomePageFragment extends Fragment {
     MyAdapter adapter;
     TextView userName;
     SwipeRefreshLayout swipeRefresh;
-    Button checkDate;
+    Button checkDate, makeGeneral;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -81,6 +81,19 @@ public class HomePageFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
+
+        /*******************/
+
+        makeGeneral = view.findViewById(R.id.general);
+        makeGeneral.setOnClickListener(v -> {
+            Model.instance.general(isSuccess -> {
+                System.out.println("generallll");
+            });
+        });
+
+        /*******************/
+
+
 
         userName = view.findViewById(R.id.home_page_name_tv);
         userName.setText(Model.instance.getProfile().getUserName());

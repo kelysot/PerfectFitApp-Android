@@ -190,4 +190,10 @@ public interface RetrofitInterface {
 
     @PATCH("/notification")
     Call<Void> editNotification(@Header("authorization") String token, @Body HashMap<String, Object> notification);
+
+    /*--------------------------------- Notifications -------------------------------*/
+
+    @POST("/post/general")
+    Call<Void> general(@Header("authorization") String token);
+
 }

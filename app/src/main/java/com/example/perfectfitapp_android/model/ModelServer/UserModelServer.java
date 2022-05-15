@@ -192,4 +192,26 @@ public class UserModelServer {
             }
         });
     }
+
+    public void general(Model.generalListener listener) {
+
+        String token = server.sp.getString("ACCESS_TOKEN", "");
+        Call call = server.service.general(token);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if(response.code() == 200){
+                    System.out.println("general worked");
+                }
+                else{
+                    System.out.println("general not worked " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                System.out.println("general not worked: " + t.getMessage());
+            }
+        });
+    }
 }
