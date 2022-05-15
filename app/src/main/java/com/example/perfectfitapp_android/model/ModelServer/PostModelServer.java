@@ -388,6 +388,77 @@ public class PostModelServer {
     }
 
 
+    public void getGeneral(Model.getGeneralListener listener) {
+
+        String token = server.sp.getString("ACCESS_TOKEN", "");
+        Call<JsonObject> call = server.service.getGeneral(token);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                if(response.code() == 200){
+                    JsonArray json = response.body().getAsJsonArray("gen");
+//                    System.out.println(json.get(0).getAsJsonObject().get("sizes").getAsJsonArray());
+
+                    JsonArray sizesJson = json.get(0).getAsJsonObject().get("sizes").getAsJsonArray();
+                    ArrayList<String> sizes = jsonArrayToArrayList(sizesJson);
+                    JsonArray companiesJson = json.get(0).getAsJsonObject().get("companies").getAsJsonArray();
+                    ArrayList<String> companies = jsonArrayToArrayList(companiesJson);
+                    JsonArray colorsJson = json.get(0).getAsJsonObject().get("colors").getAsJsonArray();
+                    ArrayList<String> colors = jsonArrayToArrayList(colorsJson);
+                    JsonArray bodyTypesJson = json.get(0).getAsJsonObject().get("bodyTypes").getAsJsonArray();
+                    ArrayList<String> bodyTypes = jsonArrayToArrayList(bodyTypesJson);
+
+//                    System.out.println(sizes);
+//                    System.out.println(colors);
+//                    System.out.println(companies);
+//                    System.out.println(bodyTypes);
+
+                    HashMap<String, List<String>> map = new HashMap<>();
+                    map.put("Sizes", sizes);
+                    map.put("Companies", companies);
+                    map.put("Colors", colors);
+                    map.put("BodyTypes", bodyTypes);
+
+//                    System.out.println("----------------------------");
+//                    System.out.println(map);
+
+                    listener.onComplete(map);
+                }
+                else if(response.code() == 403){
+                    listener.onComplete(null);
+                    Log.d("TAG", "failed in getGeneral 1 - forbidden 403");
+                }
+                else {
+                    listener.onComplete(null);
+                    Log.d("TAG", "failed in getGeneral 12 ");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                listener.onComplete(null);
+                Log.d("TAG", "failed in getGeneral 2");
+            }
+        });
+
+    }
+
+    public ArrayList<String> jsonArrayToArrayList(JsonArray js){
+        ArrayList<String> list = new ArrayList<>();
+        for(int i=0; i<js.size(); i++){
+            list.add(js.get(i).getAsString());
+        }
+        return list;
+    }
 
 
+    public List<String> changeJsonListToRegularList(JsonElement js){
+        List<String> list = new ArrayList<>();
+        JsonArray arr = js.getAsJsonArray();
+        for(int i=0; i<arr.size(); i++){
+            list.add( arr.get(i).getAsString());
+        }
+        return list;
+    }
 }
