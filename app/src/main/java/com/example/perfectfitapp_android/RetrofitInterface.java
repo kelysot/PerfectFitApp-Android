@@ -191,9 +191,15 @@ public interface RetrofitInterface {
     @PATCH("/notification")
     Call<Void> editNotification(@Header("authorization") String token, @Body HashMap<String, Object> notification);
 
-    /*--------------------------------- Notifications -------------------------------*/
+    /*--------------------------------- Search -------------------------------*/
 
     @POST("/post/general")
     Call<Void> general(@Header("authorization") String token);
+
+//    @GET("/post/getGeneral")
+//    Call<JsonArray> getGeneral(@Header("authorization") String token);
+
+    @GET("/post/getGeneral")
+    Call<JsonObject> getGeneral(@Header("authorization") String token);
 
 }

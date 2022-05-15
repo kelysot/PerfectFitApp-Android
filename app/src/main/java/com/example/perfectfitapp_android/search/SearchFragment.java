@@ -14,11 +14,14 @@ import android.widget.EditText;
 
 import com.example.perfectfitapp_android.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.R;
+import com.example.perfectfitapp_android.model.Category;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.sub_category.SubCategoryDetailsPostsFragmentDirections;
 import com.google.gson.JsonArray;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -40,6 +43,8 @@ public class SearchFragment extends Fragment {
         bodyTypeBtn = view.findViewById(R.id.search_bodytype_btn);
         priceFrom = view.findViewById(R.id.search_price_from_et);
         priceTo = view.findViewById(R.id.search_price_to_et);
+
+        setMap();
 
         if(!SearchModel.instance.map.get("Categories").isEmpty()){
             categoryBtn.setTextColor(Color.BLUE);
@@ -107,5 +112,31 @@ public class SearchFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void setMap() {
+        Model.instance.getAllCategoriesListener(categoryList -> {
+            List<String> list = new ArrayList<>();
+            for(int i=0; i< categoryList.size(); i++){
+                list.add(categoryList.get(i).getName());
+            }
+//            SearchModel.instance.map.remove("Categories");
+            SearchModel.instance.map.put("Categories", list);
+
+            //set others:
+
+            Model.instance.getGeneral(map -> {
+                SearchModel.instance.map.put("Sizes", map.get("Sizes"));
+                SearchModel.instance.map.put("Companies", map.get("Companies"));
+                SearchModel.instance.map.put("Colors", map.get("Colors"));
+                SearchModel.instance.map.put("BodyTypes", map.get("BodyTypes"));
+
+//                System.out.println("*******************************");
+//                System.out.println(SearchModel.instance.map);
+            });
+
+
+
+        });
     }
 }

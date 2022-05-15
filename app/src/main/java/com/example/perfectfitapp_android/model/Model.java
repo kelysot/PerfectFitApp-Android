@@ -660,6 +660,16 @@ public class Model {
         postModelServer.getSearchPosts(map, listener);
     }
 
+    /*--------------------------------------------------------*/
+
+    public interface getGeneralListener{
+        void onComplete(HashMap<String, List<String>> map);
+    }
+
+    public void getGeneral (getGeneralListener listener){
+        postModelServer.getGeneral(listener);
+    }
+
 
 
     /******************************************************************************************/
