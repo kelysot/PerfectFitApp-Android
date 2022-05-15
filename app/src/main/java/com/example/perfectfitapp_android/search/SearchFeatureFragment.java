@@ -42,10 +42,8 @@ public class SearchFeatureFragment extends Fragment {
     TextView nameTv;
     RecyclerView rv;
     String feature;
-    String[] array;
-    List<String> list;
+    List<String> theList,listToSave;
     MyAdapter adapter;
-    List<String> listToSave = new LinkedList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,7 +54,7 @@ public class SearchFeatureFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search_feature, container, false);
 
         feature = SearchFeatureFragmentArgs.fromBundle(getArguments()).getFeature();
-        list = new ArrayList<>();
+        theList = new ArrayList<>();
         nameTv = view.findViewById(R.id.searchfeature_name_tv);
 
         rv = view.findViewById(R.id.searchfeature_rv);
@@ -68,13 +66,20 @@ public class SearchFeatureFragment extends Fragment {
         adapter = new MyAdapter();
         rv.setAdapter(adapter);
 
+        if(SearchModel.instance.mapToServer.get(feature) != null){
+            listToSave = SearchModel.instance.mapToServer.get(feature);
+        }
+        else{
+            listToSave = new ArrayList<>();
+        }
+
         adapter.setOnItemClickListener((v, position) -> {
-            String aa = list.get(position);
+            String aa = theList.get(position);
             System.out.println("row " + aa + "was clicked");
 //            SearchModel.instance.map.
         });
 
-        System.out.println(listToSave);
+        System.out.println("list to save --------- " + listToSave);
 
         return view;
     }
@@ -99,14 +104,16 @@ public class SearchFeatureFragment extends Fragment {
 
             cb.setOnClickListener(v -> {
                 int position = getAdapterPosition();
-                String fr = list.get(position);
+                String fr = theList.get(position);
                 if(listToSave.contains(fr)){
                     listToSave.remove(fr);
                 }
                 else{
                     listToSave.add(fr);
                 }
-                System.out.println(listToSave);
+                SearchModel.instance.mapToServer.put(feature, listToSave);
+//                System.out.println(listToSave);
+                System.out.println(SearchModel.instance.mapToServer);
             });
         }
     }
@@ -135,73 +142,61 @@ public class SearchFeatureFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-            String a = list.get(position);
-            holder.nameTv.setText(list.get(position));
+            String a = theList.get(position);
+            holder.nameTv.setText(theList.get(position));
             //TODO: set checked to the cb
 
-            if (listToSave.contains(list.get(position))) {
-                holder.cb.setChecked(true);
-            } else {
+            if(SearchModel.instance.mapToServer.get(feature) != null){
+                if (SearchModel.instance.mapToServer.get(feature).contains(theList.get(position))) {
+                    holder.cb.setChecked(true);
+                } else {
+                    holder.cb.setChecked(false);
+                }
+            }
+            else{
                 holder.cb.setChecked(false);
             }
+
+
+//            if (listToSave.contains(list.get(position))) {
+//                holder.cb.setChecked(true);
+//            } else {
+//                holder.cb.setChecked(false);
+//            }
         }
 
         @Override
         public int getItemCount() {
-            if(list == null) {
+            if(theList == null) {
                 return 0;
             }
             else {
-                return list.size();
+                return theList.size();
             }
         }
     }
 
 
     public void checkFeature(){
-        if(feature.equals("category")){
+        if(feature.equals("Categories")){
             nameTv.setText("Categories");
-            List<Category> categoryList = Model.instance.getCategories();
-            for(int i=0; i<categoryList.size(); i++){
-                list.add(categoryList.get(i).getName());
-            }
-            listToSave = SearchModel.instance.map.get("Categories");
+            theList = SearchModel.instance.map.get("Categories");
         }
-        else if(feature.equals("size")){
+        else if(feature.equals("Sizes")){
             nameTv.setText("Sizes");
-            array = getResources().getStringArray(R.array.sizes);
-            for(int i=0; i<array.length; i++){
-                list.add(array[i]);
-            }
-            listToSave = new ArrayList<>();
-            listToSave = SearchModel.instance.map.get("Sizes");
+            theList = SearchModel.instance.map.get("Sizes");
         }
-        else if(feature.equals("company")){
+        else if(feature.equals("Companies")){
             nameTv.setText("Companies");
-            array = getResources().getStringArray(R.array.companies);
-            for(int i=0; i<array.length; i++){
-                list.add(array[i]);
-            }
-            listToSave = SearchModel.instance.map.get("Companies");
+            theList = SearchModel.instance.map.get("Companies");
         }
-        else if(feature.equals("color")){
+        else if(feature.equals("Colors")){
             nameTv.setText("Colors");
-            array = getResources().getStringArray(R.array.colors);
-            for(int i=0; i<array.length; i++){
-                list.add(array[i]);
-            }
-            listToSave = SearchModel.instance.map.get("Colors");
+            theList = SearchModel.instance.map.get("Colors");
         }
-        else if(feature.equals("bodyType")){
+        else if(feature.equals("BodyTypes")){
             nameTv.setText("Body Types");
-            array = getResources().getStringArray(R.array.body_types);
-            for(int i=0; i<array.length; i++){
-                list.add(array[i]);
-            }
-            listToSave = SearchModel.instance.map.get("BodyTypes");
+            theList = SearchModel.instance.map.get("BodyTypes");
         }
     }
-
-
-
 }
