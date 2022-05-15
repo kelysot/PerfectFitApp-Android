@@ -18,11 +18,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MainActivity;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
+import com.example.perfectfitapp_android.login.LoginActivity;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.model.SubCategory;
@@ -44,6 +46,7 @@ public class UserProfilesFragment extends Fragment {
     ArrayList<Button> buttonList;
     Model model;
     String longClickUserName;
+    ProgressBar progressBar;
     int posInArray;
 
     @Override
@@ -58,6 +61,9 @@ public class UserProfilesFragment extends Fragment {
         Model.instance.setCategories(new LinkedList<>());
         Model.instance.setSubCategories(new LinkedList<>());
         Model.instance.setCategoriesAndSubCategories(new HashMap<>());
+
+        progressBar = view.findViewById(R.id.user_profiles_progress_bar);
+        progressBar.setVisibility(View.GONE);
 
         addProfile = view.findViewById(R.id.user_profiles_addprofile_btn);
         addProfile.setOnClickListener(v-> addProfile(view));
@@ -119,6 +125,7 @@ public class UserProfilesFragment extends Fragment {
 
     private void moveToHomePageWithProfile(String userName) {
         setButtonsEnable(false);
+        progressBar.setVisibility(View.VISIBLE);
         if(!Model.instance.getProfile().getUserName().isEmpty()){
             if(buttonList.contains(Model.instance.getProfile().getUserName())){
                 Model.instance.getProfile().setStatus("false");
@@ -129,6 +136,7 @@ public class UserProfilesFragment extends Fragment {
                         changeProfile(userName);
                     }
                     else{
+                        progressBar.setVisibility(View.GONE);
                         // TODO dialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
@@ -178,6 +186,7 @@ public class UserProfilesFragment extends Fragment {
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                         setButtonsEnable(true);
+                        progressBar.setVisibility(View.GONE);
                     }
                 });
             }
@@ -186,17 +195,25 @@ public class UserProfilesFragment extends Fragment {
                 Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                         Toast.LENGTH_LONG).show();
                 setButtonsEnable(true);
+                progressBar.setVisibility(View.GONE);
+
+                System.out.println("maybe forbidden - need to check it");
+                startActivity(new Intent(getContext(), LoginActivity.class));
+                getActivity().finish();
             }
         });
     }
 
     private void addProfile(View view) {
 
+        progressBar.setVisibility(View.VISIBLE);
+
         //TODO: open dialog about the amount of profiles
 
         if( Model.instance.getUser().getProfilesArray().size() == 5){
             Toast.makeText(MyApplication.getContext(), "Sorry, you can only have 5 profiles",
                     Toast.LENGTH_LONG).show();
+            progressBar.setVisibility(View.GONE);
         }
         else{
             Navigation.findNavController(view).navigate(R.id.action_userProfilesFragment2_to_createProfileStep1Fragment2);
@@ -226,11 +243,14 @@ public class UserProfilesFragment extends Fragment {
         switch(item.getItemId()) {
             case R.id.profile_edit_menuItem:{
                 // TODO: add the edit profile here
+                progressBar.setVisibility(View.VISIBLE);
                 Navigation.findNavController(addProfile).navigate(R.id.action_userProfilesFragment2_to_editProfileFragment2);
                 return true;
 //                actionUserProfilesFragmentToEditProfileFragment2()
             }
             case R.id.profile_delete_menuItem:{
+                //TODO: add profressBar and check delete
+                // progressBar.setVisibility(View.VISIBLE);
                 Model.instance.deleteProfile(longClickUserName,isSuccess -> {
                     if(isSuccess){
                         Model.instance.getUser().getProfilesArray().remove(posInArray); //current user

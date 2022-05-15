@@ -31,7 +31,7 @@ public class ProfileModelServer {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-
+                System.out.println("the code in getProfileFromServer is: " + response.code());
                 if (response.code() == 200) {
                     Profile profile = new Profile();
                     profile = profile.jsonObjectToProfile(response.body());
@@ -42,6 +42,14 @@ public class ProfileModelServer {
                     Log.d("TAG", "problem in getProfile in ModelServer 1");
                     listener.onComplete(null);
                 }
+                if(response.code() == 403){
+                    System.out.println("the token is forbidden, need to do a refreshToken - code 403 in getProfileFromServer");
+                    Log.d("TAG", "the token is forbidden, need to do a refreshToken - code 403 in getProfileFromServer");
+                    listener.onComplete(null);
+                }
+
+
+                //TODO: add to all functions the 403 failure
             }
 
             @Override
@@ -53,6 +61,37 @@ public class ProfileModelServer {
                 listener.onComplete(null);
             }
         });
+
+
+//        call.enqueue(new Callback<JsonObject>() {
+//            @Override
+//            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+//                System.out.println("9999999999999");
+//                if (response.code() == 200) {
+//                    System.out.println("1010101010101010");
+//
+//                    Profile profile = new Profile();
+//                    profile = profile.jsonObjectToProfile(response.body());
+//                    listener.onComplete(profile);
+//                } else if (response.code() == 400) {
+//                    System.out.println("11 11 11 11 11");
+//                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+//                            Toast.LENGTH_LONG).show();
+//                    Log.d("TAG", "problem in getProfile in ModelServer 1");
+//                    listener.onComplete(null);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<JsonObject> call, Throwable t) {
+//                System.out.println("12 12 12 12 12");
+//                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+//                        Toast.LENGTH_LONG).show();
+//
+//                Log.d("TAG", "problem in getProfile in ModelServer 2");
+//                listener.onComplete(null);
+//            }
+//        });
     }
 
     public void createProfile(Profile profile, Model.CreateProfileListener listener) {
