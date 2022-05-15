@@ -69,11 +69,14 @@ public class SearchPostsFragment extends Fragment {
             Set<String> names = SearchModel.instance.map.keySet();
             String[] arr = new String[names.size()];
             arr = names.toArray(arr);
+            System.out.println("before the delete: ");
+            System.out.println(SearchModel.instance.mapToServer);
             for(String a : arr){
-                System.out.println("aaa : " + a.toString());
-                SearchModel.instance.map.remove(a);
-                SearchModel.instance.map.put(a, new ArrayList<>());
+                SearchModel.instance.mapToServer.remove(a);
+                SearchModel.instance.mapToServer.put(a, new ArrayList<>());
             }
+            System.out.println("after the delete: ");
+            System.out.println(SearchModel.instance.mapToServer);
             Navigation.findNavController(view).navigate(SearchPostsFragmentDirections.actionGlobalHomePageFragment());
         });
 
@@ -102,7 +105,7 @@ public class SearchPostsFragment extends Fragment {
     }
 
     private void refresh() {
-        Model.instance.getSearchPosts(SearchModel.instance.map, posts -> {
+        Model.instance.getSearchPosts(SearchModel.instance.mapToServer, posts -> {
             if(posts != null){
                 viewModel.setData(posts);
                 adapter.notifyDataSetChanged();

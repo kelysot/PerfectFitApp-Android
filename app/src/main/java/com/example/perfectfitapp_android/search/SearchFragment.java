@@ -46,61 +46,78 @@ public class SearchFragment extends Fragment {
 
         setMap();
 
-        if(!SearchModel.instance.map.get("Categories").isEmpty()){
-            categoryBtn.setTextColor(Color.BLUE);
+        //TODO: 1
+
+        if(SearchModel.instance.mapToServer.get("Categories") != null){
+            if(!SearchModel.instance.mapToServer.get("Categories").isEmpty()) {
+                categoryBtn.setTextColor(Color.BLUE);
+            }
         }
-        if(!SearchModel.instance.map.get("Sizes").isEmpty()){
-            sizeBtn.setTextColor(Color.BLUE);
+        if(SearchModel.instance.mapToServer.get("Sizes") != null){
+            if(!SearchModel.instance.mapToServer.get("Sizes").isEmpty()){
+                sizeBtn.setTextColor(Color.BLUE);
+            }
         }
-        if(!SearchModel.instance.map.get("Companies").isEmpty()){
-            companyBtn.setTextColor(Color.BLUE);
+        if(SearchModel.instance.mapToServer.get("Companies") != null){
+            if(!SearchModel.instance.mapToServer.get("Companies").isEmpty()){
+                companyBtn.setTextColor(Color.BLUE);
+            }
         }
-        if(!SearchModel.instance.map.get("Colors").isEmpty()){
-            colorBtn.setTextColor(Color.BLUE);
+        if(SearchModel.instance.mapToServer.get("Colors") != null){
+            if(!SearchModel.instance.mapToServer.get("Colors").isEmpty()){
+                colorBtn.setTextColor(Color.BLUE);
+            }
         }
-        if(!SearchModel.instance.map.get("BodyTypes").isEmpty()){
-            bodyTypeBtn.setTextColor(Color.BLUE);
+        if(SearchModel.instance.mapToServer.get("BodyTypes") != null){
+            if(!SearchModel.instance.mapToServer.get("BodyTypes").isEmpty()){
+                bodyTypeBtn.setTextColor(Color.BLUE);
+            }
         }
 
         categoryBtn.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchFeatureFragment("category"));
+            Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchFeatureFragment("Categories"));
         });
         sizeBtn.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchFeatureFragment("size"));
+            Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchFeatureFragment("Sizes"));
         });
         companyBtn.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchFeatureFragment("company"));
+            Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchFeatureFragment("Companies"));
         });
         colorBtn.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchFeatureFragment("color"));
+            Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchFeatureFragment("Colors"));
         });
         bodyTypeBtn.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchFeatureFragment("bodyType"));
+            Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchFeatureFragment("BodyTypes"));
         });
 
         showMapBtn = view.findViewById(R.id.showmap_btn);
         showMapBtn.setOnClickListener(v -> {
-            System.out.println(SearchModel.instance.map);
+            System.out.println(SearchModel.instance.mapToServer);
         });
 
         searchBtn = view.findViewById(R.id.search_search_btn);
         searchBtn.setOnClickListener(v -> {
             //TODO: check if isEmpty
-            if(SearchModel.instance.map.get("Sizes").isEmpty()){
+            if(SearchModel.instance.mapToServer.get("Sizes").isEmpty()){
                 // need to: SearchModel.instance.map == all sizes
+                SearchModel.instance.mapToServer.put("Sizes", SearchModel.instance.map.get("Sizes"));
             }
-            if(SearchModel.instance.map.get("Categories").isEmpty()){
-
+            if(SearchModel.instance.mapToServer.get("Categories").isEmpty()){
+                SearchModel.instance.mapToServer.put("Categories", SearchModel.instance.map.get("Categories"));
             }
-            if(SearchModel.instance.map.get("Colors").isEmpty()){
+            if(SearchModel.instance.mapToServer.get("Colors").isEmpty()){
+                SearchModel.instance.mapToServer.put("Colors", SearchModel.instance.map.get("Colors"));
 
-            }if(SearchModel.instance.map.get("Companies").isEmpty()){
-
+            }if(SearchModel.instance.mapToServer.get("Companies").isEmpty()){
+                SearchModel.instance.mapToServer.put("Companies", SearchModel.instance.map.get("Companies"));
             }
-            if(SearchModel.instance.map.get("BodyTypes").isEmpty()){
-
+            if(SearchModel.instance.mapToServer.get("BodyTypes").isEmpty()){
+                SearchModel.instance.mapToServer.put("BodyTypes", SearchModel.instance.map.get("BodyTypes"));
             }
-            Model.instance.getSearchPosts(SearchModel.instance.map, posts -> {
+
+            System.out.println("the map: *************************************************");
+            System.out.println(SearchModel.instance.mapToServer);
+            Model.instance.getSearchPosts(SearchModel.instance.mapToServer, posts -> {
                 if(posts != null){
                     SearchModel.instance.list = posts;
                     Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchPostsFragment());
@@ -114,6 +131,7 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
+    //TODO: this function need to be called when we press on "filter" button.
     private void setMap() {
         Model.instance.getAllCategoriesListener(categoryList -> {
             List<String> list = new ArrayList<>();
@@ -134,9 +152,6 @@ public class SearchFragment extends Fragment {
 //                System.out.println("*******************************");
 //                System.out.println(SearchModel.instance.map);
             });
-
-
-
         });
     }
 }

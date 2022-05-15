@@ -344,6 +344,8 @@ public class PostModelServer {
     public void getSearchPosts(HashMap<String, List<String >> map, Model.getSearchPostsListener listener){
         String token = server.sp.getString("ACCESS_TOKEN", "");
 
+        System.out.println("the map hereeeeee");
+        System.out.println(map);
         Call<JsonArray> call = server.service.getSearchPosts(token, map);
         call.enqueue(new Callback<JsonArray>() {
             @Override
