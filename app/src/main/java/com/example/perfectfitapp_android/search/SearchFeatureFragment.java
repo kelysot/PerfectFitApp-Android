@@ -198,5 +198,9 @@ public class SearchFeatureFragment extends Fragment {
             nameTv.setText("Body Types");
             theList = SearchModel.instance.map.get("BodyTypes");
         }
+        else if(feature.equals("Gender")){
+            nameTv.setText("Gender");
+            theList = SearchModel.instance.map.get("Gender");
+        }
     }
 }

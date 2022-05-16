@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="#D5A4A4"
     tools:context=".search.SearchFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <Button
         android:id="@+id/search_bodytype_btn"
@@ -21,6 +26,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_color_btn" />
+
+    <Button
+        android:id="@+id/search_gender_btn"
+        android:layout_width="390dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/myWhite"
+        android:text="Gender"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_bodytype_btn" />
 
     <Button
         android:id="@+id/search_company_btn"
@@ -101,26 +121,27 @@
         android:layout_width="100dp"
         android:layout_height="48sp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="15dp"
         android:text="Price:"
         android:textSize="24sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textInputLayout1_search"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_gender_btn" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout1_search"
         android:layout_width="110dp"
         android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="15dp"
         app:boxBackgroundColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/text_price"
-        app:layout_constraintTop_toBottomOf="@+id/search_bodytype_btn">
+        app:layout_constraintTop_toBottomOf="@+id/search_gender_btn">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search_price_from_et"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="From"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -129,38 +150,49 @@
         android:id="@+id/textInputLayout2_search1"
         android:layout_width="110dp"
         android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="8dp"
         app:boxBackgroundColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textInputLayout1_search"
-        app:layout_constraintTop_toBottomOf="@+id/search_bodytype_btn">
+        app:layout_constraintTop_toBottomOf="@+id/search_gender_btn">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search_price_to_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="118dp"
+            android:layout_height="match_parent"
             android:hint="To"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/search_search_btn"
-        android:layout_width="119dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="35dp"
+        android:layout_width="120dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="8dp"
         android:text="Search"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/showmap_btn"
         app:layout_constraintTop_toBottomOf="@+id/text_price" />
 
     <Button
         android:id="@+id/showmap_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_width="120dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="45dp"
         android:text="Show map"
         app:layout_constraintEnd_toStartOf="@+id/search_search_btn"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_price" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</ScrollView>

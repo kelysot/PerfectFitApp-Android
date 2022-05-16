@@ -12,22 +12,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.perfectfitapp_android.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.R;
-import com.example.perfectfitapp_android.model.Category;
 import com.example.perfectfitapp_android.model.Model;
-import com.example.perfectfitapp_android.model.Post;
-import com.example.perfectfitapp_android.sub_category.SubCategoryDetailsPostsFragmentDirections;
-import com.google.gson.JsonArray;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
 public class SearchFragment extends Fragment {
 
-    Button categoryBtn, sizeBtn, companyBtn, colorBtn, bodyTypeBtn, showMapBtn, searchBtn;
+    Button categoryBtn, sizeBtn, companyBtn, colorBtn, bodyTypeBtn, genderBtn, showMapBtn, searchBtn;
     EditText priceFromEt, priceToEt;
 
     @Override
@@ -41,6 +35,7 @@ public class SearchFragment extends Fragment {
         companyBtn = view.findViewById(R.id.search_company_btn);
         colorBtn = view.findViewById(R.id.search_color_btn);
         bodyTypeBtn = view.findViewById(R.id.search_bodytype_btn);
+        genderBtn = view.findViewById(R.id.search_gender_btn);
         priceFromEt = view.findViewById(R.id.search_price_from_et);
         priceToEt = view.findViewById(R.id.search_price_to_et);
 
@@ -73,6 +68,11 @@ public class SearchFragment extends Fragment {
                 bodyTypeBtn.setTextColor(Color.BLUE);
             }
         }
+        if(SearchModel.instance.mapToServer.get("Gender") != null){
+            if(!SearchModel.instance.mapToServer.get("Gender").isEmpty()){
+                genderBtn.setTextColor(Color.BLUE);
+            }
+        }
 
         categoryBtn.setOnClickListener(v -> {
             Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchFeatureFragment("Categories"));
@@ -88,6 +88,9 @@ public class SearchFragment extends Fragment {
         });
         bodyTypeBtn.setOnClickListener(v -> {
             Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchFeatureFragment("BodyTypes"));
+        });
+        genderBtn.setOnClickListener(V -> {
+            Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchFeatureFragment("Gender"));
         });
 
         showMapBtn = view.findViewById(R.id.showmap_btn);
@@ -185,3 +188,158 @@ public class SearchFragment extends Fragment {
         });
     }
 }
+
+
+
+//const getSearchPosts = async (req, res) =>{
+//
+//        const map = req.body
+//
+//        const sizes = map.Sizes
+//        const categories = map.Categories
+//        const colors = map.Colors
+//        const companies = map.Companies
+//        const bodyTypes = map.BodyTypes
+//        const gender = map.Gender
+//        const count = map.Count
+//        const price = map.Price
+//        let priceFrom, priceTo
+//
+//        console.log("------------------------------------------------------------------")
+//        console.log("the body types: " + bodyTypes)
+//        console.log("the sizes: " + sizes)
+//        console.log("the categories: " + categories)
+//        console.log("the companies: " + companies)
+//        console.log("the price: " + price)
+//        console.log("the gender: " + gender)
+//
+//        if(price[0] != "false"){
+//        priceFrom = parseInt(price[0])
+//        }
+//        else{
+//        priceFrom = price[0] // = false
+//        }
+//        if(price[1] != "false"){
+//        priceTo = parseInt(price[1])
+//        }
+//        else{
+//        priceTo = price[1] // = false
+//        }
+//
+//        // // BodyType
+//
+//        const profiles = await Profile.find({'bodyType': { $in: bodyTypes}})
+//        let profilesId = []
+//
+//        for(let j = 0; j<profiles.length; j++){
+//        profilesId.push(profiles[j].userName)
+//        }
+//
+//        // Sizes:
+//
+//        let posts
+//
+//        if(count == "true"){ // it means that no category was choosen - we need to send all the posts.
+//        posts = await Post.find({})
+//        }
+//        else{
+//        posts = await Post.find({'size': { $in: sizes}, 'categoryId': { $in: categories}, 'color': { $in: colors}, 'company': { $in: companies}, 'profileId': {$in: profilesId}})
+//        // posts = await Post.find({'size': { $in: sizes}})
+//        }
+//
+//        console.log("the size after sizes: " + posts.length)
+//
+//        //Categories:
+//
+//        // let posts1 = []
+//
+//        // for(let i=0; i<posts.length; i++){
+//        //     if(categories.includes(posts[i].categoryId)){
+//        //         posts1.push(posts[i])
+//        //     }
+//        // }
+//
+//        // console.log("the size after sizes and categories: " + posts1.length)
+//
+//        // // Colors
+//
+//        // let posts2 = []
+//
+//        // for(let i=0; i<posts1.length; i++){
+//        //     if(colors.includes(posts1[i].color)){
+//        //         posts2.push(posts1[i])
+//        //     }
+//        // }
+//
+//        // console.log("the size after sizes and categories and colors: " + posts2.length)
+//
+//        // // Companies
+//
+//        // let posts3 = []
+//
+//        // for(let i=0; i<posts2.length; i++){
+//        //     if(companies.includes(posts2[i].company)){
+//        //         posts3.push(posts2[i])
+//        //     }
+//        //     else{
+//        //         console.log("the post = " + posts[i].profileId + " and " + posts[i].productName )
+//        //     }
+//        // }
+//
+//        // console.log("the size after sizes and categories and colors and companies: " + posts3.length)
+//
+//        // console.log(posts3)
+//
+//        // let posts4 = []
+//
+//        // for(let i=0; i<posts3.length; i++){
+//        //     if(profilesId.includes(posts3[i].profileId)){
+//        //         posts4.push(posts3[i])
+//        //     }
+//        // }
+//
+//        // Price
+//
+//        let postsToSend = []
+//
+//        if(priceFrom != "false" &&  priceTo != "false"){
+//        for(let i=0; i < posts.length; i++){
+//        if(posts[i].price >= priceFrom && posts[i].price <= priceTo){
+//        postsToSend.push(posts[i])
+//        }
+//        }
+//        }
+//        else if(priceFrom == "false" && priceTo != "false"){
+//        console.log("we are here now 1")
+//        for(let i=0; i < posts.length; i++){
+//        if(posts[i].price <= priceTo){
+//        postsToSend.push(posts[i])
+//        }
+//        }
+//        }
+//        else if(priceFrom != "false" &&  priceTo == "false"){
+//        console.log("we are here now 2")
+//        for(let i=0; i < posts.length; i++){
+//        if(posts[i].price >= priceFrom){
+//        postsToSend.push(posts[i])
+//        }
+//        }
+//        }
+//        else if(priceFrom == "false" &&  priceTo == "false"){
+//        postsToSend = posts
+//        }
+//
+//
+//        postsToSend = postsToSend.reverse()
+//
+//        console.log(postsToSend)
+//
+//        try {
+//        res.status(200).send(postsToSend)
+//        } catch (err) {
+//        res.status(400).send({
+//        'status': 'failure',
+//        'error': err.message
+//        })
+//        }
+//        }
