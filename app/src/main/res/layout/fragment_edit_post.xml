@@ -10,6 +10,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/textview3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Product rating:"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/textview"
+            app:layout_constraintStart_toStartOf="@+id/textview"
+            app:layout_constraintTop_toBottomOf="@+id/editpost_sizeadjustment_ratingbar" />
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Size adjustment:"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout6"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout6"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/editpost_categories_txtil"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
@@ -221,27 +243,32 @@
                 android:hint="Link" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <SeekBar
-            android:id="@+id/editpost_sizeadjustment_seekbar"
-            android:layout_width="140dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="20dp"
-            android:progressTint="#191919"
-            android:thumbTint="#191919"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
+        <RatingBar
+            android:id="@+id/editpost_sizeadjustment_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="57dp"
+            android:layout_marginTop="16dp"
+            android:progressBackgroundTint="#3C3939"
+            android:progressTint="#E9FFD700"
+            android:secondaryProgressTint="#FFF000"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout6"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout6"
+            app:layout_constraintTop_toBottomOf="@+id/textview"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-        <SeekBar
-            android:id="@+id/editpost_rating_seekbar"
-            android:layout_width="140dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="60dp"
-            android:progressTint="#191919"
-            android:thumbTint="#191919"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
+        <RatingBar
+            android:id="@+id/editpost_rating_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="57dp"
+            android:layout_marginTop="16dp"
+            android:progressBackgroundTint="#3C3939"
+            android:progressTint="#E9FFD700"
+            android:secondaryProgressTint="#FFF000"
+            app:layout_constraintEnd_toEndOf="@+id/editpost_sizeadjustment_ratingbar"
+            app:layout_constraintStart_toStartOf="@+id/editpost_sizeadjustment_ratingbar"
+            app:layout_constraintTop_toBottomOf="@+id/textview3"
+            tools:ignore="SpeakableTextPresentCheck" />
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout12"
@@ -304,11 +331,11 @@
             android:id="@+id/editpost_image_imv"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:src="@drawable/ic_gallery"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_sizeadjustment_seekbar" />
+            app:layout_constraintTop_toBottomOf="@+id/editpost_rating_ratingbar" />
 
         <ImageButton
             android:id="@+id/editpost_camera_imv"

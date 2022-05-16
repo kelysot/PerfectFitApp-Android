@@ -190,67 +190,69 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:text="Size adjestment:"
-            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:text="Size adjustment:"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout27"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout15" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout13" />
 
-        <SeekBar
-            android:id="@+id/postpage_sizeadjestment_seekBar"
-            style="@style/Widget.AppCompat.SeekBar.Discrete"
-            android:layout_width="190dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="18dp"
-            android:max="10"
-            android:progress="3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.541"
-            app:layout_constraintStart_toEndOf="@+id/textview1"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout15" />
-
+        <RatingBar
+            android:id="@+id/postpage_sizeadjestment_ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="57dp"
+            android:layout_marginTop="16dp"
+            android:progressBackgroundTint="#3C3939"
+            android:progressTint="#E9FFD700"
+            android:secondaryProgressTint="#FFF000"
+            android:isIndicator="true"
+            app:layout_constraintEnd_toEndOf="@+id/textview1"
+            app:layout_constraintStart_toStartOf="@+id/textview1"
+            app:layout_constraintTop_toBottomOf="@+id/textview1"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/textview2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:text="Rating"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textview1" />
-
-
-        <SeekBar
-            android:id="@+id/postpage_rating_seekBar"
-            style="@style/Widget.AppCompat.SeekBar.Discrete"
-            android:layout_width="190dp"
-            android:layout_height="35dp"
             android:layout_marginTop="8dp"
-            android:max="10"
-            android:progress="3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.753"
-            app:layout_constraintStart_toEndOf="@+id/textview2"
-            app:layout_constraintTop_toBottomOf="@+id/postpage_sizeadjestment_seekBar" />
+            android:text="Product rating:"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/textview1"
+            app:layout_constraintStart_toStartOf="@+id/textview1"
+            app:layout_constraintTop_toBottomOf="@+id/postpage_sizeadjestment_ratingBar" />
+
+        <RatingBar
+            android:id="@+id/postpage_rating_ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="57dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:isIndicator="true"
+            android:progressBackgroundTint="#3C3939"
+            android:progressTint="#E9FFD700"
+            android:secondaryProgressTint="#FFF000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/postpage_sizeadjestment_ratingBar"
+            app:layout_constraintStart_toStartOf="@+id/postpage_sizeadjestment_ratingBar"
+            app:layout_constraintTop_toBottomOf="@+id/textview2"
+            tools:ignore="SpeakableTextPresentCheck" />
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout16"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp"
             app:boxBackgroundColor="@color/myWhite"
             app:boxCornerRadiusBottomEnd="100dp"
             app:boxCornerRadiusBottomStart="100dp"
             app:boxCornerRadiusTopEnd="100dp"
             app:boxCornerRadiusTopStart="100dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/postpage_rating_seekBar">
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout27"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout15"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout15">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/postpage_sku_et"
@@ -261,19 +263,18 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout13"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="8dp"
             app:boxBackgroundColor="@color/myWhite"
             app:boxCornerRadiusBottomEnd="100dp"
             app:boxCornerRadiusBottomStart="100dp"
             app:boxCornerRadiusTopEnd="100dp"
             app:boxCornerRadiusTopStart="100dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout16"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout16"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout16">
 
             <com.google.android.material.textfield.TextInputEditText
