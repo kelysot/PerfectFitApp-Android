@@ -28,7 +28,7 @@ import java.util.List;
 public class SearchFragment extends Fragment {
 
     Button categoryBtn, sizeBtn, companyBtn, colorBtn, bodyTypeBtn, showMapBtn, searchBtn;
-    EditText priceFrom, priceTo;
+    EditText priceFromEt, priceToEt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,8 +41,8 @@ public class SearchFragment extends Fragment {
         companyBtn = view.findViewById(R.id.search_company_btn);
         colorBtn = view.findViewById(R.id.search_color_btn);
         bodyTypeBtn = view.findViewById(R.id.search_bodytype_btn);
-        priceFrom = view.findViewById(R.id.search_price_from_et);
-        priceTo = view.findViewById(R.id.search_price_to_et);
+        priceFromEt = view.findViewById(R.id.search_price_from_et);
+        priceToEt = view.findViewById(R.id.search_price_to_et);
 
         setMap();
 
@@ -97,26 +97,57 @@ public class SearchFragment extends Fragment {
 
         searchBtn = view.findViewById(R.id.search_search_btn);
         searchBtn.setOnClickListener(v -> {
+
+            searchBtn.setEnabled(false);
+            int count = 0;
+
             //TODO: check if isEmpty
             if(SearchModel.instance.mapToServer.get("Sizes").isEmpty()){
                 // need to: SearchModel.instance.map == all sizes
                 SearchModel.instance.mapToServer.put("Sizes", SearchModel.instance.map.get("Sizes"));
+                count++;
             }
             if(SearchModel.instance.mapToServer.get("Categories").isEmpty()){
                 SearchModel.instance.mapToServer.put("Categories", SearchModel.instance.map.get("Categories"));
+                count++;
             }
             if(SearchModel.instance.mapToServer.get("Colors").isEmpty()){
                 SearchModel.instance.mapToServer.put("Colors", SearchModel.instance.map.get("Colors"));
-
+                count++;
             }if(SearchModel.instance.mapToServer.get("Companies").isEmpty()){
                 SearchModel.instance.mapToServer.put("Companies", SearchModel.instance.map.get("Companies"));
+                count++;
             }
             if(SearchModel.instance.mapToServer.get("BodyTypes").isEmpty()){
                 SearchModel.instance.mapToServer.put("BodyTypes", SearchModel.instance.map.get("BodyTypes"));
+                count++;
             }
+
+            List<String> countList = new ArrayList<>();
+            if(count == 5){
+                countList.add("true");
+            }
+            else{
+                countList.add("false");
+            }
+            SearchModel.instance.mapToServer.put("Count", countList);
 
             System.out.println("the map: *************************************************");
             System.out.println(SearchModel.instance.mapToServer);
+
+            List<String> priceList = new ArrayList<>();
+            String priceFrom = priceFromEt.getText().toString().trim();
+            if(priceFrom.isEmpty()){
+                priceFrom = "false";
+            }
+            String priceTo = priceToEt.getText().toString().trim();
+            if(priceTo.isEmpty()){
+                priceTo = "false";
+            }
+            priceList.add(priceFrom);
+            priceList.add(priceTo);
+            SearchModel.instance.mapToServer.put("Price", priceList);
+
             Model.instance.getSearchPosts(SearchModel.instance.mapToServer, posts -> {
                 if(posts != null){
                     SearchModel.instance.list = posts;
@@ -138,7 +169,6 @@ public class SearchFragment extends Fragment {
             for(int i=0; i< categoryList.size(); i++){
                 list.add(categoryList.get(i).getName());
             }
-//            SearchModel.instance.map.remove("Categories");
             SearchModel.instance.map.put("Categories", list);
 
             //set others:

@@ -80,6 +80,11 @@ public class SearchPostsFragment extends Fragment {
             Navigation.findNavController(view).navigate(SearchPostsFragmentDirections.actionGlobalHomePageFragment());
         });
 
+        viewModel.setData(SearchModel.instance.list);
+        //TODO: check if SearchModel.instance.list.size() == 0
+        // if so, we need to popup and build a button that return to search and delete
+        // the mapToSend
+
         rv = view.findViewById(R.id.searchposts_rv);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -99,7 +104,7 @@ public class SearchPostsFragment extends Fragment {
             });
         });
 
-        refresh();
+//        refresh();
 
         return view;
     }
