@@ -4,297 +4,334 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FAFAFA"
     tools:context=".post.PostPageFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#FAFAFA">
 
-        <ImageButton
-            android:id="@+id/postpage_edit_btn"
-            android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:src="@android:drawable/ic_menu_edit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/postpage_category_tv"
-            style="@android:style/Widget.Holo.Light.TextView.SpinnerItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Category"
-            android:textColor="#7C7676"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView6"
-            style="Widget.Holo.Light.TextView.SpinnerItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="/"
-            android:textColor="#7C7676"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/postpage_category_tv"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/postpage_subcategort_tv"
-            style="Widget.Holo.Light.TextView.SpinnerItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="SubCategory"
-            android:textColor="#7C7676"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:id="@+id/postpage_productname_et"
-            style="@android:style/Widget.Material.TextView.SpinnerItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:text="Product Name"
-            android:textColor="@color/myGold"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/postpage_image_imv" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout18"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:layout_width="360dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="8dp"
-            app:boxBackgroundColor="@color/myWhite"
-            app:boxCornerRadiusBottomEnd="100dp"
-            app:boxCornerRadiusBottomStart="100dp"
-            app:boxCornerRadiusTopEnd="100dp"
-            app:boxCornerRadiusTopStart="100dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/postpage_productname_et">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/postpage_description_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Description" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout14"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="180dp"
-            android:layout_height="65dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            app:boxBackgroundColor="@color/myWhite"
-            app:layout_constraintEnd_toStartOf="@+id/textInputLayout17"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout18">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/postpage_size_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Size"
-                android:textStyle="bold" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout17"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="180dp"
-            android:layout_height="65dp"
-            android:layout_marginEnd="8dp"
-            app:boxBackgroundColor="@color/myWhite"
-            app:boxStrokeColor="@color/black"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textInputLayout14"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textInputLayout14">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/postpage_color_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Color"
-                android:textStyle="bold" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout27"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="180dp"
-            android:layout_height="65dp"
-            android:layout_marginEnd="8dp"
-            app:boxBackgroundColor="@color/myWhite"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textInputLayout15"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textInputLayout15">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/postpage_price_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Price"
-                android:inputType="numberDecimal"
-                android:textStyle="bold" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout15"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="180dp"
-            android:layout_height="65dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
-            app:boxBackgroundColor="@color/myWhite"
-            app:layout_constraintEnd_toStartOf="@+id/textInputLayout27"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout14">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/postpage_company_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Company"
-                android:textStyle="bold" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <TextView
-            android:id="@+id/textview1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="Size adjustment:"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/textInputLayout27"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout13" />
-
-        <RatingBar
-            android:id="@+id/postpage_sizeadjestment_ratingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="57dp"
-            android:layout_marginTop="16dp"
-            android:progressBackgroundTint="#3C3939"
-            android:progressTint="#E9FFD700"
-            android:secondaryProgressTint="#FFF000"
-            android:isIndicator="true"
-            app:layout_constraintEnd_toEndOf="@+id/textview1"
-            app:layout_constraintStart_toStartOf="@+id/textview1"
-            app:layout_constraintTop_toBottomOf="@+id/textview1"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <TextView
-            android:id="@+id/textview2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Product rating:"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/textview1"
-            app:layout_constraintStart_toStartOf="@+id/textview1"
-            app:layout_constraintTop_toBottomOf="@+id/postpage_sizeadjestment_ratingBar" />
-
-        <RatingBar
-            android:id="@+id/postpage_rating_ratingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="57dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:isIndicator="true"
-            android:progressBackgroundTint="#3C3939"
-            android:progressTint="#E9FFD700"
-            android:secondaryProgressTint="#FFF000"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/postpage_sizeadjestment_ratingBar"
-            app:layout_constraintStart_toStartOf="@+id/postpage_sizeadjestment_ratingBar"
-            app:layout_constraintTop_toBottomOf="@+id/textview2"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout16"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:boxBackgroundColor="@color/myWhite"
-            app:boxCornerRadiusBottomEnd="100dp"
-            app:boxCornerRadiusBottomStart="100dp"
-            app:boxCornerRadiusTopEnd="100dp"
-            app:boxCornerRadiusTopStart="100dp"
-            app:layout_constraintEnd_toEndOf="@+id/textInputLayout27"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout15"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout15">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/postpage_sku_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="SKU" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout13"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:boxBackgroundColor="@color/myWhite"
-            app:boxCornerRadiusBottomEnd="100dp"
-            app:boxCornerRadiusBottomStart="100dp"
-            app:boxCornerRadiusTopEnd="100dp"
-            app:boxCornerRadiusTopStart="100dp"
-            app:layout_constraintEnd_toEndOf="@+id/textInputLayout16"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout16"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout16">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/postpage_link_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Link" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageView
-            android:id="@+id/postpage_image_imv"
-            android:layout_width="341dp"
-            android:layout_height="236dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/pic1_shirts"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/postpage_subcategort_tv" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#FFFFFF">
+
+                <TextView
+                    android:id="@+id/postpage_productname_et"
+                    style="@android:style/Widget.Material.TextView.SpinnerItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Product Name"
+                    android:textColor="#CA9B6C"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/postpage_image_imv" />
+
+                <RatingBar
+                    android:id="@+id/postpage_sizeadjestment_ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="57dp"
+                    android:layout_marginTop="8dp"
+                    android:isIndicator="true"
+                    android:progressBackgroundTint="#3C3939"
+                    android:progressTint="#DDB893"
+                    android:secondaryProgressTint="#DDB893"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textview1"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout17"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="8dp"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:boxStrokeColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textInputLayout14"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout18">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/postpage_color_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:hint="Color"
+                        android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout27"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textInputLayout15"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout17">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/postpage_price_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:hint="Price"
+                        android:inputType="numberDecimal"
+                        android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <RatingBar
+                    android:id="@+id/postpage_rating_ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="57dp"
+                    android:layout_marginTop="8dp"
+                    android:isIndicator="true"
+                    android:progressBackgroundTint="#3C3939"
+                    android:progressTint="#DDB893"
+                    android:secondaryProgressTint="#DDB893"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textview2"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/textview2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Product rating:"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/postpage_sizeadjestment_ratingBar" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/postpage_image_imv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="237dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_gallery"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/postpage_subcategort_tv"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout18"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:boxCornerRadiusBottomEnd="100dp"
+                    app:boxCornerRadiusBottomStart="100dp"
+                    app:boxCornerRadiusTopEnd="100dp"
+                    app:boxCornerRadiusTopStart="100dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/postpage_productname_et">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/postpage_description_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:hint="Description" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout14"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="4dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:layout_constraintEnd_toStartOf="@+id/textInputLayout17"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout18">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/postpage_size_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:hint="Size"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout15"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="4dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:layout_constraintEnd_toStartOf="@+id/textInputLayout27"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout14">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/postpage_company_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:hint="Company"
+                        android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/textview1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Size adjustment:"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout13" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout13"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:boxCornerRadiusBottomEnd="100dp"
+                    app:boxCornerRadiusBottomStart="100dp"
+                    app:boxCornerRadiusTopEnd="100dp"
+                    app:boxCornerRadiusTopStart="100dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout16">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/postpage_link_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:hint="Link" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageButton
+                    android:id="@+id/postpage_edit_btn"
+                    android:layout_width="41dp"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:src="@drawable/ic_edit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout16"
+                    style="Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:boxCornerRadiusBottomEnd="100dp"
+                    app:boxCornerRadiusBottomStart="100dp"
+                    app:boxCornerRadiusTopEnd="100dp"
+                    app:boxCornerRadiusTopStart="100dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout15">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/postpage_sku_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:hint="SKU" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/postpage_subcategort_tv"
+                    style="Widget.Holo.Light.TextView.SpinnerItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="SubCategory"
+                    android:textColor="#7C7676"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/textView6"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    style="Widget.Holo.Light.TextView.SpinnerItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="/"
+                    android:textColor="#7C7676"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/postpage_category_tv"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/postpage_category_tv"
+                    style="@android:style/Widget.Holo.Light.TextView.SpinnerItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Category"
+                    android:textColor="#7C7676"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
