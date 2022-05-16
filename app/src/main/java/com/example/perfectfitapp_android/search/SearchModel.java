@@ -28,6 +28,10 @@ public class SearchModel {
         map.put("Companies", new ArrayList<>());
         map.put("Colors", new ArrayList<>());
         map.put("BodyTypes", new ArrayList<>());
+        ArrayList<String> genderList = new ArrayList<>();
+        genderList.add("Female");
+        genderList.add("Male");
+        map.put("Gender", genderList);
         list = new ArrayList<>();
         mapToServer = new HashMap<>();
         mapToServer.put("Categories", new ArrayList<>());
@@ -37,5 +41,6 @@ public class SearchModel {
         mapToServer.put("BodyTypes", new ArrayList<>());
         mapToServer.put("Count", new ArrayList<>());
         mapToServer.put("Price", new ArrayList<>());
+        mapToServer.put("Gender", new ArrayList<>());
     }
 }
