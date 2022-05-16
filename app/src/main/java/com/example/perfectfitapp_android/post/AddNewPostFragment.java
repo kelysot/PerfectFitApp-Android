@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -33,10 +34,9 @@ import java.util.ArrayList;
 public class AddNewPostFragment extends Fragment {
 
     EditText productNameEt, skuEt, descriptionEt, linkEt, priceEt;
-    SeekBar sizeAdjSk, ratingSk;
     Button postBtn;
     String img = "";
-    //TODO: date
+    RatingBar ratingBar, sizeAdjSk;
 
     TextInputLayout sizeTxtIL, categoryTxtIL, subcategoryTxtIL, companyTxtIl, colorTxtIl;
     AutoCompleteTextView sizeAutoTv, categoryAuto, subCategoryAuto, companyAuto, colorAuto;
@@ -63,8 +63,8 @@ public class AddNewPostFragment extends Fragment {
         linkEt = view.findViewById(R.id.addnewpost_link_et);
         priceEt = view.findViewById(R.id.addnewpost_price_et);
 
-        sizeAdjSk = view.findViewById(R.id.addnewpost_sizeadjustment_seekbar);
-        ratingSk = view.findViewById(R.id.addnewpost_rating_seekbar);
+        sizeAdjSk = view.findViewById(R.id.addnewpost_sizeadjustment_ratingbar);
+        ratingBar = view.findViewById(R.id.addnewpost_rating_ratingbar);
 
         postBtn = view.findViewById(R.id.addnewpost_post_btn);
         postBtn.setOnClickListener(v -> post(view));
@@ -75,15 +75,12 @@ public class AddNewPostFragment extends Fragment {
     }
 
     //TODO: Make all fields require.
-    //TODO: Send sizeAdj and rating to server.
     private void post(View view) {
 
         postBtn.setEnabled(false);
 
         String productName, sku, size, company, color, category, subCategory, description;
         String link, price;
-
-        //TODO: date
         String sizeAdj, rating;
 
         productName = productNameEt.getText().toString();
@@ -96,14 +93,11 @@ public class AddNewPostFragment extends Fragment {
         color = colorAuto.getText().toString();
         category = categoryAuto.getText().toString();
         subCategory = subCategoryAuto.getText().toString();
-
+        rating = String.valueOf(ratingBar.getRating());
+        sizeAdj = String.valueOf(sizeAdjSk.getRating());
         price = priceEt.getText().toString();
 
-        //TODO: postId, profileId, date. pictureUrl, sizeadj, rating, price
-
-        String date = "26/3/2022";
-        sizeAdj = "";
-        rating = "";
+        String date = "";
 
         StringBuilder count = new StringBuilder();
         count.append(Model.instance.getCount());

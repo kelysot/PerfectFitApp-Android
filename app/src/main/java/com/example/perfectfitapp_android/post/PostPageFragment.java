@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -28,10 +29,10 @@ public class PostPageFragment extends Fragment {
     EditText linkEt, priceEt;
     TextView categoryTv, subCategoryTv;
     //TODO: date
-    SeekBar sizeAdj, rating;
     ImageView image;
     String postId, postSource;
     ImageButton editBtn;
+    RatingBar sizeAdj, rating;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,8 +57,8 @@ public class PostPageFragment extends Fragment {
         descriptionEt = view.findViewById(R.id.postpage_description_et);
         priceEt = view.findViewById(R.id.postpage_price_et);
         linkEt = view.findViewById(R.id.postpage_link_et);
-        sizeAdj = view.findViewById(R.id.postpage_sizeadjestment_seekBar);
-        rating = view.findViewById(R.id.postpage_rating_seekBar);
+        sizeAdj = view.findViewById(R.id.postpage_sizeadjestment_ratingBar);
+        rating = view.findViewById(R.id.postpage_rating_ratingBar);
         image = view.findViewById(R.id.postpage_image_imv);
 
         editBtn = view.findViewById(R.id.postpage_edit_btn);
@@ -79,6 +80,8 @@ public class PostPageFragment extends Fragment {
         descriptionEt.setText(post.getDescription());
         priceEt.setText(post.getPrice());
         linkEt.setText(post.getLink());
+        sizeAdj.setRating(Float.parseFloat(post.getSizeAdjustment()));
+        rating.setRating(Float.parseFloat(post.getRating()));
 
         if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0 ) {
             Model.instance.getImages(post.getPicturesUrl().get(0), bitmap -> {

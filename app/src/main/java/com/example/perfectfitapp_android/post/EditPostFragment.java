@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -49,7 +50,8 @@ public class EditPostFragment extends Fragment {
     ImageView postImg;
     ImageButton cameraBtn, galleryBtn;
     //TODO: date
-    SeekBar sizeAdjSk, ratingSk;
+    //SeekBar sizeAdjSk, ratingSk;
+    RatingBar sizeAdj, rating;
     Button editBtn, deleteBtn;
     String postId;
     Post post;
@@ -78,8 +80,8 @@ public class EditPostFragment extends Fragment {
         linkEt = view.findViewById(R.id.editpost_link_et);
         priceEt = view.findViewById(R.id.editpost_price_et);
 
-        sizeAdjSk = view.findViewById(R.id.editpost_sizeadjustment_seekbar);
-        ratingSk = view.findViewById(R.id.editpost_rating_seekbar);
+        sizeAdj = view.findViewById(R.id.editpost_sizeadjustment_ratingbar);
+        rating = view.findViewById(R.id.editpost_rating_ratingbar);
 
         postImg = view.findViewById(R.id.editpost_image_imv);
         cameraBtn = view.findViewById(R.id.editpost_camera_imv);
@@ -97,14 +99,14 @@ public class EditPostFragment extends Fragment {
         descriptionEt.setText(post.getDescription());
         linkEt.setText(post.getLink());
         priceEt.setText(post.getPrice());
+        sizeAdj.setRating(Float.parseFloat(post.getSizeAdjustment()));
+        rating.setRating(Float.parseFloat(post.getRating()));
 
         if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0 ) {
             Model.instance.getImages(post.getPicturesUrl().get(0), bitmap -> {
                 postImg.setImageBitmap(bitmap);
             });
         }
-
-        //TODO: sizeAdjSk, ratingSk, price
 
         editBtn = view.findViewById(R.id.editpost_edit_btn);
         editBtn.setOnClickListener(v -> edit());
@@ -178,8 +180,7 @@ public class EditPostFragment extends Fragment {
 
         String productName, sku, size, company, color, category, subCategory, description;
         String link, price;
-        //TODO: date
-        String sizeAdj, rating;
+        String sizeAdjS, ratingS;
 
         productName = productNameEt.getText().toString();
         sku = skuEt.getText().toString();
@@ -191,13 +192,8 @@ public class EditPostFragment extends Fragment {
         category = categoryAuto.getText().toString();
         subCategory = subCategoryAuto.getText().toString();
         price = priceEt.getText().toString();
-
-        //TODO: postId, profileId, date , sizeadj, rating, price
-
-        String date = "8/3/2022";
-        String pictureUrl = "";
-        sizeAdj = "";
-        rating = "";
+        ratingS = String.valueOf(rating.getRating());
+        sizeAdjS = String.valueOf(sizeAdj.getRating());
 
         post.setProductName(productName);
         post.setSKU(sku);
@@ -209,7 +205,8 @@ public class EditPostFragment extends Fragment {
         post.setDescription(description);
         post.setLink(link);
         post.setPrice(price);
-
+        post.setRating(ratingS);
+        post.setSizeAdjustment(sizeAdjS);
 
         if (mBitmap != null) {
             Model.instance.uploadImage(mBitmap, getActivity(), url -> {
@@ -293,6 +290,7 @@ public class EditPostFragment extends Fragment {
 
         subCategoryAuto.setEnabled(false);
         subcategoryTxtIL.setEnabled(false);
+
 //        subcategoryArr =  getResources().getStringArray(R.array.subcategories_shirts);
 //
 //        subcategoryAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, subcategoryArr);
