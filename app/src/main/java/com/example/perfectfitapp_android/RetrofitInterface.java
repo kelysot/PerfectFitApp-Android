@@ -55,7 +55,7 @@ public interface RetrofitInterface {
     Call<JsonObject> executeLogin(@Body HashMap<String, String> map);
 
     @POST("/auth/register")
-    Call<JsonObject> executeRegister (@Body HashMap<String,String> map);
+    Call<JsonObject> executeRegister (@Body HashMap<String,Object> map);
 
     @POST("/auth/logout")
     Call<Void> executeLogout(@Header("authorization") String token);
@@ -73,6 +73,9 @@ public interface RetrofitInterface {
 
     @GET("/auth/refreshToken")
     Call<JsonObject> getTokens (@Header("authorization") String token);
+
+    @PATCH("/auth/")
+    Call<JsonObject> editUser(@Header("authorization") String token, @Body HashMap<String, Object> map);
 
     /*--------------------------------- Profile -------------------------------*/
 

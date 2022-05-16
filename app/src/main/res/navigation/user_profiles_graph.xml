@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_userProfilesFragment2_to_editProfileFragment2"
             app:destination="@id/editProfileFragment2" />
+        <action
+            android:id="@+id/action_userProfilesFragment2_to_editUserFragment"
+            app:destination="@id/editUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/createProfileStep1Fragment2"
@@ -63,4 +66,9 @@
         android:name="com.example.perfectfitapp_android.profile.EditProfileStep3Fragment"
         android:label="fragment_edit_profile_step3"
         tools:layout="@layout/fragment_edit_profile_step3" /><action android:id="@+id/action_global_userProfilesFragment2" app:destination="@id/userProfilesFragment2"/>
+    <fragment
+        android:id="@+id/editUserFragment"
+        android:name="com.example.perfectfitapp_android.user.EditUserFragment"
+        android:label="fragment_edit_user"
+        tools:layout="@layout/fragment_edit_user" />
 </navigation>

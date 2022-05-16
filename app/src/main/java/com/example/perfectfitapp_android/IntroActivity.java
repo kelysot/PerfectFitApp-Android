@@ -22,12 +22,12 @@ public class IntroActivity extends AppCompatActivity {
         //TODO: Func that check if the user is sign in to the app - after localDB.
         Model.instance.executor.execute(() -> {
             try {
-                Thread.sleep(0000); // Change to 3000 later
+                Thread.sleep(1000); // Change to 3000 later
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 //            Model.instance.isSignIn()
-            if (Model.instance.isSignIn()){
+            if (false){
                 Model.instance.mainThread.post(() -> {
                     Model.instance.getUserFromRoom(user -> {
                         Model.instance.getUserFromServer(user.getEmail(), user1 -> {

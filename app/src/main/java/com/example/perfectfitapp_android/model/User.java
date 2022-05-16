@@ -69,15 +69,15 @@ public class User {
         this.isConnected = isConnected;
     }
 
-    public HashMap<String, String> toJson(){
+    public HashMap<String, Object> toJson(){
 
-        HashMap<String, String> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
         map.put("email", this.getEmail());
         map.put("password", this.getPassword());
         map.put("isConnected", this.getIsConnected());
+        map.put("profilesId", this.getProfilesArray());
 
         return map;
-        //TODO: list of profiles
     }
 
     public User fromJson(JsonObject json){
@@ -93,6 +93,23 @@ public class User {
         user.setProfilesArray(arr);
 
         // TODO: get the Tokens
+        return user;
+    }
+
+    public static User jsonElementToUser(JsonElement userJson){
+        String email = userJson.getAsJsonObject().get("email").getAsString();
+        String isConnected = userJson.getAsJsonObject().get("isConnected").getAsString();
+
+        JsonElement profilesIdJson = userJson.getAsJsonObject().get("profilesId");
+        ArrayList<String> profilesId = new ArrayList<>();
+        if(!profilesIdJson.toString().equals("null") || !profilesIdJson.isJsonNull()){
+            for (JsonElement profileId : profilesIdJson.getAsJsonArray()) {
+                profilesId.add(profileId.getAsString());
+            }
+        }
+
+        User user = new User(email, isConnected, profilesId);
+
         return user;
     }
 

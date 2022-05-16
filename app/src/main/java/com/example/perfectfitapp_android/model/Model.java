@@ -374,6 +374,16 @@ public class Model {
         });
     }
 
+    /*--------------------------------------------------------*/
+
+    public interface EditUserListener{
+        void onComplete(User user);
+    }
+
+    public void editUser(String previousEmail, User user, EditUserListener listener){
+        userModelServer.editUser(previousEmail, user, listener);
+    }
+
     /******************************************************************************************/
 
     /*--------------------------------- General -------------------------------*/
@@ -820,6 +830,7 @@ public class Model {
         //Check if the user have notifications
         List<String> notifications = Model.instance.getProfile().getNotifications();
         if(!notifications.isEmpty()){
+            Log.d("TAG666", Model.instance.getProfile().getNotifications().toString());
             Model.instance.getNotificationsByIds(notifications , notificationsList -> {
                 if(notificationsList != null){
                     for (int i = 0; i < notificationsList.size(); i++){
@@ -828,6 +839,7 @@ public class Model {
                         }
                     }
                     if(count != 0){
+                        Log.d("TAG666", String.valueOf(count));
                         Model.instance.addBadge(count);
                     }
                 }
