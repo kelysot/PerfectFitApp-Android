@@ -34,6 +34,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
@@ -61,28 +62,51 @@ public class AddNewPostStep1Fragment extends Fragment {
     private static final int REQUEST_IMAGE_PIC = 2;
     private String mImageUrl = "";
 
-    ImageButton cameraBtn, galleryBtn;
     ImageView image;
     Button okBtn;
     Bitmap mBitmap;
+    ProgressBar progressBar;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_new_post_step1, container, false);
 
-        cameraBtn = view.findViewById(R.id.add_new_post_step1_camera_btn);
-        galleryBtn = view.findViewById(R.id.add_new_post_step1_gallery_btn);
         image = view.findViewById(R.id.add_new_post_step1_image_imv);
+        progressBar = view.findViewById(R.id.add_new_post_step1_progressBar);
+        progressBar.setVisibility(View.GONE);
+
         okBtn = view.findViewById(R.id.add_new_post_step1_ok_btn);
         okBtn.setOnClickListener(v -> moveStep2());
 
-        cameraBtn.setOnClickListener(v -> openCam());
-        galleryBtn.setOnClickListener(v -> openGallery());
+        image.setOnClickListener(v -> showImagePickDialog());
 
         return view;
     }
 
+    private void showImagePickDialog() {
+
+        String[] items = {"Camera", "Gallery"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        builder.setTitle("Choose an Option");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+
+                if (i == 0) {
+                    openCam();
+                }
+
+                if (i == 1) {
+                    openGallery();
+                }
+            }
+        });
+
+        builder.create().show();
+    }
 
     public void openCam() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -126,6 +150,9 @@ public class AddNewPostStep1Fragment extends Fragment {
     }
 
     private void moveStep2() {
+
+        progressBar.setVisibility(View.VISIBLE);
+        okBtn.setEnabled(false);
 
         if (mBitmap != null) {
             Model.instance.uploadImage(mBitmap, getActivity(), url -> {

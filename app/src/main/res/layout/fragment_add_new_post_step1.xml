@@ -17,7 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="80dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="370dp"
             android:layout_marginEnd="80dp"
             android:layout_marginBottom="24dp"
             android:backgroundTint="#CA9B6C"
@@ -26,45 +26,25 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_new_post_step1_gallery_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/add_new_post_step1_image_imv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="65dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="65dp"
+            android:layout_marginBottom="50dp"
             android:background="#EDEDED"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_gallery"
+            app:layout_constraintBottom_toTopOf="@+id/add_new_post_step1_ok_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView19"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"/>
-
-        <ImageButton
-            android:id="@+id/add_new_post_step1_gallery_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="65dp"
-            android:backgroundTint="@color/myWhite"
-            android:src="@drawable/ic_add_photolibary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_new_post_step1_image_imv" />
-
-        <ImageButton
-            android:id="@+id/add_new_post_step1_camera_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="65dp"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@color/myWhite"
-            android:src="@drawable/ic_addphotoo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_new_post_step1_image_imv" />
+            app:layout_constraintTop_toBottomOf="@+id/textView23"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent" />
 
         <TextView
             android:id="@+id/textView19"
@@ -77,6 +57,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/add_new_post_step1_progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Add a picture:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textView19"
+            app:layout_constraintStart_toStartOf="@+id/textView19"
+            app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
