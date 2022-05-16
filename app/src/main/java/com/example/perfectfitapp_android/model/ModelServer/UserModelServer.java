@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.model.User;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -22,7 +23,7 @@ public class UserModelServer {
 
     public void register(String email, String password, Model.RegisterListener listener) {
         User user = new User(email, password, "true");
-        HashMap<String, String> userMap = user.toJson();
+        HashMap<String, Object> userMap = user.toJson();
         Call<JsonObject> call = server.service.executeRegister(userMap);
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -211,6 +212,43 @@ public class UserModelServer {
             @Override
             public void onFailure(Call call, Throwable t) {
                 System.out.println("general not worked: " + t.getMessage());
+            }
+        });
+    }
+
+    public void editUser(String previousEmail, User user, Model.EditUserListener listener) {
+        HashMap<String, Object> userMap = user.toJson();
+
+        if(previousEmail != null){
+            userMap.put("previousEmail", previousEmail);
+        }
+
+        String token = server.sp.getString("ACCESS_TOKEN", "");
+
+        Call<JsonObject> call = server.service.editUser(token, userMap);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.code() == 200) {
+                    User user = new User();
+                    Log.d("TAG", response.body().toString());
+                    user = user.jsonElementToUser(response.body().get("user"));
+                    listener.onComplete(user);
+
+                } else if (response.code() == 400) {
+                    Log.d("TAG", "failed to editUser in ModelServer 1");
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("TAG", "failed to editUser in ModelServer 2");
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                listener.onComplete(null);
             }
         });
     }

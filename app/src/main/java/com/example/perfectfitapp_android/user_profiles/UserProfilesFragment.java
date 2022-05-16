@@ -24,6 +24,8 @@ import android.widget.Toast;
 import com.example.perfectfitapp_android.MainActivity;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
+import com.example.perfectfitapp_android.UserProfilesGraphDirections;
+import com.example.perfectfitapp_android.category.CategoryFragmentDirections;
 import com.example.perfectfitapp_android.login.LoginActivity;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Profile;
@@ -40,7 +42,7 @@ import okio.Timeout;
 
 public class UserProfilesFragment extends Fragment {
 
-    ImageButton addProfile;
+    ImageButton addProfile, setting;
     Button homepageBtn;
     Button user1Btn, user2Btn, user3Btn, user4Btn, user5Btn;
     ArrayList<Button> buttonList;
@@ -67,6 +69,11 @@ public class UserProfilesFragment extends Fragment {
 
         addProfile = view.findViewById(R.id.user_profiles_addprofile_btn);
         addProfile.setOnClickListener(v-> addProfile(view));
+
+        setting= view.findViewById(R.id.user_profiles_settings_btn);
+        setting.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(UserProfilesFragmentDirections.actionUserProfilesFragment2ToEditUserFragment());
+        });
 
         buttonList = new ArrayList<>();
 

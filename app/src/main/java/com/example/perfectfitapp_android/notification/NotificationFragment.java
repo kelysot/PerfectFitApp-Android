@@ -75,6 +75,8 @@ public class NotificationFragment extends Fragment {
         List<Notification> list = new ArrayList<>();
 
         List<String> notifications = Model.instance.getProfile().getNotifications();
+        Log.d("TAG", Model.instance.getProfile().getUserName());
+        Log.d("TAG", Model.instance.getProfile().getNotifications(). toString());
         if(!notifications.isEmpty()){
             Model.instance.getNotificationsByIds(notifications , notificationsList -> {
                 if(notificationsList != null){
