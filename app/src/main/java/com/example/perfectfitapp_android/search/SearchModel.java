@@ -35,5 +35,7 @@ public class SearchModel {
         mapToServer.put("Companies", new ArrayList<>());
         mapToServer.put("Colors", new ArrayList<>());
         mapToServer.put("BodyTypes", new ArrayList<>());
+        mapToServer.put("Count", new ArrayList<>());
+        mapToServer.put("Price", new ArrayList<>());
     }
 }
