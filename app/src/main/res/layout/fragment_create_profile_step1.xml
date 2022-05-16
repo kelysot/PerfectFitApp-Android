@@ -42,10 +42,12 @@
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="15dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/textInputLayout4"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_step1_name_et"
@@ -210,31 +212,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_step1_gender_txl" />
 
-        <ImageButton
-            android:id="@+id/register_step1_camera_imv"
-            android:layout_width="40dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="90dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="50dp"
-            android:background="#FAFAFA"
-            android:src="@drawable/ic_addphotoo"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv" />
+        <ImageView
+            android:id="@+id/register_step1_add_photo_imv"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="-10dp"
+            android:layout_marginBottom="-10dp"
+            android:src="@drawable/add_photo"
+            app:layout_constraintBottom_toBottomOf="@+id/register_step1_image_imv"
+            app:layout_constraintEnd_toEndOf="@+id/register_step1_image_imv" />
 
-        <ImageButton
-            android:id="@+id/register_step1_gallery_imv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="90dp"
-            android:layout_marginBottom="50dp"
-            android:background="#FAFAFA"
-            android:src="@drawable/ic_add_photolibary"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout26"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv" />
+        <!--        <ImageButton-->
+<!--            android:id="@+id/register_step1_gallery_imv"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="1dp"-->
+<!--            android:layout_marginEnd="90dp"-->
+<!--            android:layout_marginBottom="50dp"-->
+<!--            android:background="#FAFAFA"-->
+<!--            android:src="@drawable/ic_add_photolibary"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/textInputLayout26"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv" />-->
 
         <!--        android:shape="rectangle" android:padding="10dp"-->
     </androidx.constraintlayout.widget.ConstraintLayout>

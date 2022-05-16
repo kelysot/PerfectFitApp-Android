@@ -2,6 +2,8 @@ package com.example.perfectfitapp_android.post;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -47,10 +49,7 @@ public class EditPostFragment extends Fragment {
 
     EditText productNameEt, skuEt, sizeEt, companyEt, colorEt, categoryEt, subCategoryEt, descriptionEt;
     EditText linkEt, priceEt;
-    ImageView postImg;
-    ImageButton cameraBtn, galleryBtn;
-    //TODO: date
-    //SeekBar sizeAdjSk, ratingSk;
+    ImageView postImg, addPhoto;
     RatingBar sizeAdj, rating;
     Button editBtn, deleteBtn;
     String postId;
@@ -84,8 +83,7 @@ public class EditPostFragment extends Fragment {
         rating = view.findViewById(R.id.editpost_rating_ratingbar);
 
         postImg = view.findViewById(R.id.editpost_image_imv);
-        cameraBtn = view.findViewById(R.id.editpost_camera_imv);
-        galleryBtn = view.findViewById(R.id.editpost_gallery_imv);
+        addPhoto = view.findViewById(R.id.editpost_add_photo_imv);
 
         postId = EditPostFragmentArgs.fromBundle(getArguments()).getPostId();
 //        post = Model.instance.getPostById(postId);
@@ -114,10 +112,32 @@ public class EditPostFragment extends Fragment {
         deleteBtn = view.findViewById(R.id.editpost_delete_btn);
         deleteBtn.setOnClickListener(v -> delete());
 
-        cameraBtn.setOnClickListener(v -> openCam());
-        galleryBtn.setOnClickListener(v -> openGallery());
+        addPhoto.setOnClickListener(v -> showImagePickDialog());
 
         return view;
+    }
+
+    private void showImagePickDialog() {
+
+        String[] items = {"Camera", "Gallery"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        builder.setTitle("Choose an Option");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+
+                if (i == 0) {
+                    openCam();
+                }
+
+                if (i == 1) {
+                    openGallery();
+                }
+            }
+        });
+
+        builder.create().show();
     }
 
     public void openCam() {

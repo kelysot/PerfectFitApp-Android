@@ -294,26 +294,26 @@
             android:id="@+id/editpost_edit_btn"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
             android:text="Done"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_gallery_imv" />
+            app:layout_constraintTop_toBottomOf="@+id/editpost_image_imv" />
 
         <Button
             android:id="@+id/editpost_delete_btn"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="#C3AF0303"
             android:text="Delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_camera_imv" />
+            app:layout_constraintTop_toBottomOf="@+id/editpost_image_imv" />
 
         <TextView
             android:id="@+id/textView21"
@@ -337,25 +337,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editpost_rating_ratingbar" />
 
-        <ImageButton
-            android:id="@+id/editpost_camera_imv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_addphotoo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_image_imv" />
-
-        <ImageButton
-            android:id="@+id/editpost_gallery_imv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="100dp"
-            android:src="@drawable/ic_add_photolibary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_image_imv" />
+        <ImageView
+            android:id="@+id/editpost_add_photo_imv"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="-10dp"
+            android:layout_marginBottom="-10dp"
+            android:src="@drawable/add_photo"
+            app:layout_constraintBottom_toBottomOf="@+id/editpost_image_imv"
+            app:layout_constraintEnd_toEndOf="@+id/editpost_image_imv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

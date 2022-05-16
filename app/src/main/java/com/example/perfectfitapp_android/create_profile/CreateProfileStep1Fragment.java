@@ -2,6 +2,8 @@ package com.example.perfectfitapp_android.create_profile;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -39,12 +41,11 @@ public class CreateProfileStep1Fragment extends Fragment {
     private String mImageUrl = "";
 
     TextInputEditText firstNameEt, lastNameEt, birthdayEt, userNameEt;
-    ImageView image;
+    ImageView image, addPhoto;
     TextInputLayout genderTxtIL;
     AutoCompleteTextView genderAuto; // catch the gender
     String[] genderArr;
     ArrayAdapter<String> genderAdapter;
-    ImageButton cameraBtn, galleryBtn;
     Button continueBtn, chooseDate;
     Bitmap mBitmap;
 
@@ -59,13 +60,11 @@ public class CreateProfileStep1Fragment extends Fragment {
         birthdayEt = view.findViewById(R.id.register_step1_birthday_et);
         image = view.findViewById(R.id.register_step1_image_imv);
 
-        cameraBtn = view.findViewById(R.id.register_step1_camera_imv);
-        galleryBtn = view.findViewById(R.id.register_step1_gallery_imv);
+        addPhoto = view.findViewById(R.id.register_step1_add_photo_imv);
         continueBtn = view.findViewById(R.id.register_step1_continue_btn);
         continueBtn.setOnClickListener(v-> continueStep2(view));
 
-        cameraBtn.setOnClickListener(v -> openCam());
-        galleryBtn.setOnClickListener(v -> openGallery());
+        addPhoto.setOnClickListener(v -> showImagePickDialog());
 
         chooseDate = view.findViewById(R.id.register_step1_birthday_btn);
         chooseDate.setOnClickListener(v -> {
@@ -79,6 +78,30 @@ public class CreateProfileStep1Fragment extends Fragment {
 
         return view;
     }
+
+    private void showImagePickDialog() {
+
+        String[] items = {"Camera", "Gallery"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        builder.setTitle("Choose an Option");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+
+                if (i == 0) {
+                    openCam();
+                }
+
+                if (i == 1) {
+                    openGallery();
+                }
+            }
+        });
+
+        builder.create().show();
+    }
+
 
     public void openCam() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

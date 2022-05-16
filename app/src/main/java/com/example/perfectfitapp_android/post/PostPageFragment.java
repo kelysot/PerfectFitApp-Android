@@ -28,7 +28,6 @@ public class PostPageFragment extends Fragment {
     EditText skuEt, sizeEt, companyEt, colorEt, categoryEt, subCategoryEt, descriptionEt;
     EditText linkEt, priceEt;
     TextView categoryTv, subCategoryTv;
-    //TODO: date
     ImageView image;
     String postId, postSource;
     ImageButton editBtn;
@@ -105,8 +104,6 @@ public class PostPageFragment extends Fragment {
         descriptionEt.setEnabled(false);
         priceEt.setEnabled(false);
         linkEt.setEnabled(false);
-
-        //TODO: sizeAdj, rating, image
 
         return view;
     }
