@@ -125,9 +125,13 @@ public class SearchFragment extends Fragment {
                 SearchModel.instance.mapToServer.put("BodyTypes", SearchModel.instance.map.get("BodyTypes"));
                 count++;
             }
+            if(SearchModel.instance.mapToServer.get("Gender").isEmpty()){
+                SearchModel.instance.mapToServer.put("Gender", SearchModel.instance.map.get("Gender"));
+                count++;
+            }
 
             List<String> countList = new ArrayList<>();
-            if(count == 5){
+            if(count == 6){
                 countList.add("true");
             }
             else{

@@ -528,6 +528,8 @@ public class Model {
                 List<Post> finalList = new LinkedList<>();
                 // add all records to the local db
 //                Collections.reverse(posts);
+
+                //TODO: check if posts is null
                 if(!posts.isEmpty()) {
                     String lud = posts.get(0).getDate();
                     System.out.println("the lud --------------------------- " + lud);
