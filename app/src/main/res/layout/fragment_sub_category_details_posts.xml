@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="TextView"
-        android:textColor="#FDC43F"
+        android:textColor="#8CB88E"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

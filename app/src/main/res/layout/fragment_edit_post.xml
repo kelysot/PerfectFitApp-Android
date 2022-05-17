@@ -260,8 +260,8 @@
             android:layout_height="57dp"
             android:layout_marginTop="16dp"
             android:progressBackgroundTint="#3C3939"
-            android:progressTint="#DDB893"
-            android:secondaryProgressTint="#DDB893"
+            android:progressTint="#8ec4b5"
+            android:secondaryProgressTint="#8ec4b5"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout6"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout6"
             app:layout_constraintTop_toBottomOf="@+id/textview"
@@ -273,8 +273,8 @@
             android:layout_height="57dp"
             android:layout_marginTop="16dp"
             android:progressBackgroundTint="#3C3939"
-            android:progressTint="#DDB893"
-            android:secondaryProgressTint="#DDB893"
+            android:progressTint="#8ec4b5"
+            android:secondaryProgressTint="#8ec4b5"
             app:layout_constraintEnd_toEndOf="@+id/editpost_sizeadjustment_ratingbar"
             app:layout_constraintStart_toStartOf="@+id/editpost_sizeadjustment_ratingbar"
             app:layout_constraintTop_toBottomOf="@+id/textview3"
@@ -303,22 +303,24 @@
 
         <Button
             android:id="@+id/editpost_edit_btn"
-            android:layout_width="180dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginBottom="16dp"
             android:text="Done"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_add_photo_imv" />
+            app:layout_constraintStart_toEndOf="@+id/editpost_delete_btn"
+            app:layout_constraintTop_toBottomOf="@+id/editpost_image_imv" />
 
         <Button
             android:id="@+id/editpost_delete_btn"
-            android:layout_width="180dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="12dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="#C3AF0303"
             android:text="Delete"
@@ -352,12 +354,10 @@
             android:id="@+id/editpost_add_photo_imv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-4dp"
-            android:layout_marginEnd="100dp"
             android:backgroundTint="#FAFAFA"
             android:src="@drawable/ic_addphotoo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_image_imv" />
+            app:layout_constraintStart_toEndOf="@+id/editpost_image_imv"
+            tools:layout_editor_absoluteY="917dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

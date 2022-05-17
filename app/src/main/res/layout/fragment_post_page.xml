@@ -39,7 +39,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="Product Name"
-                    android:textColor="#CA9B6C"
+                    android:textColor="#8CB88E"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"

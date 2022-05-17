@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fafafa"
     tools:context=".user_profiles.UserProfilesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#fafafa">
 
         <TableLayout
             android:id="@+id/tableLayout"
@@ -33,7 +35,7 @@
                     android:text="User1"
                     android:textColor="#4f4f4f"
                     android:textSize="20dp"
-                    app:strokeColor="@color/myGold"
+                    app:strokeColor="#8CB88E"
                     app:strokeWidth="2dp" />
 
             </TableRow>
@@ -52,7 +54,7 @@
                     android:text="User2"
                     android:textColor="#4f4f4f"
                     android:textSize="20dp"
-                    app:strokeColor="@color/myGold"
+                    app:strokeColor="#8CB88E"
                     app:strokeWidth="2dp" />
             </TableRow>
 
@@ -69,7 +71,7 @@
                     android:text="User3"
                     android:textColor="#4f4f4f"
                     android:textSize="20dp"
-                    app:strokeColor="@color/myGold"
+                    app:strokeColor="#8CB88E"
                     app:strokeWidth="2dp" />
             </TableRow>
 
@@ -86,7 +88,7 @@
                     android:text="User4"
                     android:textColor="#4f4f4f"
                     android:textSize="20dp"
-                    app:strokeColor="@color/myGold"
+                    app:strokeColor="#8CB88E"
                     app:strokeWidth="2dp" />
             </TableRow>
 
@@ -103,7 +105,7 @@
                     android:text="User5"
                     android:textColor="#4f4f4f"
                     android:textSize="20dp"
-                    app:strokeColor="@color/myGold"
+                    app:strokeColor="#8CB88E"
                     app:strokeWidth="2dp" />
             </TableRow>
         </TableLayout>
@@ -112,11 +114,11 @@
             android:id="@+id/user_profiles_addprofile_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginEnd="35dp"
-            android:background="@color/myWhite"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            android:background="#fafafa"
             android:src="@drawable/ic_person_add_alt_black_24dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/user_profiles_settings_btn"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
@@ -135,11 +137,12 @@
             android:id="@+id/user_profiles_settings_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="35dp"
-            android:src="@drawable/ic_settings"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="#fafafa"
+            android:src="@drawable/ic_settingsnew"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_profiles_addprofile_btn" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

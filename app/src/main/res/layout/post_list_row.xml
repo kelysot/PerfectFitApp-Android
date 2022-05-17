@@ -31,66 +31,66 @@
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
             app:srcCompat="@drawable/avatar" />
 
         <TextView
             android:id="@+id/listrow_username_tv"
             android:layout_width="160dp"
             android:layout_height="35dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="18dp"
-            android:textColor="#F3B963"
-            android:textSize="22sp"
+            android:layout_marginEnd="44dp"
+            android:textColor="#000000"
+            android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.083"
+            app:layout_constraintEnd_toStartOf="@+id/listrow_time_ago_tv"
             app:layout_constraintStart_toEndOf="@+id/listrow_avatar_imv"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <!--        <Button-->
+        <!--            android:id="@+id/listrow_comments_btn"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="15dp"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:text="Comments"-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/listrow_likes_btn"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/listrow_post_likes_btn" />-->
 
         <TextView
             android:id="@+id/listrow_description_tv"
             android:layout_width="355dp"
             android:layout_height="67dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listrow_avatar_imv" />
+            app:layout_constraintTop_toBottomOf="@+id/listrow_post_img" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/listrow_post_img"
             android:layout_width="346dp"
             android:layout_height="199dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="30dp"
             android:scaleType="centerCrop"
             android:src="@drawable/pic1_shirts"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listrow_description_tv" />
-
-        <!--        <Button-->
-<!--            android:id="@+id/listrow_comments_btn"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="15dp"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:text="Comments"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/listrow_likes_btn"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/listrow_post_likes_btn" />-->
+            app:layout_constraintTop_toBottomOf="@+id/listrow_avatar_imv" />
 
         <ImageButton
             android:id="@+id/add_to_wish_list_btn"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="52dp"
+            android:layout_height="45dp"
             android:backgroundTint="#FFFFFF"
-            app:layout_constraintEnd_toEndOf="@+id/listrow_post_img"
-            app:layout_constraintTop_toBottomOf="@+id/listrow_post_img"
-            app:srcCompat="@drawable/ic_star" />
+            app:srcCompat="@drawable/ic_star"
+            tools:layout_editor_absoluteX="323dp"
+            tools:layout_editor_absoluteY="418dp" />
 
         <Button
             android:id="@+id/listrow_likes_btn"
@@ -106,7 +106,7 @@
             android:id="@+id/listrow_category_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="12dp"
             android:text="category"
             android:textSize="18sp"
@@ -118,44 +118,43 @@
             android:layout_width="20dp"
             android:layout_height="30dp"
             android:layout_marginStart="4dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="1dp"
             android:text="/"
             android:textSize="18sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/listrow_category_tv"
             app:layout_constraintEnd_toStartOf="@+id/listrow_subcategory_tv"
-            app:layout_constraintStart_toEndOf="@+id/listrow_category_tv" />
+            app:layout_constraintStart_toEndOf="@+id/listrow_category_tv"
+            app:layout_constraintTop_toBottomOf="@+id/listrow_username_tv" />
 
         <TextView
             android:id="@+id/listrow_subcategory_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="74dp"
             android:text="subCategory"
             android:textSize="18sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/listrow_category_tv"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView10" />
+            app:layout_constraintStart_toEndOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/listrow_username_tv" />
 
         <ImageButton
             android:id="@+id/listrow_post_likes_btn"
             android:layout_width="56dp"
             android:layout_height="43dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             android:backgroundTint="#FFFFFF"
-            app:layout_constraintStart_toStartOf="@+id/listrow_post_img"
-            app:layout_constraintTop_toBottomOf="@+id/listrow_post_img"
-            app:srcCompat="@drawable/ic_heart" />
+            app:srcCompat="@drawable/ic_heart"
+            tools:layout_editor_absoluteX="25dp"
+            tools:layout_editor_absoluteY="418dp" />
 
         <ImageButton
             android:id="@+id/listrow_comments_btn"
             android:layout_width="57dp"
             android:layout_height="40dp"
-            android:layout_marginTop="16dp"
             android:backgroundTint="#FFFFFF"
-            app:layout_constraintStart_toEndOf="@+id/listrow_post_likes_btn"
-            app:layout_constraintTop_toBottomOf="@+id/listrow_post_img"
-            app:srcCompat="@drawable/ic_add_comment" />
+            app:srcCompat="@drawable/ic_add_comment"
+            tools:layout_editor_absoluteX="89dp"
+            tools:layout_editor_absoluteY="418dp" />
 
         <TextView
             android:id="@+id/listrow_post_likes_number"
@@ -176,6 +175,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="TextView"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

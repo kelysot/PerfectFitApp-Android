@@ -18,7 +18,7 @@
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="23dp"
             android:text="Edit User"
             android:textSize="20sp"
@@ -26,7 +26,7 @@
             app:layout_constraintBottom_toTopOf="@+id/edit_user_textInputLayout7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_user_imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_user_textInputLayout7"
@@ -50,6 +50,7 @@
                 android:id="@+id/edit_user_email_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#fafafa"
                 android:drawableStart="@drawable/email_24"
                 android:drawableLeft="@drawable/email_24"
                 android:hint="Email"
@@ -80,6 +81,7 @@
                 android:id="@+id/edit_user_password_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#fafafa"
                 android:drawableStart="@drawable/ic_password"
                 android:drawableLeft="@drawable/ic_password"
                 android:hint="Password"
@@ -106,15 +108,13 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
-            android:id="@+id/edit_user_imageView"
-            android:layout_width="243dp"
-            android:layout_height="136dp"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="54dp"
-            android:layout_marginEnd="70dp"
-            android:layout_marginBottom="23dp"
-            android:src="@drawable/logo"
-            app:layout_constraintBottom_toTopOf="@+id/textView9"
+            android:id="@+id/imageView5"
+            android:layout_width="280dp"
+            android:layout_height="180dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="60dp"
+            android:src="@drawable/logonew"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

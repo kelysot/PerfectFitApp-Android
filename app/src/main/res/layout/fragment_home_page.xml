@@ -43,12 +43,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="68dp"
         android:text="Hey ,"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/home_page_name_tv"
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:text="Name"
-        android:textColor="#CA9B6C"
+        android:textColor="#8CB88E"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
@@ -67,6 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="10dp"
         android:text="Button"
         app:layout_constraintBottom_toTopOf="@+id/home_page_name_tv"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,20 +78,9 @@
         android:id="@+id/general"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginTop="24dp"
         android:text="General"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/check_date" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="106dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/logo"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/check_date"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

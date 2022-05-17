@@ -159,6 +159,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#FAFAFA"
+                android:backgroundTint="#FAFAFA"
                 android:inputType="none" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -190,7 +191,7 @@
             android:layout_marginStart="80dp"
             android:layout_marginTop="70dp"
             android:layout_marginEnd="80dp"
-            android:backgroundTint="#CA9B6C"
+            android:backgroundTint="#8ec4b5"
             android:text="Continue"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -212,15 +213,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_step1_gender_txl" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/register_step1_add_photo_imv"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="-10dp"
-            android:layout_marginBottom="-10dp"
-            android:src="@drawable/add_photo"
-            app:layout_constraintBottom_toBottomOf="@+id/register_step1_image_imv"
-            app:layout_constraintEnd_toEndOf="@+id/register_step1_image_imv" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="136dp"
+            android:layout_marginEnd="74dp"
+            android:layout_marginBottom="39dp"
+            android:backgroundTint="#FAFAFA"
+            android:src="@drawable/ic_addphotoo"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayout26"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/register_step1_image_imv"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <!--        <ImageButton-->
 <!--            android:id="@+id/register_step1_gallery_imv"-->

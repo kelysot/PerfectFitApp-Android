@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fafafa"
     tools:context=".profile.EditProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#fafafa">
 
         <TextView
             android:id="@+id/edit_profile_1"
@@ -27,12 +29,12 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="25dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/avatar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_profile_1"
-        android:scaleType="centerCrop"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"/>
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_profile_3"
@@ -50,6 +52,7 @@
                 android:id="@+id/edit_profile_step1_name_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#fafafa"
                 android:hint="First Name"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -68,6 +71,7 @@
                 android:id="@+id/edit_profile_step1_lastname_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#fafafa"
                 android:hint="Last Name"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -86,8 +90,8 @@
                 android:id="@+id/edit_profile_step1_username_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_user"
-                android:drawableLeft="@drawable/ic_user"
+                android:backgroundTint="#fafafa"
+                android:drawableStart="@drawable/ic_person"
                 android:hint="User Name"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -109,6 +113,7 @@
                 android:id="@+id/edit_profile_step1_gender_et"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:backgroundTint="#fafafa"
                 android:inputType="none" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -128,6 +133,7 @@
                 android:id="@+id/edit_profile_step1_birthday_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#fafafa"
                 android:hint="Birthday"
                 android:inputType="date" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -139,7 +145,7 @@
             android:layout_marginStart="80dp"
             android:layout_marginTop="70dp"
             android:layout_marginEnd="80dp"
-            android:backgroundTint="#CA9B6C"
+            android:backgroundTint="#8ec4b5"
             android:text="Continue"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -147,15 +153,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_profile_step1_gender_txl" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/edit_profile_step1_add_photo_imv"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="-10dp"
-            android:layout_marginBottom="-10dp"
-            android:src="@drawable/add_photo"
-            app:layout_constraintBottom_toBottomOf="@+id/edit_profile_step1_image_imv"
-            app:layout_constraintEnd_toEndOf="@+id/edit_profile_step1_image_imv" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="195dp"
+            android:layout_marginEnd="74dp"
+            android:layout_marginBottom="41dp"
+            android:backgroundTint="#FAFAFA"
+            android:src="@drawable/ic_addphotoo"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayout10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/edit_profile_step1_image_imv"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

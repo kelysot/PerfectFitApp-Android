@@ -20,7 +20,7 @@
             android:layout_marginTop="370dp"
             android:layout_marginEnd="80dp"
             android:layout_marginBottom="24dp"
-            android:backgroundTint="#CA9B6C"
+            android:backgroundTint="#8ec4b5"
             android:text="Continue"
             android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -30,8 +30,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/add_new_post_step1_image_imv"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
             android:layout_marginStart="65dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="65dp"
