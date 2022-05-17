@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.model.generalModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,26 +108,32 @@ public class SearchFragment extends Fragment {
             //TODO: check if isEmpty
             if(SearchModel.instance.mapToServer.get("Sizes").isEmpty()){
                 // need to: SearchModel.instance.map == all sizes
-                SearchModel.instance.mapToServer.put("Sizes", SearchModel.instance.map.get("Sizes"));
+//                SearchModel.instance.mapToServer.put("Sizes", SearchModel.instance.map.get("Sizes"));
+                SearchModel.instance.mapToServer.put("Sizes", generalModel.instance.map.get("Sizes"));
                 count++;
             }
             if(SearchModel.instance.mapToServer.get("Categories").isEmpty()){
-                SearchModel.instance.mapToServer.put("Categories", SearchModel.instance.map.get("Categories"));
+//                SearchModel.instance.mapToServer.put("Categories", SearchModel.instance.map.get("Categories"));
+                SearchModel.instance.mapToServer.put("Categories", generalModel.instance.map.get("Categories"));
                 count++;
             }
             if(SearchModel.instance.mapToServer.get("Colors").isEmpty()){
-                SearchModel.instance.mapToServer.put("Colors", SearchModel.instance.map.get("Colors"));
+//                SearchModel.instance.mapToServer.put("Colors", SearchModel.instance.map.get("Colors"));
+                SearchModel.instance.mapToServer.put("Colors", generalModel.instance.map.get("Colors"));
                 count++;
             }if(SearchModel.instance.mapToServer.get("Companies").isEmpty()){
-                SearchModel.instance.mapToServer.put("Companies", SearchModel.instance.map.get("Companies"));
+//                SearchModel.instance.mapToServer.put("Companies", SearchModel.instance.map.get("Companies"));
+                SearchModel.instance.mapToServer.put("Companies", generalModel.instance.map.get("Companies"));
                 count++;
             }
             if(SearchModel.instance.mapToServer.get("BodyTypes").isEmpty()){
-                SearchModel.instance.mapToServer.put("BodyTypes", SearchModel.instance.map.get("BodyTypes"));
+//                SearchModel.instance.mapToServer.put("BodyTypes", SearchModel.instance.map.get("BodyTypes"));
+                SearchModel.instance.mapToServer.put("BodyTypes", generalModel.instance.map.get("BodyTypes"));
                 count++;
             }
             if(SearchModel.instance.mapToServer.get("Gender").isEmpty()){
-                SearchModel.instance.mapToServer.put("Gender", SearchModel.instance.map.get("Gender"));
+//                SearchModel.instance.mapToServer.put("Gender", SearchModel.instance.map.get("Gender"));
+                SearchModel.instance.mapToServer.put("Gender", generalModel.instance.map.get("Gender"));
                 count++;
             }
 
@@ -176,19 +183,20 @@ public class SearchFragment extends Fragment {
             for(int i=0; i< categoryList.size(); i++){
                 list.add(categoryList.get(i).getName());
             }
-            SearchModel.instance.map.put("Categories", list);
+//            SearchModel.instance.map.put("Categories", list);
+            generalModel.instance.map.put("Categories", list);
 
             //set others:
 
-            Model.instance.getGeneral(map -> {
-                SearchModel.instance.map.put("Sizes", map.get("Sizes"));
-                SearchModel.instance.map.put("Companies", map.get("Companies"));
-                SearchModel.instance.map.put("Colors", map.get("Colors"));
-                SearchModel.instance.map.put("BodyTypes", map.get("BodyTypes"));
-
-//                System.out.println("*******************************");
-//                System.out.println(SearchModel.instance.map);
-            });
+//            Model.instance.getGeneral(map -> {
+//                SearchModel.instance.map.put("Sizes", map.get("Sizes"));
+//                SearchModel.instance.map.put("Companies", map.get("Companies"));
+//                SearchModel.instance.map.put("Colors", map.get("Colors"));
+//                SearchModel.instance.map.put("BodyTypes", map.get("BodyTypes"));
+//
+////                System.out.println("*******************************");
+////                System.out.println(SearchModel.instance.map);
+//            });
         });
     }
 }
