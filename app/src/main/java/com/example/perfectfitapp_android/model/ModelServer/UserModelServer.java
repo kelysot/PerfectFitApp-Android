@@ -231,7 +231,6 @@ public class UserModelServer {
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.code() == 200) {
                     User user = new User();
-                    Log.d("TAG", response.body().toString());
                     user = user.jsonElementToUser(response.body().get("user"));
                     listener.onComplete(user);
 

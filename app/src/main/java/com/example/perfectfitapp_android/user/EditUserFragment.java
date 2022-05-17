@@ -34,7 +34,10 @@ public class EditUserFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_user, container, false);
         emailEt = view.findViewById(R.id.edit_user_email_et);
+        emailEt.setText(Model.instance.getUser().getEmail());
+
         passwordEt = view.findViewById(R.id.edit_user_password_et);
+
         editBtn = view.findViewById(R.id.edit_user_edit_btn);
         editBtn.setOnClickListener(v-> edit(v));
 
@@ -65,9 +68,23 @@ public class EditUserFragment extends Fragment {
                     Model.instance.getUser().setEmail(email);
                     Model.instance.editUser(previousEmail, Model.instance.getUser(), user -> {
                         if (user != null) {
-                            Model.instance.setUser(user);
+                            Model.instance.removeFromRoom(isSuccess1 -> {
+                                if(isSuccess1){
+                                    Model.instance.addToRoom(user, isSuccess11 -> {
+                                        if(isSuccess11){
+                                            Model.instance.setUser(user);
+                                        }else {
+                                            Log.d("TAG", "User didn't add to room in edit user.");
+                                            editBtn.setEnabled(true);
+                                        }
+                                    });
+                                }
+                                else {
+                                    Log.d("TAG", "Old user didn't remove from room in edit user.");
+                                    editBtn.setEnabled(true);
+                                }
+                            });
                             Navigation.findNavController(view).navigate(R.id.action_global_userProfilesFragment2);
-
                         } else {
                             editBtn.setEnabled(true);
                         }
@@ -79,7 +96,5 @@ public class EditUserFragment extends Fragment {
                 }
             });
         }
-
-
     }
 }
