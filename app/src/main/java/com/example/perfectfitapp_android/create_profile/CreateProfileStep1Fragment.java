@@ -46,11 +46,6 @@ public class CreateProfileStep1Fragment extends Fragment {
 
     TextInputEditText firstNameEt, lastNameEt, birthdayEt, userNameEt, genderTxl;
     ImageView image, addPhoto;
-    TextInputLayout genderTxtIL;
-    AutoCompleteTextView genderAuto; // catch the gender
-//    String[] genderArr;
-    List<String> genderList;
-    ArrayAdapter<String> genderAdapter;
     Button continueBtn, chooseDate;
     Bitmap mBitmap;
     CheckBox femaleCB, maleCB;
@@ -91,9 +86,11 @@ public class CreateProfileStep1Fragment extends Fragment {
             String genderFromServer = CreateProfileModel.instance.profile.getGender().toString();
             if(genderFromServer.equals("Female")){
                 femaleCB.setChecked(true);
+                gender = "Female";
             }
             else{
                 maleCB.setChecked(true);
+                gender = "Male";
             }
         }
 
@@ -102,7 +99,6 @@ public class CreateProfileStep1Fragment extends Fragment {
                 maleCB.setChecked(false);
             }
             gender = "Female";
-            System.out.println("female");
         });
 
         maleCB.setOnClickListener(v -> {
@@ -110,7 +106,6 @@ public class CreateProfileStep1Fragment extends Fragment {
                 femaleCB.setChecked(false);
             }
             gender = "Male";
-            System.out.println("male");
         });
 
 

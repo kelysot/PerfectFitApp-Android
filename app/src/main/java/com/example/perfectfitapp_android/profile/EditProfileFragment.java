@@ -21,11 +21,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.perfectfitapp_android.R;
+import com.example.perfectfitapp_android.create_profile.CreateProfileModel;
 import com.example.perfectfitapp_android.model.Model;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -39,13 +42,16 @@ public class EditProfileFragment extends Fragment {
     private static final int REQUEST_IMAGE_PIC = 2;
 
     TextInputEditText firstNameEt, lastNameEt, birthdayEt, userNameEt;
+    EditText genderEt;
     ImageView image, addPhoto;
     TextInputLayout genderTxtIL;
     AutoCompleteTextView genderAuto; // catch the gender
-    String[] genderArr;
-    ArrayAdapter<String> genderAdapter;
+//    String[] genderArr;
+//    ArrayAdapter<String> genderAdapter;
     Button continueBtn;
     Bitmap mBitmap;
+    CheckBox femaleCB, maleCB;
+    String gender;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,7 +63,12 @@ public class EditProfileFragment extends Fragment {
         lastNameEt = view.findViewById(R.id.edit_profile_step1_lastname_et);
         userNameEt = view.findViewById(R.id.edit_profile_step1_username_et);
         birthdayEt = view.findViewById(R.id.edit_profile_step1_birthday_et);
+        genderEt = view.findViewById(R.id.edit_profile_gendet_txt);
         image = view.findViewById(R.id.edit_profile_step1_image_imv);
+        femaleCB = view.findViewById(R.id.edit_profile_step1_female_cb);
+        maleCB = view.findViewById(R.id.edit_profile_step1_male_cb);
+
+        genderEt.setEnabled(false);
 
         addPhoto = view.findViewById(R.id.edit_profile_step1_add_photo_imv);
         continueBtn = view.findViewById(R.id.edit_profile_step1_continue_btn);
@@ -69,10 +80,33 @@ public class EditProfileFragment extends Fragment {
         userNameEt.setText(ModelProfile.instance.getEditProfile().getUserName());
         birthdayEt.setText(ModelProfile.instance.getEditProfile().getBirthday());
 
-        setAllDropDownMenus(view);
+        if(!ModelProfile.instance.getEditProfile().getGender().isEmpty()){
+            String genderFromServer = ModelProfile.instance.getEditProfile().getGender().toString();
+            if(genderFromServer.equals("Female")){
+                femaleCB.setChecked(true);
+                gender = "Female";
+            }
+            else{
+                maleCB.setChecked(true);
+                gender = "Male";
+            }
+        }
+
+        femaleCB.setOnClickListener(v -> {
+            if(maleCB.isChecked()){
+                maleCB.setChecked(false);
+            }
+            gender = "Female";
+        });
+
+        maleCB.setOnClickListener(v -> {
+            if(femaleCB.isChecked()){
+                femaleCB.setChecked(false);
+            }
+            gender = "Male";
+        });
 
         ModelProfile.instance.setPreviousName(Model.instance.getProfile().getUserName());
-
         addPhoto.setOnClickListener(v -> showImagePickDialog());
 
         return view;
@@ -137,40 +171,43 @@ public class EditProfileFragment extends Fragment {
         }
     }
 
-    private void setAllDropDownMenus(View view) {
-        genderTxtIL = view.findViewById(R.id.edit_profile_step1_gender_txl);
-        genderAuto = view.findViewById(R.id.edit_profile_step1_gender_et);
-
-        genderArr = getResources().getStringArray(R.array.gender);
-        genderAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, genderArr);
-        if(!ModelProfile.instance.getEditProfile().getGender().equals("")){
-            genderAuto.setText(ModelProfile.instance.getEditProfile().getGender());
-        }
-        genderAuto.setText(ModelProfile.instance.getEditProfile().getGender());
-        genderAuto.setAdapter(genderAdapter);
-        genderAuto.setThreshold(1);
-    }
-
     private void continueStep2(View view) {
+
+        continueBtn.setEnabled(false);
+        boolean flag = true;
+
         String firstName = firstNameEt.getText().toString();
         String lastName = lastNameEt.getText().toString();
         String userName = userNameEt.getText().toString();
         String birthday = birthdayEt.getText().toString();
-        String gender = genderAuto.getText().toString();
 
-        ModelProfile.instance.getEditProfile().setFirstName(firstName);
-        ModelProfile.instance.getEditProfile().setLastName(lastName);
-        ModelProfile.instance.getEditProfile().setUserName(userName);
-        ModelProfile.instance.getEditProfile().setBirthday(birthday);
-        ModelProfile.instance.getEditProfile().setGender(gender);
-
-
-        if (mBitmap != null) {
-            Model.instance.uploadImage(mBitmap, getActivity(), url -> {
-                ModelProfile.instance.getEditProfile().setUserImageUrl(url);
-            });
+        //TODO: stop the error after fix it
+        if((!(femaleCB.isChecked())) && (!(maleCB.isChecked()))){
+            genderEt.setError("You must chose gender");
+            flag = false;
         }
 
-        Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
+        if(flag) {
+
+            ModelProfile.instance.getEditProfile().setFirstName(firstName);
+            ModelProfile.instance.getEditProfile().setLastName(lastName);
+            ModelProfile.instance.getEditProfile().setUserName(userName);
+            ModelProfile.instance.getEditProfile().setBirthday(birthday);
+            ModelProfile.instance.getEditProfile().setGender(gender);
+
+
+            if (mBitmap != null) {
+                Model.instance.uploadImage(mBitmap, getActivity(), url -> {
+                    ModelProfile.instance.getEditProfile().setUserImageUrl(url);
+                });
+            }
+
+            Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
+        }
+        else{
+            continueBtn.setEnabled(true);
+
+        }
     }
+
 }

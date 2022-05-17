@@ -75,7 +75,7 @@
                 android:id="@+id/edit_profile_step3_basin_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Basin"
+                android:hint="Hips"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -152,7 +152,7 @@
                 android:id="@+id/edit_profile_step3_foot_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Foot"
+                android:hint="Shoes size"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
