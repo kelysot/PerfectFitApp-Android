@@ -211,6 +211,9 @@ public class ProfileFragment extends Fragment {
                         followBtn.setText("Following");
                         followersSize++;
                         numOfFollowers.setText(String.valueOf(followersSize));
+                        Notification notification =  new Notification("0", currentUserName,
+                                profile.getUserName(), currentUserName + " started following you.", "", " ", "false");
+                        Model.instance.addNewNotification(notification, notification1 -> {});
                     } else
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later11",
                                 Toast.LENGTH_LONG).show();
@@ -404,7 +407,7 @@ public class ProfileFragment extends Fragment {
 
                 if (!Model.instance.getProfile().getUserName().equals(post.getProfileId())) {
                     Notification notification = new Notification("0", Model.instance.getProfile().getUserName(),
-                            post.getProfileId(), Model.instance.getProfile().getUserName() + " liked your post", "10/5/22", post.getPostId(), "false");
+                            post.getProfileId(), Model.instance.getProfile().getUserName() + " liked your post.", "10/5/22", post.getPostId(), "false");
                     Model.instance.addNewNotification(notification, notification1 -> {
                     });
                 }

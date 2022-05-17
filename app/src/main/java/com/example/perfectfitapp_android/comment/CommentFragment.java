@@ -34,6 +34,8 @@ import com.example.perfectfitapp_android.post.AddNewPostFragmentDirections;
 import com.example.perfectfitapp_android.post.PostPageFragmentArgs;
 import com.squareup.picasso.Picasso;
 
+import java.util.Collections;
+
 public class CommentFragment extends Fragment {
 
     CommentViewModel viewModel;
@@ -87,11 +89,10 @@ public class CommentFragment extends Fragment {
                commentET.setText("");
                addBtn.setEnabled(true);
 
-               //TODO: Add date on notification.
                Model.instance.getPostById(postId, post -> {
                    if(!Model.instance.getProfile().getUserName().equals(post.getProfileId())){
                        Notification notification =  new Notification("0", Model.instance.getProfile().getUserName(),
-                               post.getProfileId(), Model.instance.getProfile().getUserName() + " commented on your post", "10/5/22", postId, "false");
+                               post.getProfileId(), Model.instance.getProfile().getUserName() + " commented on your post.", "10/5/22", postId, "false");
                        Model.instance.addNewNotification(notification, notification1 -> {});
                    }
                });
@@ -108,6 +109,7 @@ public class CommentFragment extends Fragment {
 
     private void refresh() {
         Model.instance.getCommentsByPostId(postId, commentList -> {
+            Collections.reverse(commentList);
             viewModel.setData(commentList);
             adapter.notifyDataSetChanged();
         });

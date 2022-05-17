@@ -26,6 +26,7 @@ import com.example.perfectfitapp_android.model.Profile;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class NotificationFragment extends Fragment {
@@ -56,12 +57,16 @@ public class NotificationFragment extends Fragment {
         adapter = new MyAdapter();
         notificationList.setAdapter(adapter);
 
-        //TODO: Add post id to notification if we want to go to post by click on notification.
         adapter.setOnItemClickListener((v, position) -> {
             String notificationId = viewModel.getData().get(position).getNotificationId();
-            System.out.println("post " + notificationId + " was clicked");
+            System.out.println("notification " + notificationId + " was clicked");
             Model.instance.getNotificationById(notificationId, notification -> {
-                Navigation.findNavController(v).navigate(NotificationFragmentDirections.actionGlobalPostPageFragment(notification.getPostId(), "notification"));
+                if(!notification.getPostId().equals(" ")){
+                    Log.d("TAG4", notification.getPostId());
+                    Navigation.findNavController(v).navigate(NotificationFragmentDirections.actionGlobalPostPageFragment(notification.getPostId(), "notification"));
+                }
+                else
+                    Navigation.findNavController(v).navigate(NotificationFragmentDirections.actionGlobalProfileFragment(notification.getProfileIdFrom()));
             });
         });
 
@@ -73,10 +78,7 @@ public class NotificationFragment extends Fragment {
     private void refresh() {
         count = 0;
         List<Notification> list = new ArrayList<>();
-
         List<String> notifications = Model.instance.getProfile().getNotifications();
-        Log.d("TAG", Model.instance.getProfile().getUserName());
-        Log.d("TAG", Model.instance.getProfile().getNotifications(). toString());
         if(!notifications.isEmpty()){
             Model.instance.getNotificationsByIds(notifications , notificationsList -> {
                 if(notificationsList != null){
@@ -98,6 +100,7 @@ public class NotificationFragment extends Fragment {
                     if(count != 0){
                         Model.instance.removeBadge();
                     }
+                    Collections.reverse(list);
                     viewModel.setData(list);
                     adapter.notifyDataSetChanged();
                 }

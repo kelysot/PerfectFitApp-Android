@@ -864,6 +864,7 @@ public class Model {
 
     public void checkNotification(){
         //Check if the user have notifications
+        count= 0;
         List<String> notifications = Model.instance.getProfile().getNotifications();
         if(!notifications.isEmpty()){
             Log.d("TAG666", Model.instance.getProfile().getNotifications().toString());
@@ -871,6 +872,7 @@ public class Model {
                 if(notificationsList != null){
                     for (int i = 0; i < notificationsList.size(); i++){
                         if(notificationsList.get(i).getSeen().equals("false")){
+                            Log.d("TAG556", notificationsList.get(i).getNotificationId());
                             count++;
                         }
                     }
