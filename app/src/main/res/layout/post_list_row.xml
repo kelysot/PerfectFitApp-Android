@@ -172,7 +172,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/listrow_avatar_imv"
-            app:srcCompat="@drawable/ic_image_fill0_wght200_grad0_opsz48"
+            app:srcCompat="@drawable/ic_image"
             android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"/>
 

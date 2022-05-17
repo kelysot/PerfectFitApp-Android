@@ -340,7 +340,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/editpost_image_imv"
             android:layout_width="200dp"
             android:layout_height="200dp"
@@ -348,16 +348,21 @@
             android:src="@drawable/ic_gallery"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_rating_ratingbar" />
+            app:layout_constraintTop_toBottomOf="@+id/editpost_rating_ratingbar"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"/>
 
         <ImageButton
             android:id="@+id/editpost_add_photo_imv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="49dp"
+            android:layout_marginBottom="14dp"
             android:backgroundTint="#FAFAFA"
             android:src="@drawable/ic_addphotoo"
-            app:layout_constraintStart_toEndOf="@+id/editpost_image_imv"
-            tools:layout_editor_absoluteY="917dp" />
+            app:layout_constraintBottom_toTopOf="@+id/editpost_edit_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/editpost_image_imv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

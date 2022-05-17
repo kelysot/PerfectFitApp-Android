@@ -112,8 +112,8 @@
                     android:layout_marginTop="8dp"
                     android:isIndicator="true"
                     android:progressBackgroundTint="#3C3939"
-                    android:progressTint="#DDB893"
-                    android:secondaryProgressTint="#DDB893"
+                    android:progressTint="#8ec4b5"
+                    android:secondaryProgressTint="#8ec4b5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textview2"
@@ -132,15 +132,15 @@
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/postpage_image_imv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="280dp"
                     android:layout_height="237dp"
                     android:layout_marginTop="16dp"
                     android:src="@drawable/ic_gallery"
+                    android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/postpage_subcategort_tv"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"
-                    />
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout18"

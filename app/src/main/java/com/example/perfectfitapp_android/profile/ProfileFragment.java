@@ -352,15 +352,15 @@ public class ProfileFragment extends Fragment {
             }
 
             if (checkIfInsideWishList(post)) {
-                holder.addToWishList.setImageResource(R.drawable.ic_full_star);
+                holder.addToWishList.setImageResource(R.drawable.ic_full_star1);
             } else {
-                holder.addToWishList.setImageResource(R.drawable.ic_star);
+                holder.addToWishList.setImageResource(R.drawable.ic_star1);
             }
 
             if (checkIfInsideLikes(post)) {
-                holder.addToLikes.setImageResource(R.drawable.ic_red_heart);
+                holder.addToLikes.setImageResource(R.drawable.ic_full_heart);
             } else {
-                holder.addToLikes.setImageResource(R.drawable.ic_heart);
+                holder.addToLikes.setImageResource(R.drawable.ic_heart1);
             }
 
             if (post.getLikes().size() != 0) {
@@ -384,7 +384,7 @@ public class ProfileFragment extends Fragment {
                 Model.instance.editPost(post, isSuccess -> {
                     if (isSuccess) {
                         holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
-                        holder.addToLikes.setImageResource(R.drawable.ic_heart);
+                        holder.addToLikes.setImageResource(R.drawable.ic_heart1);
                         refresh();
                     } else {
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
@@ -397,7 +397,7 @@ public class ProfileFragment extends Fragment {
                 Model.instance.editPost(post, isSuccess -> {
                     if (isSuccess) {
                         holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
-                        holder.addToLikes.setImageResource(R.drawable.ic_red_heart);
+                        holder.addToLikes.setImageResource(R.drawable.ic_full_heart);
                         refresh();
                     } else {
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
@@ -420,7 +420,7 @@ public class ProfileFragment extends Fragment {
                 Model.instance.getProfile().getWishlist().remove(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if (isSuccess) {
-                        holder.addToWishList.setImageResource(R.drawable.ic_star);
+                        holder.addToWishList.setImageResource(R.drawable.ic_star1);
                     } else {
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
@@ -430,7 +430,7 @@ public class ProfileFragment extends Fragment {
                 Model.instance.getProfile().getWishlist().add(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if (isSuccess) {
-                        holder.addToWishList.setImageResource(R.drawable.ic_full_star);
+                        holder.addToWishList.setImageResource(R.drawable.ic_full_star1);
                         System.out.println("the posts added to the list");
                         System.out.println(Model.instance.getProfile().getWishlist());
                     } else {
