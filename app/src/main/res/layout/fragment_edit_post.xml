@@ -320,13 +320,13 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="#C3AF0303"
             android:text="Delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_add_photo_imv" />
+            app:layout_constraintTop_toBottomOf="@+id/editpost_image_imv" />
 
         <TextView
             android:id="@+id/textView21"
