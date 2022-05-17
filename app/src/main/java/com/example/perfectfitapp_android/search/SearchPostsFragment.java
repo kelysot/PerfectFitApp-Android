@@ -1,5 +1,6 @@
 package com.example.perfectfitapp_android.search;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -27,6 +28,7 @@ import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Notification;
 import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
+import com.example.perfectfitapp_android.model.generalModel;
 import com.example.perfectfitapp_android.profile.ProfileViewModel;
 import com.example.perfectfitapp_android.wishlist.WishListFragment;
 import com.example.perfectfitapp_android.wishlist.WishListFragmentDirections;
@@ -66,17 +68,18 @@ public class SearchPostsFragment extends Fragment {
 
         backToHomeBtn = view.findViewById(R.id.searchposts_back_to_home_btn);
         backToHomeBtn.setOnClickListener(v -> {
-            Set<String> names = SearchModel.instance.map.keySet();
-            String[] arr = new String[names.size()];
-            arr = names.toArray(arr);
-            System.out.println("before the delete: ");
-            System.out.println(SearchModel.instance.mapToServer);
-            for(String a : arr){
-                SearchModel.instance.mapToServer.remove(a);
-                SearchModel.instance.mapToServer.put(a, new ArrayList<>());
-            }
-            System.out.println("after the delete: ");
-            System.out.println(SearchModel.instance.mapToServer);
+//            Set<String> names = SearchModel.instance.map.keySet();
+//            String[] arr = new String[names.size()];
+//            arr = names.toArray(arr);
+//            System.out.println("before the delete: ");
+//            System.out.println(SearchModel.instance.mapToServer);
+//            for(String a : arr){
+//                SearchModel.instance.mapToServer.remove(a);
+//                SearchModel.instance.mapToServer.put(a, new ArrayList<>());
+//            }
+//            System.out.println("after the delete: ");
+//            System.out.println(SearchModel.instance.mapToServer);|
+            setMapToServer();
             Navigation.findNavController(view).navigate(SearchPostsFragmentDirections.actionGlobalHomePageFragment());
         });
 
@@ -103,6 +106,23 @@ public class SearchPostsFragment extends Fragment {
                 Navigation.findNavController(v).navigate(SearchPostsFragmentDirections.actionGlobalPostPageFragment(postId,"wishlist" ));
             });
         });
+
+        if(viewModel.getData().size() == 0){
+            String msg = "No matching posts found";
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+            builder.setNegativeButton("OK", (dialog, which) ->{
+                setMapToServer();
+                //TODO: move to homepage or searchFragment?
+                Navigation.findNavController(view).navigate(SearchPostsFragmentDirections.actionGlobalHomePageFragment());
+                dialog.cancel();
+            });
+
+            AlertDialog alert = builder.create();
+            alert.setTitle("Error");
+            alert.setMessage("\n" + msg + "\n");
+            alert.show();
+        }
 
 //        refresh();
 
@@ -334,5 +354,15 @@ public class SearchPostsFragment extends Fragment {
 
     public boolean checkIfInsideLikes(Post post){
         return post.getLikes().contains(Model.instance.getProfile().getUserName());
+    }
+
+        public void setMapToServer(){
+        Set<String> names = generalModel.instance.map.keySet();
+        String[] arr = new String[names.size()];
+        arr = names.toArray(arr);
+        for(String a : arr){
+            SearchModel.instance.mapToServer.remove(a);
+            SearchModel.instance.mapToServer.put(a, new ArrayList<>());
+        }
     }
 }

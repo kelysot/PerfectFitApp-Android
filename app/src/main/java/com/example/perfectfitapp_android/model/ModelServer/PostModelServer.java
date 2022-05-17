@@ -412,6 +412,8 @@ public class PostModelServer {
                     ArrayList<String> bodyTypes = jsonArrayToArrayList(bodyTypesJson);
                     JsonArray bodyTypeDescriptionJson = json.get(0).getAsJsonObject().get("bodyTypeDescription").getAsJsonArray();
                     ArrayList<String> bodyTypeDescription = jsonArrayToArrayList(bodyTypeDescriptionJson);
+                    JsonArray genderJson = json.get(0).getAsJsonObject().get("gender").getAsJsonArray();
+                    ArrayList<String> gender = jsonArrayToArrayList(genderJson);
 
                     HashMap<String, List<String>> map = new HashMap<>();
                     map.put("Sizes", sizes);
@@ -419,6 +421,7 @@ public class PostModelServer {
                     map.put("Colors", colors);
                     map.put("BodyTypes", bodyTypes);
                     map.put("BodyTypeDescription",bodyTypeDescription);
+                    map.put("Gender", gender);
 
                     listener.onComplete(map);
                 }
