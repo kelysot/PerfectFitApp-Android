@@ -14,8 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.perfectfitapp_android.R;
+import com.example.perfectfitapp_android.model.generalModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class CreateProfileStep2Fragment extends Fragment {
@@ -24,7 +26,7 @@ public class CreateProfileStep2Fragment extends Fragment {
     Button continueBtn;
     ImageButton leftBtn, rightBtn;
     ImageView bodyImage;
-    String[] bodyTypes, bodyDescription;
+    List<String> bodyTypesList, bodyDescriptionList;
     int place = 0;
     ArrayList<Integer> resBodyType;
 
@@ -50,11 +52,13 @@ public class CreateProfileStep2Fragment extends Fragment {
         continueBtn = view.findViewById(R.id.register_step2_continue_btn);
         continueBtn.setOnClickListener(v-> continueStep3(view));
 
-        bodyTypes = getResources().getStringArray(R.array.body_types);
-        bodyDescription = getResources().getStringArray(R.array.body_type_description);
+        bodyTypesList = generalModel.instance.map.get("BodyTypes");
+        bodyDescriptionList = generalModel.instance.map.get("BodyTypeDescription");
 
         setResBodyType();
         setBodyType();
+
+        //TODO bring the images of bodyTypes from the db
 
         return view;
     }
@@ -67,7 +71,7 @@ public class CreateProfileStep2Fragment extends Fragment {
     }
 
     private void goRight() {
-        if(place != (bodyTypes.length-1)){
+        if(place != bodyTypesList.size() - 1){
             place++;
         }
         setBodyType();
@@ -75,15 +79,16 @@ public class CreateProfileStep2Fragment extends Fragment {
 
     private void continueStep3(View view) {
         CreateProfileModel.instance.profile.setBodyType(bodyTypeTv.getText().toString());
-//        Navigation.findNavController(view).navigate(R.id.action_registerStep2Fragment2_to_registerStep3Fragment2);
         Navigation.findNavController(view).navigate(R.id.action_createProfileStep2Fragment2_to_createProfileStep3Fragment2);
     }
 
 
     public void setBodyType(){
-        descriptionText.setText(bodyDescription[place]);
+        System.out.println("------- " + bodyDescriptionList);
+        System.out.println("------- " + bodyTypesList);
+        descriptionText.setText(bodyDescriptionList.get(place));
         bodyImage.setImageResource(resBodyType.get(place));
-        bodyTypeTv.setText(bodyTypes[place]);
+        bodyTypeTv.setText(bodyTypesList.get(place));
     }
 
     public void setResBodyType(){
@@ -104,7 +109,6 @@ public class CreateProfileStep2Fragment extends Fragment {
             resBodyType.add(R.drawable.body_trapezoid_men);
             resBodyType.add(R.drawable.body_round_men);
             resBodyType.add(R.drawable.body_rectangle_man);
-
         }
     }
 }
