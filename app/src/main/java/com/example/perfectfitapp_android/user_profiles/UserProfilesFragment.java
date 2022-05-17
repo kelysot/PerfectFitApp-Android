@@ -30,6 +30,7 @@ import com.example.perfectfitapp_android.login.LoginActivity;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.model.SubCategory;
+import com.example.perfectfitapp_android.model.generalModel;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -58,6 +59,12 @@ public class UserProfilesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_profiles, container, false);
 
         model = Model.instance;
+
+
+        /************* initialize general *************/
+//        Model.instance.getGeneral(map -> {
+//            generalModel.instance.map = map;
+//        });
 
         /************* initilize categories *************/
         Model.instance.setCategories(new LinkedList<>());
