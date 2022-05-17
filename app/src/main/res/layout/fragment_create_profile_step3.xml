@@ -22,19 +22,59 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
+            android:text="We at PerfectFit want to present you with the most tailored posts for you, so we ask you to fill in the following details:"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Explanation image is shown below"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="361dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:text="Please write down the following details in cm:"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout8"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             app:boxBackgroundColor="@color/myWhite"
             app:boxStrokeColor="#c1c1c1"
             app:hintTextColor="#4f4f4f"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout20"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7">
+            app:layout_constraintTop_toBottomOf="@+id/textView28">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_step3_shoulder_et"
@@ -49,14 +89,12 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
             app:boxBackgroundColor="@color/myWhite"
             app:boxStrokeColor="#c1c1c1"
             app:hintTextColor="#4f4f4f"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout21"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout8">
+            app:layout_constraintBaseline_toBaselineOf="@+id/textInputLayout8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayout8">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_step3_chest_et"
@@ -76,15 +114,15 @@
             app:boxBackgroundColor="@color/myWhite"
             app:boxStrokeColor="#c1c1c1"
             app:hintTextColor="#4f4f4f"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout22"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout20">
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout8">
+
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_step3_basin_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Basin"
+                android:hint="Hips"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,14 +131,13 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
             app:boxBackgroundColor="@color/myWhite"
             app:boxStrokeColor="#c1c1c1"
             app:hintTextColor="#4f4f4f"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout23"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout21">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayout21"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout20">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_step3_waist_et"
@@ -109,6 +146,20 @@
                 android:hint="Waist"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Please write the height using cm and the weight using kg"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout21" />
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout23"
@@ -120,9 +171,8 @@
             app:boxBackgroundColor="@color/myWhite"
             app:boxStrokeColor="#c1c1c1"
             app:hintTextColor="#4f4f4f"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout22">
+            app:layout_constraintTop_toBottomOf="@+id/textView29">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_step3_height_et"
@@ -137,14 +187,12 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
             app:boxBackgroundColor="@color/myWhite"
             app:boxStrokeColor="#c1c1c1"
             app:hintTextColor="#4f4f4f"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout25"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout23">
+            app:layout_constraintBaseline_toBaselineOf="@+id/textInputLayout23"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayout23">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_step3_weight_et"
@@ -155,6 +203,20 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Please write down your average shoe size"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout24" />
+
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout25"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -162,61 +224,57 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="89dp"
             app:boxBackgroundColor="@color/myWhite"
             app:boxStrokeColor="#c1c1c1"
             app:hintTextColor="#4f4f4f"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout24">
+            app:layout_constraintTop_toBottomOf="@+id/textView27">
+
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_step3_foot_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Foot"
+                android:hint="Shoe size"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:id="@+id/register_step3_explanation_image"
-            android:layout_width="191dp"
-            android:layout_height="500dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="30dp"
+            android:layout_width="370dp"
+            android:layout_height="290dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/body_measurement_for_her"
-            app:layout_constraintBottom_toTopOf="@+id/register_step3_register_btn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textInputLayout21"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout25" />
 
         <Button
             android:id="@+id/register_step3_register_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="20dp"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
             android:backgroundTint="#8ec4b5"
             android:text="Create Profile"
             android:textColor="#FFFFFF"
             app:cornerRadius="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_step3_explanation_image" />
 
+
         <!--        <Button-->
-<!--            android:id="@+id/register_step3_continue_btn"-->
-<!--            android:layout_width="130dp"-->
-<!--            android:layout_height="46dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_marginEnd="8dp"-->
-<!--            android:layout_marginBottom="15dp"-->
-<!--            android:text="Continue"-->
-<!--            app:cornerRadius="20dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/textInputLayout25" />-->
+        <!--            android:id="@+id/register_step3_continue_btn"-->
+        <!--            android:layout_width="130dp"-->
+        <!--            android:layout_height="46dp"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:layout_marginEnd="8dp"-->
+        <!--            android:layout_marginBottom="15dp"-->
+        <!--            android:text="Continue"-->
+        <!--            app:cornerRadius="20dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/textInputLayout25" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

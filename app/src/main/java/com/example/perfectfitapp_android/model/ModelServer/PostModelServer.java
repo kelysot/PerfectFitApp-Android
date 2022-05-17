@@ -392,6 +392,9 @@ public class PostModelServer {
 
     public void getGeneral(Model.getGeneralListener listener) {
 
+        // here we got the sizes/companies/gender etc. but not the categories
+        // categories we get from getAllCategories.
+
         String token = server.sp.getString("ACCESS_TOKEN", "");
         Call<JsonObject> call = server.service.getGeneral(token);
         call.enqueue(new Callback<JsonObject>() {

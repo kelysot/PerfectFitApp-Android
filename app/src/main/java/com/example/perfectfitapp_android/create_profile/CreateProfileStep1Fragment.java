@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -22,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -29,10 +31,12 @@ import android.widget.Toast;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.model.generalModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.InputStream;
+import java.util.List;
 
 
 public class CreateProfileStep1Fragment extends Fragment {
@@ -40,14 +44,17 @@ public class CreateProfileStep1Fragment extends Fragment {
     private static final int REQUEST_IMAGE_PIC = 2;
     private String mImageUrl = "";
 
-    TextInputEditText firstNameEt, lastNameEt, birthdayEt, userNameEt;
+    TextInputEditText firstNameEt, lastNameEt, birthdayEt, userNameEt, genderTxl;
     ImageView image, addPhoto;
     TextInputLayout genderTxtIL;
     AutoCompleteTextView genderAuto; // catch the gender
-    String[] genderArr;
+//    String[] genderArr;
+    List<String> genderList;
     ArrayAdapter<String> genderAdapter;
     Button continueBtn, chooseDate;
     Bitmap mBitmap;
+    CheckBox femaleCB, maleCB;
+    String gender;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +66,15 @@ public class CreateProfileStep1Fragment extends Fragment {
         userNameEt = view.findViewById(R.id.register_step1_username_et);
         birthdayEt = view.findViewById(R.id.register_step1_birthday_et);
         image = view.findViewById(R.id.register_step1_image_imv);
+        femaleCB = view.findViewById(R.id.register_step1_female_cb);
+        maleCB = view.findViewById(R.id.register_step1_male_cb);
+        genderTxl = view.findViewById(R.id.register_step1_gender_txl);
+
+        genderTxl.setText("Gender");
+        genderTxl.setTextColor(Color.BLACK);
+        genderTxl.setEnabled(false);
+//        genderTxtIL = view.findViewById(R.id.register_step1_gender_txl);
+//        genderAuto = view.findViewById(R.id.register_step1_gender_et);
 
         addPhoto = view.findViewById(R.id.register_step1_add_photo_imv);
         continueBtn = view.findViewById(R.id.register_step1_continue_btn);
@@ -71,7 +87,33 @@ public class CreateProfileStep1Fragment extends Fragment {
             pickDate(view);
         });
 
-        setAllDropDownMenus(view);
+        if(!CreateProfileModel.instance.profile.getGender().isEmpty()){
+            String genderFromServer = CreateProfileModel.instance.profile.getGender().toString();
+            if(genderFromServer.equals("Female")){
+                femaleCB.setChecked(true);
+            }
+            else{
+                maleCB.setChecked(true);
+            }
+        }
+
+        femaleCB.setOnClickListener(v -> {
+            if(maleCB.isChecked()){
+                maleCB.setChecked(false);
+            }
+            gender = "Female";
+            System.out.println("female");
+        });
+
+        maleCB.setOnClickListener(v -> {
+            if(femaleCB.isChecked()){
+                femaleCB.setChecked(false);
+            }
+            gender = "Male";
+            System.out.println("male");
+        });
+
+
 
         //TODO: fix the problem - in case we turn back from f.2 to f.1, we can't choose again female/male.
         // Can use checkbox instead.
@@ -151,16 +193,44 @@ public class CreateProfileStep1Fragment extends Fragment {
 
     public void checkIfUserNameExist(View view){
 
+        continueBtn.setEnabled(false);
         String firstName = firstNameEt.getText().toString();
         String lastName = lastNameEt.getText().toString();
         String userName = userNameEt.getText().toString();
         String birthday = birthdayEt.getText().toString();
-        String gender = genderAuto.getText().toString();
+        System.out.println("the gender is: " + gender);
 
-        Model.instance.checkIfUserNameExist(userName, new Model.CheckIfUserNameExist() {
-            @Override
-            public void onComplete(Boolean isSuccess) {
-                if(isSuccess){
+        boolean flag = true;
+
+        if(firstName.isEmpty()){
+            firstNameEt.setError("Please enter your first name");
+            continueBtn.setEnabled(true);
+            flag = false;
+        }
+        if(lastName.isEmpty()){
+            lastNameEt.setError("Please enter your last name");
+            continueBtn.setEnabled(true);
+            flag = false;
+        }
+        if(userName.isEmpty()){
+            userNameEt.setError("Please enter your user name");
+            continueBtn.setEnabled(true);
+            flag = false;
+        }
+        if(birthday.isEmpty()){
+            birthdayEt.setError("Please enter your birthday");
+            continueBtn.setEnabled(true);
+            flag = false;
+        }
+        if(gender == null){
+            genderTxl.setError("You must choose a gender");
+            continueBtn.setEnabled(true);
+            flag = false;
+        }
+
+        if(flag){
+            Model.instance.checkIfUserNameExist(userName, isSuccess -> {
+                if (isSuccess) {
                     CreateProfileModel.instance.profile.setUserName(userName);
                     CreateProfileModel.instance.profile.setFirstName(firstName);
                     CreateProfileModel.instance.profile.setLastName(lastName);
@@ -168,29 +238,13 @@ public class CreateProfileStep1Fragment extends Fragment {
                     CreateProfileModel.instance.profile.setGender(gender);
                     CreateProfileModel.instance.profile.setUserImageUrl(mImageUrl);
                     Navigation.findNavController(view).navigate(R.id.action_createProfileStep1Fragment2_to_createProfileStep2Fragment2);
-                }
-                else{
+                } else {
                     Toast.makeText(MyApplication.getContext(), "The user name you choose already exist, please try another one.",
                             Toast.LENGTH_LONG).show();
                 }
-            }
-        });
-    }
-
-    public void setAllDropDownMenus(View view){
-        genderTxtIL = view.findViewById(R.id.register_step1_gender_txl);
-        genderAuto = view.findViewById(R.id.register_step1_gender_et);
-
-        genderArr = getResources().getStringArray(R.array.gender);
-        genderAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, genderArr);
-        if(!CreateProfileModel.instance.profile.getGender().equals("")){
-            genderAuto.setText(CreateProfileModel.instance.profile.getGender());
+            });
         }
-        genderAuto.setAdapter(genderAdapter);
-        genderAuto.setThreshold(1);
-
     }
-
 
     private void pickDate(View view) {
         showDatePickerDialog(view);
