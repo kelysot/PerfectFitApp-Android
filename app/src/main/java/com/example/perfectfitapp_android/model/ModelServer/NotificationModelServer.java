@@ -62,7 +62,6 @@ public class NotificationModelServer {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Log.d("TAG", response.message());
                 if (response.code() == 200) {
                     Notification newNotification  = new Notification();
                     newNotification = Notification.jsonElementToNotification(response.body().get("notification"));
