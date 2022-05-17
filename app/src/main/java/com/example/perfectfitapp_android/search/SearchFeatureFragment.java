@@ -26,6 +26,7 @@ import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Notification;
 import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
+import com.example.perfectfitapp_android.model.generalModel;
 import com.example.perfectfitapp_android.sub_category.SubCategoryDetailsPostsFragmentArgs;
 import com.example.perfectfitapp_android.wishlist.WishListFragment;
 import com.example.perfectfitapp_android.wishlist.WishListFragmentDirections;
@@ -156,13 +157,6 @@ public class SearchFeatureFragment extends Fragment {
             else{
                 holder.cb.setChecked(false);
             }
-
-
-//            if (listToSave.contains(list.get(position))) {
-//                holder.cb.setChecked(true);
-//            } else {
-//                holder.cb.setChecked(false);
-//            }
         }
 
         @Override
@@ -180,27 +174,33 @@ public class SearchFeatureFragment extends Fragment {
     public void checkFeature(){
         if(feature.equals("Categories")){
             nameTv.setText("Categories");
-            theList = SearchModel.instance.map.get("Categories");
+            theList = generalModel.instance.map.get("Categories");
+//            theList = SearchModel.instance.map.get("Categories");
         }
         else if(feature.equals("Sizes")){
             nameTv.setText("Sizes");
-            theList = SearchModel.instance.map.get("Sizes");
+//            theList = SearchModel.instance.map.get("Sizes");
+            theList = generalModel.instance.map.get("Sizes");
         }
         else if(feature.equals("Companies")){
             nameTv.setText("Companies");
-            theList = SearchModel.instance.map.get("Companies");
+//            theList = SearchModel.instance.map.get("Companies");
+            theList = generalModel.instance.map.get("Companies");
         }
         else if(feature.equals("Colors")){
             nameTv.setText("Colors");
-            theList = SearchModel.instance.map.get("Colors");
+//            theList = SearchModel.instance.map.get("Colors");
+            theList = generalModel.instance.map.get("Colors");
         }
         else if(feature.equals("BodyTypes")){
             nameTv.setText("Body Types");
-            theList = SearchModel.instance.map.get("BodyTypes");
+//            theList = SearchModel.instance.map.get("BodyTypes");
+            theList = generalModel.instance.map.get("BodyTypes");
         }
         else if(feature.equals("Gender")){
             nameTv.setText("Gender");
-            theList = SearchModel.instance.map.get("Gender");
+//            theList = SearchModel.instance.map.get("Gender");
+            theList = generalModel.instance.map.get("Gender");
         }
     }
 }
