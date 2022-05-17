@@ -410,20 +410,15 @@ public class PostModelServer {
                     ArrayList<String> colors = jsonArrayToArrayList(colorsJson);
                     JsonArray bodyTypesJson = json.get(0).getAsJsonObject().get("bodyTypes").getAsJsonArray();
                     ArrayList<String> bodyTypes = jsonArrayToArrayList(bodyTypesJson);
-
-//                    System.out.println(sizes);
-//                    System.out.println(colors);
-//                    System.out.println(companies);
-//                    System.out.println(bodyTypes);
+                    JsonArray bodyTypeDescriptionJson = json.get(0).getAsJsonObject().get("bodyTypeDescription").getAsJsonArray();
+                    ArrayList<String> bodyTypeDescription = jsonArrayToArrayList(bodyTypeDescriptionJson);
 
                     HashMap<String, List<String>> map = new HashMap<>();
                     map.put("Sizes", sizes);
                     map.put("Companies", companies);
                     map.put("Colors", colors);
                     map.put("BodyTypes", bodyTypes);
-
-//                    System.out.println("----------------------------");
-//                    System.out.println(map);
+                    map.put("BodyTypeDescription",bodyTypeDescription);
 
                     listener.onComplete(map);
                 }
@@ -443,7 +438,6 @@ public class PostModelServer {
                 Log.d("TAG", "failed in getGeneral 2");
             }
         });
-
     }
 
     public ArrayList<String> jsonArrayToArrayList(JsonArray js){
