@@ -62,9 +62,9 @@ public class UserProfilesFragment extends Fragment {
 
 
         /************* initialize general *************/
-        Model.instance.getGeneral(map -> {
-            generalModel.instance.map = map;
-        });
+//        Model.instance.getGeneral(map -> {
+//            generalModel.instance.map = map;
+//        });
 
         /************* initilize categories *************/
         Model.instance.setCategories(new LinkedList<>());
