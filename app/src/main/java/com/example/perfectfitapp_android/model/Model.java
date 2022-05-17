@@ -358,10 +358,44 @@ public class Model {
         });
     }
 
+    /*--------------------------------------------------------*/
+
     public Boolean isSignIn(){
         User user = AppLocalDb.db.userDao().getUserRoom();
         return user != null;
     }
+
+    /*--------------------------------------------------------*/
+
+    public interface AddToRoomListener{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void addToRoom(User user, AddToRoomListener listener){
+        if (user != null) {
+            executor.execute(() -> {
+                AppLocalDb.db.userDao().insertUser(user);
+                listener.onComplete(true);
+            });
+        } else
+            listener.onComplete(false);
+    }
+
+    /*--------------------------------------------------------*/
+
+    public interface RemoveFromRoomListener{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void removeFromRoom(RemoveFromRoomListener listener){
+        executor.execute(() -> {
+            User user = AppLocalDb.db.userDao().getUserRoom();
+            AppLocalDb.db.userDao().deleteByUserEmail(user.getEmail());
+            listener.onComplete(true);
+        });
+    }
+
+    /*--------------------------------------------------------*/
 
     public interface GetUserFromRoomListener{
         void onComplete(User user);
