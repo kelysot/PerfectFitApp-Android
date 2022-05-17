@@ -15,8 +15,10 @@ import android.widget.TextView;
 
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.create_profile.CreateProfileModel;
+import com.example.perfectfitapp_android.model.generalModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class EditProfileStep2Fragment extends Fragment {
@@ -25,9 +27,9 @@ public class EditProfileStep2Fragment extends Fragment {
     Button continueBtn;
     ImageButton leftBtn, rightBtn;
     ImageView bodyImage;
-    String[] bodyTypes, bodyDescription;
     int place = 0;
     ArrayList<Integer> resBodyType;
+    List<String> bodyTypesList, bodyDescriptionList;
 
 
     @Override
@@ -35,16 +37,17 @@ public class EditProfileStep2Fragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_profile_step2, container, false);
 
+        place = 0;
         descriptionText = view.findViewById(R.id.edit_profile_step2_downtext);
         descriptionText.setEnabled(false);
 
-        bodyTypes = getResources().getStringArray(R.array.body_types);
-        bodyDescription = getResources().getStringArray(R.array.body_type_description);
+        bodyTypesList = generalModel.instance.map.get("BodyTypes");
+        bodyDescriptionList = generalModel.instance.map.get("BodyTypeDescription");
 
         bodyImage = view.findViewById(R.id.edit_profile_step2_bodyimage_imv);
         bodyTypeTv = view.findViewById(R.id.edit_profile_step2_bodytype_name_et);
 
-        for (String str:bodyTypes) {
+        for (String str:bodyTypesList) {
             if(str.equals(ModelProfile.instance.getEditProfile().getBodyType())){
                 break;
             }
@@ -55,7 +58,6 @@ public class EditProfileStep2Fragment extends Fragment {
 
         setResBodyType();
         setBodyType();
-
 
         rightBtn = view.findViewById(R.id.edit_profile_step2_right_img_btn);
         rightBtn.setOnClickListener(v-> goRight());
@@ -69,30 +71,31 @@ public class EditProfileStep2Fragment extends Fragment {
     }
 
     private void setBodyType() {
-        descriptionText.setText(bodyDescription[place]);
+        System.out.println("the place = " + place);
+        descriptionText.setText(bodyDescriptionList.get(place));
         bodyImage.setImageResource(resBodyType.get(place));
-        bodyTypeTv.setText(bodyTypes[place]);
+        bodyTypeTv.setText(bodyTypesList.get(place));
     }
 
-    private void setResBodyType() {
+    public void setResBodyType(){
+
         resBodyType = new ArrayList<>();
 
         if (ModelProfile.instance.getEditProfile().getGender().equals("Female")) {
 
-            resBodyType.add(R.drawable.body_girl_endomorph);
-            resBodyType.add(R.drawable.body_girl_mesomorph);
             //TODO: find Pear/Apple picture
-            resBodyType.add(R.drawable.body_girl_mesomorph);
-            resBodyType.add(R.drawable.body_girl_ectomorph);
+
+            // if its a female:
+            resBodyType.add(R.drawable.body_hourglass_female);
+            resBodyType.add(R.drawable.body_pear_female);
+            resBodyType.add(R.drawable.body_round_female);
+            resBodyType.add(R.drawable.body_rectangle_female);
         }
         else{
-
-            resBodyType.add(R.drawable.body_boy_endomorph);
-            resBodyType.add(R.drawable.body_boy_mesomorph);
-            //TODO: find Pear/Apple picture
-            resBodyType.add(R.drawable.body_boy_mesomorph);
-            resBodyType.add(R.drawable.body_boy_ectomorph);
-
+            resBodyType.add(R.drawable.body_inverted_triangle_men);
+            resBodyType.add(R.drawable.body_trapezoid_men);
+            resBodyType.add(R.drawable.body_round_men);
+            resBodyType.add(R.drawable.body_rectangle_man);
         }
     }
 
@@ -104,7 +107,7 @@ public class EditProfileStep2Fragment extends Fragment {
     }
 
     private void goRight() {
-        if(place != (bodyTypes.length-1)){
+        if(place != (bodyTypesList.size()-1)){
             place++;
         }
         setBodyType();

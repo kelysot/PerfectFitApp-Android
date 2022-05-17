@@ -97,36 +97,35 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/edit_profile_step1_gender_txl"-->
+        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"-->
+        <!--            android:layout_width="170dp"-->
+        <!--            android:layout_height="60dp"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:hint="Gender"-->
+        <!--            app:boxBackgroundColor="@color/white"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/edit_profile_4">-->
+
+        <!--            <AutoCompleteTextView-->
+        <!--                android:id="@+id/edit_profile_step1_gender_et"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:backgroundTint="#fafafa"-->
+        <!--                android:inputType="none" />-->
+
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_profile_step1_gender_txl"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_width="170dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:hint="Gender"
-            app:boxBackgroundColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_4">
-
-            <AutoCompleteTextView
-                android:id="@+id/edit_profile_step1_gender_et"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#fafafa"
-                android:inputType="none" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="170dp"
+            android:id="@+id/textInputLayout30"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="70dp"
+            android:layout_marginTop="16dp"
             app:boxBackgroundColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/edit_profile_step1_continue_btn"
-            app:layout_constraintStart_toEndOf="@+id/edit_profile_step1_gender_txl"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_profile_4">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -140,18 +139,15 @@
 
         <Button
             android:id="@+id/edit_profile_step1_continue_btn"
-            android:layout_width="169dp"
-            android:layout_height="47dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginEnd="80dp"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="35dp"
             android:backgroundTint="#8ec4b5"
             android:text="Continue"
             app:cornerRadius="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_step1_gender_txl" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_profile_gendet_txt" />
 
         <ImageButton
             android:id="@+id/edit_profile_step1_add_photo_imv"
@@ -167,6 +163,39 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/edit_profile_step1_image_imv"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/edit_profile_step1_female_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="Female"
+            app:layout_constraintBaseline_toBaselineOf="@+id/edit_profile_gendet_txt"
+            app:layout_constraintStart_toEndOf="@+id/edit_profile_gendet_txt" />
+
+        <CheckBox
+            android:id="@+id/edit_profile_step1_male_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Male"
+            app:boxBackgroundColor="@color/white"
+            app:layout_constraintBaseline_toBaselineOf="@+id/edit_profile_step1_female_cb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.326"
+            app:layout_constraintStart_toEndOf="@+id/edit_profile_step1_female_cb" />
+
+        <EditText
+            android:id="@+id/edit_profile_gendet_txt"
+            android:layout_width="130dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Gender"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout30" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

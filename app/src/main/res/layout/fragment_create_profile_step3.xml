@@ -152,6 +152,7 @@
             android:id="@+id/textView29"
             android:layout_width="380dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
             android:text="Please write the height using cm and the weight using kg"
             android:textSize="16sp"
@@ -208,6 +209,7 @@
             android:id="@+id/textView27"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
             android:text="Please write down your average shoe size"
             android:textSize="16sp"
@@ -235,7 +237,7 @@
                 android:id="@+id/register_step3_foot_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Shoe size"
+                android:hint="Shoes size"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
