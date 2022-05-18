@@ -75,38 +75,76 @@ public class CreateProfileStep3Fragment extends Fragment {
     private void registerApp(View view) {
 
         registerBtn.setEnabled(false);
+        boolean flag = true;
 
-        CreateProfileModel.instance.profile.setShoulder(shoulderEt.getText().toString());
-        CreateProfileModel.instance.profile.setChest(chestEt.getText().toString());
-        CreateProfileModel.instance.profile.setBasin(basinEt.getText().toString());
-        CreateProfileModel.instance.profile.setWaist(waistEt.getText().toString());
-        CreateProfileModel.instance.profile.setHeight(heightEt.getText().toString());
-        CreateProfileModel.instance.profile.setWeight(weightEt.getText().toString());
-        CreateProfileModel.instance.profile.setFoot(footEt.getText().toString());
+        if(shoulderEt.getText().toString().isEmpty()){
+            shoulderEt.setError("Please your size");
+            registerBtn.setEnabled(true);
+            flag = false;
+        }
+        if(chestEt.getText().toString().isEmpty()){
+            chestEt.setError("Please your size");
+            registerBtn.setEnabled(true);
+            flag = false;
+        }
+        if(basinEt.getText().toString().isEmpty()){
+            basinEt.setError("Please your size");
+            registerBtn.setEnabled(true);
+            flag = false;
+        }
+        if(waistEt.getText().toString().isEmpty()){
+            waistEt.setError("Please your size");
+            registerBtn.setEnabled(true);
+            flag = false;
+        }
+        if(heightEt.getText().toString().isEmpty()){
+            heightEt.setError("Please your size");
+            registerBtn.setEnabled(true);
+            flag = false;
+        }
+        if(weightEt.getText().toString().isEmpty()){
+            weightEt.setError("Please your size");
+            registerBtn.setEnabled(true);
+            flag = false;
+        }
+        if(footEt.getText().toString().isEmpty()){
+            footEt.setError("Please your size");
+            registerBtn.setEnabled(true);
+            flag = false;
+        }
 
-        String email = Model.instance.getUser().getEmail();
-        String userName = CreateProfileModel.instance.profile.getUserName();
+        if(flag) {
 
-        CreateProfileModel.instance.profile.setUserId(Model.instance.getUser().getEmail());
+            CreateProfileModel.instance.profile.setShoulder(shoulderEt.getText().toString());
+            CreateProfileModel.instance.profile.setChest(chestEt.getText().toString());
+            CreateProfileModel.instance.profile.setBasin(basinEt.getText().toString());
+            CreateProfileModel.instance.profile.setWaist(waistEt.getText().toString());
+            CreateProfileModel.instance.profile.setHeight(heightEt.getText().toString());
+            CreateProfileModel.instance.profile.setWeight(weightEt.getText().toString());
+            CreateProfileModel.instance.profile.setFoot(footEt.getText().toString());
 
-        Model.instance.createProfile(CreateProfileModel.instance.profile, isSuccess -> {
-            if(isSuccess){
-                model.getUser().getProfilesArray().add(CreateProfileModel.instance.profile.getUserName());
+            String email = Model.instance.getUser().getEmail();
+            String userName = CreateProfileModel.instance.profile.getUserName();
 
-                Model.instance.getProfileFromServer(email, userName, profile -> {
-                    if(profile != null){
-                        Model.instance.setProfile(profile);
-                        Navigation.findNavController(view).navigate(R.id.action_global_userProfilesFragment2);
-                    }
-                    else{
-                        registerBtn.setEnabled(true);
-                    }
-                });
-            }
-            else{
-                registerBtn.setEnabled(true);
-            }
-        });
+            CreateProfileModel.instance.profile.setUserId(Model.instance.getUser().getEmail());
+
+            Model.instance.createProfile(CreateProfileModel.instance.profile, isSuccess -> {
+                if (isSuccess) {
+                    model.getUser().getProfilesArray().add(CreateProfileModel.instance.profile.getUserName());
+
+                    Model.instance.getProfileFromServer(email, userName, profile -> {
+                        if (profile != null) {
+                            Model.instance.setProfile(profile);
+                            Navigation.findNavController(view).navigate(R.id.action_global_userProfilesFragment2);
+                        } else {
+                            registerBtn.setEnabled(true);
+                        }
+                    });
+                } else {
+                    registerBtn.setEnabled(true);
+                }
+            });
+        }
     }
 
 

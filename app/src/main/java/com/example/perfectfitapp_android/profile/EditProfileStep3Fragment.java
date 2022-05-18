@@ -61,31 +61,70 @@ public class EditProfileStep3Fragment extends Fragment {
     private void saveChanges(View view) {
 
         saveChangesBtn.setEnabled(false);
+        boolean flag = true;
 
-        ModelProfile.instance.getEditProfile().setShoulder(shoulderEt.getText().toString());
-        ModelProfile.instance.getEditProfile().setChest(chestEt.getText().toString());
-        ModelProfile.instance.getEditProfile().setBasin(basinEt.getText().toString());
-        ModelProfile.instance.getEditProfile().setWaist(waistEt.getText().toString());
-        ModelProfile.instance.getEditProfile().setHeight(heightEt.getText().toString());
-        ModelProfile.instance.getEditProfile().setWeight(weightEt.getText().toString());
-        ModelProfile.instance.getEditProfile().setFoot(footEt.getText().toString());
-        ModelProfile.instance.getEditProfile().setShoulder(shoulderEt.getText().toString());
-        ModelProfile.instance.getEditProfile().setShoulder(shoulderEt.getText().toString());
+        if(shoulderEt.getText().toString().isEmpty()){
+            shoulderEt.setError("Please your size");
+            saveChangesBtn.setEnabled(true);
+            flag = false;
+        }
+        if(chestEt.getText().toString().isEmpty()){
+            chestEt.setError("Please your size");
+            saveChangesBtn.setEnabled(true);
+            flag = false;
+        }
+        if(basinEt.getText().toString().isEmpty()){
+            basinEt.setError("Please your size");
+            saveChangesBtn.setEnabled(true);
+            flag = false;
+        }
+        if(waistEt.getText().toString().isEmpty()){
+            waistEt.setError("Please your size");
+            saveChangesBtn.setEnabled(true);
+            flag = false;
+        }
+        if(heightEt.getText().toString().isEmpty()){
+            heightEt.setError("Please your size");
+            saveChangesBtn.setEnabled(true);
+            flag = false;
+        }
+        if(weightEt.getText().toString().isEmpty()){
+            weightEt.setError("Please your size");
+            saveChangesBtn.setEnabled(true);
+            flag = false;
+        }
+        if(footEt.getText().toString().isEmpty()){
+            footEt.setError("Please your size");
+            saveChangesBtn.setEnabled(true);
+            flag = false;
+        }
 
-        //TODO: change the function when we have the refresh
+        if(flag) {
 
-        Model.instance.editProfile(ModelProfile.instance.getPreviousName(),Model.instance.getProfile(), isSuccess -> {
-            if(isSuccess){
-                //change the profile list of the user in the Model
-                Model.instance.setProfile(ModelProfile.instance.getEditProfile());
-                ArrayList<String> arr = Model.instance.getUser().getProfilesArray();
-                int index = arr.indexOf(ModelProfile.instance.getPreviousName());
-                String userName = ModelProfile.instance.getEditProfile().getUserName();
-                Model.instance.getUser().getProfilesArray().set(index, userName);
+            ModelProfile.instance.getEditProfile().setShoulder(shoulderEt.getText().toString());
+            ModelProfile.instance.getEditProfile().setChest(chestEt.getText().toString());
+            ModelProfile.instance.getEditProfile().setBasin(basinEt.getText().toString());
+            ModelProfile.instance.getEditProfile().setWaist(waistEt.getText().toString());
+            ModelProfile.instance.getEditProfile().setHeight(heightEt.getText().toString());
+            ModelProfile.instance.getEditProfile().setWeight(weightEt.getText().toString());
+            ModelProfile.instance.getEditProfile().setFoot(footEt.getText().toString());
+            ModelProfile.instance.getEditProfile().setSimilarProfileId(new ArrayList<>());
 
-                Navigation.findNavController(view).navigate(R.id.action_global_userProfilesFragment2);
-//                Navigation.findNavController(view).navigate(R.id.action_global_profileFragment);
-            }
-        });
+            //TODO: change the function when we have the refresh
+
+            Model.instance.editProfile(ModelProfile.instance.getPreviousName(), Model.instance.getProfile(), isSuccess -> {
+                if (isSuccess) {
+                    //change the profile list of the user in the Model
+                    Model.instance.setProfile(ModelProfile.instance.getEditProfile());
+                    ArrayList<String> arr = Model.instance.getUser().getProfilesArray();
+                    int index = arr.indexOf(ModelProfile.instance.getPreviousName());
+                    String userName = ModelProfile.instance.getEditProfile().getUserName();
+                    Model.instance.getUser().getProfilesArray().set(index, userName);
+
+                    Navigation.findNavController(view).navigate(R.id.action_global_userProfilesFragment2);
+                }
+            });
+        }
+
     }
 }
