@@ -12,6 +12,17 @@
         android:layout_height="match_parent"
         android:background="#fafafa">
 
+        <ImageView
+            android:id="@+id/edit_profile_step1_birthday_imv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="3dp"
+            android:src="@drawable/calendar"
+            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout30"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayout30"
+            app:layout_constraintTop_toTopOf="@+id/textInputLayout30" />
+
         <TextView
             android:id="@+id/edit_profile_1"
             android:layout_width="wrap_content"
@@ -133,6 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#fafafa"
+                android:textColor="@color/black"
                 android:hint="Birthday"
                 android:inputType="date" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -142,9 +154,11 @@
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_marginTop="35dp"
+            android:layout_marginBottom="20dp"
             android:backgroundTint="#8ec4b5"
             android:text="Continue"
             app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_profile_gendet_txt" />
