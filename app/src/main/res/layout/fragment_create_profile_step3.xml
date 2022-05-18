@@ -42,7 +42,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:text="Explanation image is shown below"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -52,11 +51,11 @@
 
         <TextView
             android:id="@+id/textView28"
-            android:layout_width="361dp"
-            android:layout_height="38dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
-            android:text="Please write down the following details in cm:"
+            android:text="Please write the following details in cm"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -150,7 +149,7 @@
 
         <TextView
             android:id="@+id/textView29"
-            android:layout_width="380dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
@@ -207,11 +206,11 @@
 
         <TextView
             android:id="@+id/textView27"
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
-            android:text="Please write down your average shoe size"
+            android:text="Please write your average shoe size"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -253,16 +252,27 @@
 
         <Button
             android:id="@+id/register_step3_register_btn"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
+            android:layout_width="290dp"
+            android:layout_height="52dp"
             android:layout_marginTop="30dp"
+            android:layout_marginBottom="16dp"
             android:backgroundTint="#8ec4b5"
             android:text="Create Profile"
             android:textColor="#FFFFFF"
             app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_step3_explanation_image" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
 
         <!--        <Button-->

@@ -11,6 +11,60 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/textView34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:text="Please write your average shoe size"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_profile_23" />
+
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:text="Please write the height using cm and the weight using kg"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_profile_21" />
+
+        <TextView
+            android:id="@+id/textView32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:text="Please write the following details in cm:"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView31" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:text="Explanation image is shown below"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_profile_7" />
+
+        <TextView
             android:id="@+id/edit_profile_7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,10 +82,10 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_7">
+            app:layout_constraintTop_toBottomOf="@+id/textView32">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_profile_step3_shoulder_et"
@@ -46,11 +100,10 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
             app:boxBackgroundColor="@color/myWhite"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_8">
+            app:layout_constraintBaseline_toBaselineOf="@+id/edit_profile_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/edit_profile_8">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_profile_step3_chest_et"
@@ -84,11 +137,10 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
             app:boxBackgroundColor="@color/myWhite"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_21">
+            app:layout_constraintBaseline_toBaselineOf="@+id/edit_profile_21"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/edit_profile_21">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_profile_step3_waist_et"
@@ -104,10 +156,10 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_22">
+            app:layout_constraintTop_toBottomOf="@+id/textView33">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_profile_step3_height_et"
@@ -122,11 +174,10 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
             app:boxBackgroundColor="@color/myWhite"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_23">
+            app:layout_constraintBaseline_toBaselineOf="@+id/edit_profile_23"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/edit_profile_23">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_profile_step3_weight_et"
@@ -143,10 +194,10 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_24">
+            app:layout_constraintTop_toBottomOf="@+id/textView34">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_profile_step3_foot_et"
@@ -158,17 +209,18 @@
 
         <ImageView
             android:id="@+id/edit_profile_step3_explanation_image"
-            android:layout_width="191dp"
-            android:layout_height="542dp"
-            android:layout_marginStart="32dp"
+            android:layout_width="369dp"
+            android:layout_height="279dp"
+            android:layout_marginTop="16dp"
             android:src="@drawable/body_measurement_for_her"
-            app:layout_constraintStart_toEndOf="@+id/edit_profile_21"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_7" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_profile_25" />
 
         <Button
             android:id="@+id/edit_profile_step3_savechanges_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="52dp"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="20dp"
             android:backgroundTint="#8ec4b5"
