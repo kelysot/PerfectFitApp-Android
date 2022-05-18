@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,10 +27,12 @@ import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
+import com.example.perfectfitapp_android.model.generalModel;
 import com.example.perfectfitapp_android.sub_category.SubCategoryViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class AddNewPostFragment extends Fragment {
@@ -40,11 +44,14 @@ public class AddNewPostFragment extends Fragment {
 
     TextInputLayout sizeTxtIL, categoryTxtIL, subcategoryTxtIL, companyTxtIl, colorTxtIl;
     AutoCompleteTextView sizeAutoTv, categoryAuto, subCategoryAuto, companyAuto, colorAuto;
-    String[] sizeArr, companyArr, categoryArr, colorArr;
+    String[] categoryArr;
     ArrayList<String> subcategoryArr;
     ArrayList<String> pics = new ArrayList<>();
     ArrayAdapter<String> sizeAdapter, categoryAdapter, subcategoryAdapter, companyAdapter, colorAdapter;
     String chosenCategory;
+    List<String> sizesList, companiesList, colorsList;
+
+    int check = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,32 +104,97 @@ public class AddNewPostFragment extends Fragment {
         sizeAdj = String.valueOf(sizeAdjSk.getRating());
         price = priceEt.getText().toString();
 
-        String date = "";
+        //TODO: add validations
 
-        StringBuilder count = new StringBuilder();
-        count.append(Model.instance.getCount());
-        Model.instance.setCount(Model.instance.getCount()+1);
+        boolean flag = true;
 
-        Post newPost = new Post(count.toString(), Model.instance.getProfile().getUserName(), productName, sku, size, company, color, category,
-                subCategory, description, date,link, sizeAdj, rating, pics, price, null, null, "false");
+        if(category.isEmpty()){
+            categoryAuto.setError("Please enter category");
+            //TODO: remove the error after the client fill the field
+            flag = false;
+        }
+        if(subCategory.isEmpty()){
+            subCategoryAuto.setError("Please enter sub-category");
+            flag = false;
+        }
+        if(company.isEmpty()){
+            companyAuto.setError("Please enter company");
+            flag = false;
+        }
+        if(color.isEmpty()){
+            colorAuto.setError("Please enter color");
+            flag = false;
+        }
+        if(size.isEmpty()){
+            sizeAutoTv.setError("Please enter size");
+            flag = false;
+        }
+        if(price.isEmpty()){
+            priceEt.setError("Please enter price");
+            flag = false;
+        }
+        if(productName.isEmpty()){
+            productNameEt.setError("Please enter product name");
+            flag = false;
+        }
+
+        //TODO: Require or not:
+
+        if(description.isEmpty()){
+            description = "-";
+        }
+        if (sku.isEmpty()){
+            sku = "-";
+        }
+        if(link.isEmpty()){
+            link = "-";
+        }
+
+        if(flag){
+
+            String date = "";
+
+            StringBuilder count = new StringBuilder();
+            count.append(Model.instance.getCount());
+            Model.instance.setCount(Model.instance.getCount() + 1);
+
+            Post newPost = new Post(count.toString(), Model.instance.getProfile().getUserName(), productName, sku, size, company, color, category,
+                    subCategory, description, date, link, sizeAdj, rating, pics, price, null, null, "false");
 
 
 //        newPost.setPicturesUrl(Model.instance.getNewPost().getPicturesUrl());
 
-        Model.instance.addNewPost(newPost, post -> {
-            if(post != null){
-                Model.instance.addPost(post);
-                Model.instance.setNewPost(new Post());
-                Model.instance.getProfile().getMyPostsListId().add(post.getPostId());
-                Navigation.findNavController(view)
-                        .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
-            }
-            else {
-                postBtn.setEnabled(true);
-                Toast.makeText(MyApplication.getContext(), "Post didn't saved",
-                        Toast.LENGTH_LONG).show();
-            }
-        });
+            Model.instance.addNewPost(newPost, post -> {
+                if (post != null) {
+                    Model.instance.addPost(post);
+                    Model.instance.setNewPost(new Post());
+                    Model.instance.getProfile().getMyPostsListId().add(post.getPostId());
+                    Navigation.findNavController(view)
+                            .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
+                } else {
+                    postBtn.setEnabled(true);
+                    Toast.makeText(MyApplication.getContext(), "Post didn't saved",
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        else{
+            postBtn.setEnabled(true);
+            final Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(() -> {
+                categoryAuto.setError(null);
+                subCategoryAuto.setError(null);
+                companyAuto.setError(null);
+                colorAuto.setError(null);
+                sizeAutoTv.setError(null);
+                priceEt.setError(null);
+                productNameEt.setError(null);
+            }, 5000);
+        }
+    }
+
+    public void delay(){
+        categoryTxtIL.setError(null);
     }
 
     public void setAllDropDownMenus(View view){
@@ -130,9 +202,10 @@ public class AddNewPostFragment extends Fragment {
         /****** size ******/
         sizeTxtIL = view.findViewById(R.id.addnewpost_size_txtil);
         sizeAutoTv = view.findViewById(R.id.addnewpost_size_auto);
-        sizeArr = getResources().getStringArray(R.array.sizes);
+//        sizeArr = getResources().getStringArray(R.array.sizes);
+        sizesList = generalModel.instance.map.get("Sizes");
 
-        sizeAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, sizeArr);
+        sizeAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, sizesList);
         sizeAutoTv.setAdapter(sizeAdapter);
         sizeAutoTv.setThreshold(1);
 
@@ -177,18 +250,20 @@ public class AddNewPostFragment extends Fragment {
         /****** companies ******/
         companyTxtIl = view.findViewById(R.id.addnewpost_companies_txtil);
         companyAuto = view.findViewById(R.id.addnewpost_company_auto);
-        companyArr = getResources().getStringArray(R.array.companies);
+//        companyArr = getResources().getStringArray(R.array.companies);
+        companiesList = generalModel.instance.map.get("Companies");
 
-        companyAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, companyArr);
+        companyAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, companiesList);
         companyAuto.setAdapter(companyAdapter);
         companyAuto.setThreshold(1);
 
         /****** colors ******/
         colorTxtIl = view.findViewById(R.id.addnewpost_colors_txtil);
         colorAuto = view.findViewById(R.id.addnewpost_color_auto);
-        colorArr = getResources().getStringArray(R.array.colors);
+//        colorArr = getResources().getStringArray(R.array.colors);
+        colorsList = generalModel.instance.map.get("Colors");
 
-        colorAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, colorArr);
+        colorAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, colorsList);
         colorAuto.setAdapter(colorAdapter);
         colorAuto.setThreshold(1);
     }
