@@ -100,6 +100,7 @@
             app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:endIconMode="clear_text"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout12">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -120,6 +121,7 @@
             app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:endIconMode="clear_text"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout11">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -224,6 +226,7 @@
             app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:endIconMode="clear_text"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -244,6 +247,7 @@
             app:boxBackgroundColor="@color/myWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:endIconMode="clear_text"
             app:layout_constraintTop_toBottomOf="@+id/addnewpost_description_textInputLayout10">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -290,6 +294,7 @@
             android:layout_marginEnd="8dp"
             android:background="#FAFAFA"
             app:layout_constraintEnd_toEndOf="parent"
+            app:endIconMode="clear_text"
             app:layout_constraintStart_toEndOf="@+id/editpost_size_txtil"
             app:layout_constraintTop_toBottomOf="@+id/editpost_colors_txtil">
 
@@ -298,6 +303,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#fafafa"
+                android:inputType="numberDecimal"
                 android:hint="Price" />
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Display;
@@ -35,10 +37,12 @@ import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
+import com.example.perfectfitapp_android.model.generalModel;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class EditPostFragment extends Fragment {
@@ -57,12 +61,13 @@ public class EditPostFragment extends Fragment {
 
     TextInputLayout sizeTxtIL, categoryTxtIL, subcategoryTxtIL, companyTxtIl, colorTxtIl;
     AutoCompleteTextView sizeAutoTv, categoryAuto, subCategoryAuto, companyAuto, colorAuto;
-    String[] sizeArr, companyArr, categoryArr, colorArr;
+    String[] categoryArr;
     ArrayList<String> subcategoryArr;
     ArrayAdapter<String> sizeAdapter, categoryAdapter, subcategoryAdapter, companyAdapter, colorAdapter;
     String chosenCategory;
     String postSource;
     ArrayList<String> pics = new ArrayList<>();
+    List<String> sizesList, companiesList, colorsList;
 
 
     @Override
@@ -198,6 +203,7 @@ public class EditPostFragment extends Fragment {
 
     private void edit() {
 
+        editBtn.setEnabled(false);
         String productName, sku, size, company, color, category, subCategory, description;
         String link, price;
         String sizeAdjS, ratingS;
@@ -215,29 +221,89 @@ public class EditPostFragment extends Fragment {
         ratingS = String.valueOf(rating.getRating());
         sizeAdjS = String.valueOf(sizeAdj.getRating());
 
-        post.setProductName(productName);
-        post.setSKU(sku);
-        post.setSize(size);
-        post.setCompany(company);
-        post.setColor(color);
-        post.setCategoryId(category);
-        post.setSubCategoryId(subCategory);
-        post.setDescription(description);
-        post.setLink(link);
-        post.setPrice(price);
-        post.setRating(ratingS);
-        post.setSizeAdjustment(sizeAdjS);
+        boolean flag = true;
 
-        if (mBitmap != null) {
-            Model.instance.uploadImage(mBitmap, getActivity(), url -> {
-                pics.add(pics.size(), url);
-                post.setPicturesUrl(pics);
+        if(category.isEmpty()){
+            categoryAuto.setError("Please enter category");
+            //TODO: remove the error after the client fill the field
+            flag = false;
+        }
+        if(subCategory.isEmpty()){
+            subCategoryAuto.setError("Please enter sub-category");
+            flag = false;
+        }
+        if(company.isEmpty()){
+            companyAuto.setError("Please enter company");
+            flag = false;
+        }
+        if(color.isEmpty()){
+            colorAuto.setError("Please enter color");
+            flag = false;
+        }
+        if(size.isEmpty()){
+            sizeAutoTv.setError("Please enter size");
+            flag = false;
+        }
+        if(price.isEmpty()){
+            priceEt.setError("Please enter price");
+            flag = false;
+        }
+        if(productName.isEmpty()){
+            productNameEt.setError("Please enter product name");
+            flag = false;
+        }
+
+        //TODO: Require or not:
+
+        if(description.isEmpty()){
+            description = "-";
+        }
+        if (sku.isEmpty()){
+            sku = "-";
+        }
+        if(link.isEmpty()){
+            link = "-";
+        }
+
+        if(flag) {
+
+            post.setProductName(productName);
+            post.setSKU(sku);
+            post.setSize(size);
+            post.setCompany(company);
+            post.setColor(color);
+            post.setCategoryId(category);
+            post.setSubCategoryId(subCategory);
+            post.setDescription(description);
+            post.setLink(link);
+            post.setPrice(price);
+            post.setRating(ratingS);
+            post.setSizeAdjustment(sizeAdjS);
+
+            if (mBitmap != null) {
+                Model.instance.uploadImage(mBitmap, getActivity(), url -> {
+                    pics.add(pics.size(), url);
+                    post.setPicturesUrl(pics);
+                    editPage();
+                });
+            } else {
+                pics = null;
                 editPage();
-            });
+            }
         }
         else {
-            pics = null;
-            editPage();
+            editBtn.setEnabled(true);
+            final Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(() -> {
+                categoryAuto.setError(null);
+                subCategoryAuto.setError(null);
+                companyAuto.setError(null);
+                colorAuto.setError(null);
+                sizeAutoTv.setError(null);
+                priceEt.setError(null);
+                productNameEt.setError(null);
+            }, 5000);
+
         }
 
     }
@@ -254,6 +320,8 @@ public class EditPostFragment extends Fragment {
             }
             else{
                 //TODO
+                editBtn.setEnabled(true);
+
             }
         });
     }
@@ -263,9 +331,10 @@ public class EditPostFragment extends Fragment {
         /****** size ******/
         sizeTxtIL = view.findViewById(R.id.editpost_size_txtil);
         sizeAutoTv = view.findViewById(R.id.editpost_size_auto);
-        sizeArr = getResources().getStringArray(R.array.sizes);
+//        sizeArr = getResources().getStringArray(R.array.sizes);
+        sizesList = generalModel.instance.map.get("Sizes");
 
-        sizeAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, sizeArr);
+        sizeAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, sizesList);
         sizeAutoTv.setText(post.getSize());
         sizeAutoTv.setAdapter(sizeAdapter);
         sizeAutoTv.setThreshold(1);
@@ -321,9 +390,9 @@ public class EditPostFragment extends Fragment {
         /****** companies ******/
         companyTxtIl = view.findViewById(R.id.editpost_companies_txtil);
         companyAuto = view.findViewById(R.id.editpost_company_auto);
-        companyArr = getResources().getStringArray(R.array.companies);
+        companiesList = generalModel.instance.map.get("Companies");
 
-        companyAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, companyArr);
+        companyAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, companiesList);
         companyAuto.setText(post.getCompany());
         companyAuto.setAdapter(companyAdapter);
         companyAuto.setThreshold(1);
@@ -331,9 +400,9 @@ public class EditPostFragment extends Fragment {
         /****** colors ******/
         colorTxtIl = view.findViewById(R.id.editpost_colors_txtil);
         colorAuto = view.findViewById(R.id.editpost_color_auto);
-        colorArr = getResources().getStringArray(R.array.colors);
+        colorsList = generalModel.instance.map.get("Colors");
 
-        colorAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, colorArr);
+        colorAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, colorsList);
         colorAuto.setText(post.getColor());
         colorAuto.setAdapter(colorAdapter);
         colorAuto.setThreshold(1);
