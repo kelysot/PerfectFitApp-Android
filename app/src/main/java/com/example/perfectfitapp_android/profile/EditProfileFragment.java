@@ -3,6 +3,7 @@ package com.example.perfectfitapp_android.profile;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,16 +36,17 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.InputStream;
+import java.util.Calendar;
 
 
-public class EditProfileFragment extends Fragment {
+public class EditProfileFragment extends Fragment implements DatePickerDialog.OnDateSetListener{
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PIC = 2;
 
     TextInputEditText firstNameEt, lastNameEt, birthdayEt, userNameEt;
     EditText genderEt;
-    ImageView image, addPhoto;
+    ImageView image, addPhoto, birthdayDateImv;
     TextInputLayout genderTxtIL;
     AutoCompleteTextView genderAuto; // catch the gender
 //    String[] genderArr;
@@ -67,6 +70,7 @@ public class EditProfileFragment extends Fragment {
         image = view.findViewById(R.id.edit_profile_step1_image_imv);
         femaleCB = view.findViewById(R.id.edit_profile_step1_female_cb);
         maleCB = view.findViewById(R.id.edit_profile_step1_male_cb);
+        birthdayDateImv = view.findViewById(R.id.edit_profile_step1_birthday_imv);
 
         genderEt.setEnabled(false);
 
@@ -79,6 +83,11 @@ public class EditProfileFragment extends Fragment {
         lastNameEt.setText(ModelProfile.instance.getEditProfile().getLastName());
         userNameEt.setText(ModelProfile.instance.getEditProfile().getUserName());
         birthdayEt.setText(ModelProfile.instance.getEditProfile().getBirthday());
+
+        birthdayDateImv = view.findViewById(R.id.edit_profile_step1_birthday_imv);
+        birthdayDateImv.setOnClickListener(v -> {
+            pickBirthdayDate();
+        });
 
         if(!ModelProfile.instance.getEditProfile().getGender().isEmpty()){
             String genderFromServer = ModelProfile.instance.getEditProfile().getGender().toString();
@@ -208,6 +217,22 @@ public class EditProfileFragment extends Fragment {
             continueBtn.setEnabled(true);
 
         }
+    }
+
+    private void pickBirthdayDate() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                getActivity(),
+                this,
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        String date = dayOfMonth + "/" + (month +1)  + "/" + year;
+        birthdayEt.setText(date);
     }
 
 }

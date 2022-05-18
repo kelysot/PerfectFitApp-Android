@@ -3,6 +3,7 @@ package com.example.perfectfitapp_android.create_profile;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -36,17 +38,18 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.InputStream;
+import java.util.Calendar;
 import java.util.List;
 
 
-public class CreateProfileStep1Fragment extends Fragment {
+public class CreateProfileStep1Fragment extends Fragment implements DatePickerDialog.OnDateSetListener {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PIC = 2;
     private String mImageUrl = "";
 
     TextInputEditText firstNameEt, lastNameEt, birthdayEt, userNameEt, genderTxl;
-    ImageView image, addPhoto;
-    Button continueBtn, chooseDate;
+    ImageView image, addPhoto, birthdayDateImv;
+    Button continueBtn;
     Bitmap mBitmap;
     CheckBox femaleCB, maleCB;
     String gender;
@@ -77,9 +80,9 @@ public class CreateProfileStep1Fragment extends Fragment {
 
         addPhoto.setOnClickListener(v -> showImagePickDialog());
 
-        chooseDate = view.findViewById(R.id.register_step1_birthday_btn);
-        chooseDate.setOnClickListener(v -> {
-            pickDate(view);
+        birthdayDateImv = view.findViewById(R.id.register_step1_birthday_imv);
+        birthdayDateImv.setOnClickListener(v -> {
+            pickBirthdayDate();
         });
 
         if(!CreateProfileModel.instance.profile.getGender().isEmpty()){
@@ -115,6 +118,7 @@ public class CreateProfileStep1Fragment extends Fragment {
 
         return view;
     }
+
 
     private void showImagePickDialog() {
 
@@ -234,6 +238,7 @@ public class CreateProfileStep1Fragment extends Fragment {
                     CreateProfileModel.instance.profile.setUserImageUrl(mImageUrl);
                     Navigation.findNavController(view).navigate(R.id.action_createProfileStep1Fragment2_to_createProfileStep2Fragment2);
                 } else {
+                    continueBtn.setEnabled(true);
                     Toast.makeText(MyApplication.getContext(), "The user name you choose already exist, please try another one.",
                             Toast.LENGTH_LONG).show();
                 }
@@ -241,15 +246,19 @@ public class CreateProfileStep1Fragment extends Fragment {
         }
     }
 
-    private void pickDate(View view) {
-        showDatePickerDialog(view);
-
+    private void pickBirthdayDate() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                getActivity(),
+                this,
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
     }
 
-    public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getChildFragmentManager(), "datePicker");
-
-
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        String date = dayOfMonth + "/" + (month +1)  + "/" + year;
+        birthdayEt.setText(date);
     }
 }
