@@ -275,14 +275,15 @@ public class UserProfilesFragment extends Fragment {
     }
 
     private void delete() {
-        //TODO: add profressBar and check delete
-        // progressBar.setVisibility(View.VISIBLE);
+        //TODO: check delete
+        progressBar.setVisibility(View.VISIBLE);
         Model.instance.deleteProfile(longClickUserName,isSuccess -> {
             if(isSuccess){
                 Model.instance.getUser().getProfilesArray().remove(posInArray); //current user
 //                        buttonList.get(posInArray).setVisibility(View.GONE);
 //                        buttonList.remove(posInArray);
                 setButtons();
+                progressBar.setVisibility(View.GONE);
                 Navigation.findNavController(addProfile).navigate(R.id.action_global_userProfilesFragment2);
 
             }else{
