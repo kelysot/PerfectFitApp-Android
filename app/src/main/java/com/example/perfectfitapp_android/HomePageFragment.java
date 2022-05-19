@@ -1,5 +1,6 @@
 package com.example.perfectfitapp_android;
 
+import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -391,28 +392,7 @@ public class HomePageFragment extends Fragment {
             return true;
         }
         else if(item.getItemId() == R.id.logout){
-            Model.instance.logout(isSuccess -> {
-                if(isSuccess){
-                    Model.instance.getProfile().setStatus("false");
-                    Model.instance.editProfile(null, Model.instance.getProfile(), new Model.EditProfile() {
-                        @Override
-                        public void onComplete(Boolean isSuccess) {
-                            if(isSuccess){
-                                startActivity(new Intent(getContext(), LoginActivity.class));
-                                getActivity().finish();
-                            }
-                            else {
-                                Toast.makeText(MyApplication.getContext(), "Can't change to false",
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-                }
-                else{
-                    Toast.makeText(MyApplication.getContext(), "Can't logout",
-                            Toast.LENGTH_LONG).show();
-                }
-            });
+            showDialog();
             return true;
         }
 //        else if(item.getItemId() == R.id.Exit){
@@ -425,8 +405,51 @@ public class HomePageFragment extends Fragment {
         }
     }
 
+    private void showDialog(){
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_dialog);
 
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
 
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText("Do you want to log out of PerfectFit?");
+
+        Button btnNo = dialog.findViewById(R.id.btn_no);
+        btnNo.setOnClickListener(v -> dialog.dismiss());
+
+        Button btnYes = dialog.findViewById(R.id.btn_yes);
+        btnYes.setOnClickListener(v -> logout());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+    private void logout() {
+        Model.instance.logout(isSuccess -> {
+            if(isSuccess){
+                Model.instance.getProfile().setStatus("false");
+                Model.instance.editProfile(null, Model.instance.getProfile(), new Model.EditProfile() {
+                    @Override
+                    public void onComplete(Boolean isSuccess) {
+                        if(isSuccess){
+                            startActivity(new Intent(getContext(), LoginActivity.class));
+                            getActivity().finish();
+                        }
+                        else {
+                            Toast.makeText(MyApplication.getContext(), "Can't change to false",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }
+            else{
+                Toast.makeText(MyApplication.getContext(), "Can't logout",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
 
 }
