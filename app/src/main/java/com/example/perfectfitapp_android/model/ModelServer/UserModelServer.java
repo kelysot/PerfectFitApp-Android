@@ -33,8 +33,6 @@ public class UserModelServer {
                     user = User.jsonObjectToUser(response.body().getAsJsonObject());
                     listener.onComplete(user);
                 } else if (response.code() == 400) {
-                    Toast.makeText(MyApplication.getContext(), "Wrong email or password",
-                            Toast.LENGTH_LONG).show();
                     listener.onComplete(null);
                     Log.d("TAG", "failed in Register in ModelServer 2");
                 }
@@ -111,8 +109,8 @@ public class UserModelServer {
                     Log.d("TAG", "failed in LogIn in ModelServer 1");
                     listener.onComplete(null);
                 } else if (response.code() == 400) {
-                    Toast.makeText(MyApplication.getContext(), "Wrong email or password",
-                            Toast.LENGTH_LONG).show();
+//                    Toast.makeText(MyApplication.getContext(), "Wrong email or password",
+//                            Toast.LENGTH_LONG).show();
                     listener.onComplete(null);
                     Log.d("TAG", "failed in LogIn in ModelServer 2");
                 }

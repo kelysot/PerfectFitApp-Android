@@ -1,6 +1,7 @@
 package com.example.perfectfitapp_android.login;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
@@ -87,18 +90,35 @@ public class LoginFragment extends Fragment {
                   }
                   else{
                       loginBtn.setEnabled(true);
-                      Toast.makeText(MyApplication.getContext(), "No Connection, please try later", Toast.LENGTH_LONG).show();
+                     // Toast.makeText(MyApplication.getContext(), "No Connection, please try later", Toast.LENGTH_LONG).show();
                   }
               });
           }
           else{
-              getActivity().runOnUiThread(new Runnable() {
-                  @Override
-                  public void run() {
-                      loginBtn.setEnabled(true);
-                  }
+              getActivity().runOnUiThread(() -> {
+                  String s = "Incorrect email or password," + "\n" + " please try again.";
+                  showOkDialog(s);
+                  loginBtn.setEnabled(true);
               });
           }
       });
+    }
+
+    private void showOkDialog(String text){
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_ok_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText(text);
+
+        Button btnOk = dialog.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(v -> dialog.dismiss());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
     }
 }

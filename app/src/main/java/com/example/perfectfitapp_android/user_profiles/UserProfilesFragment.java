@@ -229,7 +229,6 @@ public class UserProfilesFragment extends Fragment {
 
         if( Model.instance.getUser().getProfilesArray().size() == 5){
             showOkDialog();
-            //Toast.makeText(MyApplication.getContext(), "Sorry, you can only have 5 profiles", Toast.LENGTH_LONG).show();
             progressBar.setVisibility(View.GONE);
         }
         else{
