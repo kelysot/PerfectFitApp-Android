@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -28,6 +29,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
@@ -239,11 +241,28 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
                     Navigation.findNavController(view).navigate(R.id.action_createProfileStep1Fragment2_to_createProfileStep2Fragment2);
                 } else {
                     continueBtn.setEnabled(true);
-                    Toast.makeText(MyApplication.getContext(), "The user name you choose already exist, please try another one.",
-                            Toast.LENGTH_LONG).show();
+                    showOkDialog();
                 }
             });
         }
+    }
+
+    private void showOkDialog(){
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_ok_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText("The user name you choose already exist, please try another one.");
+
+        Button btnOk = dialog.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(v -> dialog.dismiss());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
     }
 
     private void pickBirthdayDate() {

@@ -65,21 +65,11 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btn_no"
+                    android:id="@+id/btn_ok"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/black"
-                    android:text="No"
-                    android:textColor="@color/white" />
-
-                <Button
-                    android:id="@+id/btn_yes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:backgroundTint="@color/black"
-                    android:text="Yes"
+                    android:text="Ok"
                     android:textColor="@color/white" />
 
             </LinearLayout>

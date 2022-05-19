@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -27,8 +28,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.create_profile.CreateProfileModel;
 import com.example.perfectfitapp_android.model.Model;
@@ -185,10 +188,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
         continueBtn.setEnabled(false);
         boolean flag = true;
 
-        String firstName = firstNameEt.getText().toString();
-        String lastName = lastNameEt.getText().toString();
         String userName = userNameEt.getText().toString();
-        String birthday = birthdayEt.getText().toString();
 
         //TODO: stop the error after fix it
         if((!(femaleCB.isChecked())) && (!(maleCB.isChecked()))){
@@ -196,27 +196,64 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
             flag = false;
         }
 
-        if(flag) {
+        if (flag) {
+            if(!ModelProfile.instance.getEditProfile().getUserName().equals(userName)){
+                Model.instance.checkIfUserNameExist(userName, isSuccess -> {
+                    if (isSuccess) {
+                        continueStep3(view);
 
-            ModelProfile.instance.getEditProfile().setFirstName(firstName);
-            ModelProfile.instance.getEditProfile().setLastName(lastName);
-            ModelProfile.instance.getEditProfile().setUserName(userName);
-            ModelProfile.instance.getEditProfile().setBirthday(birthday);
-            ModelProfile.instance.getEditProfile().setGender(gender);
-
-
-            if (mBitmap != null) {
-                Model.instance.uploadImage(mBitmap, getActivity(), url -> {
-                    ModelProfile.instance.getEditProfile().setUserImageUrl(url);
+                    } else {
+                        showOkDialog();
+                        continueBtn.setEnabled(true);
+                    }
                 });
-            }
-
-            Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
+            }else
+                continueStep3(view);
         }
         else{
             continueBtn.setEnabled(true);
 
         }
+    }
+
+    private void continueStep3(View view) {
+        String firstName = firstNameEt.getText().toString();
+        String lastName = lastNameEt.getText().toString();
+        String userName = userNameEt.getText().toString();
+        String birthday = birthdayEt.getText().toString();
+
+        ModelProfile.instance.getEditProfile().setFirstName(firstName);
+        ModelProfile.instance.getEditProfile().setLastName(lastName);
+        ModelProfile.instance.getEditProfile().setUserName(userName);
+        ModelProfile.instance.getEditProfile().setBirthday(birthday);
+        ModelProfile.instance.getEditProfile().setGender(gender);
+
+
+        if (mBitmap != null) {
+            Model.instance.uploadImage(mBitmap, getActivity(), url -> {
+                ModelProfile.instance.getEditProfile().setUserImageUrl(url);
+            });
+        }
+
+        Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
+    }
+
+    private void showOkDialog(){
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_ok_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText("The user name you choose already exist, please try another one.");
+
+        Button btnOk = dialog.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(v -> dialog.dismiss());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
     }
 
     private void pickBirthdayDate() {

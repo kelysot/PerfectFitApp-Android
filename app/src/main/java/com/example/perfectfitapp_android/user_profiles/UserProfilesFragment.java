@@ -228,8 +228,8 @@ public class UserProfilesFragment extends Fragment {
         //TODO: open dialog about the amount of profiles
 
         if( Model.instance.getUser().getProfilesArray().size() == 5){
-            Toast.makeText(MyApplication.getContext(), "Sorry, you can only have 5 profiles",
-                    Toast.LENGTH_LONG).show();
+            showOkDialog();
+            //Toast.makeText(MyApplication.getContext(), "Sorry, you can only have 5 profiles", Toast.LENGTH_LONG).show();
             progressBar.setVisibility(View.GONE);
         }
         else{
@@ -309,6 +309,24 @@ public class UserProfilesFragment extends Fragment {
             delete();
             dialog.dismiss();
         });
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+    private void showOkDialog(){
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_ok_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText("Sorry, you can only have 5 profiles.");
+
+        Button btnOk = dialog.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(v -> dialog.dismiss());
 
         ImageView btnClose = dialog.findViewById(R.id.btn_close);
         btnClose.setOnClickListener(view -> dialog.dismiss());
