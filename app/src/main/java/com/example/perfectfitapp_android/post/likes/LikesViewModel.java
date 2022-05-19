@@ -1,4 +1,4 @@
-package com.example.perfectfitapp_android.likes;
+package com.example.perfectfitapp_android.post.likes;
 
 import androidx.lifecycle.ViewModel;
 

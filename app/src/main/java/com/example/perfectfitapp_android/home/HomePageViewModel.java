@@ -1,4 +1,4 @@
-package com.example.perfectfitapp_android;
+package com.example.perfectfitapp_android.home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;

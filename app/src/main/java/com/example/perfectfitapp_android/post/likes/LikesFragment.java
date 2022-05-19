@@ -1,4 +1,4 @@
-package com.example.perfectfitapp_android.likes;
+package com.example.perfectfitapp_android.post.likes;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,18 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.perfectfitapp_android.R;
-import com.example.perfectfitapp_android.comment.CommentFragment;
-import com.example.perfectfitapp_android.comment.CommentFragmentArgs;
-import com.example.perfectfitapp_android.comment.CommentViewModel;
-import com.example.perfectfitapp_android.model.Comment;
 import com.example.perfectfitapp_android.model.Model;
-import com.example.perfectfitapp_android.model.Notification;
 import com.example.perfectfitapp_android.model.Profile;
-import com.example.perfectfitapp_android.profile.followers.FollowersFragmentDirections;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class LikesFragment extends Fragment {
 

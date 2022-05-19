@@ -1,4 +1,4 @@
-package com.example.perfectfitapp_android.post;
+package com.example.perfectfitapp_android.post.add_post;
 
 import android.content.Context;
 import android.os.Bundle;

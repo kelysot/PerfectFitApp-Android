@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homePageFragment"
-        android:name="com.example.perfectfitapp_android.HomePageFragment"
+        android:name="com.example.perfectfitapp_android.home.HomePageFragment"
         android:label="PerfectFit"
         tools:layout="@layout/fragment_home_page">
         <action
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/addNewPostFragment"
-        android:name="com.example.perfectfitapp_android.post.AddNewPostFragment"
+        android:name="com.example.perfectfitapp_android.post.add_post.AddNewPostFragment"
         android:label="New post"
         tools:layout="@layout/fragment_add_new_post" >
         <argument
@@ -144,7 +144,7 @@
     </fragment>
     <fragment
         android:id="@+id/addNewPostStep1Fragment"
-        android:name="com.example.perfectfitapp_android.post.AddNewPostStep1Fragment"
+        android:name="com.example.perfectfitapp_android.post.add_post.AddNewPostStep1Fragment"
         android:label="Add new post - step 1"
         tools:layout="@layout/fragment_add_new_post_step1" >
         <action
@@ -153,7 +153,7 @@
     </fragment>
     <fragment
         android:id="@+id/commentFragment"
-        android:name="com.example.perfectfitapp_android.comment.CommentFragment"
+        android:name="com.example.perfectfitapp_android.post.comment.CommentFragment"
         android:label="Comments"
         tools:layout="@layout/fragment_comment" >
         <argument
@@ -162,7 +162,7 @@
     </fragment>
     <fragment
         android:id="@+id/likesFragment"
-        android:name="com.example.perfectfitapp_android.likes.LikesFragment"
+        android:name="com.example.perfectfitapp_android.post.likes.LikesFragment"
         android:label="Likes"
         tools:layout="@layout/fragment_likes" >
         <argument

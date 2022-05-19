@@ -1,23 +1,11 @@
 package com.example.perfectfitapp_android.search;
 
-import android.app.AlertDialog;
-
-import androidx.navigation.Navigation;
-
 import com.example.perfectfitapp_android.create_profile.CreateProfileModel;
 import com.example.perfectfitapp_android.model.Post;
-import com.example.perfectfitapp_android.model.Profile;
-import com.example.perfectfitapp_android.model.User;
-import com.example.perfectfitapp_android.model.generalModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import kotlin.collections.ArrayDeque;
 
 public class SearchModel {
 

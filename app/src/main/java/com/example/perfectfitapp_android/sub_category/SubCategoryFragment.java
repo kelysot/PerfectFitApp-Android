@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.perfectfitapp_android.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.category.CategoryFragment;
 import com.example.perfectfitapp_android.category.CategoryFragmentDirections;

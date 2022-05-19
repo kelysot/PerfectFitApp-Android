@@ -20,27 +20,17 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.perfectfitapp_android.HomePageFragment;
-import com.example.perfectfitapp_android.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
+import com.example.perfectfitapp_android.home.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Notification;
 import com.example.perfectfitapp_android.model.Post;
-import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.model.generalModel;
-import com.example.perfectfitapp_android.profile.ProfileViewModel;
-import com.example.perfectfitapp_android.wishlist.WishListFragment;
-import com.example.perfectfitapp_android.wishlist.WishListFragmentDirections;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 
