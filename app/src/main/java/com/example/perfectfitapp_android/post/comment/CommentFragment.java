@@ -1,4 +1,4 @@
-package com.example.perfectfitapp_android.comment;
+package com.example.perfectfitapp_android.post.comment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,32 +6,24 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.perfectfitapp_android.HomePageFragment;
-import com.example.perfectfitapp_android.HomePageViewModel;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Comment;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Notification;
-import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
-import com.example.perfectfitapp_android.post.AddNewPostFragmentDirections;
-import com.example.perfectfitapp_android.post.PostPageFragmentArgs;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;

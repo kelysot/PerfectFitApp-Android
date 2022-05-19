@@ -1,4 +1,4 @@
-package com.example.perfectfitapp_android.comment;
+package com.example.perfectfitapp_android.post.comment;
 
 import androidx.lifecycle.ViewModel;
 

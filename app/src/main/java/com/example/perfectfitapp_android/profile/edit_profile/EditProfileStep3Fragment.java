@@ -1,4 +1,4 @@
-package com.example.perfectfitapp_android.profile;
+package com.example.perfectfitapp_android.profile.edit_profile;
 
 import android.os.Bundle;
 
@@ -14,6 +14,7 @@ import android.widget.ImageView;
 
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.profile.ModelProfile;
 
 import java.util.ArrayList;
 

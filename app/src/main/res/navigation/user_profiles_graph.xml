@@ -45,7 +45,7 @@
         tools:layout="@layout/fragment_create_profile_step3" />
     <fragment
         android:id="@+id/editProfileFragment2"
-        android:name="com.example.perfectfitapp_android.profile.EditProfileFragment"
+        android:name="com.example.perfectfitapp_android.profile.edit_profile.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" >
         <action
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/editProfileStep2Fragment2"
-        android:name="com.example.perfectfitapp_android.profile.EditProfileStep2Fragment"
+        android:name="com.example.perfectfitapp_android.profile.edit_profile.EditProfileStep2Fragment"
         android:label="fragment_edit_profile_step2"
         tools:layout="@layout/fragment_edit_profile_step2" >
         <action
@@ -63,7 +63,7 @@
     </fragment>
     <fragment
         android:id="@+id/editProfileStep3Fragment2"
-        android:name="com.example.perfectfitapp_android.profile.EditProfileStep3Fragment"
+        android:name="com.example.perfectfitapp_android.profile.edit_profile.EditProfileStep3Fragment"
         android:label="fragment_edit_profile_step3"
         tools:layout="@layout/fragment_edit_profile_step3" /><action android:id="@+id/action_global_userProfilesFragment2" app:destination="@id/userProfilesFragment2"/>
     <fragment

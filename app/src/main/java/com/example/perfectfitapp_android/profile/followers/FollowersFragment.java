@@ -17,12 +17,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.perfectfitapp_android.R;
-import com.example.perfectfitapp_android.likes.LikesFragment;
-import com.example.perfectfitapp_android.likes.LikesFragmentArgs;
-import com.example.perfectfitapp_android.likes.LikesViewModel;
+import com.example.perfectfitapp_android.post.likes.LikesFragment;
+import com.example.perfectfitapp_android.post.likes.LikesViewModel;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Profile;
-import com.example.perfectfitapp_android.profile.ProfileFragmentDirections;
 import com.squareup.picasso.Picasso;
 
 public class FollowersFragment extends Fragment {

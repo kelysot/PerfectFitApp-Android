@@ -1,4 +1,4 @@
-package com.example.perfectfitapp_android.post;
+package com.example.perfectfitapp_android.post.add_post;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;

@@ -1,7 +1,6 @@
 package com.example.perfectfitapp_android.user;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,14 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
-import com.example.perfectfitapp_android.likes.LikesFragmentDirections;
 import com.example.perfectfitapp_android.model.Model;
-import com.example.perfectfitapp_android.model.User;
-import com.example.perfectfitapp_android.user_profiles.UserProfilesActivity;
 
 
 public class EditUserFragment extends Fragment {
