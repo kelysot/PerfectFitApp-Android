@@ -3,6 +3,7 @@ package com.example.perfectfitapp_android.post;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -31,6 +32,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
@@ -115,7 +117,7 @@ public class EditPostFragment extends Fragment {
         editBtn.setOnClickListener(v -> edit());
 
         deleteBtn = view.findViewById(R.id.editpost_delete_btn);
-        deleteBtn.setOnClickListener(v -> delete());
+        deleteBtn.setOnClickListener(v -> showDialog());
 
         addPhoto.setOnClickListener(v -> showImagePickDialog());
 
@@ -199,6 +201,30 @@ public class EditPostFragment extends Fragment {
                         Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void showDialog(){
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText("Are you sure you want to delete this post?");
+
+        Button btnNo = dialog.findViewById(R.id.btn_no);
+        btnNo.setOnClickListener(v -> dialog.dismiss());
+
+        Button btnYes = dialog.findViewById(R.id.btn_yes);
+        btnYes.setOnClickListener(v -> {
+            delete();
+            dialog.dismiss();
+        });
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
     }
 
     private void edit() {

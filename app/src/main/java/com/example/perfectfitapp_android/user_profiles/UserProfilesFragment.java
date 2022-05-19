@@ -1,5 +1,6 @@
 package com.example.perfectfitapp_android.user_profiles;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -18,7 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MainActivity;
@@ -263,24 +266,52 @@ public class UserProfilesFragment extends Fragment {
 //                actionUserProfilesFragmentToEditProfileFragment2()
             }
             case R.id.profile_delete_menuItem:{
-                //TODO: add profressBar and check delete
-                // progressBar.setVisibility(View.VISIBLE);
-                Model.instance.deleteProfile(longClickUserName,isSuccess -> {
-                    if(isSuccess){
-                        Model.instance.getUser().getProfilesArray().remove(posInArray); //current user
-//                        buttonList.get(posInArray).setVisibility(View.GONE);
-//                        buttonList.remove(posInArray);
-                        setButtons();
-                        Navigation.findNavController(addProfile).navigate(R.id.action_global_userProfilesFragment2);
-
-                    }else{
-                        Log.d("TAG","not work");
-                    }
-                });
+                showDialog();
                 return true;
             }
             default:
                 return super.onContextItemSelected(item);
         }
+    }
+
+    private void delete() {
+        //TODO: add profressBar and check delete
+        // progressBar.setVisibility(View.VISIBLE);
+        Model.instance.deleteProfile(longClickUserName,isSuccess -> {
+            if(isSuccess){
+                Model.instance.getUser().getProfilesArray().remove(posInArray); //current user
+//                        buttonList.get(posInArray).setVisibility(View.GONE);
+//                        buttonList.remove(posInArray);
+                setButtons();
+                Navigation.findNavController(addProfile).navigate(R.id.action_global_userProfilesFragment2);
+
+            }else{
+                Log.d("TAG","not work");
+            }
+        });
+    }
+
+    private void showDialog(){
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText("Are you sure you want to delete " + longClickUserName + " profile?");
+
+        Button btnNo = dialog.findViewById(R.id.btn_no);
+        btnNo.setOnClickListener(v -> dialog.dismiss());
+
+        Button btnYes = dialog.findViewById(R.id.btn_yes);
+        btnYes.setOnClickListener(v -> {
+            delete();
+            dialog.dismiss();
+        });
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
     }
 }
