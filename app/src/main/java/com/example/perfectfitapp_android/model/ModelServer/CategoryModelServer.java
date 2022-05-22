@@ -26,6 +26,11 @@ public class CategoryModelServer {
                 if (response.isSuccessful()) {
                     JsonArray categoriesJson = response.body();
                     List<Category> categories = Category.jsonArrayToCategory(categoriesJson);
+                    for(int i = 0; i < categories.size(); i++){
+                        if(categories.get(i).getSubCategory().size() == 0){
+                            categories.remove(categories.get(i));
+                        }
+                    }
                     listener.onComplete(categories);
                 } else {
                     Log.d("TAG", "failed in getAllPosts in ModelServer 1");
