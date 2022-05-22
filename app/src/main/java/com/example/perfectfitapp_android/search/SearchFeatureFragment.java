@@ -4,12 +4,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -60,7 +62,6 @@ public class SearchFeatureFragment extends Fragment {
         adapter.setOnItemClickListener((v, position) -> {
             String aa = theList.get(position);
             System.out.println("row " + aa + "was clicked");
-//            SearchModel.instance.map.
         });
 
         System.out.println("list to save --------- " + listToSave);
@@ -96,7 +97,6 @@ public class SearchFeatureFragment extends Fragment {
                     listToSave.add(fr);
                 }
                 SearchModel.instance.mapToServer.put(feature, listToSave);
-//                System.out.println(listToSave);
                 System.out.println(SearchModel.instance.mapToServer);
             });
         }
@@ -158,31 +158,25 @@ public class SearchFeatureFragment extends Fragment {
         if(feature.equals("Categories")){
             nameTv.setText("Categories");
             theList = generalModel.instance.map.get("Categories");
-//            theList = SearchModel.instance.map.get("Categories");
         }
         else if(feature.equals("Sizes")){
             nameTv.setText("Sizes");
-//            theList = SearchModel.instance.map.get("Sizes");
             theList = generalModel.instance.map.get("Sizes");
         }
         else if(feature.equals("Companies")){
             nameTv.setText("Companies");
-//            theList = SearchModel.instance.map.get("Companies");
             theList = generalModel.instance.map.get("Companies");
         }
         else if(feature.equals("Colors")){
             nameTv.setText("Colors");
-//            theList = SearchModel.instance.map.get("Colors");
             theList = generalModel.instance.map.get("Colors");
         }
         else if(feature.equals("BodyTypes")){
             nameTv.setText("Body Types");
-//            theList = SearchModel.instance.map.get("BodyTypes");
             theList = generalModel.instance.map.get("BodyTypes");
         }
         else if(feature.equals("Gender")){
             nameTv.setText("Gender");
-//            theList = SearchModel.instance.map.get("Gender");
             theList = generalModel.instance.map.get("Gender");
         }
     }

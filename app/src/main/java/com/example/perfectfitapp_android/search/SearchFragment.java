@@ -22,7 +22,7 @@ import java.util.List;
 
 public class SearchFragment extends Fragment {
 
-    Button categoryBtn, sizeBtn, companyBtn, colorBtn, bodyTypeBtn, genderBtn, showMapBtn, searchBtn;
+    Button categoryBtn, sizeBtn, companyBtn, colorBtn, bodyTypeBtn, genderBtn, searchBtn;
     EditText priceFromEt, priceToEt;
 
     @Override
@@ -94,11 +94,6 @@ public class SearchFragment extends Fragment {
             Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchFeatureFragment("Gender"));
         });
 
-//        showMapBtn = view.findViewById(R.id.showmap_btn);
-//        showMapBtn.setOnClickListener(v -> {
-//            System.out.println(SearchModel.instance.mapToServer);
-//        });
-
         searchBtn = view.findViewById(R.id.search_search_btn);
         searchBtn.setOnClickListener(v -> {
 
@@ -107,32 +102,25 @@ public class SearchFragment extends Fragment {
 
             //TODO: check if isEmpty
             if(SearchModel.instance.mapToServer.get("Sizes").isEmpty()){
-                // need to: SearchModel.instance.map == all sizes
-//                SearchModel.instance.mapToServer.put("Sizes", SearchModel.instance.map.get("Sizes"));
                 SearchModel.instance.mapToServer.put("Sizes", generalModel.instance.map.get("Sizes"));
                 count++;
             }
             if(SearchModel.instance.mapToServer.get("Categories").isEmpty()){
-//                SearchModel.instance.mapToServer.put("Categories", SearchModel.instance.map.get("Categories"));
                 SearchModel.instance.mapToServer.put("Categories", generalModel.instance.map.get("Categories"));
                 count++;
             }
             if(SearchModel.instance.mapToServer.get("Colors").isEmpty()){
-//                SearchModel.instance.mapToServer.put("Colors", SearchModel.instance.map.get("Colors"));
                 SearchModel.instance.mapToServer.put("Colors", generalModel.instance.map.get("Colors"));
                 count++;
             }if(SearchModel.instance.mapToServer.get("Companies").isEmpty()){
-//                SearchModel.instance.mapToServer.put("Companies", SearchModel.instance.map.get("Companies"));
                 SearchModel.instance.mapToServer.put("Companies", generalModel.instance.map.get("Companies"));
                 count++;
             }
             if(SearchModel.instance.mapToServer.get("BodyTypes").isEmpty()){
-//                SearchModel.instance.mapToServer.put("BodyTypes", SearchModel.instance.map.get("BodyTypes"));
                 SearchModel.instance.mapToServer.put("BodyTypes", generalModel.instance.map.get("BodyTypes"));
                 count++;
             }
             if(SearchModel.instance.mapToServer.get("Gender").isEmpty()){
-//                SearchModel.instance.mapToServer.put("Gender", SearchModel.instance.map.get("Gender"));
                 SearchModel.instance.mapToServer.put("Gender", generalModel.instance.map.get("Gender"));
                 count++;
             }
