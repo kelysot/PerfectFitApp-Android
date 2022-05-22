@@ -8,16 +8,16 @@
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/searchposts_swiperefresh"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="392dp"
+        android:layout_height="600dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15">
+        app:layout_constraintTop_toBottomOf="@+id/searchposts_text_et">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchposts_rv"
@@ -39,24 +39,34 @@
         android:id="@+id/searchposts_back_to_home_btn"
         android:layout_width="106dp"
         android:layout_height="56dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="Back to home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="167dp"
-        android:layout_height="43dp"
+    <EditText
+        android:id="@+id/searchposts_text_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:text="Results"
-        android:textSize="34sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintEnd_toStartOf="@+id/searchposts_back_to_home_btn"
-        app:layout_constraintHorizontal_bias="0.135"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:maxLines="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/searchposts_search_btn"
+        android:layout_width="62dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_search1"
+        app:layout_constraintEnd_toStartOf="@+id/searchposts_back_to_home_btn"
+        app:layout_constraintStart_toEndOf="@+id/searchposts_text_et"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
