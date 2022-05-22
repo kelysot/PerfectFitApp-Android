@@ -1,5 +1,6 @@
 package com.example.perfectfitapp_android.create_profile;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
@@ -23,6 +26,7 @@ public class CreateProfileStep3Fragment extends Fragment {
     Button registerBtn, b, continueBtn;
     ImageView explenationImg;
     Model model;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +46,8 @@ public class CreateProfileStep3Fragment extends Fragment {
         weightEt = view.findViewById(R.id.register_step3_weight_et);
         footEt = view.findViewById(R.id.register_step3_foot_et);
         explenationImg = view.findViewById(R.id.register_step3_explanation_image);
+        progressBar = view.findViewById(R.id.register_step3_progress_bar);
+        progressBar.setVisibility(View.GONE);
 
         if(CreateProfileModel.instance.profile.getGender().equals("Female")){
             explenationImg.setImageResource(R.drawable.body_measurement_for_her);
@@ -59,6 +65,7 @@ public class CreateProfileStep3Fragment extends Fragment {
 
     private void registerApp(View view) {
 
+        progressBar.setVisibility(View.VISIBLE);
         registerBtn.setEnabled(false);
         boolean flag = true;
 
@@ -127,8 +134,14 @@ public class CreateProfileStep3Fragment extends Fragment {
                     });
                 } else {
                     registerBtn.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
+                    //TODO: dialog
+                    showOkDialog();
                 }
             });
+        }
+        else {
+            progressBar.setVisibility(View.GONE);
         }
     }
 
@@ -142,6 +155,23 @@ public class CreateProfileStep3Fragment extends Fragment {
         newFragment.show(getChildFragmentManager(), "datePicker");
     }
 
+    private void showOkDialog(){
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_ok_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText("Opss.. There is something wrong. Please try again later");
+
+        Button btnOk = dialog.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(v -> dialog.dismiss());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
+    }
 
 
 }

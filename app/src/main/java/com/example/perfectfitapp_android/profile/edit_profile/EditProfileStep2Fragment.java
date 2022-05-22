@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.perfectfitapp_android.R;
@@ -31,6 +32,7 @@ public class EditProfileStep2Fragment extends Fragment {
     int place = 0;
     ArrayList<Integer> resBodyType;
     List<String> bodyTypesList, bodyDescriptionList;
+    ProgressBar progressBar;
 
 
     @Override
@@ -47,6 +49,9 @@ public class EditProfileStep2Fragment extends Fragment {
 
         bodyImage = view.findViewById(R.id.edit_profile_step2_bodyimage_imv);
         bodyTypeTv = view.findViewById(R.id.edit_profile_step2_bodytype_name_et);
+
+        progressBar = view.findViewById(R.id.edit_profile_step2_progress_bar);
+        progressBar.setVisibility(View.GONE);
 
         for (String str:bodyTypesList) {
             if(str.equals(ModelProfile.instance.getEditProfile().getBodyType())){
@@ -115,9 +120,8 @@ public class EditProfileStep2Fragment extends Fragment {
     }
 
     private void continueStep3(View view) {
+        progressBar.setVisibility(View.VISIBLE);
         ModelProfile.instance.getEditProfile().setBodyType(bodyTypeTv.getText().toString());
         Navigation.findNavController(view).navigate(R.id.action_editProfileStep2Fragment2_to_editProfileStep3Fragment2);
-
-//        Navigation.findNavController(view).navigate(R.id.action_editProfileStep2Fragment_to_editProfileStep3Fragment);
     }
 }
