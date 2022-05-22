@@ -77,6 +77,12 @@ public interface RetrofitInterface {
     @PATCH("/auth/")
     Call<JsonObject> editUser(@Header("authorization") String token, @Body HashMap<String, Object> map);
 
+    @GET("/auth/resetPassword/{email}")
+    Call<JsonObject> resetPassword(@Path("email") String email);
+
+    @POST("/auth/changePassword")
+    Call<Void> changePassword(@Body HashMap<String, Object> map);
+
     /*--------------------------------- Profile -------------------------------*/
 
     /******************************************************************************************/

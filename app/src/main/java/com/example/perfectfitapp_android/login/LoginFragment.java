@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
+import com.example.perfectfitapp_android.home.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.user_profiles.UserProfilesActivity;
 import com.example.perfectfitapp_android.model.Model;
 
@@ -27,6 +28,7 @@ public class LoginFragment extends Fragment {
 
     EditText emailEt, passwordEt;
     Button loginBtn, signupBtn;
+    TextView resetPass;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,6 +38,21 @@ public class LoginFragment extends Fragment {
 
         emailEt = view.findViewById(R.id.login_input_email_et);
         passwordEt = view.findViewById(R.id.login_input_password_et);
+
+        resetPass = view.findViewById(R.id.login_reset_password);
+        resetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(LoginFragmentDirections.actionLoginFragmentToResetPassword1EmailFragment());
+
+//                Model.instance.resetPassword("theperfectfitteamhere@gmail.com", new Model.ResetPasswordListener() {
+//                    @Override
+//                    public void onComplete(String code) {
+//                        Log.d("TAG44", code);
+//                    }
+//                });
+            }
+        });
 
         loginBtn = view.findViewById(R.id.login_login_btn);
         loginBtn.setOnClickListener(v -> LogIn());
