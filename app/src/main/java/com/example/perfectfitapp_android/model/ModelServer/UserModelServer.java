@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.model.User;
 import com.google.gson.JsonElement;
@@ -59,10 +60,16 @@ public class UserModelServer {
                 if (response.code() == 200) {
                     JsonElement js = response.body().get("tokens");
                     String aToken = "Bearer " + js.getAsJsonArray().get(0).getAsString();
-                    String rToken = "Bearer " + js.getAsJsonArray().get(1).getAsString();
+                    String rToken = null;
+                    Log.d("TAG111", String.valueOf(js.getAsJsonArray().size()));
+                    if(js.getAsJsonArray().size() > 1){
+                        rToken = "Bearer " + js.getAsJsonArray().get(1).getAsString();
+                    }
                     SharedPreferences.Editor preferences = MyApplication.getContext().getSharedPreferences("TAG", ContextThemeWrapper.MODE_PRIVATE).edit();
                     preferences.putString("ACCESS_TOKEN", aToken);
-                    preferences.putString("REFRESH_TOKEN", rToken);
+                    if(js.getAsJsonArray().size() > 1) {
+                        preferences.putString("REFRESH_TOKEN", rToken);
+                    }
                     preferences.commit();
 
                     User user = new User();
@@ -246,6 +253,57 @@ public class UserModelServer {
                 Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                         Toast.LENGTH_LONG).show();
                 listener.onComplete(null);
+            }
+        });
+    }
+
+    public void resetPassword(String email, Model.ResetPasswordListener listener) {
+
+        Call<JsonObject> call = server.service.resetPassword(email);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.code() == 200) {
+                    listener.onComplete(response.body().get("code").getAsString());
+                } else if (response.code() == 400) {
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    listener.onComplete(null);
+                }
+            }
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                Log.d("TAG", "problem in resetPassword");
+                listener.onComplete(null);
+            }
+        });
+    }
+
+    public void changePassword(User user, Model.ChangePasswordListener listener) {
+        HashMap<String, Object> userMap = user.toJson();
+
+        Call<Void> call = server.service.changePassword(userMap);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    listener.onComplete(true);
+                } else if (response.code() == 400) {
+                    Log.d("TAG", "failed in changePassword");
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    listener.onComplete(false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("TAG", "failed in changePassword");
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                listener.onComplete(false);
             }
         });
     }

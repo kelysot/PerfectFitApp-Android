@@ -415,6 +415,27 @@ public class Model {
         userModelServer.editUser(previousEmail, user, listener);
     }
 
+    /*--------------------------------------------------------*/
+
+    public interface ResetPasswordListener {
+        void onComplete(String code);
+    }
+
+    public void resetPassword(String email, ResetPasswordListener listener) {
+        userModelServer.resetPassword(email, listener);
+    }
+
+    /*--------------------------------------------------------*/
+
+    public interface  ChangePasswordListener{
+        void onComplete(Boolean isSuccess);
+    }
+
+    public void changePassword(User user, ChangePasswordListener listener){
+        userModelServer.changePassword(user, listener);
+
+    }
+
     /******************************************************************************************/
 
     /*--------------------------------- General -------------------------------*/
