@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.perfectfitapp_android.R;
@@ -29,6 +30,7 @@ public class CreateProfileStep2Fragment extends Fragment {
     List<String> bodyTypesList, bodyDescriptionList;
     int place = 0;
     ArrayList<Integer> resBodyType;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +50,9 @@ public class CreateProfileStep2Fragment extends Fragment {
         rightBtn.setOnClickListener(v-> goRight());
         leftBtn = view.findViewById(R.id.register_step2_left_img_btn);
         leftBtn.setOnClickListener(v-> goLeft());
+
+        progressBar = view.findViewById(R.id.register_step2_progress_bar);
+        progressBar.setVisibility(View.GONE);
 
         continueBtn = view.findViewById(R.id.register_step2_continue_btn);
         continueBtn.setOnClickListener(v-> continueStep3(view));
@@ -79,6 +84,7 @@ public class CreateProfileStep2Fragment extends Fragment {
 
     private void continueStep3(View view) {
         CreateProfileModel.instance.profile.setBodyType(bodyTypeTv.getText().toString());
+        progressBar.setVisibility(View.VISIBLE);
         Navigation.findNavController(view).navigate(R.id.action_createProfileStep2Fragment2_to_createProfileStep3Fragment2);
     }
 

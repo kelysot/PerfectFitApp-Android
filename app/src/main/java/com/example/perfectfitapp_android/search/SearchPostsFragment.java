@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,6 @@ import java.util.Set;
 
 public class SearchPostsFragment extends Fragment {
 
-    Button backToHomeBtn;
     RecyclerView rv;
     MyAdapter adapter;
     SearchViewModel viewModel;
@@ -47,6 +47,7 @@ public class SearchPostsFragment extends Fragment {
     EditText searchEt;
     ImageButton searchBtn;
     String theSearch;
+    ProgressBar progressBar;
 
 
     @Override
@@ -60,23 +61,6 @@ public class SearchPostsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_posts, container, false);
-
-        backToHomeBtn = view.findViewById(R.id.searchposts_back_to_home_btn);
-        backToHomeBtn.setOnClickListener(v -> {
-//            Set<String> names = SearchModel.instance.map.keySet();
-//            String[] arr = new String[names.size()];
-//            arr = names.toArray(arr);
-//            System.out.println("before the delete: ");
-//            System.out.println(SearchModel.instance.mapToServer);
-//            for(String a : arr){
-//                SearchModel.instance.mapToServer.remove(a);
-//                SearchModel.instance.mapToServer.put(a, new ArrayList<>());
-//            }
-//            System.out.println("after the delete: ");
-//            System.out.println(SearchModel.instance.mapToServer);|
-            setMapToServer();
-            Navigation.findNavController(view).navigate(SearchPostsFragmentDirections.actionGlobalHomePageFragment());
-        });
 
         viewModel.setData(SearchModel.instance.list);
         //TODO: check if SearchModel.instance.list.size() == 0
@@ -120,6 +104,9 @@ public class SearchPostsFragment extends Fragment {
             alert.show();
         }
 
+        progressBar = view.findViewById(R.id.searchposts_progress_bar);
+        progressBar.setVisibility(View.GONE);
+
         searchEt = view.findViewById(R.id.searchposts_text_et);
         if(theSearch != null){
             if(!theSearch.isEmpty()){
@@ -134,12 +121,15 @@ public class SearchPostsFragment extends Fragment {
             search();
         });
 
+
+
 //        refresh();
 
         return view;
     }
 
     public void search(){
+        progressBar.setVisibility(View.VISIBLE);
         theSearch = searchEt.getText().toString();
         System.out.println(theSearch);
         if(theSearch.isEmpty()){
@@ -149,7 +139,7 @@ public class SearchPostsFragment extends Fragment {
             List<Post> posts = searchMap();
             viewModel.setData(posts);
         }
-
+        progressBar.setVisibility(View.GONE);
         adapter.notifyDataSetChanged();
     }
 

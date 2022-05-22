@@ -1,5 +1,6 @@
 package com.example.perfectfitapp_android.search;
 
+import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -11,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
@@ -26,6 +30,7 @@ public class SearchFragment extends Fragment {
 
     Button categoryBtn, sizeBtn, companyBtn, colorBtn, bodyTypeBtn, genderBtn, searchBtn;
     EditText priceFromEt, priceToEt;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +46,8 @@ public class SearchFragment extends Fragment {
         genderBtn = view.findViewById(R.id.search_gender_btn);
         priceFromEt = view.findViewById(R.id.search_price_from_et);
         priceToEt = view.findViewById(R.id.search_price_to_et);
+        progressBar = view.findViewById(R.id.search_progress_bar);
+        progressBar.setVisibility(View.GONE);
 
         setMap();
 
@@ -99,6 +106,7 @@ public class SearchFragment extends Fragment {
         searchBtn = view.findViewById(R.id.search_search_btn);
         searchBtn.setOnClickListener(v -> {
 
+            progressBar.setVisibility(View.VISIBLE);
             searchBtn.setEnabled(false);
             int count = 0;
 
@@ -136,9 +144,6 @@ public class SearchFragment extends Fragment {
             }
             SearchModel.instance.mapToServer.put("Count", countList);
 
-            System.out.println("the map: *************************************************");
-            System.out.println(SearchModel.instance.mapToServer);
-
             List<String> priceList = new ArrayList<>();
             String priceFrom = priceFromEt.getText().toString().trim();
             if(priceFrom.isEmpty()){
@@ -155,13 +160,15 @@ public class SearchFragment extends Fragment {
             Model.instance.getSearchPosts(SearchModel.instance.mapToServer, posts -> {
                 if(posts != null){
                     setMapToServer();
-                    System.out.println("the map ------------------------- ");
-                    System.out.println(SearchModel.instance.mapToServer);
                     SearchModel.instance.list = posts;
                     Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchPostsFragment());
                 }
                 else{
                     System.out.println("problem at searchFragment 1");
+                    progressBar.setVisibility(View.GONE);
+                    searchBtn.setEnabled(true);
+                    //TODO: dialog
+                    showOkDialog();
                 }
             });
         });
@@ -191,5 +198,23 @@ public class SearchFragment extends Fragment {
             SearchModel.instance.mapToServer.remove(names.get(i));
             SearchModel.instance.mapToServer.put(names.get(i), new ArrayList<>());
         }
+    }
+
+    private void showOkDialog(){
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_ok_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText("Opss.. There is something wrong. Please try again later");
+
+        Button btnOk = dialog.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(v -> dialog.dismiss());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
     }
 }

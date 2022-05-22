@@ -103,6 +103,16 @@
             app:layout_constraintStart_toEndOf="@+id/register_step2_budyimage_imv"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
+        <ProgressBar
+            android:id="@+id/register_step2_progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="97dp"
+            android:layout_height="112dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

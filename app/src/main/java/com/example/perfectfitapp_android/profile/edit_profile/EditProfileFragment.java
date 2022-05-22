@@ -26,11 +26,11 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.perfectfitapp_android.R;
-import com.example.perfectfitapp_android.create_profile.CreateProfileModel;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.profile.ModelProfile;
 import com.google.android.material.textfield.TextInputEditText;
@@ -56,6 +56,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
     Bitmap mBitmap;
     CheckBox femaleCB, maleCB;
     String gender;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,6 +73,8 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
         femaleCB = view.findViewById(R.id.edit_profile_step1_female_cb);
         maleCB = view.findViewById(R.id.edit_profile_step1_male_cb);
         birthdayDateImv = view.findViewById(R.id.edit_profile_step1_birthday_imv);
+        progressBar = view.findViewById(R.id.edit_profile_step1_progress_bar);
+        progressBar.setVisibility(View.GONE);
 
         genderEt.setEnabled(false);
 
@@ -182,7 +185,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void continueStep2(View view) {
-
+        progressBar.setVisibility(View.VISIBLE);
         continueBtn.setEnabled(false);
         boolean flag = true;
 
@@ -201,6 +204,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                         continueStep3(view);
 
                     } else {
+                        progressBar.setVisibility(View.GONE);
                         showOkDialog();
                         continueBtn.setEnabled(true);
                     }
@@ -209,31 +213,67 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                 continueStep3(view);
         }
         else{
+            progressBar.setVisibility(View.GONE);
             continueBtn.setEnabled(true);
 
         }
     }
 
     private void continueStep3(View view) {
+        //TODO: add validations
         String firstName = firstNameEt.getText().toString();
         String lastName = lastNameEt.getText().toString();
         String userName = userNameEt.getText().toString();
         String birthday = birthdayEt.getText().toString();
 
-        ModelProfile.instance.getEditProfile().setFirstName(firstName);
-        ModelProfile.instance.getEditProfile().setLastName(lastName);
-        ModelProfile.instance.getEditProfile().setUserName(userName);
-        ModelProfile.instance.getEditProfile().setBirthday(birthday);
-        ModelProfile.instance.getEditProfile().setGender(gender);
+        boolean flag = true;
 
-
-        if (mBitmap != null) {
-            Model.instance.uploadImage(mBitmap, getActivity(), url -> {
-                ModelProfile.instance.getEditProfile().setUserImageUrl(url);
-            });
+        if(firstName.isEmpty()){
+            firstNameEt.setError("Please enter your first name");
+            continueBtn.setEnabled(true);
+            flag = false;
+        }
+        if(lastName.isEmpty()){
+            lastNameEt.setError("Please enter your last name");
+            continueBtn.setEnabled(true);
+            flag = false;
+        }
+        if(userName.isEmpty()){
+            userNameEt.setError("Please enter your user name");
+            continueBtn.setEnabled(true);
+            flag = false;
+        }
+        if(birthday.isEmpty()){
+            birthdayEt.setError("Please enter your birthday");
+            continueBtn.setEnabled(true);
+            flag = false;
+        }
+        if(gender == null){
+            genderEt.setError("You must choose a gender");
+            continueBtn.setEnabled(true);
+            flag = false;
         }
 
-        Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
+        if(flag) {
+
+            ModelProfile.instance.getEditProfile().setFirstName(firstName);
+            ModelProfile.instance.getEditProfile().setLastName(lastName);
+            ModelProfile.instance.getEditProfile().setUserName(userName);
+            ModelProfile.instance.getEditProfile().setBirthday(birthday);
+            ModelProfile.instance.getEditProfile().setGender(gender);
+
+
+            if (mBitmap != null) {
+                Model.instance.uploadImage(mBitmap, getActivity(), url -> {
+                    ModelProfile.instance.getEditProfile().setUserImageUrl(url);
+                });
+            }
+
+            Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
+        }
+        else{
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     private void showOkDialog(){

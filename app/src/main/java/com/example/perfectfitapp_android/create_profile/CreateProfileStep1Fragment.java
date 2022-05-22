@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
     Bitmap mBitmap;
     CheckBox femaleCB, maleCB;
     String gender;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +63,8 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
         femaleCB = view.findViewById(R.id.register_step1_female_cb);
         maleCB = view.findViewById(R.id.register_step1_male_cb);
         genderTxl = view.findViewById(R.id.register_step1_gender_txl);
+        progressBar = view.findViewById(R.id.register_step1_progress_bar);
+        progressBar.setVisibility(View.GONE);
 
         genderTxl.setText("Gender");
         genderTxl.setTextColor(Color.BLACK);
@@ -189,6 +193,7 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
 
     public void checkIfUserNameExist(View view){
 
+        progressBar.setVisibility(View.VISIBLE);
         continueBtn.setEnabled(false);
         String firstName = firstNameEt.getText().toString();
         String lastName = lastNameEt.getText().toString();
@@ -236,9 +241,13 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
                     Navigation.findNavController(view).navigate(R.id.action_createProfileStep1Fragment2_to_createProfileStep2Fragment2);
                 } else {
                     continueBtn.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
                     showOkDialog();
                 }
             });
+        }
+        else{
+            progressBar.setVisibility(View.GONE);
         }
     }
 

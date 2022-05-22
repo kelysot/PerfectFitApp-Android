@@ -1,5 +1,6 @@
 package com.example.perfectfitapp_android.profile.edit_profile;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
@@ -23,6 +26,7 @@ public class EditProfileStep3Fragment extends Fragment {
     EditText shoulderEt, chestEt, basinEt, waistEt, heightEt, weightEt, footEt;
     Button saveChangesBtn;
     ImageView explenationImg;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +41,8 @@ public class EditProfileStep3Fragment extends Fragment {
         weightEt = view.findViewById(R.id.edit_profile_step3_weight_et);
         footEt = view.findViewById(R.id.edit_profile_step3_foot_et);
         explenationImg = view.findViewById(R.id.edit_profile_step3_explanation_image);
+        progressBar = view.findViewById(R.id.edit_profile_step3_progress_bar);
+        progressBar.setVisibility(View.GONE);
 
         if(ModelProfile.instance.getEditProfile().getGender().equals("Female")){
             explenationImg.setImageResource(R.drawable.body_measurement_for_her);
@@ -61,6 +67,7 @@ public class EditProfileStep3Fragment extends Fragment {
 
     private void saveChanges(View view) {
 
+        progressBar.setVisibility(View.VISIBLE);
         saveChangesBtn.setEnabled(false);
         boolean flag = true;
 
@@ -124,8 +131,35 @@ public class EditProfileStep3Fragment extends Fragment {
 
                     Navigation.findNavController(view).navigate(R.id.action_global_userProfilesFragment2);
                 }
+                else{
+                    progressBar.setVisibility(View.GONE);
+                    saveChangesBtn.setEnabled(true);
+                    //TODO: dialog
+                    showOkDialog();
+                }
             });
         }
+        else{
+            progressBar.setVisibility(View.GONE);
+            saveChangesBtn.setEnabled(true);
+        }
+    }
 
+    private void showOkDialog(){
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_ok_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText("Opss.. There is something wrong. Please try again later");
+
+        Button btnOk = dialog.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(v -> dialog.dismiss());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
     }
 }
