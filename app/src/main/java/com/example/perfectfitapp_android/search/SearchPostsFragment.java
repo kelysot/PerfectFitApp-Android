@@ -43,10 +43,10 @@ public class SearchPostsFragment extends Fragment {
     RecyclerView rv;
     MyAdapter adapter;
     SearchViewModel viewModel;
-    SwipeRefreshLayout swipeRefresh;
+//    SwipeRefreshLayout swipeRefresh;
     EditText searchEt;
     ImageButton searchBtn;
-
+    String theSearch;
 
 
     @Override
@@ -88,8 +88,8 @@ public class SearchPostsFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //TODO: turn off the swipeRefresh
-        swipeRefresh = view.findViewById(R.id.searchposts_swiperefresh);
-        swipeRefresh.setOnRefreshListener(() -> refresh());
+//        swipeRefresh = view.findViewById(R.id.searchposts_swiperefresh);
+//        swipeRefresh.setOnRefreshListener(() -> refresh());
 
         adapter = new MyAdapter();
         rv.setAdapter(adapter);
@@ -121,6 +121,14 @@ public class SearchPostsFragment extends Fragment {
         }
 
         searchEt = view.findViewById(R.id.searchposts_text_et);
+        if(theSearch != null){
+            if(!theSearch.isEmpty()){
+                List<Post> posts = searchMap();
+                viewModel.setData(posts);
+                adapter.notifyDataSetChanged();
+            }
+        }
+
         searchBtn = view.findViewById(R.id.searchposts_search_btn);
         searchBtn.setOnClickListener(v -> {
             search();
@@ -132,75 +140,75 @@ public class SearchPostsFragment extends Fragment {
     }
 
     public void search(){
-        swipeRefresh.setRefreshing(true);
-
-        String theSearch = searchEt.getText().toString();
+        theSearch = searchEt.getText().toString();
+        System.out.println(theSearch);
         if(theSearch.isEmpty()){
             viewModel.setData(SearchModel.instance.list);
         }
         else {
-            List<Post> posts = new ArrayList<>();
-            for (Post p : viewModel.getData()) {
-                if (p.getProfileId().contains(theSearch)) {
-                    posts.add(p);
-                    continue;
-                }
-                if (p.getProductName().contains(theSearch)) {
-                    posts.add(p);
-                    continue;
-                }
-                if (p.getSKU().contains(theSearch)) {
-                    posts.add(p);
-                    continue;
-                }
-                if (p.getSize().contains(theSearch)) {
-                    posts.add(p);
-                    continue;
-                }
-                if (p.getCompany().contains(theSearch)) {
-                    posts.add(p);
-                    continue;
-                }
-                if (p.getPrice().contains(theSearch)) {
-                    posts.add(p);
-                    continue;
-                }
-                if (p.getColor().contains(theSearch)) {
-                    posts.add(p);
-                    continue;
-                }
-                if (p.getCategoryId().contains(theSearch)) {
-                    posts.add(p);
-                    continue;
-                }
-                if (p.getSubCategoryId().contains(theSearch)) {
-                    posts.add(p);
-                    continue;
-                }
-                if (p.getDescription().contains(theSearch)) {
-                    posts.add(p);
-                    continue;
-                }
-                if (p.getLink().contains(theSearch)) {
-                    posts.add(p);
-                    continue;
-                }
-            }
+            List<Post> posts = searchMap();
             viewModel.setData(posts);
         }
 
         adapter.notifyDataSetChanged();
-        swipeRefresh.setRefreshing(false);
+    }
 
-
-
+    public List<Post> searchMap(){
+        List<Post> posts = new ArrayList<>();
+        for (Post p : viewModel.getData()) {
+            if (p.getProfileId().contains(theSearch)) {
+                posts.add(p);
+                continue;
+            }
+            if (p.getProductName().contains(theSearch)) {
+                posts.add(p);
+                continue;
+            }
+            if (p.getSKU().contains(theSearch)) {
+                posts.add(p);
+                continue;
+            }
+            if (p.getSize().contains(theSearch)) {
+                posts.add(p);
+                continue;
+            }
+            if (p.getCompany().contains(theSearch)) {
+                posts.add(p);
+                continue;
+            }
+            if (p.getPrice().contains(theSearch)) {
+                posts.add(p);
+                continue;
+            }
+            if (p.getColor().contains(theSearch)) {
+                posts.add(p);
+                continue;
+            }
+            if (p.getCategoryId().contains(theSearch)) {
+                posts.add(p);
+                continue;
+            }
+            if (p.getSubCategoryId().contains(theSearch)) {
+                posts.add(p);
+                continue;
+            }
+            if (p.getDescription().contains(theSearch)) {
+                posts.add(p);
+                continue;
+            }
+            if (p.getLink().contains(theSearch)) {
+                posts.add(p);
+                continue;
+            }
+        }
+        return posts;
     }
     private void refresh() {
         Model.instance.getSearchPosts(SearchModel.instance.mapToServer, posts -> {
             if(posts != null){
                 viewModel.setData(posts);
                 adapter.notifyDataSetChanged();
-                swipeRefresh.setRefreshing(false);
+//                swipeRefresh.setRefreshing(false);
             }
         });
     }

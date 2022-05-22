@@ -184,7 +184,8 @@
             app:destination="@id/searchFeatureFragment" />
         <action
             android:id="@+id/action_searchFragment_to_searchPostsFragment"
-            app:destination="@id/searchPostsFragment" />
+            app:destination="@id/searchPostsFragment"
+            app:popUpTo="@id/homePageFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFeatureFragment"

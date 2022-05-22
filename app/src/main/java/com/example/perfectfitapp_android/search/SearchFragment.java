@@ -17,7 +17,9 @@ import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.generalModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 
 public class SearchFragment extends Fragment {
@@ -152,6 +154,9 @@ public class SearchFragment extends Fragment {
 
             Model.instance.getSearchPosts(SearchModel.instance.mapToServer, posts -> {
                 if(posts != null){
+                    setMapToServer();
+                    System.out.println("the map ------------------------- ");
+                    System.out.println(SearchModel.instance.mapToServer);
                     SearchModel.instance.list = posts;
                     Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchPostsFragment());
                 }
@@ -173,5 +178,18 @@ public class SearchFragment extends Fragment {
             }
             generalModel.instance.map.put("Categories", list);
         });
+    }
+
+    public void setMapToServer(){
+        Set keys = SearchModel.instance.mapToServer.keySet();
+        Object[] arr = keys.toArray();
+        List<String> names = new ArrayList<>();
+        for(int i=0; i<keys.size(); i++){
+            names.add(arr[i].toString());
+        }
+        for(int i=0; i<names.size(); i++){
+            SearchModel.instance.mapToServer.remove(names.get(i));
+            SearchModel.instance.mapToServer.put(names.get(i), new ArrayList<>());
+        }
     }
 }
