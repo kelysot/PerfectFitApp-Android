@@ -181,7 +181,10 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
                 checkIfUserNameExist(view);
             });
         }
-        else checkIfUserNameExist(view);
+        else {
+            mImageUrl = "uploads/f86488dab7577b9c557670dc0f63d2d6.png";
+            checkIfUserNameExist(view);
+        }
     }
 
     public void checkIfUserNameExist(View view){
