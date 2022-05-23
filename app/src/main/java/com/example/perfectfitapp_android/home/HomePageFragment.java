@@ -60,12 +60,12 @@ public class HomePageFragment extends Fragment {
 
         /*******************/
 
-        makeGeneral = view.findViewById(R.id.general);
-        makeGeneral.setOnClickListener(v -> {
-            Model.instance.general(isSuccess -> {
-                System.out.println("generallll");
-            });
-        });
+//        makeGeneral = view.findViewById(R.id.general);
+//        makeGeneral.setOnClickListener(v -> {
+//            Model.instance.general(isSuccess -> {
+//                System.out.println("generallll");
+//            });
+//        });
 
         /*******************/
 
@@ -108,12 +108,12 @@ public class HomePageFragment extends Fragment {
         });
 
 
-        checkDate = view.findViewById(R.id.check_date);
-        checkDate.setOnClickListener(v -> {
-            Model.instance.getDates("Sun Apr 17 2022 14:54:53 GMT+0300",isSuccess -> {
-                //TODO:
-            });
-        });
+//        checkDate = view.findViewById(R.id.check_date);
+//        checkDate.setOnClickListener(v -> {
+//            Model.instance.getDates("Sun Apr 17 2022 14:54:53 GMT+0300",isSuccess -> {
+//                //TODO:
+//            });
+//        });
 
         Model.instance.checkNotification();
         Model.instance.refreshPostsList();
