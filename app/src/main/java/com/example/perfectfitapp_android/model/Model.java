@@ -1,10 +1,12 @@
 package com.example.perfectfitapp_android.model;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -910,5 +912,29 @@ public class Model {
                 }
             });
         }
+    }
+
+    /******************************************************************************************/
+
+    /*--------------------------------- RefreshToken -------------------------------*/
+
+    /******************************************************************************************/
+
+    public interface refreshTokenListener {
+        void onComplete(List<String> tokensList);
+    }
+
+    public void refreshToken(Model.refreshTokenListener listener) {
+        userModelServer.refreshToken(listener);
+    }
+
+    public void insertTokens(List<String> tokensList){
+        String aToken =  "Bearer " + tokensList.get(0);
+        String rToken =  "Bearer " + tokensList.get(1);
+
+        SharedPreferences.Editor preferences = MyApplication.getContext().getSharedPreferences("TAG", ContextThemeWrapper.MODE_PRIVATE).edit();
+        preferences.putString("ACCESS_TOKEN", aToken);
+        preferences.putString("REFRESH_TOKEN", rToken);
+        preferences.commit();
     }
 }

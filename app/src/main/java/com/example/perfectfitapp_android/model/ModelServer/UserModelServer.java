@@ -13,11 +13,15 @@ import com.example.perfectfitapp_android.model.User;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
 
 public class UserModelServer {
     Server server = new Server();
@@ -160,9 +164,6 @@ public class UserModelServer {
     public void logout(Model.LogoutListener listener) {
 
         String token = server.sp.getString("ACCESS_TOKEN", "");
-//        String refreshToken = sp.getString("REFRESH_TOKEN", "");
-
-
         Call<Void> call = server.service.executeLogout(token);
         call.enqueue(new Callback<Void>() {
             @Override
@@ -178,14 +179,11 @@ public class UserModelServer {
                             Toast.LENGTH_LONG).show();
                     listener.onComplete(false);
                 } else if (response.code() == 403) {
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                    });
                     Toast.makeText(MyApplication.getContext(), "invalid request",
                             Toast.LENGTH_LONG).show();
-//                    getTokens(isSuccess -> {
-//                        if(isSuccess){
-//                            Toast.makeText(MyApplication.getContext(), "Please try again",
-//                                    Toast.LENGTH_LONG).show();
-//                        }
-//                    });
 
                     listener.onComplete(false);
                 }
@@ -307,4 +305,46 @@ public class UserModelServer {
             }
         });
     }
+
+
+    public void refreshToken(Model.refreshTokenListener listener){
+
+        String token = server.sp.getString("REFRESH_TOKEN", "");
+        System.out.println("the token: " + token);
+
+        Call<JsonObject> call = server.service.refreshToken(token);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if(response.code() == 200){
+                    String tokena = server.sp.getString("ACCESS_TOKEN", "");
+                    String tokenr = server.sp.getString("ACCESS_TOKEN", "");
+
+                    System.out.println("the last access = " + tokena);
+                    System.out.println("the last refresh = " + tokenr);
+
+                    System.out.println("here121212121212121211212");
+                    System.out.println(response.body());
+                    List<String> tokenList = new ArrayList<>();
+                    JsonObject js = response.body();
+                    tokenList.add(js.get("accessToken").getAsString());
+                    tokenList.add(js.get("refreshToken").getAsString());
+                    listener.onComplete(tokenList);
+                }
+                else{
+                    System.out.println("here33333333333333333333");
+                    System.out.println(response.code());
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                System.out.println("here444444444444444444444444");
+                listener.onComplete(null);
+            }
+        });
+    }
+
+
 }

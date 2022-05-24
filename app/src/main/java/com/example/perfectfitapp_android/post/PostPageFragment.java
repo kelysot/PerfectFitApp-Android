@@ -66,42 +66,46 @@ public class PostPageFragment extends Fragment {
         /***************************** set *****************************/
 
         Model.instance.getPostById(postId, post -> {
-            if(!Model.instance.getProfile().getUserName().equals(post.getProfileId())){
-                editBtn.setVisibility(View.GONE);
-            }
 
-            productNameEt.setText(post.getProductName());
-            skuEt.setText(post.getSKU());
-            sizeEt.setText(post.getSize());
-            companyEt.setText(post.getCompany());
-            colorEt.setText(post.getColor());
-            categoryTv.setText(post.getCategoryId());
-            subCategoryTv.setText(post.getSubCategoryId());
-            descriptionEt.setText(post.getDescription());
-            priceEt.setText(post.getPrice());
-            linkEt.setText(post.getLink());
-            sizeAdj.setRating(Float.parseFloat(post.getSizeAdjustment()));
-            rating.setRating(Float.parseFloat(post.getRating()));
+            if(post != null){
 
-            if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0 ) {
-                Model.instance.getImages(post.getPicturesUrl().get(0), bitmap -> {
-                    image.setImageBitmap(bitmap);
+                if(!Model.instance.getProfile().getUserName().equals(post.getProfileId())){
+                    editBtn.setVisibility(View.GONE);
+                }
+
+                productNameEt.setText(post.getProductName());
+                skuEt.setText(post.getSKU());
+                sizeEt.setText(post.getSize());
+                companyEt.setText(post.getCompany());
+                colorEt.setText(post.getColor());
+                categoryTv.setText(post.getCategoryId());
+                subCategoryTv.setText(post.getSubCategoryId());
+                descriptionEt.setText(post.getDescription());
+                priceEt.setText(post.getPrice());
+                linkEt.setText(post.getLink());
+                sizeAdj.setRating(Float.parseFloat(post.getSizeAdjustment()));
+                rating.setRating(Float.parseFloat(post.getRating()));
+
+                if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0 ) {
+                    Model.instance.getImages(post.getPicturesUrl().get(0), bitmap -> {
+                        image.setImageBitmap(bitmap);
+                    });
+                }
+                else {
+                    Picasso.get()
+                            .load(R.drawable.pic1_shirts).resize(250, 180)
+                            .centerCrop()
+                            .into(image);
+                }
+
+                linkEt.setOnClickListener(v -> {
+                    if(post.getLink().contains("http")){ // missing 'http://' will cause crashed
+                        Uri uri = Uri.parse(post.getLink());
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+                    }
                 });
             }
-            else {
-                Picasso.get()
-                        .load(R.drawable.pic1_shirts).resize(250, 180)
-                        .centerCrop()
-                        .into(image);
-            }
-
-            linkEt.setOnClickListener(v -> {
-                if(post.getLink().contains("http")){ // missing 'http://' will cause crashed
-                    Uri uri = Uri.parse(post.getLink());
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    startActivity(intent);
-                }
-            });
         });
 
         productNameEt.setEnabled(false);
