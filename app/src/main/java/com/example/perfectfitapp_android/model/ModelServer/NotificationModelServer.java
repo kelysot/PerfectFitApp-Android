@@ -37,11 +37,18 @@ public class NotificationModelServer {
                     List<Notification> notifications = Notification.jsonArrayToNotification(response.body());
                     listener.onComplete(notifications);
                 }
-                else{
+                else if(response.code() == 400){
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later111",
                             Toast.LENGTH_LONG).show();
                     Log.d("TAG", "failed in ModelServer in getNotificationsByIds 1");
                     listener.onComplete(null);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
             }
 
@@ -71,6 +78,13 @@ public class NotificationModelServer {
                             Toast.LENGTH_LONG).show();
                     listener.onComplete(null);
                 }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
+                }
             }
 
             @Override
@@ -95,9 +109,17 @@ public class NotificationModelServer {
                     JsonArray notificationJson = response.body();
                     List<Notification> notifications = Notification.jsonArrayToNotification(notificationJson);
                     listener.onComplete(notifications);
-                }else{
+                }
+                else if(response.code() == 400){
                     Log.d("TAG", "failed in getAllSubCategories1 in ModelServer");
                     listener.onComplete(null);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
             }
 
@@ -121,11 +143,18 @@ public class NotificationModelServer {
                     Notification notification = Notification.jsonElementToNotification(js);
                     listener.onComplete(notification);
                 }
-                else{
+                else if(response.code() == 400){
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
                     Log.d("TAG", "failed in ModelServer in getProfilePosts 2");
                     listener.onComplete(null);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
             }
 
@@ -151,11 +180,18 @@ public class NotificationModelServer {
                 if(response.code() == 200){
                     listener.onComplete(true);
                 }
-                else{
+                else if(response.code() == 400){
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
                     Log.d("TAG", "failed in ModelServer in editPost 1");
                     listener.onComplete(false);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(false);
+                    });
                 }
             }
 
