@@ -47,13 +47,9 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
 
     TextInputEditText firstNameEt, lastNameEt, birthdayEt, userNameEt;
     ImageView image, addPhoto, birthdayDateImv;
-    TextInputLayout genderTxtIL;
-    AutoCompleteTextView genderAuto; // catch the gender
-//    String[] genderArr;
-//    ArrayAdapter<String> genderAdapter;
     Button continueBtn;
     Bitmap mBitmap;
-    CheckBox femaleCB, maleCB;
+    CheckBox femaleCB, maleCB, noneCB;
     String gender;
     ProgressBar progressBar;
 
@@ -70,6 +66,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
         image = view.findViewById(R.id.edit_profile_step1_image_imv);
         femaleCB = view.findViewById(R.id.edit_profile_step1_female_cb);
         maleCB = view.findViewById(R.id.edit_profile_step1_male_cb);
+        noneCB = view.findViewById(R.id.edit_profile_step1_none_cb);
         birthdayDateImv = view.findViewById(R.id.edit_profile_step1_birthday_imv);
         progressBar = view.findViewById(R.id.edit_profile_step1_progress_bar);
         progressBar.setVisibility(View.GONE);
@@ -95,15 +92,21 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                 femaleCB.setChecked(true);
                 gender = "Female";
             }
-            else{
+            else if (genderFromServer.equals("Male")){
                 maleCB.setChecked(true);
                 gender = "Male";
+            } else{
+                noneCB.setChecked(true);
+                gender = "None";
             }
         }
 
         femaleCB.setOnClickListener(v -> {
             if(maleCB.isChecked()){
                 maleCB.setChecked(false);
+            }
+            else if (noneCB.isChecked()){
+                noneCB.setChecked(false);
             }
             gender = "Female";
         });
@@ -112,7 +115,20 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
             if(femaleCB.isChecked()){
                 femaleCB.setChecked(false);
             }
+            else if (noneCB.isChecked()){
+                noneCB.setChecked(false);
+            }
             gender = "Male";
+        });
+
+        noneCB.setOnClickListener(v -> {
+            if(femaleCB.isChecked()){
+                femaleCB.setChecked(false);
+            }
+            else if (maleCB.isChecked()){
+                maleCB.setChecked(false);
+            }
+            gender = "None";
         });
 
         ModelProfile.instance.setPreviousName(Model.instance.getProfile().getUserName());
@@ -187,12 +203,6 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
 
         String userName = userNameEt.getText().toString();
 
-//        if((!(femaleCB.isChecked())) && (!(maleCB.isChecked()))){
-//            String s = "Please chose your gender.";
-//            showOkDialog(s);
-//            flag = false;
-//        }
-
         if (flag) {
             if(!ModelProfile.instance.getEditProfile().getUserName().equals(userName)){
                 Model.instance.checkIfUserNameExist(userName, isSuccess -> {
@@ -245,7 +255,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
             continueBtn.setEnabled(true);
             flag = false;
         }
-        if(!femaleCB.isChecked() && !maleCB.isChecked()){
+        if(!femaleCB.isChecked() && !maleCB.isChecked() && !noneCB.isChecked()){
             String s = "Please chose your gender.";
             showOkDialog(s);
             flag = false;
