@@ -26,6 +26,7 @@ import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.SubCategory;
 import com.squareup.picasso.Picasso;
 
+import java.util.Collections;
 import java.util.List;
 
 public class SubCategoryFragment extends Fragment {
@@ -68,6 +69,7 @@ public class SubCategoryFragment extends Fragment {
 
     private void refresh() {
         Model.instance.getSubCategoriesByCategoryId(categoryId,Model.instance.getProfile().getGender(),subCategoryList -> {
+            Collections.sort(subCategoryList, (o1, o2) -> o1.getName().compareTo(o2.getName()));
             viewModel.setData(subCategoryList);
             adapter.notifyDataSetChanged();
         });
