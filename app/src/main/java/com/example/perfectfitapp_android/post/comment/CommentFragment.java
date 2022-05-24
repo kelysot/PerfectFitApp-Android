@@ -93,6 +93,7 @@ public class CommentFragment extends Fragment {
                addBtn.setEnabled(true);
                Toast.makeText(MyApplication.getContext(), "Comment didn't saved",
                        Toast.LENGTH_LONG).show();
+               //TODO: dialog
            }
 
 
@@ -101,6 +102,7 @@ public class CommentFragment extends Fragment {
 
     private void refresh() {
         Model.instance.getCommentsByPostId(postId, commentList -> {
+            //TODO: check if commetList is null - and open dialog
             Collections.reverse(commentList);
             viewModel.setData(commentList);
             adapter.notifyDataSetChanged();

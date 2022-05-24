@@ -32,9 +32,16 @@ public class CommentModelServer {
                     List<Comment> comments = Comment.jsonArrayToCategory(commentsJson);
                     listener.onComplete(comments);
                 }
-                else {
+                else if(response.code() == 400) {
                     Log.d("TAG", "failed in getCommentsByPostId");
                     listener.onComplete(null);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
             }
 
@@ -64,6 +71,13 @@ public class CommentModelServer {
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
                     listener.onComplete(null);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
             }
 
