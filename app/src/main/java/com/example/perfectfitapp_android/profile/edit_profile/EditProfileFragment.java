@@ -46,7 +46,6 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
     private static final int REQUEST_IMAGE_PIC = 2;
 
     TextInputEditText firstNameEt, lastNameEt, birthdayEt, userNameEt;
-    EditText genderEt;
     ImageView image, addPhoto, birthdayDateImv;
     TextInputLayout genderTxtIL;
     AutoCompleteTextView genderAuto; // catch the gender
@@ -68,15 +67,12 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
         lastNameEt = view.findViewById(R.id.edit_profile_step1_lastname_et);
         userNameEt = view.findViewById(R.id.edit_profile_step1_username_et);
         birthdayEt = view.findViewById(R.id.edit_profile_step1_birthday_et);
-        genderEt = view.findViewById(R.id.edit_profile_gendet_txt);
         image = view.findViewById(R.id.edit_profile_step1_image_imv);
         femaleCB = view.findViewById(R.id.edit_profile_step1_female_cb);
         maleCB = view.findViewById(R.id.edit_profile_step1_male_cb);
         birthdayDateImv = view.findViewById(R.id.edit_profile_step1_birthday_imv);
         progressBar = view.findViewById(R.id.edit_profile_step1_progress_bar);
         progressBar.setVisibility(View.GONE);
-
-        genderEt.setEnabled(false);
 
         addPhoto = view.findViewById(R.id.edit_profile_step1_add_photo_imv);
         continueBtn = view.findViewById(R.id.edit_profile_step1_continue_btn);
@@ -191,11 +187,11 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
 
         String userName = userNameEt.getText().toString();
 
-        //TODO: stop the error after fix it
-        if((!(femaleCB.isChecked())) && (!(maleCB.isChecked()))){
-            genderEt.setError("You must chose gender");
-            flag = false;
-        }
+//        if((!(femaleCB.isChecked())) && (!(maleCB.isChecked()))){
+//            String s = "Please chose your gender.";
+//            showOkDialog(s);
+//            flag = false;
+//        }
 
         if (flag) {
             if(!ModelProfile.instance.getEditProfile().getUserName().equals(userName)){
@@ -205,7 +201,8 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
 
                     } else {
                         progressBar.setVisibility(View.GONE);
-                        showOkDialog();
+                        String s = "The user name you choose already exist, please try another one.";
+                        showOkDialog(s);
                         continueBtn.setEnabled(true);
                     }
                 });
@@ -248,9 +245,9 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
             continueBtn.setEnabled(true);
             flag = false;
         }
-        if(gender == null){
-            genderEt.setError("You must choose a gender");
-            continueBtn.setEnabled(true);
+        if(!femaleCB.isChecked() && !maleCB.isChecked()){
+            String s = "Please chose your gender.";
+            showOkDialog(s);
             flag = false;
         }
 
@@ -272,18 +269,19 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
             Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
         }
         else{
+            continueBtn.setEnabled(true);
             progressBar.setVisibility(View.GONE);
         }
     }
 
-    private void showOkDialog(){
+    private void showOkDialog(String text){
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_ok_dialog);
 
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
 
         TextView tx = dialog.findViewById(R.id.txtDesc);
-        tx.setText("The user name you choose already exist, please try another one.");
+        tx.setText(text);
 
         Button btnOk = dialog.findViewById(R.id.btn_ok);
         btnOk.setOnClickListener(v -> dialog.dismiss());

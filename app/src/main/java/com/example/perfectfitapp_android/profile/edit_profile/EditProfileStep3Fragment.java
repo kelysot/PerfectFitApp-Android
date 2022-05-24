@@ -72,37 +72,37 @@ public class EditProfileStep3Fragment extends Fragment {
         boolean flag = true;
 
         if(shoulderEt.getText().toString().isEmpty()){
-            shoulderEt.setError("Please your size");
+            shoulderEt.setError("Please enter your shoulder size.");
             saveChangesBtn.setEnabled(true);
             flag = false;
         }
         if(chestEt.getText().toString().isEmpty()){
-            chestEt.setError("Please your size");
+            chestEt.setError("Please enter your chest size.");
             saveChangesBtn.setEnabled(true);
             flag = false;
         }
         if(basinEt.getText().toString().isEmpty()){
-            basinEt.setError("Please your size");
+            basinEt.setError("Please enter your hips size.");
             saveChangesBtn.setEnabled(true);
             flag = false;
         }
         if(waistEt.getText().toString().isEmpty()){
-            waistEt.setError("Please your size");
+            waistEt.setError("Please enter your waist size.");
             saveChangesBtn.setEnabled(true);
             flag = false;
         }
         if(heightEt.getText().toString().isEmpty()){
-            heightEt.setError("Please your size");
+            heightEt.setError("Please enter your height size.");
             saveChangesBtn.setEnabled(true);
             flag = false;
         }
         if(weightEt.getText().toString().isEmpty()){
-            weightEt.setError("Please your size");
+            weightEt.setError("Please enter your weight size.");
             saveChangesBtn.setEnabled(true);
             flag = false;
         }
         if(footEt.getText().toString().isEmpty()){
-            footEt.setError("Please your size");
+            footEt.setError("Please enter your shoes size.");
             saveChangesBtn.setEnabled(true);
             flag = false;
         }

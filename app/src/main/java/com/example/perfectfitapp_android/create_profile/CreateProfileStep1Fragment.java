@@ -42,7 +42,7 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
     private static final int REQUEST_IMAGE_PIC = 2;
     private String mImageUrl = "";
 
-    TextInputEditText firstNameEt, lastNameEt, birthdayEt, userNameEt, genderTxl;
+    TextInputEditText firstNameEt, lastNameEt, birthdayEt, userNameEt;
     ImageView image, addPhoto, birthdayDateImv;
     Button continueBtn;
     Bitmap mBitmap;
@@ -62,13 +62,9 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
         image = view.findViewById(R.id.register_step1_image_imv);
         femaleCB = view.findViewById(R.id.register_step1_female_cb);
         maleCB = view.findViewById(R.id.register_step1_male_cb);
-        genderTxl = view.findViewById(R.id.register_step1_gender_txl);
         progressBar = view.findViewById(R.id.register_step1_progress_bar);
         progressBar.setVisibility(View.GONE);
 
-        genderTxl.setText("Gender");
-        genderTxl.setTextColor(Color.BLACK);
-        genderTxl.setEnabled(false);
 //        genderTxtIL = view.findViewById(R.id.register_step1_gender_txl);
 //        genderAuto = view.findViewById(R.id.register_step1_gender_et);
 
@@ -204,27 +200,29 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
         boolean flag = true;
 
         if(firstName.isEmpty()){
-            firstNameEt.setError("Please enter your first name");
+            firstNameEt.setError("Please enter your first name.");
             continueBtn.setEnabled(true);
             flag = false;
         }
         if(lastName.isEmpty()){
-            lastNameEt.setError("Please enter your last name");
+            lastNameEt.setError("Please enter your last name.");
             continueBtn.setEnabled(true);
             flag = false;
         }
         if(userName.isEmpty()){
-            userNameEt.setError("Please enter your user name");
+            userNameEt.setError("Please enter your user name.");
             continueBtn.setEnabled(true);
             flag = false;
         }
         if(birthday.isEmpty()){
-            birthdayEt.setError("Please enter your birthday");
+            String s = "Please enter your birthday.";
+            showOkDialog(s);
             continueBtn.setEnabled(true);
             flag = false;
         }
-        if(gender == null){
-            genderTxl.setError("You must choose a gender");
+        if(!femaleCB.isChecked() && !maleCB.isChecked()){
+            String s = "Please chose your gender.";
+            showOkDialog(s);
             continueBtn.setEnabled(true);
             flag = false;
         }
@@ -242,31 +240,15 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
                 } else {
                     continueBtn.setEnabled(true);
                     progressBar.setVisibility(View.GONE);
-                    showOkDialog();
+                    String s = "The user name you choose already exist, please try another one.";
+                    showOkDialog(s);
                 }
             });
         }
         else{
+            continueBtn.setEnabled(true);
             progressBar.setVisibility(View.GONE);
         }
-    }
-
-    private void showOkDialog(){
-        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
-        dialog.setContentView(R.layout.custom_ok_dialog);
-
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
-
-        TextView tx = dialog.findViewById(R.id.txtDesc);
-        tx.setText("The user name you choose already exist, please try another one.");
-
-        Button btnOk = dialog.findViewById(R.id.btn_ok);
-        btnOk.setOnClickListener(v -> dialog.dismiss());
-
-        ImageView btnClose = dialog.findViewById(R.id.btn_close);
-        btnClose.setOnClickListener(view -> dialog.dismiss());
-
-        dialog.show();
     }
 
     private void pickBirthdayDate() {
@@ -283,5 +265,23 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         String date = dayOfMonth + "/" + (month +1)  + "/" + year;
         birthdayEt.setText(date);
+    }
+
+    private void showOkDialog(String text){
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_ok_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText(text);
+
+        Button btnOk = dialog.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(v -> dialog.dismiss());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
     }
 }
