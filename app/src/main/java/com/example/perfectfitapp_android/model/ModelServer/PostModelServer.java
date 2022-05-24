@@ -335,6 +335,14 @@ public class PostModelServer {
                     Log.d("TAG111", response.body().toString());
                     System.out.println("222222222222222222222222222222222222222222");
                 }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
+                }
+
             }
 
             @Override
@@ -355,9 +363,16 @@ public class PostModelServer {
                     String timeAgo = response.body().getAsJsonObject().get("timeAgo").getAsString() + " ago";
                     listener.onComplete(timeAgo);
                 }
-                else {
+                else if(response.code() == 400) {
                     listener.onComplete(null);
                     Log.d("TAG", "failed in timeSince");
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
             }
 
