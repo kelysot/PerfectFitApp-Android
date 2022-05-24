@@ -66,7 +66,9 @@ public class UserProfilesFragment extends Fragment {
 
         /************* initialize general *************/
         Model.instance.getGeneral(map -> {
-            generalModel.instance.map = map;
+            if(map != null){
+                generalModel.instance.map = map;
+            }
         });
 
         /************* initilize categories *************/
