@@ -515,8 +515,12 @@ public class PostModelServer {
                     listener.onComplete(map);
                 }
                 else if(response.code() == 403){
-                    listener.onComplete(null);
-                    Log.d("TAG", "failed in getGeneral 1 - forbidden 403");
+                    Model.instance.refreshToken(tokensList -> {
+                        Log.d("TAG", "failed in getGeneral 1 - forbidden 403");
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
                 else {
                     listener.onComplete(null);

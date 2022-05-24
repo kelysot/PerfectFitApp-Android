@@ -181,11 +181,12 @@ public class UserModelServer {
                 } else if (response.code() == 403) {
                     Model.instance.refreshToken(tokensList -> {
                         Model.instance.insertTokens(tokensList);
+                        Toast.makeText(MyApplication.getContext(), "invalid request",
+                                Toast.LENGTH_LONG).show();
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(false);
                     });
-                    Toast.makeText(MyApplication.getContext(), "invalid request",
-                            Toast.LENGTH_LONG).show();
 
-                    listener.onComplete(false);
                 }
             }
             @Override
@@ -207,8 +208,15 @@ public class UserModelServer {
                 if(response.code() == 200){
                     System.out.println("general worked");
                 }
-                else{
+                else if(response.code() == 400){
                     System.out.println("general not worked " + response.code());
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+//                        listener.onComplete(false);
+                    });
                 }
             }
 
