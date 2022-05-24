@@ -7,7 +7,7 @@ import androidx.room.TypeConverters;
 
 import com.example.perfectfitapp_android.MyApplication;
 
-@Database(entities = {User.class}, version = 6)
+@Database(entities = {User.class}, version = 7)
 @TypeConverters({Converters.class})
 abstract class AppLocalDbRepository extends RoomDatabase {
     public abstract UserDao userDao();

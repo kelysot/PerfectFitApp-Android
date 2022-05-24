@@ -32,6 +32,8 @@ import com.example.perfectfitapp_android.sub_category.SubCategoryViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -222,6 +224,8 @@ public class AddNewPostFragment extends Fragment {
             i++;
         }
 
+        Arrays.sort(categoryArr);
+
         categoryAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, categoryArr);
         categoryAuto.setAdapter(categoryAdapter);
         categoryAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -232,6 +236,8 @@ public class AddNewPostFragment extends Fragment {
                 subCategoryAuto.setEnabled(true);
                 subcategoryTxtIL.setEnabled(true);
                 subcategoryArr= Model.instance.getCategoriesAndSubCategories().get(chosenCategory);
+
+                Collections.sort(subcategoryArr);
 
                 subcategoryAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, subcategoryArr);
                 subCategoryAuto.setAdapter(subcategoryAdapter);
@@ -253,6 +259,10 @@ public class AddNewPostFragment extends Fragment {
 //        companyArr = getResources().getStringArray(R.array.companies);
         companiesList = generalModel.instance.map.get("Companies");
 
+        Collections.sort(companiesList);
+        companiesList.remove("Other");
+        companiesList.add("Other");
+
         companyAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, companiesList);
         companyAuto.setAdapter(companyAdapter);
         companyAuto.setThreshold(1);
@@ -262,6 +272,7 @@ public class AddNewPostFragment extends Fragment {
         colorAuto = view.findViewById(R.id.addnewpost_color_auto);
 //        colorArr = getResources().getStringArray(R.array.colors);
         colorsList = generalModel.instance.map.get("Colors");
+        Collections.sort(colorsList);
 
         colorAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, colorsList);
         colorAuto.setAdapter(colorAdapter);

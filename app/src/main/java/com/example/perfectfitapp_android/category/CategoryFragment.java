@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,11 @@ import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Category;
 import com.example.perfectfitapp_android.model.Model;
 import com.squareup.picasso.Picasso;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class CategoryFragment extends Fragment {
 
@@ -62,15 +68,15 @@ public class CategoryFragment extends Fragment {
             String categoryId = viewModel.getData().get(position).getCategoryId();
             Navigation.findNavController(v).navigate(CategoryFragmentDirections.actionCategoryFragmentToSubCategoryFragment(categoryId));
         });
-
-        Model.instance.checkNotification();
         refresh();
+        Model.instance.checkNotification();
 
         return view;
     }
 
     private void refresh() {
         Model.instance.getAllCategoriesListener(list -> {
+            Collections.sort(list, (o1, o2) -> o1.getName().compareTo(o2.getName()));
             viewModel.setData(list);
             adapter.notifyDataSetChanged();
         });
