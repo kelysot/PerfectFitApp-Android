@@ -735,6 +735,15 @@ public class Model {
     }
 
 
+    /*--------------------------------------------------------*/
+
+    public interface GetPostsByIdsListener{
+        void onComplete(List<Post> postList);
+    }
+
+    public void getPostsByIds(List<String> postsId, GetPostsByIdsListener listener){
+        postModelServer.getPostsByIds(postsId, listener);
+    }
 
     /******************************************************************************************/
 

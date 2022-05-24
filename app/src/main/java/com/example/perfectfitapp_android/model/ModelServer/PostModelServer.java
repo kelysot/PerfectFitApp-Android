@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
+import com.example.perfectfitapp_android.model.Profile;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -462,5 +463,34 @@ public class PostModelServer {
             list.add( arr.get(i).getAsString());
         }
         return list;
+    }
+
+    public void getPostsByIds(List<String> postsId, Model.GetPostsByIdsListener listener){
+        String token = server.sp.getString("ACCESS_TOKEN", "");
+        Call<JsonArray> call = server.service.getPostsByIds(token, postsId);
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                if(response.code() == 200){
+
+                    List<Post> posts = Post.jsonArrayToPost(response.body());
+                    listener.onComplete(posts);
+                }
+                else{
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    Log.d("TAG", "failed in getPostsByIds");
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                Log.d("TAG", "failed in getPostsByIds");
+                listener.onComplete(null);
+            }
+        });
     }
 }
