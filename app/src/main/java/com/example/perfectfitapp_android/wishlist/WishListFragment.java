@@ -63,9 +63,11 @@ public class WishListFragment extends Fragment {
             String postId = viewModel.getData().get(position).getPostId();
             System.out.println("post " + postId + " was clicked");
             Model.instance.getPostById(postId, post -> {
-                //TODO: bring the post from appLocalDB
-                Model.instance.setPost(post);
-                Navigation.findNavController(v).navigate(WishListFragmentDirections.actionGlobalPostPageFragment(postId,"wishlist" ));
+                if(post != null){
+                    //TODO: bring the post from appLocalDB
+                    Model.instance.setPost(post);
+                    Navigation.findNavController(v).navigate(WishListFragmentDirections.actionGlobalPostPageFragment(postId,"wishlist" ));
+                }
             });
         });
 
@@ -77,9 +79,14 @@ public class WishListFragment extends Fragment {
 
     private void refresh() {
         Model.instance.getWishListFromServer(list -> {
+            if(list != null){
             viewModel.setData(list);
             adapter.notifyDataSetChanged();
             swipeRefresh.setRefreshing(false);
+            }
+            else{
+                //TODO: dialog
+            }
         });
     }
 
@@ -216,6 +223,7 @@ public class WishListFragment extends Fragment {
                         refresh();
                     }
                     else {
+                        //TODO: dialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }
@@ -231,6 +239,7 @@ public class WishListFragment extends Fragment {
                         refresh();
                     }
                     else{
+                        //TODO: dialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }

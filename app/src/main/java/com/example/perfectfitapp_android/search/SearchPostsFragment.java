@@ -81,9 +81,15 @@ public class SearchPostsFragment extends Fragment {
         adapter.setOnItemClickListener((v, position) -> {
             String postId = viewModel.getData().get(position).getPostId();
             Model.instance.getPostById(postId, post -> {
-                //TODO: bring the post from appLocalDB
-                Model.instance.setPost(post);
-                Navigation.findNavController(v).navigate(SearchPostsFragmentDirections.actionGlobalPostPageFragment(postId,"wishlist" ));
+                if(post != null){
+
+                    //TODO: bring the post from appLocalDB
+                    Model.instance.setPost(post);
+                    Navigation.findNavController(v).navigate(SearchPostsFragmentDirections.actionGlobalPostPageFragment(postId,"wishlist" ));
+                }
+                else{
+                    //TODO: dialog
+                }
             });
         });
 
@@ -199,6 +205,9 @@ public class SearchPostsFragment extends Fragment {
                 viewModel.setData(posts);
                 adapter.notifyDataSetChanged();
 //                swipeRefresh.setRefreshing(false);
+            }
+            else{
+                //TODO: dialog
             }
         });
     }
@@ -343,6 +352,7 @@ public class SearchPostsFragment extends Fragment {
                         refresh();
                     }
                     else {
+                        //TODO: dialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }
@@ -358,6 +368,7 @@ public class SearchPostsFragment extends Fragment {
                         refresh();
                     }
                     else{
+                        //TODO: dialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }

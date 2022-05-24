@@ -577,6 +577,7 @@ public class Model {
 
 
         postModelServer.getSuitablePosts(Model.instance.getProfile().getUserName(), posts -> {
+            //TODO: check if posts is null
             executor.execute(() -> {
 
                 List<Post> finalList = new LinkedList<>();

@@ -89,8 +89,14 @@ public class HomePageFragment extends Fragment {
             System.out.println("post " + postId + " was clicked");
             //TODO: bring the post from appLocalDB
             Model.instance.getPostById(postId, post -> {
-                Model.instance.setPost(post);
-                Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToPostPageFragment2(postId, "home"));
+                if(post != null){
+
+                    Model.instance.setPost(post);
+                    Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToPostPageFragment2(postId, "home"));
+                }
+                else{
+                    //TODO: dialog
+                }
             });
         });
 
@@ -271,6 +277,7 @@ public class HomePageFragment extends Fragment {
                         refresh();
                     }
                     else {
+                        //TODO: dialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }
@@ -286,6 +293,7 @@ public class HomePageFragment extends Fragment {
                         refresh();
                     }
                     else{
+                        //TODO: dialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }

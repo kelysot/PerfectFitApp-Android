@@ -198,6 +198,7 @@ public class EditPostFragment extends Fragment {
                 toPage();
             }
             else{
+                //TODO: dialog
                 deleteBtn.setEnabled(true);
                 Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                         Toast.LENGTH_LONG).show();
@@ -347,7 +348,7 @@ public class EditPostFragment extends Fragment {
                 toPage();
             }
             else{
-                //TODO
+                //TODO: dialog
                 editBtn.setEnabled(true);
 
             }
