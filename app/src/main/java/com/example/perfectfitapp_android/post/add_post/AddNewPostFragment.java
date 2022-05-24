@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -52,6 +53,7 @@ public class AddNewPostFragment extends Fragment {
     ArrayAdapter<String> sizeAdapter, categoryAdapter, subcategoryAdapter, companyAdapter, colorAdapter;
     String chosenCategory;
     List<String> sizesList, companiesList, colorsList;
+    ProgressBar progressBar;
 
     int check = 0;
 
@@ -71,6 +73,8 @@ public class AddNewPostFragment extends Fragment {
         descriptionEt = view.findViewById(R.id.addnewpost_description_et);
         linkEt = view.findViewById(R.id.addnewpost_link_et);
         priceEt = view.findViewById(R.id.addnewpost_price_et);
+        progressBar = view.findViewById(R.id.addnewpost_progress_bar);
+        progressBar.setVisibility(View.GONE);
 
         sizeAdjSk = view.findViewById(R.id.addnewpost_sizeadjustment_ratingbar);
         ratingBar = view.findViewById(R.id.addnewpost_rating_ratingbar);
@@ -86,6 +90,7 @@ public class AddNewPostFragment extends Fragment {
     //TODO: Make all fields require.
     private void post(View view) {
 
+        progressBar.setVisibility(View.VISIBLE);
         postBtn.setEnabled(false);
 
         String productName, sku, size, company, color, category, subCategory, description;
@@ -175,6 +180,7 @@ public class AddNewPostFragment extends Fragment {
                             .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
                 } else {
                     //TODO: dialog and progressbar
+                    progressBar.setVisibility(View.GONE);
                     postBtn.setEnabled(true);
                     Toast.makeText(MyApplication.getContext(), "Post didn't saved",
                             Toast.LENGTH_LONG).show();
@@ -182,6 +188,7 @@ public class AddNewPostFragment extends Fragment {
             });
         }
         else{
+            progressBar.setVisibility(View.GONE);
             postBtn.setEnabled(true);
             final Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(() -> {

@@ -102,7 +102,10 @@
     <action
         android:id="@+id/action_global_categoryFragment"
         app:destination="@id/categoryFragment" />
-    <action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment"/>
+    <action
+        android:id="@+id/action_global_profileFragment"
+        app:destination="@id/profileFragment"
+        app:popUpTo="@id/profileFragment" />
     <fragment
         android:id="@+id/subCategoryFragment"
         android:name="com.example.perfectfitapp_android.sub_category.SubCategoryFragment"

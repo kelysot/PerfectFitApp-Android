@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class CreateUserFragment extends Fragment {
 
     EditText emailEt, passwordEt;
     Button registerBtn;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,12 +37,14 @@ public class CreateUserFragment extends Fragment {
         passwordEt = view.findViewById(R.id.create_user_password_et);
         registerBtn = view.findViewById(R.id.create_user_register_btn);
         registerBtn.setOnClickListener(v-> register());
+        progressBar = view.findViewById(R.id.create_user_progress_bar);
+        progressBar.setVisibility(View.GONE);
         return view;
     }
 
     private void register() {
         //TODO: add validations of email and password
-
+        progressBar.setVisibility(View.VISIBLE);
         registerBtn.setEnabled(false);
         String email = emailEt.getText().toString();
         String password = passwordEt.getText().toString();
@@ -56,15 +60,22 @@ public class CreateUserFragment extends Fragment {
                                 getActivity().finish();
                             }
                             else{
+                                progressBar.setVisibility(View.GONE);
                                 registerBtn.setEnabled(true);
+                                //TODO: dialog
+                                showOkDialog("Opss.. something wrong. Please try later");
                             }
                         });
                     }
                     else{
+                        progressBar.setVisibility(View.GONE);
                         registerBtn.setEnabled(true);
+                        //TODO: dialog
+                        showOkDialog("Opss.. something wrong. Please try later");
                     }
                 });
             } else {
+                progressBar.setVisibility(View.GONE);
                 String s = "The email addresses already exist, " + "\n" + "please try a different one.";
                 showOkDialog(s);
                 registerBtn.setEnabled(true);
