@@ -1,5 +1,6 @@
 package com.example.perfectfitapp_android.model;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -9,6 +10,9 @@ import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
@@ -911,6 +915,10 @@ public class Model {
                         Model.instance.addBadge(count);
                     }
                 }
+                else{
+
+                    //TODO: dialog
+                }
             });
         }
     }
@@ -937,5 +945,23 @@ public class Model {
         preferences.putString("ACCESS_TOKEN", aToken);
         preferences.putString("REFRESH_TOKEN", rToken);
         preferences.commit();
+    }
+
+    public void showOkDialog(String str ){
+        Dialog dialog = new Dialog(MyApplication.getContext(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_ok_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText(str);
+
+        Button btnOk = dialog.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(v -> dialog.dismiss());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
     }
 }

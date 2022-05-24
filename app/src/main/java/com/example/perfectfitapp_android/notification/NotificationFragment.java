@@ -61,6 +61,7 @@ public class NotificationFragment extends Fragment {
             String notificationId = viewModel.getData().get(position).getNotificationId();
             System.out.println("notification " + notificationId + " was clicked");
             Model.instance.getNotificationById(notificationId, notification -> {
+                //TODO: check if notification is null and dialog
                 if(!notification.getPostId().equals(" ")){
                     Log.d("TAG4", notification.getPostId());
                     Navigation.findNavController(v).navigate(NotificationFragmentDirections.actionGlobalPostPageFragment(notification.getPostId(), "notification"));
@@ -94,6 +95,10 @@ public class NotificationFragment extends Fragment {
                                             Toast.LENGTH_LONG).show();
                                     Log.d("TAG", "failed in editNotification");
                                 }
+                                else{
+
+                                    //TODO: dialog - from the model showOkDialog
+                                }
                             });
                         }
                     }
@@ -103,6 +108,9 @@ public class NotificationFragment extends Fragment {
                     Collections.reverse(list);
                     viewModel.setData(list);
                     adapter.notifyDataSetChanged();
+                }
+                else{
+                    //TODO: dialog
                 }
             });
         }
