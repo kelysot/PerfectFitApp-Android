@@ -7,4 +7,7 @@
     <style name="ShapeAppearanceOverlay.App.CornerSize15Percent" parent="">
         <item name="cornerSize">15%</item>
     </style>
+    <style name="ShapeAppearanceOverlay.App.CornerSize10Percent" parent="">
+        <item name="cornerSize">10%</item>
+    </style>
 </resources>

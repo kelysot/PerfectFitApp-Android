@@ -223,10 +223,10 @@ public class HomePageFragment extends Fragment {
             }
 
             if(checkIfInsideWishList(post)){
-                holder.addToWishList.setImageResource(R.drawable.ic_full_star1);
+                holder.addToWishList.setImageResource(R.drawable.ic_addtowishlistfill);
             }
             else{
-                holder.addToWishList.setImageResource(R.drawable.ic_star1);
+                holder.addToWishList.setImageResource(R.drawable.ic_addtowishlist);
             }
 
             if(checkIfInsideLikes(post)){
@@ -305,7 +305,7 @@ public class HomePageFragment extends Fragment {
                 Model.instance.getProfile().getWishlist().remove(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if(isSuccess){
-                        holder.addToWishList.setImageResource(R.drawable.ic_star1);
+                        holder.addToWishList.setImageResource(R.drawable.ic_addtowishlist);
                     }
                     else{
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
@@ -318,7 +318,7 @@ public class HomePageFragment extends Fragment {
                 Model.instance.getProfile().getWishlist().add(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if(isSuccess){
-                        holder.addToWishList.setImageResource(R.drawable.ic_full_star1);
+                        holder.addToWishList.setImageResource(R.drawable.ic_addtowishlistfill);
                         System.out.println("the posts added to the list");
                         System.out.println(Model.instance.getProfile().getWishlist());
                     }

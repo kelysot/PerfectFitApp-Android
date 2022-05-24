@@ -138,7 +138,7 @@ public class WishListFragment extends Fragment {
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
             holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
-            holder.addToWishListBtn.setImageResource(R.drawable.ic_full_star1);
+            holder.addToWishListBtn.setImageResource(R.drawable.ic_addtowishlistfill);
             holder.addToWishListBtn.setOnClickListener(v -> removeFromList(holder, post));
             holder.addToLikes.setOnClickListener(v-> addToLikes(holder, post));
             Model.instance.timeSince(post.getDate(), timeAgo -> holder.timeAgoTv.setText(timeAgo));
@@ -248,7 +248,7 @@ public class WishListFragment extends Fragment {
             Model.instance.getProfile().getWishlist().remove(post.getPostId());
             Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                 if(isSuccess){
-                    holder.addToWishListBtn.setImageResource(R.drawable.ic_star1);
+                    holder.addToWishListBtn.setImageResource(R.drawable.ic_addtowishlist);
                     refresh();
                 }
                 else{
