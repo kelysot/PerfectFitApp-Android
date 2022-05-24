@@ -4,13 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fafafa"
+    android:background="#FFFFFF"
     tools:context=".user_profiles.UserProfilesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fafafa">
+        android:background="#FFFFFF">
+
+        <TextView
+            android:id="@+id/user_ptofiles_text"
+            android:layout_width="321dp"
+            android:layout_height="86dp"
+            android:layout_marginTop="128dp"
+            android:text="Let's create a profile!"
+            android:textColor="@color/myGreen"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.455"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <pl.droidsonroids.gif.GifImageButton
+            android:id="@+id/gif_green"
+            android:layout_width="398dp"
+            android:layout_height="234dp"
+            android:src="@drawable/plud_green_gif"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_ptofiles_text" />
+
 
         <TableLayout
             android:id="@+id/tableLayout"
@@ -73,6 +97,7 @@
                     android:textSize="20dp"
                     app:strokeColor="#8CB88E"
                     app:strokeWidth="2dp" />
+
             </TableRow>
 
             <TableRow

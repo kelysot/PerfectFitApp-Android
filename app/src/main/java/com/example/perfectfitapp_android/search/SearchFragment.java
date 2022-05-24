@@ -178,13 +178,29 @@ public class SearchFragment extends Fragment {
 
     //TODO: this function need to be called when we press on "filter" button.
     private void setMap() {
-        Model.instance.getAllCategoriesListener(categoryList -> {
-            List<String> list = new ArrayList<>();
-            for(int i=0; i< categoryList.size(); i++){
-                list.add(categoryList.get(i).getName());
+        Model.instance.getGeneral(map -> {
+            if(map != null){
+                generalModel.instance.map = map;
+                Model.instance.getAllCategoriesListener(categoryList -> {
+                    List<String> list = new ArrayList<>();
+                    for(int i=0; i< categoryList.size(); i++){
+                        list.add(categoryList.get(i).getName());
+                    }
+                    generalModel.instance.map.put("Categories", list);
+                });
             }
-            generalModel.instance.map.put("Categories", list);
+            else{
+
+                //TODO: dialog
+            }
         });
+//        Model.instance.getAllCategoriesListener(categoryList -> {
+//            List<String> list = new ArrayList<>();
+//            for(int i=0; i< categoryList.size(); i++){
+//                list.add(categoryList.get(i).getName());
+//            }
+//            generalModel.instance.map.put("Categories", list);
+//        });
     }
 
     public void setMapToServer(){

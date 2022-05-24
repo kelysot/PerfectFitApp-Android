@@ -42,6 +42,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import okio.Timeout;
+import pl.droidsonroids.gif.GifImageButton;
 
 
 public class UserProfilesFragment extends Fragment {
@@ -53,7 +54,9 @@ public class UserProfilesFragment extends Fragment {
     Model model;
     String longClickUserName;
     ProgressBar progressBar;
+    TextView text;
     int posInArray;
+    GifImageButton greenGif;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,6 +89,21 @@ public class UserProfilesFragment extends Fragment {
         setting.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(UserProfilesFragmentDirections.actionUserProfilesFragment2ToEditUserFragment());
         });
+
+        text = view.findViewById(R.id.user_ptofiles_text);
+        greenGif = view.findViewById(R.id.gif_green);
+        greenGif.setOnClickListener(v -> {
+            addProfile(view);
+        });
+
+        text.setEnabled(false);
+        //TODO: ADD animation of legs lead to the addProfile button
+        if(Model.instance.getUser().getProfilesArray().size() > 0){
+            text.setVisibility(View.GONE);
+            greenGif.setVisibility(View.GONE);
+            greenGif.setEnabled(false);
+        }
+
 
         buttonList = new ArrayList<>();
 
@@ -228,6 +246,7 @@ public class UserProfilesFragment extends Fragment {
 
     private void addProfile(View view) {
 
+        greenGif.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
 
         //TODO: open dialog about the amount of profiles

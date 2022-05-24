@@ -23,10 +23,10 @@
             android:backgroundTint="#fafafa"
             android:hint="Category"
             app:boxBackgroundColor="@color/myWhite"
+            app:errorEnabled="true"
             app:layout_constraintEnd_toStartOf="@+id/addnewpost_subcategories_txtil"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView16"
-            app:errorEnabled="true">
+            app:layout_constraintTop_toBottomOf="@+id/textView16">
 
             <AutoCompleteTextView
                 android:id="@+id/addnewpost_category_auto"
@@ -142,8 +142,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             app:boxBackgroundColor="@color/myWhite"
-            app:layout_constraintEnd_toEndOf="parent"
             app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/addnewpost_size_txtil"
             app:layout_constraintTop_toBottomOf="@+id/addnewpost_colors_txtil">
 
@@ -152,8 +152,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="#fafafa"
-                android:inputType="numberDecimal"
-                android:hint="Price" />
+                android:hint="Price"
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -164,9 +164,9 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
             app:boxBackgroundColor="@color/myWhite"
+            app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:endIconMode="clear_text"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout12">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -174,9 +174,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#fafafa"
+                android:hint="Product Name"
                 android:inputType="text"
-                android:maxLines="1"
-                android:hint="Product Name" />
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -188,9 +188,9 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
             app:boxBackgroundColor="@color/myWhite"
+            app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:endIconMode="clear_text"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -210,9 +210,9 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
             app:boxBackgroundColor="@color/myWhite"
+            app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:endIconMode="clear_text"
             app:layout_constraintTop_toBottomOf="@+id/addnewpost_description_textInputLayout10">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -220,9 +220,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#fafafa"
+                android:hint="Link"
                 android:inputType="text"
-                android:maxLines="1"
-                android:hint="Link" />
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <RatingBar
@@ -259,9 +259,9 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
             app:boxBackgroundColor="@color/myWhite"
+            app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:endIconMode="clear_text"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout11">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -323,6 +323,16 @@
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout6"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout6"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
+
+        <ProgressBar
+            android:id="@+id/addnewpost_progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="131dp"
+            android:layout_height="107dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
