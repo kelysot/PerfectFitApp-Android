@@ -249,6 +249,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#FFFFFF"
+                        android:editable="false"
                         android:hint="Link" />
                 </com.google.android.material.textfield.TextInputLayout>
 
