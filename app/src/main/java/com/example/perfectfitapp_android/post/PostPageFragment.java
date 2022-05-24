@@ -1,5 +1,7 @@
 package com.example.perfectfitapp_android.post;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -92,6 +94,14 @@ public class PostPageFragment extends Fragment {
                         .centerCrop()
                         .into(image);
             }
+
+            linkEt.setOnClickListener(v -> {
+                if(post.getLink().contains("http")){ // missing 'http://' will cause crashed
+                    Uri uri = Uri.parse(post.getLink());
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
+            });
         });
 
         productNameEt.setEnabled(false);
@@ -103,7 +113,6 @@ public class PostPageFragment extends Fragment {
         subCategoryTv.setEnabled(false);
         descriptionEt.setEnabled(false);
         priceEt.setEnabled(false);
-        linkEt.setEnabled(false);
 
         return view;
     }

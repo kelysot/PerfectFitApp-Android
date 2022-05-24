@@ -30,6 +30,8 @@ import com.example.perfectfitapp_android.model.Profile;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -85,8 +87,21 @@ public class ProfileFragment extends Fragment {
         if (!getArguments().isEmpty()) {
             profileId = ProfileFragmentArgs.fromBundle(getArguments()).getProfileId();
             Model.instance.getProfileByUserName(profileId, profile -> {
+                List<Post> correctList = null;
                 userNameTv.setText(profile.getUserName());
-                numOfPosts.setText(String.valueOf(profile.getMyPostsListId().size()));
+                setNumOfPosts(profile.getMyPostsListId());
+//                Model.instance.getPostsByIds(profile.getMyPostsListId(), new Model.GetPostsByIdsListener() {
+//                    @Override
+//                    public void onComplete(List<Post> postList) {
+//                        for(int i = 0; i < postList.size(); i++){
+//                            if(postList.get(i).getIsDeleted().equals("true")){
+//                                postList.remove(postList.get(i));
+//                            }
+//                        }
+//                        numOfPosts.setText(String.valueOf(postList.size()));
+//                    }
+//                });
+
                 String userImg = profile.getUserImageUrl();
                 if (userImg != null && !userImg.equals("")) {
                     Model.instance.getImages(userImg, bitmap -> {
@@ -119,7 +134,8 @@ public class ProfileFragment extends Fragment {
             Profile profile = Model.instance.getProfile();
             profileId = profile.getUserName();
             userNameTv.setText(profile.getUserName());
-            numOfPosts.setText(String.valueOf(profile.getMyPostsListId().size()));
+            setNumOfPosts(profile.getMyPostsListId());
+//            numOfPosts.setText(String.valueOf(profile.getMyPostsListId().size()));
             String userImg = profile.getUserImageUrl();
             if (userImg != null && !userImg.equals("")) {
                 Model.instance.getImages(userImg, bitmap -> {
@@ -162,6 +178,24 @@ public class ProfileFragment extends Fragment {
         refresh();
 
         return view;
+    }
+
+    private void setNumOfPosts(ArrayList<String> myPostsListId) {
+        if(myPostsListId.size() != 0){
+            Model.instance.getPostsByIds(myPostsListId, postList -> {
+                for(int i = 0; i < postList.size(); i++){
+                    if(postList.get(i).getIsDeleted().equals("true")){
+                        postList.remove(postList.get(i));
+                    }
+                }
+                numOfPosts.setText(String.valueOf(postList.size()));
+            });
+        }
+        else {
+            numOfPosts.setText("0");
+        }
+
+
     }
 
     private void refresh() {
