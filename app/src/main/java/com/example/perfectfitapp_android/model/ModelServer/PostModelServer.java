@@ -189,7 +189,8 @@ public class PostModelServer {
                     System.out.println("403 in posts model server - getPostById - 403");
                     Model.instance.refreshToken(tokensList -> {
                         Model.instance.insertTokens(tokensList);
-                });
+                        System.out.println("********************************* change the token *********************************");
+                    });
                 }
                 else{
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",

@@ -270,6 +270,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                         holder.addToWishList.setImageResource(R.drawable.ic_star);
                     }
                     else{
+                        //TODO: dlialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }
@@ -284,6 +285,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                         System.out.println(Model.instance.getProfile().getWishlist());
                     }
                     else{
+                        //TODO: dialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }

@@ -380,6 +380,7 @@ public class SearchPostsFragment extends Fragment {
                         holder.addToWishList.setImageResource(R.drawable.ic_star);
                     }
                     else{
+                        //TODO: dialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }
@@ -394,6 +395,7 @@ public class SearchPostsFragment extends Fragment {
                         System.out.println(Model.instance.getProfile().getWishlist());
                     }
                     else{
+                        //TODO: dialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }

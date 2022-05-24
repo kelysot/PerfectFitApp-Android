@@ -87,48 +87,55 @@ public class ProfileFragment extends Fragment {
         if (!getArguments().isEmpty()) {
             profileId = ProfileFragmentArgs.fromBundle(getArguments()).getProfileId();
             Model.instance.getProfileByUserName(profileId, profile -> {
-                List<Post> correctList = null;
-                userNameTv.setText(profile.getUserName());
-                setNumOfPosts(profile.getMyPostsListId());
-//                Model.instance.getPostsByIds(profile.getMyPostsListId(), new Model.GetPostsByIdsListener() {
-//                    @Override
-//                    public void onComplete(List<Post> postList) {
-//                        for(int i = 0; i < postList.size(); i++){
-//                            if(postList.get(i).getIsDeleted().equals("true")){
-//                                postList.remove(postList.get(i));
-//                            }
-//                        }
-//                        numOfPosts.setText(String.valueOf(postList.size()));
-//                    }
-//                });
 
-                String userImg = profile.getUserImageUrl();
-                if (userImg != null && !userImg.equals("")) {
-                    Model.instance.getImages(userImg, bitmap -> {
-                        userPic.setImageBitmap(bitmap);
-                    });
+                if(profile != null){
+
+                    List<Post> correctList = null;
+                    userNameTv.setText(profile.getUserName());
+                    setNumOfPosts(profile.getMyPostsListId());
+    //                Model.instance.getPostsByIds(profile.getMyPostsListId(), new Model.GetPostsByIdsListener() {
+    //                    @Override
+    //                    public void onComplete(List<Post> postList) {
+    //                        for(int i = 0; i < postList.size(); i++){
+    //                            if(postList.get(i).getIsDeleted().equals("true")){
+    //                                postList.remove(postList.get(i));
+    //                            }
+    //                        }
+    //                        numOfPosts.setText(String.valueOf(postList.size()));
+    //                    }
+    //                });
+
+                    String userImg = profile.getUserImageUrl();
+                    if (userImg != null && !userImg.equals("")) {
+                        Model.instance.getImages(userImg, bitmap -> {
+                            userPic.setImageBitmap(bitmap);
+                        });
+                    }
+
+                    followersSize = profile.getFollowers().size();
+                    numOfFollowing.setText(String.valueOf(profile.getTrackers().size()));
+                    followingView.setOnClickListener(v -> moveToTrackersList(v));
+
+                    int followersSize = profile.getFollowers().size();
+                    numOfFollowers.setText(String.valueOf(followersSize));
+                    followersView.setOnClickListener(v -> moveToFollowersList(v));
+
+                    String currentUserName = Model.instance.getProfile().getUserName();
+                    if (!profile.getUserName().equals(currentUserName)) { //Check if the user go to his profile by click on his name or picture.
+                        followBtn.setVisibility(View.VISIBLE);
+                        if (profile.getTrackers().contains(currentUserName))
+                            followBtn.setText("Following");
+                        else
+                            followBtn.setText("Follow");
+
+                        followBtn.setOnClickListener(v -> checkIfFollow(profileId, currentUserName));
+                    } else
+                        followBtn.setVisibility(View.GONE);
+
                 }
-
-                followersSize = profile.getFollowers().size();
-                numOfFollowing.setText(String.valueOf(profile.getTrackers().size()));
-                followingView.setOnClickListener(v -> moveToTrackersList(v));
-
-                int followersSize = profile.getFollowers().size();
-                numOfFollowers.setText(String.valueOf(followersSize));
-                followersView.setOnClickListener(v -> moveToFollowersList(v));
-
-                String currentUserName = Model.instance.getProfile().getUserName();
-                if (!profile.getUserName().equals(currentUserName)) { //Check if the user go to his profile by click on his name or picture.
-                    followBtn.setVisibility(View.VISIBLE);
-                    if (profile.getTrackers().contains(currentUserName))
-                        followBtn.setText("Following");
-                    else
-                        followBtn.setText("Follow");
-
-                    followBtn.setOnClickListener(v -> checkIfFollow(profileId, currentUserName));
-                } else
-                    followBtn.setVisibility(View.GONE);
-
+                else{
+                    //TODO: dialog
+                }
             });
         } else {
             Profile profile = Model.instance.getProfile();
@@ -249,10 +256,12 @@ public class ProfileFragment extends Fragment {
                                 profile.getUserName(), currentUserName + " started following you.", "", " ", "false");
                         Model.instance.addNewNotification(notification, notification1 -> {});
                     } else
+                        //TODO: dialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later11",
                                 Toast.LENGTH_LONG).show();
                 });
             } else
+                //TODO: dialog
                 Toast.makeText(MyApplication.getContext(), "No Connection, please try later11",
                         Toast.LENGTH_LONG).show();
         });
@@ -271,10 +280,12 @@ public class ProfileFragment extends Fragment {
                         followersSize--;
                         numOfFollowers.setText(String.valueOf(followersSize));
                     } else
+                        //TODO: dialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later11",
                                 Toast.LENGTH_LONG).show();
                 });
             } else
+                //TODO: dialog
                 Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                         Toast.LENGTH_LONG).show();
         });
@@ -456,6 +467,7 @@ public class ProfileFragment extends Fragment {
                     if (isSuccess) {
                         holder.addToWishList.setImageResource(R.drawable.ic_star1);
                     } else {
+                        //TODO: dialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }
@@ -468,6 +480,7 @@ public class ProfileFragment extends Fragment {
                         System.out.println("the posts added to the list");
                         System.out.println(Model.instance.getProfile().getWishlist());
                     } else {
+                        //TODO: dialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }

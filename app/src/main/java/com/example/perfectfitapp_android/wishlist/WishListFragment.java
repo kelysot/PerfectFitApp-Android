@@ -252,6 +252,7 @@ public class WishListFragment extends Fragment {
                     refresh();
                 }
                 else{
+                    //TODO: dialog
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
                 }

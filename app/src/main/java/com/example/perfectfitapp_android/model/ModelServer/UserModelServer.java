@@ -109,7 +109,7 @@ public class UserModelServer {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                //JsonObject js = response.body().get("user").getAsJsonObject();
+
                 if (response.code() == 200) {
                     User user = new User();
                     user = User.jsonObjectToUser(response.body().get("user").getAsJsonObject());
@@ -242,6 +242,12 @@ public class UserModelServer {
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
                     listener.onComplete(null);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                    });
                 }
             }
 

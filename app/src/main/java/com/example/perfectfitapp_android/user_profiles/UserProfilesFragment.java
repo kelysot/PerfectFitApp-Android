@@ -153,8 +153,8 @@ public class UserProfilesFragment extends Fragment {
                         changeProfile(userName);
                     }
                     else{
-                        progressBar.setVisibility(View.GONE);
                         // TODO dialog
+                        progressBar.setVisibility(View.GONE);
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                         Log.d("TAG", "failed in UserProfile in editProfile - change status to false");
@@ -199,24 +199,27 @@ public class UserProfilesFragment extends Fragment {
                         });
                     }
                     else{
+                        progressBar.setVisibility(View.GONE);
+                        //TODO: dialog
                         Log.d("TAG", "failed in UserProfileFragment 1");
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                         setButtonsEnable(true);
-                        progressBar.setVisibility(View.GONE);
                     }
                 });
             }
             else{
-                Log.d("TAG", "failed in UserProfileFragment 1");
-                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                        Toast.LENGTH_LONG).show();
-                setButtonsEnable(true);
                 progressBar.setVisibility(View.GONE);
-
-                System.out.println("maybe forbidden - need to check it");
-                startActivity(new Intent(getContext(), LoginActivity.class));
-                getActivity().finish();
+                setButtonsEnable(true);
+//                Log.d("TAG", "failed in UserProfileFragment 1");
+//                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+//                        Toast.LENGTH_LONG).show();
+//                setButtonsEnable(true);
+//                progressBar.setVisibility(View.GONE);
+//
+//                System.out.println("maybe forbidden - need to check it");
+//                startActivity(new Intent(getContext(), LoginActivity.class));
+//                getActivity().finish();
             }
         });
     }
@@ -247,7 +250,12 @@ public class UserProfilesFragment extends Fragment {
         longClickUserName = Model.instance.getUser().getProfilesArray().get(finalI);
         posInArray = finalI;
         Model.instance.getProfileFromServer(Model.instance.getUser().getEmail(),longClickUserName,profile -> {
-            Model.instance.setProfile(profile);
+            if(profile != null){
+                Model.instance.setProfile(profile);
+            }
+            else{
+                //TODO: dialog
+            }
         });
     }
 
@@ -286,6 +294,7 @@ public class UserProfilesFragment extends Fragment {
                 Navigation.findNavController(addProfile).navigate(R.id.action_global_userProfilesFragment2);
 
             }else{
+                //TODO: dialog
                 Log.d("TAG","not work");
             }
         });

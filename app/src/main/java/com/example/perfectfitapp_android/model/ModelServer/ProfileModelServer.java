@@ -42,12 +42,15 @@ public class ProfileModelServer {
                     Log.d("TAG", "problem in getProfile in ModelServer 1");
                     listener.onComplete(null);
                 }
-                if(response.code() == 403){
+                else if(response.code() == 403){
                     System.out.println("the token is forbidden, need to do a refreshToken - code 403 in getProfileFromServer");
                     Log.d("TAG", "the token is forbidden, need to do a refreshToken - code 403 in getProfileFromServer");
-                    listener.onComplete(null);
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
-
 
                 //TODO: add to all functions the 403 failure
             }
@@ -111,6 +114,13 @@ public class ProfileModelServer {
                     Log.d("TAG", "problem in createProfile in ModelServer 1");
                     listener.onComplete(false);
                 }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(false);
+                    });
+                }
             }
 
             @Override
@@ -136,6 +146,13 @@ public class ProfileModelServer {
                     listener.onComplete(true);
                 } else if (response.code() == 400) {
                     listener.onComplete(false);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(false);
+                    });
                 }
             }
 
@@ -163,6 +180,13 @@ public class ProfileModelServer {
                     listener.onComplete(profile);
                 } else if (response.code() == 400) {
                     listener.onComplete(null);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
             }
             @Override
@@ -195,6 +219,13 @@ public class ProfileModelServer {
                             Toast.LENGTH_LONG).show();
                     listener.onComplete(false);
                 }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(false);
+                    });
+                }
             }
 
             @Override
@@ -219,6 +250,13 @@ public class ProfileModelServer {
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
                     listener.onComplete(false);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(false);
+                    });
                 }
             }
 

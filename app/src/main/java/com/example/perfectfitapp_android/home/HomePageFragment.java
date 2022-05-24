@@ -310,6 +310,7 @@ public class HomePageFragment extends Fragment {
                     else{
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
+                        //TODO: dialog
                     }
                 });
             }
@@ -322,6 +323,7 @@ public class HomePageFragment extends Fragment {
                         System.out.println(Model.instance.getProfile().getWishlist());
                     }
                     else{
+                        //TODO: dialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }
@@ -413,6 +415,7 @@ public class HomePageFragment extends Fragment {
                             getActivity().finish();
                         }
                         else {
+                            //TODO: dialog
                             Toast.makeText(MyApplication.getContext(), "Can't change to false",
                                     Toast.LENGTH_LONG).show();
                         }
