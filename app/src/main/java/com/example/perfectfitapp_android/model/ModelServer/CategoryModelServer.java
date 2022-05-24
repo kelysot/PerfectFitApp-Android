@@ -32,9 +32,16 @@ public class CategoryModelServer {
                         }
                     }
                     listener.onComplete(categories);
-                } else {
+                } else if(response.code() == 400){
                     Log.d("TAG", "failed in getAllPosts in ModelServer 1");
                     listener.onComplete(null);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
             }
 

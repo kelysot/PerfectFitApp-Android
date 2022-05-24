@@ -36,9 +36,16 @@ public class PostModelServer {
                     JsonArray postsJson = response.body();
                     List<Post> posts = Post.jsonArrayToPost(postsJson);
                     listener.onComplete(posts);
-                } else {
+                } else if(response.code() == 400){
                     Log.d("TAG", "failed in getAllPosts in ModelServer 1");
                     listener.onComplete(null);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
             }
 
@@ -66,6 +73,13 @@ public class PostModelServer {
                             Toast.LENGTH_LONG).show();
                     listener.onComplete(null);
                 }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
+                }
             }
 
             @Override
@@ -89,11 +103,18 @@ public class PostModelServer {
                 if(response.code() == 200){
                     listener.onComplete(true);
                 }
-                else{
+                else if(response.code() == 400){
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
                     Log.d("TAG", "failed in ModelServer in deletePost 1");
                     listener.onComplete(false);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(false);
+                    });
                 }
             }
 
@@ -118,11 +139,18 @@ public class PostModelServer {
                 if(response.code() == 200){
                     listener.onComplete(true);
                 }
-                else{
+                else if(response.code() == 400){
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
                     Log.d("TAG", "failed in ModelServer in editPost 1");
                     listener.onComplete(false);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(false);
+                    });
                 }
             }
 
@@ -154,11 +182,18 @@ public class PostModelServer {
 //                    }
                     listener.onComplete(posts);
                 }
-                else{
+                else if(response.code() == 400){
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
                     Log.d("TAG", "failed in ModelServer in getProfilePosts 1");
                     listener.onComplete(null);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
             }
 
@@ -190,6 +225,7 @@ public class PostModelServer {
                     Model.instance.refreshToken(tokensList -> {
                         Model.instance.insertTokens(tokensList);
                         System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
                     });
                 }
                 else{
@@ -223,11 +259,18 @@ public class PostModelServer {
                     List<Post> posts = Post.jsonArrayToPost(postsJson);
                     listener.onComplete(posts);
                 }
-                else{
+                else if(response.code() == 400){
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
                     Log.d("TAG", "failed in ModelServer in getProfilePosts 2");
                     listener.onComplete(null);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
             }
 
@@ -253,16 +296,22 @@ public class PostModelServer {
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 if(response.code() == 200){
                     //TODO
-
                     JsonArray wishListArray = response.body();
                     List<Post> postsWishList = new ArrayList<>();
                     postsWishList = Post.jsonArrayToPost(response.body());
                     listener.onComplete(postsWishList);
 
                 }
-                else{
+                else if(response.code() == 400){
                     Log.d("TAG", "failed in getWishList in ModelServer 1");
                     listener.onComplete(null);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
             }
 
@@ -335,9 +384,16 @@ public class PostModelServer {
                     System.out.println("the list is: " + list);
                     listener.onComplete(list);
                 }
-                else{
+                else if(response.code() == 400){
                     listener.onComplete(null);
                     Log.d("TAG", "failed in getSuitablePosts 1");
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
             }
             @Override
@@ -363,9 +419,16 @@ public class PostModelServer {
                     List<Post> list = Post.jsonArrayToPost(response.body());
                     listener.onComplete(list);
                 }
-                else{
+                else if(response.code() == 400){
                     listener.onComplete(null);
                     Log.d("TAG", "failed in getSearchPosts 1");
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
             }
 
@@ -483,11 +546,18 @@ public class PostModelServer {
                     List<Post> posts = Post.jsonArrayToPost(response.body());
                     listener.onComplete(posts);
                 }
-                else{
+                else if(response.code() == 400){
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
                     Log.d("TAG", "failed in getPostsByIds");
                     listener.onComplete(null);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
             }
 

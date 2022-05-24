@@ -174,6 +174,7 @@ public class AddNewPostFragment extends Fragment {
                     Navigation.findNavController(view)
                             .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
                 } else {
+                    //TODO: dialog and progressbar
                     postBtn.setEnabled(true);
                     Toast.makeText(MyApplication.getContext(), "Post didn't saved",
                             Toast.LENGTH_LONG).show();

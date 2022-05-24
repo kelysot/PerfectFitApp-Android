@@ -88,10 +88,12 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
     private void refresh() {
 
         Model.instance.getPostsBySubCategoryId(subCategoryId, posts -> {
-            Collections.reverse(posts);
-            viewModel.setData(posts);
-            swipeRefresh.setRefreshing(false);
-            adapter.notifyDataSetChanged();
+            if(posts != null){
+                Collections.reverse(posts);
+                viewModel.setData(posts);
+                swipeRefresh.setRefreshing(false);
+                adapter.notifyDataSetChanged();
+            }
         });
     }
 
@@ -233,6 +235,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                         refresh();
                     }
                     else {
+                        //TODO: dialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }
@@ -248,6 +251,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                         refresh();
                     }
                     else{
+                        //TODO: dialog
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                     }

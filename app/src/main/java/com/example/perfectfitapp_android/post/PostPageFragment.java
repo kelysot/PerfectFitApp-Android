@@ -106,6 +106,9 @@ public class PostPageFragment extends Fragment {
                     }
                 });
             }
+            else{
+                //TODO: dialog
+            }
         });
 
         productNameEt.setEnabled(false);
