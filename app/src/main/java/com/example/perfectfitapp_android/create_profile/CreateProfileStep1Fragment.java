@@ -46,7 +46,7 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
     ImageView image, addPhoto, birthdayDateImv;
     Button continueBtn;
     Bitmap mBitmap;
-    CheckBox femaleCB, maleCB;
+    CheckBox femaleCB, maleCB, noneCB;
     String gender;
     ProgressBar progressBar;
 
@@ -62,6 +62,7 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
         image = view.findViewById(R.id.register_step1_image_imv);
         femaleCB = view.findViewById(R.id.register_step1_female_cb);
         maleCB = view.findViewById(R.id.register_step1_male_cb);
+        noneCB = view.findViewById(R.id.register_step1_none_cb);
         progressBar = view.findViewById(R.id.register_step1_progress_bar);
         progressBar.setVisibility(View.GONE);
 
@@ -85,15 +86,21 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
                 femaleCB.setChecked(true);
                 gender = "Female";
             }
-            else{
+            else if (genderFromServer.equals("Male")){
                 maleCB.setChecked(true);
                 gender = "Male";
+            } else {
+                noneCB.setChecked(true);
+                gender = "None";
             }
         }
 
         femaleCB.setOnClickListener(v -> {
             if(maleCB.isChecked()){
                 maleCB.setChecked(false);
+            }
+            else if (noneCB.isChecked()){
+                noneCB.setChecked(false);
             }
             gender = "Female";
         });
@@ -102,13 +109,21 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
             if(femaleCB.isChecked()){
                 femaleCB.setChecked(false);
             }
+            else if (noneCB.isChecked()){
+                noneCB.setChecked(false);
+            }
             gender = "Male";
         });
 
-
-
-        //TODO: fix the problem - in case we turn back from f.2 to f.1, we can't choose again female/male.
-        // Can use checkbox instead.
+        noneCB.setOnClickListener(v -> {
+            if(femaleCB.isChecked()){
+                femaleCB.setChecked(false);
+            }
+            else if (maleCB.isChecked()){
+                maleCB.setChecked(false);
+            }
+            gender = "None";
+        });
 
         return view;
     }
@@ -220,7 +235,7 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
             continueBtn.setEnabled(true);
             flag = false;
         }
-        if(!femaleCB.isChecked() && !maleCB.isChecked()){
+        if(!femaleCB.isChecked() && !maleCB.isChecked() && !noneCB.isChecked()){
             String s = "Please chose your gender.";
             showOkDialog(s);
             continueBtn.setEnabled(true);

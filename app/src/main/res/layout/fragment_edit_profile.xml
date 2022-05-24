@@ -176,6 +176,16 @@
             app:layout_constraintStart_toEndOf="@+id/edit_profile_step1_female_cb"
             app:layout_constraintTop_toTopOf="@+id/edit_profile_step1_female_cb" />
 
+        <CheckBox
+            android:id="@+id/edit_profile_step1_none_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Prefer not to say"
+            app:boxBackgroundColor="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/edit_profile_step1_male_cb"
+            app:layout_constraintTop_toTopOf="@+id/edit_profile_step1_female_cb" />
+
         <ProgressBar
             android:id="@+id/edit_profile_step1_progress_bar"
             style="?android:attr/progressBarStyle"
