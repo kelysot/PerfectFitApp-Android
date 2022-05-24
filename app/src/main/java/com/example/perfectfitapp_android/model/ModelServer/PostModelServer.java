@@ -185,6 +185,12 @@ public class PostModelServer {
                     Post post = Post.jsonElementToPost(js);
                     listener.onComplete(post);
                 }
+                else if(response.code() == 403){
+                    System.out.println("403 in posts model server - getPostById - 403");
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                });
+                }
                 else{
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();

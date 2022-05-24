@@ -83,6 +83,9 @@ public interface RetrofitInterface {
     @POST("/auth/changePassword")
     Call<Void> changePassword(@Body HashMap<String, Object> map);
 
+    @GET("/auth/refreshToken")
+    Call<JsonObject> refreshToken(@Header("authorization") String token);
+
     /*--------------------------------- Profile -------------------------------*/
 
     /******************************************************************************************/
