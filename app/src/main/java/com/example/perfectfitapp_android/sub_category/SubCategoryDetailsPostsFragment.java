@@ -53,8 +53,13 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
         subCategoryId = SubCategoryDetailsPostsFragmentArgs.fromBundle(getArguments()).getSubCategoryId();
 
         Model.instance.getSubCategoryById(subCategoryId, subCategory -> {
-            viewModel.setSubCategory(subCategory);
-            subCategoryName.setText(subCategory.getName());
+            if(subCategory != null){
+                viewModel.setSubCategory(subCategory);
+                subCategoryName.setText(subCategory.getName());
+            }
+            else{
+                //TODO: dialog
+            }
         });
 
         subCategoryName = view.findViewById(R.id.sub_category_name);

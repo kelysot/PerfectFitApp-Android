@@ -31,9 +31,16 @@ public class SubCategoryModelServer {
                     JsonArray subCategoriesJson = response.body();
                     List<SubCategory> subCategories = SubCategory.jsonArrayToSubCategory(subCategoriesJson);
                     listener.onComplete(subCategories);
-                }else{
+                }else if(response.code() == 400){
                     Log.d("TAG", "failed in getAllSubCategories1 in ModelServer");
                     listener.onComplete(null);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
             }
 
@@ -60,6 +67,13 @@ public class SubCategoryModelServer {
                     Log.d("TAG", "failed in getSubCategoriesByCategoryId1 in ModelServer");
                     listener.onComplete(null);
                 }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
+                }
             }
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
@@ -82,11 +96,18 @@ public class SubCategoryModelServer {
                     SubCategory subCategory = SubCategory.jsonElementToSubCategory(js);
                     listener.onComplete(subCategory);
                 }
-                else{
+                else if(response.code() == 400){
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                             Toast.LENGTH_LONG).show();
                     Log.d("TAG", "failed in ModelServer in getProfilePosts 2");
                     listener.onComplete(null);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
                 }
             }
 
