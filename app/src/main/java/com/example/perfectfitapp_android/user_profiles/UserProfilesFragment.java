@@ -8,11 +8,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +31,7 @@ import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.UserProfilesGraphDirections;
 import com.example.perfectfitapp_android.category.CategoryFragmentDirections;
+import com.example.perfectfitapp_android.home.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.login.LoginActivity;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Profile;
@@ -47,8 +50,6 @@ import pl.droidsonroids.gif.GifImageButton;
 
 public class UserProfilesFragment extends Fragment {
 
-    ImageButton addProfile, setting;
-    Button homepageBtn;
     Button user1Btn, user2Btn, user3Btn, user4Btn, user5Btn;
     ArrayList<Button> buttonList;
     Model model;
@@ -82,14 +83,6 @@ public class UserProfilesFragment extends Fragment {
         progressBar = view.findViewById(R.id.user_profiles_progress_bar);
         progressBar.setVisibility(View.GONE);
 
-        addProfile = view.findViewById(R.id.user_profiles_addprofile_btn);
-        addProfile.setOnClickListener(v-> addProfile(view));
-
-        setting= view.findViewById(R.id.user_profiles_settings_btn);
-        setting.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(UserProfilesFragmentDirections.actionUserProfilesFragment2ToEditUserFragment());
-        });
-
         text = view.findViewById(R.id.user_ptofiles_text);
         greenGif = view.findViewById(R.id.gif_green);
         greenGif.setOnClickListener(v -> {
@@ -120,6 +113,7 @@ public class UserProfilesFragment extends Fragment {
         buttonList.add(user5Btn);
 
         setButtons();
+        setHasOptionsMenu(true);
 
         return view;
     }
@@ -289,12 +283,12 @@ public class UserProfilesFragment extends Fragment {
             case R.id.profile_edit_menuItem:{
                 // TODO: add the edit profile here
                 progressBar.setVisibility(View.VISIBLE);
-                Navigation.findNavController(addProfile).navigate(R.id.action_userProfilesFragment2_to_editProfileFragment2);
+                Navigation.findNavController(this.getView()).navigate(R.id.action_userProfilesFragment2_to_editProfileFragment2);
                 return true;
-//                actionUserProfilesFragmentToEditProfileFragment2()
             }
             case R.id.profile_delete_menuItem:{
-                showDialog();
+                String s = "Are you sure you want to delete " + longClickUserName + " profile?";
+                showDialog(s);
                 return true;
             }
             default:
@@ -312,7 +306,7 @@ public class UserProfilesFragment extends Fragment {
 //                        buttonList.remove(posInArray);
                 setButtons();
                 progressBar.setVisibility(View.GONE);
-                Navigation.findNavController(addProfile).navigate(R.id.action_global_userProfilesFragment2);
+                Navigation.findNavController(this.getView()).navigate(R.id.action_global_userProfilesFragment2);
 
             }else{
                 //TODO: dialog
@@ -321,14 +315,14 @@ public class UserProfilesFragment extends Fragment {
         });
     }
 
-    private void showDialog(){
+    private void showDialog(String text){
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_dialog);
 
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
 
         TextView tx = dialog.findViewById(R.id.txtDesc);
-        tx.setText("Are you sure you want to delete " + longClickUserName + " profile?");
+        tx.setText(text);
 
         Button btnNo = dialog.findViewById(R.id.btn_no);
         btnNo.setOnClickListener(v -> dialog.dismiss());
@@ -356,6 +350,81 @@ public class UserProfilesFragment extends Fragment {
 
         Button btnOk = dialog.findViewById(R.id.btn_ok);
         btnOk.setOnClickListener(v -> dialog.dismiss());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+
+    /* *************************************** Menu Functions *************************************** */
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.user_profiles_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.CreateProfileStep1Fragment) {
+            addProfile(this.getView());
+            return true;
+        }
+        else if(item.getItemId() == R.id.EditUserFragment){
+            NavHostFragment.findNavController(this).navigate(UserProfilesFragmentDirections.actionUserProfilesFragment2ToEditUserFragment());
+            return true;
+        }
+        else if(item.getItemId() == R.id.logout){
+            String s = "Do you want to log out of PerfectFit?";
+            showDialogLogout(s);
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void logout() {
+        Model.instance.logout(isSuccess -> {
+            if(isSuccess){
+                Model.instance.getProfile().setStatus("false");
+                Model.instance.editProfile(null, Model.instance.getProfile(), new Model.EditProfile() {
+                    @Override
+                    public void onComplete(Boolean isSuccess) {
+                        if(isSuccess){
+                            startActivity(new Intent(getContext(), LoginActivity.class));
+                            getActivity().finish();
+                        }
+                        else {
+                            Toast.makeText(MyApplication.getContext(), "Can't change to false",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }
+            else{
+                Toast.makeText(MyApplication.getContext(), "Can't logout",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void showDialogLogout(String text){
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText(text);
+
+        Button btnNo = dialog.findViewById(R.id.btn_no);
+        btnNo.setOnClickListener(v -> dialog.dismiss());
+
+        Button btnYes = dialog.findViewById(R.id.btn_yes);
+        btnYes.setOnClickListener(v -> logout());
 
         ImageView btnClose = dialog.findViewById(R.id.btn_close);
         btnClose.setOnClickListener(view -> dialog.dismiss());

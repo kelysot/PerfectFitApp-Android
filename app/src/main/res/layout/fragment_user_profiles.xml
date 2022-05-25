@@ -135,17 +135,6 @@
             </TableRow>
         </TableLayout>
 
-        <ImageButton
-            android:id="@+id/user_profiles_addprofile_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="5dp"
-            android:background="#fafafa"
-            android:src="@drawable/ic_person_add_alt_black_24dp"
-            app:layout_constraintEnd_toStartOf="@+id/user_profiles_settings_btn"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ProgressBar
             android:id="@+id/user_profiles_progress_bar"
             style="?android:attr/progressBarStyle"
@@ -158,16 +147,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/user_profiles_settings_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="#fafafa"
-            android:src="@drawable/ic_settingsnew"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
