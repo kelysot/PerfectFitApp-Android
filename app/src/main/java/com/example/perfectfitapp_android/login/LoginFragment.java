@@ -8,7 +8,9 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,8 @@ import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.home.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.user_profiles.UserProfilesActivity;
 import com.example.perfectfitapp_android.model.Model;
+
+import java.util.regex.Pattern;
 
 public class LoginFragment extends Fragment {
 
@@ -40,18 +44,8 @@ public class LoginFragment extends Fragment {
         passwordEt = view.findViewById(R.id.login_input_password_et);
 
         resetPass = view.findViewById(R.id.login_reset_password);
-        resetPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(LoginFragmentDirections.actionLoginFragmentToResetPassword1EmailFragment());
-
-//                Model.instance.resetPassword("theperfectfitteamhere@gmail.com", new Model.ResetPasswordListener() {
-//                    @Override
-//                    public void onComplete(String code) {
-//                        Log.d("TAG44", code);
-//                    }
-//                });
-            }
+        resetPass.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(LoginFragmentDirections.actionLoginFragmentToResetPassword1EmailFragment());
         });
 
         loginBtn = view.findViewById(R.id.login_login_btn);
@@ -78,50 +72,54 @@ public class LoginFragment extends Fragment {
 
         /* *************************************** Validations *************************************** */
 
-//        if (!Patterns.EMAIL_ADDRESS.matcher(localInputIEmail).matches()) {
-//            emailEt.setError("Please provide valid email");
+//        if (!isValidEmail(localInputIEmail)) {
+//            emailEt.setError("Please enter valid email address.");
 //            emailEt.requestFocus();
-//
-//            return;
-//        }
-//        if (localInputIEmail.isEmpty()) {
-//            emailEt.setError("Please enter your Email");
-//            emailEt.requestFocus();
+//            loginBtn.setEnabled(true);
 //            return;
 //        }
 //
-//        if (localInputPassword.length() < 6) {
-//            passwordEt.setError("Password length should be at least 6 characters");
+//        if (!isValidPassword(localInputPassword)) {
 //            passwordEt.requestFocus();
+//            String s = "Your password needs to contain 8 characters.";
+//            showOkDialog(s);
+//            loginBtn.setEnabled(true);
 //            return;
 //        }
 
-
-      Model.instance.logIn(localInputIEmail, localInputPassword, user1 -> {
-          if(user1 != null){
-              Model.instance.getUserFromServer(localInputIEmail, user -> {
-                  if(user != null){
-                      Model.instance.setUser(user);
-                      startActivity(new Intent(getContext(), UserProfilesActivity.class));
-                      getActivity().finish();
-                  }
-                  else{
-                      loginBtn.setEnabled(true);
-                     // Toast.makeText(MyApplication.getContext(), "No Connection, please try later", Toast.LENGTH_LONG).show();
-                  }
-              });
-          }
-          else{
-              getActivity().runOnUiThread(() -> {
-                  String s = "Incorrect email or password," + "\n" + " please try again.";
-                  showOkDialog(s);
-                  loginBtn.setEnabled(true);
-              });
-          }
-      });
+        Model.instance.logIn(localInputIEmail, localInputPassword, user1 -> {
+            if (user1 != null) {
+                Model.instance.getUserFromServer(localInputIEmail, user -> {
+                    if (user != null) {
+                        Model.instance.setUser(user);
+                        startActivity(new Intent(getContext(), UserProfilesActivity.class));
+                        getActivity().finish();
+                    } else {
+                        loginBtn.setEnabled(true);
+                    }
+                });
+            } else {
+                getActivity().runOnUiThread(() -> {
+                    String s = "Incorrect email or password," + "\n" + " please try again.";
+                    showOkDialog(s);
+                    loginBtn.setEnabled(true);
+                });
+            }
+        });
     }
 
-    private void showOkDialog(String text){
+    public static boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
+    public static boolean isValidPassword(String s) {
+        Pattern PASSWORD_PATTERN
+                = Pattern.compile("[a-zA-Z0-9\\!\\@\\#\\$]{8,24}");
+
+        return !TextUtils.isEmpty(s) && PASSWORD_PATTERN.matcher(s).matches();
+    }
+
+    private void showOkDialog(String text) {
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_ok_dialog);
 
