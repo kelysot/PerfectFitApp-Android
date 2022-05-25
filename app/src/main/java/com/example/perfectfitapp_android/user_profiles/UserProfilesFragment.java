@@ -424,7 +424,12 @@ public class UserProfilesFragment extends Fragment {
         btnNo.setOnClickListener(v -> dialog.dismiss());
 
         Button btnYes = dialog.findViewById(R.id.btn_yes);
-        btnYes.setOnClickListener(v -> logout());
+//        btnYes.setOnClickListener(v -> logout());
+        btnYes.setOnClickListener(v -> {
+            btnYes.setEnabled(false);
+            btnNo.setEnabled(false);
+            logout();
+        });
 
         ImageView btnClose = dialog.findViewById(R.id.btn_close);
         btnClose.setOnClickListener(view -> dialog.dismiss());

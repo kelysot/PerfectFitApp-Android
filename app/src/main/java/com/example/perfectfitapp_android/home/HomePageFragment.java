@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,7 @@ public class HomePageFragment extends Fragment {
     TextView userName;
     SwipeRefreshLayout swipeRefresh;
     Button checkDate, makeGeneral;
+    ProgressBar progressBar;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -69,7 +71,8 @@ public class HomePageFragment extends Fragment {
 
         /*******************/
 
-
+        progressBar = view.findViewById(R.id.home_page_progress_bar);
+        progressBar.setVisibility(View.GONE);
 
         userName = view.findViewById(R.id.home_page_name_tv);
         userName.setText(Model.instance.getProfile().getUserName());
@@ -396,9 +399,16 @@ public class HomePageFragment extends Fragment {
 
         Button btnNo = dialog.findViewById(R.id.btn_no);
         btnNo.setOnClickListener(v -> dialog.dismiss());
+        //TODO: set the buttons to be enable false
 
         Button btnYes = dialog.findViewById(R.id.btn_yes);
-        btnYes.setOnClickListener(v -> logout());
+        btnYes.setOnClickListener(v -> {
+            progressBar.setVisibility(View.VISIBLE);
+            btnYes.setEnabled(false);
+            btnNo.setEnabled(false);
+            logout();
+        });
+//        btnYes.setOnClickListener(v -> logout());
 
         ImageView btnClose = dialog.findViewById(R.id.btn_close);
         btnClose.setOnClickListener(view -> dialog.dismiss());
@@ -418,6 +428,7 @@ public class HomePageFragment extends Fragment {
                             getActivity().finish();
                         }
                         else {
+                            progressBar.setVisibility(View.GONE);
                             //TODO: dialog
                             Toast.makeText(MyApplication.getContext(), "Can't change to false",
                                     Toast.LENGTH_LONG).show();
@@ -426,6 +437,7 @@ public class HomePageFragment extends Fragment {
                 });
             }
             else{
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(MyApplication.getContext(), "Can't logout",
                         Toast.LENGTH_LONG).show();
             }
