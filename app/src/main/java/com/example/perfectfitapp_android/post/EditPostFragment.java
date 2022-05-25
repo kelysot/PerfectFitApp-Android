@@ -19,10 +19,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.URLUtil;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -253,32 +255,32 @@ public class EditPostFragment extends Fragment {
         boolean flag = true;
 
         if(category.isEmpty()){
-            categoryAuto.setError("Please enter category");
+            categoryAuto.setError("Please enter category.");
             //TODO: remove the error after the client fill the field
             flag = false;
         }
         if(subCategory.isEmpty()){
-            subCategoryAuto.setError("Please enter sub-category");
+            subCategoryAuto.setError("Please enter sub-category.");
             flag = false;
         }
         if(company.isEmpty()){
-            companyAuto.setError("Please enter company");
+            companyAuto.setError("Please enter company.");
             flag = false;
         }
         if(color.isEmpty()){
-            colorAuto.setError("Please enter color");
+            colorAuto.setError("Please enter color.");
             flag = false;
         }
         if(size.isEmpty()){
-            sizeAutoTv.setError("Please enter size");
+            sizeAutoTv.setError("Please enter size.");
             flag = false;
         }
         if(price.isEmpty()){
-            priceEt.setError("Please enter price");
+            priceEt.setError("Please enter price.");
             flag = false;
         }
         if(productName.isEmpty()){
-            productNameEt.setError("Please enter product name");
+            productNameEt.setError("Please enter product name.");
             flag = false;
         }
 
@@ -290,8 +292,19 @@ public class EditPostFragment extends Fragment {
         if (sku.isEmpty()){
             sku = "-";
         }
+
         if(link.isEmpty()){
             link = "-";
+        }
+        else if(!Patterns.WEB_URL.matcher(link).matches() && !URLUtil.isHttpUrl(link)){
+            linkEt.setError("Please enter a valid link or leave the field blank.");
+            flag = false;
+        }
+        else{
+            if(!link.contains("http")){
+                String newLink = "http://" + link;
+                link = newLink;
+            }
         }
 
         if(flag) {
