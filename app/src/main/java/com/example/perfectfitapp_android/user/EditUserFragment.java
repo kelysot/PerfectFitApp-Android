@@ -6,7 +6,9 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,8 @@ import android.widget.TextView;
 
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
+
+import java.util.regex.Pattern;
 
 
 public class EditUserFragment extends Fragment {
@@ -47,6 +51,23 @@ public class EditUserFragment extends Fragment {
         editBtn.setEnabled(false);
         String email = emailEt.getText().toString();
         String password = passwordEt.getText().toString();
+
+        /* *************************************** Validations *************************************** */
+
+//        if (!isValidEmail(email)) {
+//            emailEt.setError("Please enter valid email address.");
+//            emailEt.requestFocus();
+//            editBtn.setEnabled(true);
+//            return;
+//        }
+//
+//        if (!isValidPassword(password)) {
+//            passwordEt.requestFocus();
+//            String s = "Your password needs to contain 8 characters.";
+//            showOkDialog(s);
+//            editBtn.setEnabled(true);
+//            return;
+//        }
 
         if (previousEmail.equals(email)) {
             Model.instance.getUser().setPassword(password);
@@ -93,6 +114,17 @@ public class EditUserFragment extends Fragment {
                 }
             });
         }
+    }
+
+    public static boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
+    public static boolean isValidPassword(String s) {
+        Pattern PASSWORD_PATTERN
+                = Pattern.compile("[a-zA-Z0-9\\!\\@\\#\\$]{8,24}");
+
+        return !TextUtils.isEmpty(s) && PASSWORD_PATTERN.matcher(s).matches();
     }
 
     private void showOkDialog(String text){

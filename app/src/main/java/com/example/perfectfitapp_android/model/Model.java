@@ -353,11 +353,14 @@ public class Model {
 
     public void logout(LogoutListener listener){
         userModelServer.logout(isSuccess -> {
-            executor.execute(() -> {
-                User user = AppLocalDb.db.userDao().getUserRoom();
-                AppLocalDb.db.userDao().deleteByUserEmail(user.getEmail());
-                listener.onComplete(isSuccess);
-            });
+            if(isSuccess){
+                executor.execute(() -> {
+                    User user = AppLocalDb.db.userDao().getUserRoom();
+                    AppLocalDb.db.userDao().deleteByUserEmail(user.getEmail());
+                    listener.onComplete(isSuccess);
+                });
+            }
+            listener.onComplete(isSuccess);
         });
     }
 
