@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ public class LoginFragment extends Fragment {
     EditText emailEt, passwordEt;
     Button loginBtn, signupBtn;
     TextView resetPass;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,18 +56,24 @@ public class LoginFragment extends Fragment {
         signupBtn = view.findViewById(R.id.login_signup_btn);
         signupBtn.setOnClickListener(v -> SignUp(view));
 
+        progressBar = view.findViewById(R.id.log_in_progress_bar);
+        progressBar.setVisibility(View.GONE);
+
 
         return view;
     }
 
     private void SignUp(View view) {
         System.out.println("move to signup page");
+        signupBtn.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
         Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_createUserFragment);
     }
 
     private void LogIn() {
 
         loginBtn.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
 
         String localInputIEmail = emailEt.getText().toString().trim();
         String localInputPassword = passwordEt.getText().toString().trim();
@@ -95,11 +103,15 @@ public class LoginFragment extends Fragment {
                         startActivity(new Intent(getContext(), UserProfilesActivity.class));
                         getActivity().finish();
                     } else {
+                        progressBar.setVisibility(View.GONE);
                         loginBtn.setEnabled(true);
+                        String str = "Opss.. Something wrong. Please try later";
+                        showOkDialog(str);
                     }
                 });
             } else {
                 getActivity().runOnUiThread(() -> {
+                    progressBar.setVisibility(View.GONE);
                     String s = "Incorrect email or password," + "\n" + " please try again.";
                     showOkDialog(s);
                     loginBtn.setEnabled(true);
