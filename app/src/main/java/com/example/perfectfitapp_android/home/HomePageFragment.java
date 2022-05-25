@@ -380,11 +380,6 @@ public class HomePageFragment extends Fragment {
             showDialog();
             return true;
         }
-//        else if(item.getItemId() == R.id.Exit){
-//            Model.instance.UserLogout();
-//            getActivity().finish();
-//            return true;
-//        }
         else {
             return super.onOptionsItemSelected(item);
         }
