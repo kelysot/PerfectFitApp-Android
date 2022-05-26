@@ -63,8 +63,8 @@ public class Model {
     List<Profile> profiles = new ArrayList<>();
     Map<String, ArrayList<String>> categoriesAndSubCategories = new HashMap<>();
     BottomNavigationView bottomNavigationView;
+    Boolean flagBell = false;
 
-//    ModelServer modelServer = new ModelServer();
 
     Post post, newPost;
     String lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getString("PostsLastUpdateDate", "");
@@ -878,7 +878,10 @@ public class Model {
         notificationModelServer.editNotification(notification, listener);
     }
 
+    /*--------------------------------------------------------*/
+
     public void removeBadge() {
+        flagBell = false;
         BottomNavigationMenuView bottomNavigationMenuView = (BottomNavigationMenuView) Model.instance.getBottomNavigationView().getChildAt(0);
         View v = bottomNavigationMenuView.getChildAt(3);
         BottomNavigationItemView itemView = (BottomNavigationItemView) v;
@@ -886,6 +889,8 @@ public class Model {
     }
 
     public void addBadge(int count){
+        flagBell = true;
+        Log.d("TAG6667", String.valueOf(count));
         BottomNavigationMenuView bottomNavigationMenuView =
                 (BottomNavigationMenuView) Model.instance.getBottomNavigationView().getChildAt(0);
         View v = bottomNavigationMenuView.getChildAt(3);
@@ -902,28 +907,26 @@ public class Model {
     public void checkNotification(){
         //Check if the user have notifications
         count= 0;
-        List<String> notifications = Model.instance.getProfile().getNotifications();
-        if(!notifications.isEmpty()){
-            Log.d("TAG666", Model.instance.getProfile().getNotifications().toString());
-            Model.instance.getNotificationsByIds(notifications , notificationsList -> {
-                if(notificationsList != null){
-                    for (int i = 0; i < notificationsList.size(); i++){
-                        if(notificationsList.get(i).getSeen().equals("false")){
-                            Log.d("TAG556", notificationsList.get(i).getNotificationId());
-                            count++;
+        Model.instance.getProfileFromServer(getUser().getEmail(), getProfile().getUserName(), profile -> {
+            List<String> notifications = profile.getNotifications();
+            if(!notifications.isEmpty()){
+                Model.instance.getNotificationsByIds(notifications , notificationsList -> {
+                    if(notificationsList != null){
+                        for (int i = 0; i < notificationsList.size(); i++){
+                            if(notificationsList.get(i).getSeen().equals("false")){
+                                count++;
+                            }
+                        }
+                        if(count != 0){
+                            if(flagBell)
+                                removeBadge();
+                            Model.instance.addBadge(count);
+                            flagBell = true;
                         }
                     }
-                    if(count != 0){
-                        Log.d("TAG666", String.valueOf(count));
-                        Model.instance.addBadge(count);
-                    }
-                }
-                else{
-
-                    //TODO: dialog
-                }
-            });
-        }
+                });
+            }
+        });
     }
 
     /******************************************************************************************/

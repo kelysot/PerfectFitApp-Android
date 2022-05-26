@@ -1,11 +1,8 @@
 package com.example.perfectfitapp_android.notification;
 
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 
 public class NotificationCounter {
