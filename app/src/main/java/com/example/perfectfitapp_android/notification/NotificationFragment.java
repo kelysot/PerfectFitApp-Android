@@ -61,12 +61,10 @@ public class NotificationFragment extends Fragment {
             String notificationId = viewModel.getData().get(position).getNotificationId();
             System.out.println("notification " + notificationId + " was clicked");
             Model.instance.getNotificationById(notificationId, notification -> {
-                //TODO: check if notification is null and dialog
-                if(!notification.getPostId().equals(" ")){
+                if (!notification.getPostId().equals(" ")) {
                     Log.d("TAG4", notification.getPostId());
                     Navigation.findNavController(v).navigate(NotificationFragmentDirections.actionGlobalPostPageFragment(notification.getPostId(), "notification"));
-                }
-                else
+                } else
                     Navigation.findNavController(v).navigate(NotificationFragmentDirections.actionGlobalProfileFragment(notification.getProfileIdFrom()));
             });
         });
@@ -79,41 +77,40 @@ public class NotificationFragment extends Fragment {
     private void refresh() {
         count = 0;
         List<Notification> list = new ArrayList<>();
-        List<String> notifications = Model.instance.getProfile().getNotifications();
-        if(!notifications.isEmpty()){
-            Model.instance.getNotificationsByIds(notifications , notificationsList -> {
-                if(notificationsList != null){
-                    for (int i = 0; i < notificationsList.size(); i++){
-                        Notification notification = notificationsList.get(i);
-                        list.add(notification);
-                        if(notification.getSeen().equals("false")){
-                            count++;
-                            notification.setSeen("true");
-                            Model.instance.editNotification(notification, isSuccess -> {
-                                if(!isSuccess){
-                                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                            Toast.LENGTH_LONG).show();
-                                    Log.d("TAG", "failed in editNotification");
-                                }
-                                else{
-
-                                    //TODO: dialog - from the model showOkDialog
-                                }
-                            });
+        Model.instance.getProfileFromServer(Model.instance.getUser().getEmail(), Model.instance.getProfile().getUserName(), profile -> {
+            List<String> notifications = profile.getNotifications();
+            if (!notifications.isEmpty()) {
+                Model.instance.getNotificationsByIds(notifications, notificationsList -> {
+                    if (notificationsList != null) {
+                        for (int i = 0; i < notificationsList.size(); i++) {
+                            Notification notification = notificationsList.get(i);
+                            list.add(notification);
+                            if (notification.getSeen().equals("false")) {
+                                count++;
+                                notification.setSeen("true");
+                                Model.instance.editNotification(notification, isSuccess -> {
+                                    if (!isSuccess) {
+                                        Log.d("TAG", "failed in editNotification");
+                                    }
+                                });
+                            }
                         }
+                        if (count != 0) {
+                            Model.instance.removeBadge();
+                        }
+                        Collections.reverse(list);
+                        viewModel.setData(list);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Log.d("TAG", "failed in getNotificationsByIds");
                     }
-                    if(count != 0){
-                        Model.instance.removeBadge();
-                    }
-                    Collections.reverse(list);
-                    viewModel.setData(list);
-                    adapter.notifyDataSetChanged();
-                }
-                else{
-                    //TODO: dialog
-                }
-            });
-        }
+                });
+            }
+            else{
+                //TODO: check if notification is null and dialog - no notification to the profile.
+            }
+        });
+
 
     }
 
@@ -167,12 +164,11 @@ public class NotificationFragment extends Fragment {
                 @Override
                 public void onComplete(Profile profile) {
                     String userImg = profile.getUserImageUrl();
-                    if(userImg != null && !userImg.equals("")){
+                    if (userImg != null && !userImg.equals("")) {
                         Model.instance.getImages(userImg, bitmap -> {
                             holder.userPic.setImageBitmap(bitmap);
                         });
-                    }
-                    else {
+                    } else {
                         Picasso.get()
                                 .load(R.drawable.avatar).resize(250, 180)
                                 .centerCrop()
@@ -184,10 +180,9 @@ public class NotificationFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(viewModel.getData() == null) {
+            if (viewModel.getData() == null) {
                 return 0;
-            }
-            else {
+            } else {
                 return viewModel.getData().size();
             }
         }
