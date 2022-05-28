@@ -1,9 +1,11 @@
 package com.example.perfectfitapp_android.model.ModelServer;
 
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
+import com.example.perfectfitapp_android.login.LoginActivity;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Notification;
 import com.example.perfectfitapp_android.model.Post;
@@ -183,9 +185,17 @@ public class ProfileModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(null);
+                        if(tokensList != null){
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            listener.onComplete(null);
+                        }
+                        else{
+                            //TODO: dialog
+                            listener.onComplete(null);
+
+                        }
+
                     });
                 }
             }

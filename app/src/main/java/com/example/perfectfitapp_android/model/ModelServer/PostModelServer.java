@@ -369,9 +369,17 @@ public class PostModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(null);
+                        if(tokensList != null){
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            listener.onComplete(null);
+                        }
+                        else{
+                            //TODO: check
+                            System.out.println(" -------------- problem in PostModelServer 378 ----------- ");
+                            listener.onComplete(null);
+                        }
+
                     });
                 }
             }

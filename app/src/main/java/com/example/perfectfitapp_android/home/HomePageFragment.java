@@ -218,7 +218,14 @@ public class HomePageFragment extends Fragment {
                                     .into(holder.userPic);
                         }
                     }
+                    else{
+                        //TODO: dialog
+                        errorDialog();
+//                        startActivity(new Intent(getContext(), LoginActivity.class));
+//                        getActivity().finish();
+                    }
                 }
+
             });
 
 
@@ -415,6 +422,42 @@ public class HomePageFragment extends Fragment {
 
         ImageView btnClose = dialog.findViewById(R.id.btn_close);
         btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+    public void errorDialog(){
+
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText("Opss, There is an error. Please try to connect the app later.");
+
+        Button btnNo = dialog.findViewById(R.id.btn_no);
+        btnNo.setText("OK");
+
+        btnNo.setOnClickListener(v -> {
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            getActivity().finish();
+        });
+        //TODO: set the buttons to be enable false
+
+        Button btnYes = dialog.findViewById(R.id.btn_yes);
+        btnYes.setVisibility(View.GONE);
+//        btnYes.setOnClickListener(v -> {
+//            progressBar.setVisibility(View.VISIBLE);
+//            btnYes.setEnabled(false);
+//            btnNo.setEnabled(false);
+//            logout();
+//        });
+//        btnYes.setOnClickListener(v -> logout());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setVisibility(View.GONE);
+//        btnClose.setOnClickListener(view -> dialog.dismiss());
 
         dialog.show();
     }
