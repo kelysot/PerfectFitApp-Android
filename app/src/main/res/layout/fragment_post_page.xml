@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
+    android:background="#B4FFFFFF"
+    android:backgroundTint="#B4FFFFFF"
     tools:context=".post.PostPageFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FAFAFA">
+        android:background="@drawable/backgraund_ligth">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -19,7 +20,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="#FFFFFF"
+            app:cardBackgroundColor="#B4FFFFFF"
             app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +30,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:backgroundTint="#FFFFFF">
+                android:backgroundTint="#B4FFFFFF">
 
                 <TextView
                     android:id="@+id/postpage_productname_et"
@@ -39,7 +40,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="Product Name"
-                    android:textColor="#8ec4b5"
+                    android:textColor="#7C7676"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -51,9 +52,10 @@
                     android:layout_height="57dp"
                     android:layout_marginTop="8dp"
                     android:isIndicator="true"
-                    android:progressBackgroundTint="#3C3939"
-                    android:progressTint="#8ec4b5"
-                    android:secondaryProgressTint="#8ec4b5"
+                    android:progressTint="#3C3939"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7"
+                    android:secondaryProgressTint="#3C3939"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textview1"
@@ -66,7 +68,7 @@
                     android:layout_height="65dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
                     app:boxBackgroundColor="@color/myWhite"
                     app:boxStrokeColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -77,7 +79,7 @@
                         android:id="@+id/postpage_color_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="#FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
                         android:hint="Color"
                         android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -89,8 +91,8 @@
                     android:layout_height="65dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    app:boxBackgroundColor="@color/myWhite"
+                    android:layout_marginEnd="16dp"
+                    app:boxBackgroundColor="#B4FFFFFF"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textInputLayout15"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout17">
@@ -99,7 +101,7 @@
                         android:id="@+id/postpage_price_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="#FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
                         android:hint="Price"
                         android:inputType="numberDecimal"
                         android:textStyle="bold" />
@@ -111,9 +113,10 @@
                     android:layout_height="57dp"
                     android:layout_marginTop="8dp"
                     android:isIndicator="true"
-                    android:progressBackgroundTint="#3C3939"
-                    android:progressTint="#8ec4b5"
-                    android:secondaryProgressTint="#8ec4b5"
+                    android:progressTint="#3C3939"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7"
+                    android:secondaryProgressTint="#3C3939"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textview2"
@@ -135,8 +138,8 @@
                     android:layout_width="280dp"
                     android:layout_height="237dp"
                     android:layout_marginTop="16dp"
-                    android:src="@drawable/ic_gallery"
                     android:scaleType="centerCrop"
+                    android:src="@drawable/ic_gallery"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/postpage_subcategort_tv"
@@ -147,24 +150,24 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                     android:layout_width="0dp"
                     android:layout_height="75dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:backgroundTint="#FFFFFF"
-                    app:boxBackgroundColor="@color/myWhite"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="#B4FFFFFF"
+                    app:boxBackgroundColor="#7C7676"
                     app:boxCornerRadiusBottomEnd="100dp"
                     app:boxCornerRadiusBottomStart="100dp"
                     app:boxCornerRadiusTopEnd="100dp"
                     app:boxCornerRadiusTopStart="100dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/postpage_productname_et">
+                    app:layout_constraintTop_toBottomOf="@+id/postpage_rating_ratingBar">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/postpage_description_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="#FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
                         android:hint="Description" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -173,11 +176,11 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="65dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="4dp"
                     android:backgroundTint="#FFFFFF"
-                    app:boxBackgroundColor="@color/myWhite"
+                    app:boxBackgroundColor="#B4FFFFFF"
                     app:layout_constraintEnd_toStartOf="@+id/textInputLayout17"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout18">
@@ -186,7 +189,7 @@
                         android:id="@+id/postpage_size_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="#FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
                         android:hint="Size"
                         android:textStyle="bold" />
 
@@ -197,11 +200,11 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="65dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="4dp"
                     android:backgroundTint="#FFFFFF"
-                    app:boxBackgroundColor="@color/myWhite"
+                    app:boxBackgroundColor="#B4FFFFFF"
                     app:layout_constraintEnd_toStartOf="@+id/textInputLayout27"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout14">
@@ -210,7 +213,7 @@
                         android:id="@+id/postpage_company_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="#FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
                         android:hint="Company"
                         android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -219,27 +222,29 @@
                     android:id="@+id/textview1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="Size adjustment:"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout13" />
+                    app:layout_constraintTop_toBottomOf="@+id/postpage_productname_et" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout13"
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
                     android:backgroundTint="#FFFFFF"
                     app:boxBackgroundColor="@color/myWhite"
                     app:boxCornerRadiusBottomEnd="100dp"
                     app:boxCornerRadiusBottomStart="100dp"
                     app:boxCornerRadiusTopEnd="100dp"
                     app:boxCornerRadiusTopStart="100dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout16">
@@ -248,7 +253,7 @@
                         android:id="@+id/postpage_link_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="#FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
                         android:editable="false"
                         android:hint="Link" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -259,7 +264,7 @@
                     android:layout_height="45dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:backgroundTint="#FFFFFF"
+                    android:backgroundTint="#00FFFFFF"
                     android:src="@drawable/ic_edit"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -269,9 +274,9 @@
                     style="Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
                     app:boxBackgroundColor="@color/myWhite"
                     app:boxCornerRadiusBottomEnd="100dp"
                     app:boxCornerRadiusBottomStart="100dp"
@@ -285,7 +290,7 @@
                         android:id="@+id/postpage_sku_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="#FFFFFF"
+                        android:backgroundTint="#00FFFFFF"
                         android:hint="SKU" />
                 </com.google.android.material.textfield.TextInputLayout>
 

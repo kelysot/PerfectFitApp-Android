@@ -7,14 +7,16 @@
     android:layout_margin="8dp"
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
-    app:cardBackgroundColor="@android:color/white"
-    app:cardCornerRadius="8dp"
+    app:cardBackgroundColor="#B4FFFFFF"
+    app:cardCornerRadius="10dp"
     app:cardElevation="8dp"
     app:cardPreventCornerOverlap="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#B4FFFFFF"
+        android:backgroundTint="#B4FFFFFF">
 
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -24,12 +26,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/avatar"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            android:scaleType="centerCrop"/>
+            app:srcCompat="@drawable/avatar" />
 
         <TextView
             android:id="@+id/comment_lr_user_name"
@@ -49,6 +51,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
+            android:background="@null"
             android:ems="10"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -65,6 +68,7 @@
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
