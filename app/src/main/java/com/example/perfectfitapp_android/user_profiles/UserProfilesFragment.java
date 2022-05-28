@@ -389,22 +389,18 @@ public class UserProfilesFragment extends Fragment {
     private void logout() {
         Model.instance.logout(isSuccess -> {
             if(isSuccess){
-                Model.instance.getProfile().setStatus("false");
-                Model.instance.editProfile(null, Model.instance.getProfile(), new Model.EditProfile() {
-                    @Override
-                    public void onComplete(Boolean isSuccess) {
-                        if(isSuccess){
-                            startActivity(new Intent(getContext(), LoginActivity.class));
-                            getActivity().finish();
-                        }
-                        else {
-                            Toast.makeText(MyApplication.getContext(), "Can't change to false",
-                                    Toast.LENGTH_LONG).show();
-                        }
+                Model.instance.logoutFromAppLocalDB(isSuccess1 -> {
+                    if(isSuccess1){
+                        startActivity(new Intent(getContext(), LoginActivity.class));
+                        getActivity().finish();
+                    }
+                    else{
+                        //TODO: dialog
                     }
                 });
             }
             else{
+                //TODO: dialog
                 Toast.makeText(MyApplication.getContext(), "Can't logout",
                         Toast.LENGTH_LONG).show();
             }

@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.login.LoginActivity;
+import com.example.perfectfitapp_android.model.AppLocalDb;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Notification;
 import com.example.perfectfitapp_android.model.Post;
@@ -203,17 +204,19 @@ public class HomePageFragment extends Fragment {
             Model.instance.getProfileByUserName(post.getProfileId(), new Model.GetProfileByUserName() {
                 @Override
                 public void onComplete(Profile profile) {
-                    String userImg = profile.getUserImageUrl();
-                    if(userImg != null && !userImg.equals("")){
-                        Model.instance.getImages(userImg, bitmap -> {
-                            holder.userPic.setImageBitmap(bitmap);
-                        });
-                    }
-                    else {
-                        Picasso.get()
-                                .load(R.drawable.avatar).resize(250, 180)
-                                .centerCrop()
-                                .into(holder.userPic);
+                    if (profile != null){
+                        String userImg = profile.getUserImageUrl();
+                        if(profile.getUserImageUrl() != null && !profile.getUserImageUrl().equals("")){
+                            Model.instance.getImages(profile.getUserImageUrl(), bitmap -> {
+                                holder.userPic.setImageBitmap(bitmap);
+                            });
+                        }
+                        else {
+                            Picasso.get()
+                                    .load(R.drawable.avatar).resize(250, 180)
+                                    .centerCrop()
+                                    .into(holder.userPic);
+                        }
                     }
                 }
             });
@@ -420,29 +423,35 @@ public class HomePageFragment extends Fragment {
         Model.instance.logout(isSuccess -> {
             if(isSuccess){
                 Model.instance.getProfile().setStatus("false");
-                Model.instance.editProfile(null, Model.instance.getProfile(), new Model.EditProfile() {
-                    @Override
-                    public void onComplete(Boolean isSuccess) {
-                        if(isSuccess){
-                            startActivity(new Intent(getContext(), LoginActivity.class));
-                            getActivity().finish();
-                        }
-                        else {
-                            progressBar.setVisibility(View.GONE);
-                            //TODO: dialog
-                            Toast.makeText(MyApplication.getContext(), "Can't change to false",
-                                    Toast.LENGTH_LONG).show();
-                        }
+                Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess1 -> {
+                    if(isSuccess1){
+                        Model.instance.logoutFromAppLocalDB(isSuccess2 -> {
+                            if(isSuccess2){
+                                System.out.println("----------------- isSuccess 2 ----------------------");
+                                startActivity(new Intent(getContext(), LoginActivity.class));
+                                getActivity().finish();
+                            }
+                        });
+                    }
+                    else {
+                        progressBar.setVisibility(View.GONE);
+                        Model.instance.getProfile().setStatus("true");
+                        //TODO: dialog
+                        Toast.makeText(MyApplication.getContext(), "Can't change to false - to logout",
+                                Toast.LENGTH_LONG).show();
                     }
                 });
             }
             else{
                 progressBar.setVisibility(View.GONE);
+                Model.instance.printUserFromAppLocalDB();
+                System.out.println("the profileinmodel ======== " + Model.instance.getProfile().getUserName());
+                //TODO: dialog
+                System.out.println("hereeeeeeeeeeeeeeeee logout");
                 Toast.makeText(MyApplication.getContext(), "Can't logout",
                         Toast.LENGTH_LONG).show();
             }
         });
     }
-
 
 }

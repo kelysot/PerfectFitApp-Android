@@ -351,16 +351,45 @@ public class Model {
         void onComplete(Boolean isSuccess);
     }
 
-    public void logout(LogoutListener listener){
+    public void printUserFromAppLocalDB(){
+        executor.execute(() -> {
+            System.out.println("-------------- user in AppLocalDB ------------------------------- ");
+            System.out.println(AppLocalDb.db.userDao().getUserRoom().getEmail());
+        });
+    }
+
+    public void logout(LogoutListener listener ){
         userModelServer.logout(isSuccess -> {
+            System.out.println("in modellllllllllllllll - the isSuccess = " + isSuccess);
             if(isSuccess){
-                executor.execute(() -> {
-                    User user = AppLocalDb.db.userDao().getUserRoom();
-                    AppLocalDb.db.userDao().deleteByUserEmail(user.getEmail());
-                    listener.onComplete(isSuccess);
-                });
+//                executor.execute(() -> {
+//                    System.out.println("is it here???????");
+//                    User user = AppLocalDb.db.userDao().getUserRoom();
+//                    AppLocalDb.db.userDao().deleteByUserEmail(user.getEmail());
+                    listener.onComplete(true);
+//                });
             }
-            listener.onComplete(isSuccess);
+            else{
+                //TODO:
+                System.out.println("----------------- logout model false ---------------");
+                listener.onComplete(false);
+            }
+
+//            listener.onComplete(isSuccess);
+        });
+    }
+
+    public interface logoutFromAppLocalDBListener{
+        void  onComplete(Boolean isSuccess);
+    }
+
+    public void logoutFromAppLocalDB(logoutFromAppLocalDBListener listener){
+        executor.execute(() -> {
+            User user = AppLocalDb.db.userDao().getUserRoom();
+            if (user != null) {
+                AppLocalDb.db.userDao().deleteByUserEmail(user.getEmail());
+                listener.onComplete(true);
+            }
         });
     }
 
@@ -585,6 +614,7 @@ public class Model {
 
         postModelServer.getSuitablePosts(Model.instance.getProfile().getUserName(), posts -> {
             //TODO: check if posts is null
+            if(posts != null){
             executor.execute(() -> {
 
                 List<Post> finalList = new LinkedList<>();
@@ -594,7 +624,7 @@ public class Model {
                 //TODO: check if posts is null
                 if(!posts.isEmpty()) {
                     String lud = posts.get(0).getDate();
-                    System.out.println("the lud --------------------------- " + lud);
+//                    System.out.println("the lud --------------------------- " + lud);
 
 //                    for( int i=0 ; i < posts.size(); i++){
 //                        if (posts.get(i).getIsDeleted().equals("false")){
@@ -615,6 +645,13 @@ public class Model {
                 postsList.postValue(posts);
                 postListLoadingState.postValue(PostListLoadingState.loaded);
             });
+            }
+            else{
+                System.out.println("---------------- wrong ------------------");
+                postListLoadingState.postValue(PostListLoadingState.loaded);
+
+
+            }
         });
 
 //        postModelServer.getAllPosts(postList -> {
