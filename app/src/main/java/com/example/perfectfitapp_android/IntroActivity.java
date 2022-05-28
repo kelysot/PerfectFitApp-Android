@@ -30,8 +30,14 @@ public class IntroActivity extends AppCompatActivity {
                 Model.instance.mainThread.post(() -> {
                     Model.instance.getUserFromRoom(user -> {
                         Model.instance.getUserFromServer(user.getEmail(), user1 -> {
-                            Model.instance.setUser(user1);
-                            toFeedActivity();
+                            if(user1 != null){
+                                Model.instance.setUser(user1);
+                                toFeedActivity();
+                            }
+                            else{
+                                toLoginActivity();
+                            }
+
                         });
                     });
 

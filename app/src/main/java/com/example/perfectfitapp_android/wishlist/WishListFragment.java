@@ -1,6 +1,8 @@
 package com.example.perfectfitapp_android.wishlist;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,13 +16,16 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.home.HomePageFragmentDirections;
+import com.example.perfectfitapp_android.login.LoginActivity;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Notification;
 import com.example.perfectfitapp_android.model.Post;
@@ -85,6 +90,7 @@ public class WishListFragment extends Fragment {
             swipeRefresh.setRefreshing(false);
             }
             else{
+                errorDialog("Opss, There is an error. Please try to connect the app later.");
                 //TODO: dialog
             }
         });
@@ -150,9 +156,8 @@ public class WishListFragment extends Fragment {
             holder.addToLikes.setOnClickListener(v-> addToLikes(holder, post));
             Model.instance.timeSince(post.getDate(), timeAgo -> holder.timeAgoTv.setText(timeAgo));
 
-            Model.instance.getProfileByUserName(post.getProfileId(), new Model.GetProfileByUserName() {
-                @Override
-                public void onComplete(Profile profile) {
+            Model.instance.getProfileByUserName(post.getProfileId(), profile -> {
+                if(profile != null){
                     String userImg = profile.getUserImageUrl();
                     if(userImg != null && !userImg.equals("")){
                         Model.instance.getImages(userImg, bitmap -> {
@@ -165,6 +170,9 @@ public class WishListFragment extends Fragment {
                                 .centerCrop()
                                 .into(holder.userPic);
                     }
+                }
+                else{
+                    errorDialog("Opss, There is an error. Please try to connect the app later.");
                 }
             });
 
@@ -283,4 +291,33 @@ public class WishListFragment extends Fragment {
             }
         }
     }
+
+
+    public void errorDialog(String str){
+
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText(str);
+
+        Button btnNo = dialog.findViewById(R.id.btn_no);
+        btnNo.setText("OK");
+
+        btnNo.setOnClickListener(v -> {
+            btnNo.setEnabled(false);
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            getActivity().finish();
+        });
+        //TODO: set the buttons to be enable false
+        Button btnYes = dialog.findViewById(R.id.btn_yes);
+        btnYes.setVisibility(View.GONE);
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setVisibility(View.GONE);
+        dialog.show();
+    }
+
+
 }

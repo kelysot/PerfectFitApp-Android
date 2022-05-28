@@ -100,6 +100,7 @@ public class HomePageFragment extends Fragment {
                 }
                 else{
                     //TODO: dialog
+//                    errorDialog("Please try later");
                 }
             });
         });
@@ -201,31 +202,25 @@ public class HomePageFragment extends Fragment {
             holder.addToLikes.setOnClickListener(v-> addToLikes(holder, post));
             Model.instance.timeSince(post.getDate(), timeAgo -> holder.timeAgoTv.setText(timeAgo));
 
-            Model.instance.getProfileByUserName(post.getProfileId(), new Model.GetProfileByUserName() {
-                @Override
-                public void onComplete(Profile profile) {
-                    if (profile != null){
-                        String userImg = profile.getUserImageUrl();
-                        if(profile.getUserImageUrl() != null && !profile.getUserImageUrl().equals("")){
-                            Model.instance.getImages(profile.getUserImageUrl(), bitmap -> {
-                                holder.userPic.setImageBitmap(bitmap);
-                            });
-                        }
-                        else {
-                            Picasso.get()
-                                    .load(R.drawable.avatar).resize(250, 180)
-                                    .centerCrop()
-                                    .into(holder.userPic);
-                        }
+            Model.instance.getProfileByUserName(post.getProfileId(), profile -> {
+                if (profile != null){
+                    String userImg = profile.getUserImageUrl();
+                    if(profile.getUserImageUrl() != null && !profile.getUserImageUrl().equals("")){
+                        Model.instance.getImages(profile.getUserImageUrl(), bitmap -> {
+                            holder.userPic.setImageBitmap(bitmap);
+                        });
                     }
-                    else{
-                        //TODO: dialog
-                        errorDialog();
-//                        startActivity(new Intent(getContext(), LoginActivity.class));
-//                        getActivity().finish();
+                    else {
+                        Picasso.get()
+                                .load(R.drawable.avatar).resize(250, 180)
+                                .centerCrop()
+                                .into(holder.userPic);
                     }
                 }
-
+                else{
+                    //TODO: dialog
+                    errorDialog("Opss, There is an error. Please try to connect the app later.");
+                }
             });
 
 
@@ -426,7 +421,7 @@ public class HomePageFragment extends Fragment {
         dialog.show();
     }
 
-    public void errorDialog(){
+    public void errorDialog(String str){
 
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_dialog);
@@ -434,31 +429,21 @@ public class HomePageFragment extends Fragment {
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
 
         TextView tx = dialog.findViewById(R.id.txtDesc);
-        tx.setText("Opss, There is an error. Please try to connect the app later.");
+        tx.setText(str);
 
         Button btnNo = dialog.findViewById(R.id.btn_no);
         btnNo.setText("OK");
 
         btnNo.setOnClickListener(v -> {
+            btnNo.setEnabled(false);
             startActivity(new Intent(getContext(), LoginActivity.class));
             getActivity().finish();
         });
         //TODO: set the buttons to be enable false
-
         Button btnYes = dialog.findViewById(R.id.btn_yes);
         btnYes.setVisibility(View.GONE);
-//        btnYes.setOnClickListener(v -> {
-//            progressBar.setVisibility(View.VISIBLE);
-//            btnYes.setEnabled(false);
-//            btnNo.setEnabled(false);
-//            logout();
-//        });
-//        btnYes.setOnClickListener(v -> logout());
-
         ImageView btnClose = dialog.findViewById(R.id.btn_close);
         btnClose.setVisibility(View.GONE);
-//        btnClose.setOnClickListener(view -> dialog.dismiss());
-
         dialog.show();
     }
 

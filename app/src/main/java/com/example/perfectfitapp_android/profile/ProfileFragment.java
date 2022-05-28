@@ -1,6 +1,8 @@
 package com.example.perfectfitapp_android.profile;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
+import com.example.perfectfitapp_android.login.LoginActivity;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Notification;
 import com.example.perfectfitapp_android.model.Post;
@@ -367,9 +370,8 @@ public class ProfileFragment extends Fragment {
             holder.addToLikes.setOnClickListener(v -> addToLikes(holder, post));
             Model.instance.timeSince(post.getDate(), timeAgo -> holder.timeAgoTv.setText(timeAgo));
 
-            Model.instance.getProfileByUserName(post.getProfileId(), new Model.GetProfileByUserName() {
-                @Override
-                public void onComplete(Profile profile) {
+            Model.instance.getProfileByUserName(post.getProfileId(), profile -> {
+                if(profile!= null){
                     String userImg = profile.getUserImageUrl();
                     if (userImg != null && !userImg.equals("")) {
                         Model.instance.getImages(userImg, bitmap -> {
@@ -381,6 +383,13 @@ public class ProfileFragment extends Fragment {
                                 .centerCrop()
                                 .into(holder.userPic);
                     }
+                }
+                else{
+                    errorDialog("Opss, There is an error. Please try to connect the app later.");
+//                    System.out.println("1222222233333333344444444444");
+//                    Model.instance.refreshToken(tokensList -> {
+//                        refresh();
+//                    });
                 }
             });
 
@@ -510,5 +519,29 @@ public class ProfileFragment extends Fragment {
 //        Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment());
 //    }
 
+    public void errorDialog(String str){
 
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText(str);
+
+        Button btnNo = dialog.findViewById(R.id.btn_no);
+        btnNo.setText("OK");
+
+        btnNo.setOnClickListener(v -> {
+            btnNo.setEnabled(false);
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            getActivity().finish();
+        });
+        //TODO: set the buttons to be enable false
+        Button btnYes = dialog.findViewById(R.id.btn_yes);
+        btnYes.setVisibility(View.GONE);
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setVisibility(View.GONE);
+        dialog.show();
+    }
 }

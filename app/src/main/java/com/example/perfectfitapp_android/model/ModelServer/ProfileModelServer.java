@@ -48,9 +48,16 @@ public class ProfileModelServer {
                     System.out.println("the token is forbidden, need to do a refreshToken - code 403 in getProfileFromServer");
                     Log.d("TAG", "the token is forbidden, need to do a refreshToken - code 403 in getProfileFromServer");
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(null);
+                        if(tokensList != null){
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            listener.onComplete(null);
+                        }
+                        else{
+                            //TODO:
+                            listener.onComplete(null);
+                        }
+
                     });
                 }
 
