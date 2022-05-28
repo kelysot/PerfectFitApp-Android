@@ -64,22 +64,28 @@ public class UserModelServer {
 
                 if (response.code() == 200) {
                     JsonElement js = response.body().get("tokens");
-                    String aToken = "Bearer " + js.getAsJsonArray().get(0).getAsString();
-                    String rToken = null;
-                    Log.d("TAG111", String.valueOf(js.getAsJsonArray().size()));
-                    if(js.getAsJsonArray().size() > 1){
-                        rToken = "Bearer " + js.getAsJsonArray().get(1).getAsString();
-                    }
-                    SharedPreferences.Editor preferences = MyApplication.getContext().getSharedPreferences("TAG", ContextThemeWrapper.MODE_PRIVATE).edit();
-                    preferences.putString("ACCESS_TOKEN", aToken);
-                    if(js.getAsJsonArray().size() > 1) {
-                        preferences.putString("REFRESH_TOKEN", rToken);
-                    }
-                    preferences.commit();
+                    System.out.println("size ---------------------------------------------- " + js.getAsJsonArray().size());
+                    if(js.getAsJsonArray().size() != 0){
+                        String aToken = "Bearer " + js.getAsJsonArray().get(0).getAsString();
+                        String rToken = null;
+                        Log.d("TAG111", String.valueOf(js.getAsJsonArray().size()));
+                        if(js.getAsJsonArray().size() > 1){
+                            rToken = "Bearer " + js.getAsJsonArray().get(1).getAsString();
+                        }
+                        SharedPreferences.Editor preferences = MyApplication.getContext().getSharedPreferences("TAG", ContextThemeWrapper.MODE_PRIVATE).edit();
+                        preferences.putString("ACCESS_TOKEN", aToken);
+                        if(js.getAsJsonArray().size() > 1) {
+                            preferences.putString("REFRESH_TOKEN", rToken);
+                        }
+                        preferences.commit();
 
-                    User user = new User();
-                    user = user.fromJson(response.body());
-                    listener.onComplete(user);
+                        User user = new User();
+                        user = user.fromJson(response.body());
+                        listener.onComplete(user);
+                    }
+                    else{
+                        listener.onComplete(null);
+                    }
                 } else if (response.code() == 400) {
                     Log.d("TAG", "failed to getUser in ModelServer 1");
                     Toast.makeText(MyApplication.getContext(), "No Connection, please try later",

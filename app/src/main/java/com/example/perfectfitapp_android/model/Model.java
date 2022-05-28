@@ -945,23 +945,29 @@ public class Model {
         //Check if the user have notifications
         count= 0;
         Model.instance.getProfileFromServer(getUser().getEmail(), getProfile().getUserName(), profile -> {
-            List<String> notifications = profile.getNotifications();
-            if(!notifications.isEmpty()){
-                Model.instance.getNotificationsByIds(notifications , notificationsList -> {
-                    if(notificationsList != null){
-                        for (int i = 0; i < notificationsList.size(); i++){
-                            if(notificationsList.get(i).getSeen().equals("false")){
-                                count++;
+            if(profile != null){
+                List<String> notifications = profile.getNotifications();
+                if(!notifications.isEmpty()){
+                    Model.instance.getNotificationsByIds(notifications , notificationsList -> {
+                        if(notificationsList != null){
+                            for (int i = 0; i < notificationsList.size(); i++){
+                                if(notificationsList.get(i).getSeen().equals("false")){
+                                    count++;
+                                }
+                            }
+                            if(count != 0){
+                                if(flagBell)
+                                    removeBadge();
+                                Model.instance.addBadge(count);
+                                flagBell = true;
                             }
                         }
-                        if(count != 0){
-                            if(flagBell)
-                                removeBadge();
-                            Model.instance.addBadge(count);
-                            flagBell = true;
-                        }
-                    }
-                });
+                    });
+                }
+            }
+            else {
+                //TODO:
+
             }
         });
     }
