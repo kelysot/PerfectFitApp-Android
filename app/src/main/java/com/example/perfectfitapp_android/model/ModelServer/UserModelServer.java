@@ -6,6 +6,7 @@ import android.view.ContextThemeWrapper;
 import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
+import com.example.perfectfitapp_android.model.AppLocalDb;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
@@ -180,12 +181,14 @@ public class UserModelServer {
                     listener.onComplete(false);
                 } else if (response.code() == 403) {
                     Model.instance.refreshToken(tokensList -> {
+                        System.out.println("in userModelServer - logout not working");
                         Model.instance.insertTokens(tokensList);
-                        Toast.makeText(MyApplication.getContext(), "invalid request",
-                                Toast.LENGTH_LONG).show();
+                        System.out.println("------------------------- log out false 403 -------------------------");
                         System.out.println("********************************* change the token *********************************");
                         listener.onComplete(false);
                     });
+//                    System.out.println("------------------------- log out false 403 -------------------------");
+//                    listener.onComplete(false);
 
                 }
             }
@@ -323,8 +326,8 @@ public class UserModelServer {
 
     public void refreshToken(Model.refreshTokenListener listener){
 
+        System.out.println("********************************** inside the refresh **********************************");
         String token = server.sp.getString("REFRESH_TOKEN", "");
-        System.out.println("the token: " + token);
 
         Call<JsonObject> call = server.service.refreshToken(token);
         call.enqueue(new Callback<JsonObject>() {
@@ -334,11 +337,6 @@ public class UserModelServer {
                     String tokena = server.sp.getString("ACCESS_TOKEN", "");
                     String tokenr = server.sp.getString("ACCESS_TOKEN", "");
 
-                    System.out.println("the last access = " + tokena);
-                    System.out.println("the last refresh = " + tokenr);
-
-                    System.out.println("here121212121212121211212");
-                    System.out.println(response.body());
                     List<String> tokenList = new ArrayList<>();
                     JsonObject js = response.body();
                     tokenList.add(js.get("accessToken").getAsString());
