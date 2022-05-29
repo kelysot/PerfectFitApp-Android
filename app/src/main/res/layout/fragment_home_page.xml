@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#FAFAFA"
+    android:background="@drawable/backgraund_ligth"
     tools:context=".home.HomePageFragment">
 
 
@@ -55,6 +55,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
         android:text="Hey ,"
+        android:textColor="#191919"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="Name"
-        android:textColor="#8CB88E"
+        android:textColor="#191919"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView4"

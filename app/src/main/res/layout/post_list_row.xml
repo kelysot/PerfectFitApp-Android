@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="?attr/selectableItemBackground"
     android:clickable="true"
-    app:cardBackgroundColor="@android:color/white"
+    app:cardBackgroundColor="#B4FFFFFF"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
-    app:cardPreventCornerOverlap="true">
+    app:cardPreventCornerOverlap="true"
+    app:rippleColor="#B4FFFFFF">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -59,10 +59,13 @@
 
         <TextView
             android:id="@+id/listrow_description_tv"
-            android:layout_width="120dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="#00FFFFFF"
             android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/listrow_post_likes_btn" />
 
@@ -131,7 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="120dp"
-            android:backgroundTint="#ffffff"
+            android:backgroundTint="#00FFFFFF"
             app:layout_constraintEnd_toStartOf="@+id/listrow_comments_btn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/listrow_post_img"
@@ -141,7 +144,7 @@
             android:id="@+id/listrow_comments_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#ffffff"
+            android:backgroundTint="#00FFFFFF"
             app:layout_constraintEnd_toStartOf="@+id/add_to_wish_list_btn"
             app:layout_constraintStart_toEndOf="@+id/listrow_post_likes_btn"
             app:layout_constraintTop_toBottomOf="@+id/listrow_post_img"
@@ -149,12 +152,13 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/listrow_post_img"
-            android:layout_width="350dp"
-            android:layout_height="350dp"
-            android:layout_marginStart="58dp"
+            android:layout_width="300dp"
+            android:layout_height="240dp"
+            android:layout_marginStart="45dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="58dp"
+            android:layout_marginEnd="45dp"
             android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/listrow_post_likes_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/listrow_avatar_imv"
@@ -166,7 +170,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="120dp"
-            android:backgroundTint="#ffffff"
+            android:backgroundTint="#00FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/listrow_comments_btn"
             app:layout_constraintTop_toBottomOf="@+id/listrow_post_img"
