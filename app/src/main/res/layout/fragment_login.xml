@@ -25,7 +25,6 @@
             app:boxStrokeColor="#C1C1C1"
             app:hintTextColor="#4f4f4f"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.555"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView4">
 

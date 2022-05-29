@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -23,6 +24,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,6 +90,9 @@ public class UserProfilesFragment extends Fragment {
         greenGif.setOnClickListener(v -> {
             addProfile(view);
         });
+        ConstraintLayout con = view.findViewById(R.id.consraint_user_profiles);
+        con.setBackgroundResource(R.drawable.green_back_5);
+
 
         text.setEnabled(false);
         //TODO: ADD animation of legs lead to the addProfile button
@@ -95,6 +100,9 @@ public class UserProfilesFragment extends Fragment {
             text.setVisibility(View.GONE);
             greenGif.setVisibility(View.GONE);
             greenGif.setEnabled(false);
+
+            con.setBackgroundResource(R.drawable.user_profiles_background);
+
         }
 
 
