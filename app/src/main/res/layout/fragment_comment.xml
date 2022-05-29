@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backgraund_ligth"
     tools:context=".post.comment.CommentFragment">
 
 
@@ -11,9 +12,9 @@
         android:id="@+id/comment_rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/comment_new_comment_text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,6 +32,8 @@
         android:hint="Say something..."
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        android:textColorHighlight="@color/black"
+        android:textColorLink="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/comment_add_btn"
         app:layout_constraintStart_toStartOf="parent" />
@@ -41,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="#8ec4b5"
+        android:backgroundTint="#3C3939"
         android:text="add"
         android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
