@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backgraund_ligth"
     tools:context=".profile.ProfileFragment">
 
 
@@ -13,8 +14,9 @@
         android:layout_height="35dp"
         android:layout_marginTop="15dp"
         android:text="TextView"
-        android:textColor="#000000"
-        android:textSize="20sp"
+        android:textColor="#191919"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/profile_profile_img"
         app:layout_constraintStart_toStartOf="@+id/profile_profile_img"
         app:layout_constraintTop_toBottomOf="@+id/profile_profile_img" />
