@@ -4,371 +4,395 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#FAFAFA"
     tools:context=".post.EditPostFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FAFAFA">
+        android:background="@drawable/backgraund_ligth">
 
-        <TextView
-            android:id="@+id/textview3"
-            android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Product rating:"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/textview"
-            app:layout_constraintStart_toStartOf="@+id/textview"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_sizeadjustment_ratingbar" />
-
-        <TextView
-            android:id="@+id/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Size adjustment:"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/textInputLayout6"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout6"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editpost_categories_txtil"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            android:hint="Category"
-            app:boxBackgroundColor="@color/myWhite"
-            app:layout_constraintEnd_toStartOf="@+id/editpost_subcategories_txtil"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView21">
-
-            <AutoCompleteTextView
-                android:id="@+id/editpost_category_auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#fafafa"
-                android:inputType="none" />
-
-            <!--            <com.google.android.material.textfield.TextInputEditText-->
-            <!--                android:id="@+id/editpost_category_et"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="54dp"-->
-            <!--                android:hint="Category" />-->
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editpost_subcategories_txtil"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            android:hint="SubCategory"
-            app:boxBackgroundColor="@color/myWhite"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editpost_categories_txtil"
-            app:layout_constraintTop_toBottomOf="@+id/textView21">
-
-            <AutoCompleteTextView
-                android:id="@+id/editpost_subcategory_auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#fafafa"
-                android:inputType="none" />
-
-            <!--            <com.google.android.material.textfield.TextInputEditText-->
-            <!--                android:id="@+id/editpost_subcategory_et"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="59dp"-->
-            <!--                android:hint="Sub category" />-->
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout5"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            app:boxBackgroundColor="@color/myWhite"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:endIconMode="clear_text"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout12">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editpost_productname_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#fafafa"
-                android:hint="Product name" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout6"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            app:boxBackgroundColor="@color/myWhite"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:endIconMode="clear_text"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout11">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editpost_sku_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#fafafa"
-                android:hint="SKU" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editpost_size_txtil"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:hint="Size"
-            app:boxBackgroundColor="@color/myWhite"
-            app:layout_constraintEnd_toStartOf="@+id/textInputLayout12"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_companies_txtil">
-
-            <AutoCompleteTextView
-                android:id="@+id/editpost_size_auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#fafafa"
-                android:inputType="none" />
-
-            <!--            <com.google.android.material.textfield.TextInputEditText-->
-            <!--                android:id="@+id/editpost_size_et"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:hint="size" />-->
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editpost_companies_txtil"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:hint="Company"
-            app:boxBackgroundColor="@color/myWhite"
-            app:layout_constraintEnd_toStartOf="@+id/editpost_colors_txtil"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_categories_txtil">
-
-            <AutoCompleteTextView
-                android:id="@+id/editpost_company_auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#fafafa"
-                android:inputType="none" />
-
-            <!--            <com.google.android.material.textfield.TextInputEditText-->
-            <!--                android:id="@+id/editpost_company_et"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:hint="company" />-->
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editpost_colors_txtil"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:hint="Color"
-            app:boxBackgroundColor="@color/myWhite"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editpost_companies_txtil"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_subcategories_txtil">
-
-            <AutoCompleteTextView
-                android:id="@+id/editpost_color_auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#fafafa"
-                android:inputType="none" />
-
-            <!--            <com.google.android.material.textfield.TextInputEditText-->
-            <!--                android:id="@+id/editpost_color_et"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:hint="Color" />-->
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/addnewpost_description_textInputLayout10"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            app:boxBackgroundColor="@color/myWhite"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:endIconMode="clear_text"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editpost_description_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#fafafa"
-                android:hint="Description" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout11"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            app:boxBackgroundColor="@color/myWhite"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:endIconMode="clear_text"
-            app:layout_constraintTop_toBottomOf="@+id/addnewpost_description_textInputLayout10">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editpost_link_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#fafafa"
-                android:hint="Link" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <RatingBar
-            android:id="@+id/editpost_sizeadjustment_ratingbar"
-            android:layout_width="wrap_content"
-            android:layout_height="57dp"
-            android:layout_marginTop="16dp"
-            android:progressBackgroundTint="#3C3939"
-            android:progressTint="#8ec4b5"
-            android:secondaryProgressTint="#8ec4b5"
-            app:layout_constraintEnd_toEndOf="@+id/textInputLayout6"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout6"
-            app:layout_constraintTop_toBottomOf="@+id/textview"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <RatingBar
-            android:id="@+id/editpost_rating_ratingbar"
-            android:layout_width="wrap_content"
-            android:layout_height="57dp"
-            android:layout_marginTop="16dp"
-            android:progressBackgroundTint="#3C3939"
-            android:progressTint="#8ec4b5"
-            android:secondaryProgressTint="#8ec4b5"
-            app:layout_constraintEnd_toEndOf="@+id/editpost_sizeadjustment_ratingbar"
-            app:layout_constraintStart_toStartOf="@+id/editpost_sizeadjustment_ratingbar"
-            app:layout_constraintTop_toBottomOf="@+id/textview3"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout12"
-            android:layout_width="180dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="#FAFAFA"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:endIconMode="clear_text"
-            app:layout_constraintStart_toEndOf="@+id/editpost_size_txtil"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_colors_txtil">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editpost_price_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#fafafa"
-                android:inputType="numberDecimal"
-                android:hint="Price" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/editpost_edit_btn"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:text="Done"
+            app:cardBackgroundColor="#B4FFFFFF"
+            app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editpost_delete_btn"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_image_imv" />
-
-        <Button
-            android:id="@+id/editpost_delete_btn"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="#C3AF0303"
-            android:text="Delete"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_image_imv" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView21"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Edit post"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#B4FFFFFF">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/editpost_image_imv"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_gallery"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editpost_rating_ratingbar"
-            android:scaleType="centerCrop"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"/>
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/editpost_image_imv"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="16dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_gallery"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editpost_rating_ratingbar"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent" />
 
-        <ImageButton
-            android:id="@+id/editpost_add_photo_imv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="49dp"
-            android:layout_marginBottom="14dp"
-            android:backgroundTint="#FAFAFA"
-            android:src="@drawable/ic_addphotoo"
-            app:layout_constraintBottom_toTopOf="@+id/editpost_edit_btn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editpost_image_imv" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/addnewpost_description_textInputLayout10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:endIconMode="clear_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editpost_description_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#00FAFAFA"
+                        android:hint="Description" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editpost_subcategories_txtil"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:hint="SubCategory"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/editpost_categories_txtil"
+                    app:layout_constraintTop_toBottomOf="@+id/textView21">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/editpost_subcategory_auto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="#00FAFAFA"
+                        android:inputType="none" />
+
+                    <!--            <com.google.android.material.textfield.TextInputEditText-->
+                    <!--                android:id="@+id/editpost_subcategory_et"-->
+                    <!--                android:layout_width="match_parent"-->
+                    <!--                android:layout_height="59dp"-->
+                    <!--                android:hint="Sub category" />-->
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout11"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:endIconMode="clear_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/addnewpost_description_textInputLayout10">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editpost_link_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#00FAFAFA"
+                        android:hint="Link" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <RatingBar
+                    android:id="@+id/editpost_rating_ratingbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="57dp"
+                    android:layout_marginTop="16dp"
+                    android:progressTint="#3C3939"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7"
+                    android:secondaryProgressTint="#3C3939"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textview3"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <Button
+                    android:id="@+id/editpost_edit_btn"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Done"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/editpost_delete_btn"
+                    app:layout_constraintTop_toBottomOf="@+id/editpost_image_imv" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout12"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#00FAFAFA"
+                    app:endIconMode="clear_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/editpost_size_txtil"
+                    app:layout_constraintTop_toBottomOf="@+id/editpost_colors_txtil">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editpost_price_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#00FAFAFA"
+                        android:hint="Price"
+                        android:inputType="numberDecimal" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Edit post"
+                    android:textColor="#191919"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editpost_colors_txtil"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="16dp"
+                    android:hint="Color"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/editpost_companies_txtil"
+                    app:layout_constraintTop_toBottomOf="@+id/editpost_subcategories_txtil">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/editpost_color_auto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="#00FAFAFA"
+                        android:inputType="none" />
+
+                    <!--            <com.google.android.material.textfield.TextInputEditText-->
+                    <!--                android:id="@+id/editpost_color_et"-->
+                    <!--                android:layout_width="match_parent"-->
+                    <!--                android:layout_height="wrap_content"-->
+                    <!--                android:hint="Color" />-->
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editpost_size_txtil"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="4dp"
+                    android:hint="Size"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:layout_constraintEnd_toStartOf="@+id/textInputLayout12"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editpost_colors_txtil">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/editpost_size_auto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="#00FAFAFA"
+                        android:inputType="none" />
+
+                    <!--            <com.google.android.material.textfield.TextInputEditText-->
+                    <!--                android:id="@+id/editpost_size_et"-->
+                    <!--                android:layout_width="match_parent"-->
+                    <!--                android:layout_height="wrap_content"-->
+                    <!--                android:hint="size" />-->
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editpost_companies_txtil"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="4dp"
+                    android:hint="Company"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:layout_constraintEnd_toStartOf="@+id/editpost_colors_txtil"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editpost_categories_txtil">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/editpost_company_auto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="#00FAFAFA"
+                        android:inputType="none" />
+
+                    <!--            <com.google.android.material.textfield.TextInputEditText-->
+                    <!--                android:id="@+id/editpost_company_et"-->
+                    <!--                android:layout_width="match_parent"-->
+                    <!--                android:layout_height="wrap_content"-->
+                    <!--                android:hint="company" />-->
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editpost_categories_txtil"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="4dp"
+                    android:hint="Category"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:layout_constraintEnd_toStartOf="@+id/editpost_subcategories_txtil"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView21">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/editpost_category_auto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="#00FAFAFA"
+                        android:inputType="none" />
+
+                    <!--            <com.google.android.material.textfield.TextInputEditText-->
+                    <!--                android:id="@+id/editpost_category_et"-->
+                    <!--                android:layout_width="match_parent"-->
+                    <!--                android:layout_height="54dp"-->
+                    <!--                android:hint="Category" />-->
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <RatingBar
+                    android:id="@+id/editpost_sizeadjustment_ratingbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="57dp"
+                    android:layout_marginTop="16dp"
+                    android:progressTint="#3C3939"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7"
+                    android:secondaryProgressTint="#3C3939"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textview"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <Button
+                    android:id="@+id/editpost_delete_btn"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#C3AF0303"
+                    android:text="Delete"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/editpost_edit_btn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editpost_image_imv" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:endIconMode="clear_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout11">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editpost_sku_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#00FAFAFA"
+                        android:hint="SKU" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Size adjustment:"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:endIconMode="clear_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout12">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editpost_productname_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#00FAFAFA"
+                        android:hint="Product name" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/textview3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Product rating:"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editpost_sizeadjustment_ratingbar" />
+
+                <ImageButton
+                    android:id="@+id/editpost_add_photo_imv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="148dp"
+                    android:backgroundTint="#FAFAFA"
+                    android:src="@drawable/ic_addphotoo"
+                    app:layout_constraintBottom_toBottomOf="@+id/editpost_image_imv"
+                    app:layout_constraintStart_toEndOf="@+id/editpost_image_imv"
+                    app:layout_constraintTop_toTopOf="@+id/editpost_image_imv" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
