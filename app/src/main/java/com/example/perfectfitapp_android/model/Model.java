@@ -861,6 +861,17 @@ public class Model {
         commentModelServer.addNewComment(comment, listener);
     }
 
+    /*--------------------------------------------------------*/
+
+    public interface GetCommentByIdListener {
+        void onComplete(Comment comment);
+    }
+
+    public void getCommentById(String commentId ,GetCommentByIdListener listener){
+        commentModelServer.getCommentById(commentId, listener);
+    }
+
+
     /******************************************************************************************/
 
     /*--------------------------------- Notification -------------------------------*/
