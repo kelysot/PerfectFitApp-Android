@@ -17,7 +17,6 @@ import retrofit2.Response;
 
 public class Post {
 
-    // TODO: need to fix postId
     String profileId, productName, SKU, size, company, color, categoryId, subCategoryId;
     String description,date, link, sizeAdjustment, rating, isDeleted;
     String postId;
