@@ -35,6 +35,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -96,17 +97,6 @@ public class ProfileFragment extends Fragment {
                     List<Post> correctList = null;
                     userNameTv.setText(profile.getUserName());
                     setNumOfPosts(profile.getMyPostsListId());
-    //                Model.instance.getPostsByIds(profile.getMyPostsListId(), new Model.GetPostsByIdsListener() {
-    //                    @Override
-    //                    public void onComplete(List<Post> postList) {
-    //                        for(int i = 0; i < postList.size(); i++){
-    //                            if(postList.get(i).getIsDeleted().equals("true")){
-    //                                postList.remove(postList.get(i));
-    //                            }
-    //                        }
-    //                        numOfPosts.setText(String.valueOf(postList.size()));
-    //                    }
-    //                });
 
                     String userImg = profile.getUserImageUrl();
                     if (userImg != null && !userImg.equals("")) {
@@ -115,12 +105,10 @@ public class ProfileFragment extends Fragment {
                         });
                     }
 
-                    followersSize = profile.getFollowers().size();
-                    numOfFollowing.setText(String.valueOf(profile.getTrackers().size()));
-                    followingView.setOnClickListener(v -> moveToTrackersList(v));
+                    setNumOfFollowers(profile);
+                    setNumOfFollowing(profile);
 
-                    int followersSize = profile.getFollowers().size();
-                    numOfFollowers.setText(String.valueOf(followersSize));
+                    followingView.setOnClickListener(v -> moveToTrackersList(v));
                     followersView.setOnClickListener(v -> moveToFollowersList(v));
 
                     String currentUserName = Model.instance.getProfile().getUserName();
@@ -145,18 +133,17 @@ public class ProfileFragment extends Fragment {
             profileId = profile.getUserName();
             userNameTv.setText(profile.getUserName());
             setNumOfPosts(profile.getMyPostsListId());
-//            numOfPosts.setText(String.valueOf(profile.getMyPostsListId().size()));
             String userImg = profile.getUserImageUrl();
             if (userImg != null && !userImg.equals("")) {
                 Model.instance.getImages(userImg, bitmap -> {
                     userPic.setImageBitmap(bitmap);
                 });
             }
-            numOfFollowing.setText(String.valueOf(profile.getTrackers().size()));
-            followingView.setOnClickListener(v -> moveToTrackersList(v));
 
-            int followersSize = profile.getFollowers().size();
-            numOfFollowers.setText(String.valueOf(followersSize));
+            setNumOfFollowers(profile);
+            setNumOfFollowing(profile);
+
+            followingView.setOnClickListener(v -> moveToTrackersList(v));
             followersView.setOnClickListener(v -> moveToFollowersList(v));
 
             followBtn.setVisibility(View.GONE);
@@ -188,6 +175,32 @@ public class ProfileFragment extends Fragment {
         refresh();
 
         return view;
+    }
+
+    private void setNumOfFollowers(Profile profile1){
+        Model.instance.getProfilesByUserNames(profile1.getFollowers(), profilesList -> {
+            List<Profile> profiles = profilesList;
+            for(int i = 0; i < profilesList.size(); i ++){
+                if(profilesList.get(i).getIsDeleted().equals("true")){
+                    profiles.remove(profilesList.get(i));
+                }
+            }
+            numOfFollowers.setText(String.valueOf(profiles.size()));
+        });
+
+    }
+
+    private void setNumOfFollowing(Profile profile1){
+        Model.instance.getProfilesByUserNames(profile1.getTrackers(), profilesList -> {
+            List<Profile> profiles = profilesList;
+            for(int i = 0; i < profilesList.size(); i ++){
+                if(profilesList.get(i).getIsDeleted().equals("true")){
+                    profiles.remove(profilesList.get(i));
+                }
+            }
+            numOfFollowing.setText(String.valueOf(profiles.size()));
+        });
+
     }
 
     private void setNumOfPosts(ArrayList<String> myPostsListId) {

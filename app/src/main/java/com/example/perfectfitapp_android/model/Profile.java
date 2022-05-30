@@ -17,7 +17,7 @@ public class Profile {
     //TODO: change status "active" to "true/false"
     //TODO:Add profileId in profile model in server side.
     String userId, profileId, firstName, lastName,gender, userName, birthday, userImageUrl;
-    String shoulder, chest, basin, waist, foot, height, weight, bodyType, status;
+    String shoulder, chest, basin, waist, foot, height, weight, bodyType, status, isDeleted;
     ArrayList<String> similarProfileId;
     ArrayList<String> followers, trackers;
     ArrayList<String> notifications;
@@ -42,6 +42,7 @@ public class Profile {
         this.weight = "";
         this.bodyType = "";
 
+        this.isDeleted = "false";
         this.status = "active";
 
         this.similarProfileId = new ArrayList<>();
@@ -54,7 +55,7 @@ public class Profile {
 
     public Profile(String userId, String profileId, String firstName, String lastName, String gender, String userName,
                    String birthday, String userImageUrl, String shoulder, String chest, String basin,
-                   String waist, String foot, String height, String weight, String bodyType) {
+                   String waist, String foot, String height, String weight, String bodyType, String isDeleted) {
 
         this.userId = userId;
         this.profileId = profileId;
@@ -73,6 +74,7 @@ public class Profile {
         this.weight = weight;
         this.bodyType = bodyType;
 
+        this.isDeleted = isDeleted;
         this.status = "active";
 
         this.similarProfileId = new ArrayList<>();
@@ -86,7 +88,7 @@ public class Profile {
                    String birthday, String userImageUrl, String shoulder, String chest, String basin,
                    String waist, String foot, String height, String weight, String bodyType, String status, ArrayList<String> similarProfileId,
                    ArrayList<String> followers, ArrayList<String> trackers, ArrayList<String> notifications,
-                   ArrayList<String> wishlist, ArrayList<String> myPostsListId) {
+                   ArrayList<String> wishlist, ArrayList<String> myPostsListId, String isDeleted) {
 
         this.userId = userId;
         this.profileId = profileId;
@@ -105,6 +107,7 @@ public class Profile {
         this.weight = weight;
         this.bodyType = bodyType;
 
+        this.isDeleted = isDeleted;
         this.status = status;
 
         this.similarProfileId = similarProfileId;
@@ -287,6 +290,16 @@ public class Profile {
 
     /*------------------------------------------------------*/
 
+    public String getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    /*------------------------------------------------------*/
+
     public ArrayList<String> getSimilarProfileId() {
         return similarProfileId;
     }
@@ -363,6 +376,7 @@ public class Profile {
         String weight = profilesJson.getAsJsonObject().get("weight").getAsString();
         String bodyType = profilesJson.getAsJsonObject().get("bodyType").getAsString();
         String status = profilesJson.getAsJsonObject().get("status").getAsString();
+        String isDeleted = profilesJson.getAsJsonObject().get("isDeleted").getAsString();
 
         JsonElement similarProfileIdJson = profilesJson.getAsJsonObject().get("similarProfileId");
         ArrayList<String> similarProfileId = new ArrayList<>();
@@ -415,7 +429,7 @@ public class Profile {
         Profile profile = new Profile(userId, profileId, firstName, lastName, gender, userName,
                 birthday, userImageUrl, shoulder, chest, basin, waist, foot, height,
                 weight, bodyType, status, similarProfileId, followers, trackers, notifications,
-                wishlist, myPostsListId);
+                wishlist, myPostsListId, isDeleted);
         return profile;
     }
 
@@ -436,6 +450,7 @@ public class Profile {
         String weight = profilesJson.get("weight").getAsString();
         String bodyType = profilesJson.get("bodyType").getAsString();
         String status = profilesJson.get("status").getAsString();
+        String isDeleted = profilesJson.get("isDeleted").getAsString();
 
         JsonElement similarProfileIdJson = profilesJson.get("similarProfileId");
         ArrayList<String> similarProfileId = new ArrayList<>();
@@ -488,7 +503,7 @@ public class Profile {
         Profile profile = new Profile(userId, null, firstName, lastName, gender, userName,
                 birthday, userImageUrl, shoulder, chest, basin, waist, foot, height,
                 weight, bodyType, status, similarProfileId, followers, trackers, notifications,
-                wishlist, myPostsListId);
+                wishlist, myPostsListId, isDeleted);
         return profile;
     }
 
@@ -518,6 +533,7 @@ public class Profile {
         map.put("notifications", this.getNotifications());
         map.put("wishlist", this.getWishlist());
         map.put("myPostsListId", this.getMyPostsListId());
+        map.put("isDeleted", this.getIsDeleted());
 
         return map;
     }
