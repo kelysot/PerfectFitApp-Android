@@ -65,9 +65,8 @@ public class PostPageFragment extends Fragment {
 
         /***************************** set *****************************/
 
-        Post post = Model.instance.getPost();
-        System.out.println("******************");
-//        Model.instance.getPostById(postId, post -> {
+//        Post post = Model.instance.getPost();
+        Model.instance.getPostById(postId, post -> {
 
             if(post != null){
 
@@ -85,6 +84,8 @@ public class PostPageFragment extends Fragment {
                 descriptionEt.setText(post.getDescription());
                 priceEt.setText(post.getPrice());
                 linkEt.setText(post.getLink());
+                Log.d("TAG22", post.getSizeAdjustment());
+                Log.d("TAG22", post.getPostId());
                 sizeAdj.setRating(Float.parseFloat(post.getSizeAdjustment()));
                 rating.setRating(Float.parseFloat(post.getRating()));
 
@@ -111,7 +112,7 @@ public class PostPageFragment extends Fragment {
             else{
                 //TODO: dialog
             }
-//        });
+        });
 
         productNameEt.setEnabled(false);
         skuEt.setEnabled(false);

@@ -184,6 +184,10 @@ public interface RetrofitInterface {
     @POST("/comment")
     Call<JsonObject> addNewComment(@Header("authorization") String token, @Body HashMap<String, Object> map);
 
+    @GET("/comment/getCommentById/{commentId}")
+    Call<JsonElement> getCommentById(@Header("authorization") String token, @Path("commentId") String commentId);
+
+
     /*--------------------------------- Dates -------------------------------*/
 
     @GET("/post/getDates/{date}")

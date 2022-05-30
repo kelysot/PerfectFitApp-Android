@@ -6,7 +6,9 @@ import android.widget.Toast;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.model.Comment;
 import com.example.perfectfitapp_android.model.Model;
+import com.example.perfectfitapp_android.model.Notification;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
@@ -89,6 +91,49 @@ public class CommentModelServer {
             }
         });
     }
+
+
+    public void getCommentById(String commentId, Model.GetCommentByIdListener listener) {
+
+        String token = server.sp.getString("ACCESS_TOKEN", "");
+        Call<JsonElement> call = server.service.getCommentById(token, commentId);
+
+        call.enqueue(new Callback<JsonElement>() {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                if(response.code() == 200){
+                    JsonElement js = response.body();
+                    Comment comment = Comment.jsonElementToComment(js);
+                    listener.onComplete(comment);
+                }
+                else if(response.code() == 400){
+                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                            Toast.LENGTH_LONG).show();
+                    Log.d("TAG", "failed in ModelServer in getCommentById 1");
+                    listener.onComplete(null);
+                }
+                else if(response.code() == 403){
+                    Model.instance.refreshToken(tokensList -> {
+                        Model.instance.insertTokens(tokensList);
+                        System.out.println("********************************* change the token *********************************");
+                        listener.onComplete(null);
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t) {
+                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                        Toast.LENGTH_LONG).show();
+                Log.d("TAG", "failed in ModelServer in getCommentById 2");
+                listener.onComplete(null);
+            }
+        });
+
+
+    }
+
+
 
 
 }

@@ -6,9 +6,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import com.example.perfectfitapp_android.model.Comment;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Notification;
 import com.example.perfectfitapp_android.model.Profile;
+import com.example.perfectfitapp_android.notification.NotificationFragmentDirections;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
@@ -55,6 +58,15 @@ public class CommentFragment extends Fragment {
 
         adapter = new MyAdapter();
         postsList.setAdapter(adapter);
+
+        adapter.setOnItemClickListener((v, position) -> {
+            String commentId = viewModel.getData().get(position).getCommentId();
+            System.out.println("notification " + commentId + " was clicked");
+            Model.instance.getCommentById(commentId, comment -> {
+                System.out.println("comment " + comment.getProfileId() + " was clicked");
+                Navigation.findNavController(v).navigate(CommentFragmentDirections.actionGlobalProfileFragment(comment.getProfileId()));
+            });
+        });
 
         commentET = view.findViewById(R.id.comment_new_comment_text);
 
@@ -117,6 +129,7 @@ public class CommentFragment extends Fragment {
             super(itemView);
             userNameTv = itemView.findViewById(R.id.comment_lr_user_name);
             textTV = itemView.findViewById(R.id.comment_lr_user_text);
+            textTV.setEnabled(false);
             date = itemView.findViewById(R.id.comment_lr_time);
             userPic = itemView.findViewById(R.id.comment_lr_user_img);
 
