@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/backgraund_ligth">
+        android:background="#E7F3E7">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -20,18 +20,18 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="#B4FFFFFF"
+            android:background="@null"
+            app:cardBackgroundColor="#ffffff"
             app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@null">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:backgroundTint="#B4FFFFFF">
+                android:backgroundTint="#ffffff">
 
                 <TextView
                     android:id="@+id/postpage_productname_et"
@@ -42,7 +42,7 @@
                     android:layout_marginTop="8dp"
                     android:text="Product Name"
                     android:textColor="#7C7676"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/postpage_image_imv" />
@@ -54,8 +54,8 @@
                     android:layout_marginTop="8dp"
                     android:isIndicator="true"
                     android:progressTint="#3C3939"
-                    android:scaleX="0.7"
-                    android:scaleY="0.7"
+                    android:scaleX="0.6"
+                    android:scaleY="0.6"
                     android:secondaryProgressTint="#3C3939"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -115,8 +115,8 @@
                     android:layout_marginTop="8dp"
                     android:isIndicator="true"
                     android:progressTint="#3C3939"
-                    android:scaleX="0.7"
-                    android:scaleY="0.7"
+                    android:scaleX="0.6"
+                    android:scaleY="0.6"
                     android:secondaryProgressTint="#3C3939"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -136,15 +136,15 @@
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/postpage_image_imv"
-                    android:layout_width="280dp"
-                    android:layout_height="237dp"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
                     android:layout_marginTop="16dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_gallery"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/postpage_subcategort_tv"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent" />
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout18"
@@ -263,8 +263,8 @@
                     android:id="@+id/postpage_edit_btn"
                     android:layout_width="41dp"
                     android:layout_height="45dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
                     android:backgroundTint="#00FFFFFF"
                     android:src="@drawable/ic_edit"
                     app:layout_constraintEnd_toEndOf="parent"

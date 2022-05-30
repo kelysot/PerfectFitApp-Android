@@ -14,7 +14,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#ffffff">
 
         <!--        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"-->
 
@@ -60,7 +61,7 @@
         <TextView
             android:id="@+id/listrow_description_tv"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:background="#00FFFFFF"
@@ -153,7 +154,7 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/listrow_post_img"
             android:layout_width="300dp"
-            android:layout_height="240dp"
+            android:layout_height="300dp"
             android:layout_marginStart="45dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="45dp"

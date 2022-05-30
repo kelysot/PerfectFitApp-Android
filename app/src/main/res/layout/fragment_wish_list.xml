@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgraund_ligth"
+    android:background="#E7F3E7"
     tools:context=".wishlist.WishListFragment">
 
     <TextView
@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="- My Wish List -"
+        android:text="My Wish List "
         android:textColor="#191919"
         android:textSize="24sp"
         android:textStyle="bold"

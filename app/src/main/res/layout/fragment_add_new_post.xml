@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgraund_ligth"
+    android:background="#E7F3E7"
     tools:context=".post.add_post.AddNewPostFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/backgraund_ligth">
+        android:background="#E7F3E7">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="#B4FFFFFF"
+            app:cardBackgroundColor="#ffffff"
             app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +29,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:backgroundTint="#B4FFFFFF">
+                android:backgroundTint="#ffffff">
 
                 <RatingBar
                     android:id="@+id/addnewpost_sizeadjustment_ratingbar"
@@ -37,8 +37,8 @@
                     android:layout_height="57dp"
                     android:layout_marginTop="16dp"
                     android:progressTint="#3C3939"
-                    android:scaleX="0.7"
-                    android:scaleY="0.7"
+                    android:scaleX="0.6"
+                    android:scaleY="0.6"
                     android:secondaryProgressTint="#3C3939"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
