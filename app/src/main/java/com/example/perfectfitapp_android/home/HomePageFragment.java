@@ -92,17 +92,24 @@ public class HomePageFragment extends Fragment {
             String postId = viewModel.getData().getValue().get(position).getPostId();
             System.out.println("post " + postId + " was clicked");
             //TODO: bring the post from appLocalDB
-            Model.instance.getPostById(postId, post -> {
-                if(post != null){
 
-                    Model.instance.setPost(post);
-                    Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToPostPageFragment2(postId, "home"));
-                }
-                else{
-                    //TODO: dialog
-//                    errorDialog("Please try later");
-                }
-            });
+//            System.out.println("the post is: " + viewModel.getData().getValue().get(position).getPostId());
+
+            Model.instance.setPost(viewModel.getData().getValue().get(position));
+            Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToPostPageFragment2(postId, "home"));
+
+            /////////////
+//            Model.instance.getPostById(postId, post -> {
+//                if(post != null){
+//                    System.out.println("the posts id after server: " + post.getPostId());
+//                    Model.instance.setPost(post);
+//                    Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToPostPageFragment2(postId, "home"));
+//                }
+//                else{
+//                    //TODO: dialog
+////                    errorDialog("Please try later");
+//                }
+//            });
         });
 
         setHasOptionsMenu(true);
@@ -218,7 +225,6 @@ public class HomePageFragment extends Fragment {
                     }
                 }
                 else{
-                    //TODO: dialog
                     errorDialog("Opss, There is an error. Please try to connect the app later.");
                 }
             });
@@ -404,7 +410,6 @@ public class HomePageFragment extends Fragment {
 
         Button btnNo = dialog.findViewById(R.id.btn_no);
         btnNo.setOnClickListener(v -> dialog.dismiss());
-        //TODO: set the buttons to be enable false
 
         Button btnYes = dialog.findViewById(R.id.btn_yes);
         btnYes.setOnClickListener(v -> {
@@ -439,7 +444,7 @@ public class HomePageFragment extends Fragment {
             startActivity(new Intent(getContext(), LoginActivity.class));
             getActivity().finish();
         });
-        //TODO: set the buttons to be enable false
+
         Button btnYes = dialog.findViewById(R.id.btn_yes);
         btnYes.setVisibility(View.GONE);
         ImageView btnClose = dialog.findViewById(R.id.btn_close);
@@ -455,7 +460,6 @@ public class HomePageFragment extends Fragment {
                     if(isSuccess1){
                         Model.instance.logoutFromAppLocalDB(isSuccess2 -> {
                             if(isSuccess2){
-                                System.out.println("----------------- isSuccess 2 ----------------------");
                                 startActivity(new Intent(getContext(), LoginActivity.class));
                                 getActivity().finish();
                             }
@@ -472,10 +476,7 @@ public class HomePageFragment extends Fragment {
             }
             else{
                 progressBar.setVisibility(View.GONE);
-                Model.instance.printUserFromAppLocalDB();
-                System.out.println("the profileinmodel ======== " + Model.instance.getProfile().getUserName());
                 //TODO: dialog
-                System.out.println("hereeeeeeeeeeeeeeeee logout");
                 Toast.makeText(MyApplication.getContext(), "Can't logout",
                         Toast.LENGTH_LONG).show();
             }

@@ -65,7 +65,9 @@ public class PostPageFragment extends Fragment {
 
         /***************************** set *****************************/
 
-        Model.instance.getPostById(postId, post -> {
+        Post post = Model.instance.getPost();
+        System.out.println("******************");
+//        Model.instance.getPostById(postId, post -> {
 
             if(post != null){
 
@@ -109,7 +111,7 @@ public class PostPageFragment extends Fragment {
             else{
                 //TODO: dialog
             }
-        });
+//        });
 
         productNameEt.setEnabled(false);
         skuEt.setEnabled(false);

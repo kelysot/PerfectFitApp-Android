@@ -59,7 +59,6 @@ public class CreateProfileStep3Fragment extends Fragment {
         registerBtn = view.findViewById(R.id.register_step3_register_btn);
         registerBtn.setOnClickListener(v-> registerApp(view));
 
-        //TODO: set image by female or male
         return view;
     }
 
@@ -130,12 +129,13 @@ public class CreateProfileStep3Fragment extends Fragment {
                             Navigation.findNavController(view).navigate(R.id.action_global_userProfilesFragment2);
                         } else {
                             registerBtn.setEnabled(true);
+                            progressBar.setVisibility(View.GONE);
+                            showOkDialog();
                         }
                     });
                 } else {
                     registerBtn.setEnabled(true);
                     progressBar.setVisibility(View.GONE);
-                    //TODO: dialog
                     showOkDialog();
                 }
             });
@@ -172,6 +172,5 @@ public class CreateProfileStep3Fragment extends Fragment {
 
         dialog.show();
     }
-
 
 }
