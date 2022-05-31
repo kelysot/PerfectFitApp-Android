@@ -37,6 +37,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -66,6 +67,10 @@ public class AddNewPostFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_new_post, container, false);
 
         img = AddNewPostFragmentArgs.fromBundle(getArguments()).getEncodedImage();
+
+        Model.instance.getGeneral(map -> {
+            generalModel.instance.map = map;
+        });
 
         if(!img.equals("")) pics.add(pics.size(), img);
         else pics = null;
