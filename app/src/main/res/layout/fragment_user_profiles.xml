@@ -48,7 +48,7 @@
             android:id="@+id/tableLayout"
             android:layout_width="wrap_content"
             android:layout_height="600dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="60dp"
             android:layout_marginBottom="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -56,55 +56,55 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TableRow
-                android:layout_width="220dp"
-                android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="101dp">
 
 
-                        <com.google.android.material.imageview.ShapeableImageView
-                            android:id="@+id/user_profiles_profile1_imv"
-                            android:layout_width="85dp"
-                            android:layout_height="85dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_profile"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/user_profiles_profile1_imv"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_profile"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
-                        <TextView
-                            android:id="@+id/user_profiles_profile1_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginEnd="8dp"
-                            android:text="TextView"
-                            android:layout_marginTop="24sp"
-                            android:textColor="#000000"
-                            android:textSize="24sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@+id/user_profiles_profile1_imv"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/user_profiles_profile1_imv"
-                            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/user_profiles_profile1_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24sp"
+                    android:layout_marginEnd="8dp"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/user_profiles_profile1_imv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/user_profiles_profile1_imv"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </TableRow>
 
             <TableRow
-                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="34dp"
+                android:layout_marginTop="16dp"
                 tools:visibility="visible">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/user_profiles_profile2_imv"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:scaleType="centerCrop"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"
-                    android:src="@drawable/ic_person" />
+                    android:src="@drawable/ic_person"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
                 <TextView
                     android:id="@+id/user_profiles_profile2_tv"
@@ -112,26 +112,26 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24sp"
+                    android:text="TextView"
                     android:textColor="#000000"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:text="TextView" />
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
             </TableRow>
 
             <TableRow
-                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp">
 
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/user_profiles_profile3_imv"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:scaleType="centerCrop"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"
-                    android:src="@drawable/ic_person" />
+                    android:src="@drawable/ic_person"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
                 <TextView
                     android:id="@+id/user_profiles_profile3_tv"
@@ -139,27 +139,26 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24sp"
+                    android:text="TextView"
                     android:textColor="#000000"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:text="TextView" />
-
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
 
             </TableRow>
 
             <TableRow
-                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/user_profiles_profile4_imv"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:scaleType="centerCrop"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"
-                    android:src="@drawable/ic_person" />
+                    android:src="@drawable/ic_person"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
                 <TextView
                     android:id="@+id/user_profiles_profile4_tv"
@@ -167,26 +166,26 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24sp"
+                    android:text="TextView"
                     android:textColor="#000000"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:text="TextView" />
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
 
             </TableRow>
 
             <TableRow
-                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="118dp">
+                android:layout_height="118dp"
+                android:layout_marginTop="16dp">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/user_profiles_profile5_imv"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:scaleType="centerCrop"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize15Percent"
-                    android:src="@drawable/ic_person" />
+                    android:src="@drawable/ic_person"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
                 <TextView
                     android:id="@+id/user_profiles_profile5_tv"
@@ -194,10 +193,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24sp"
+                    android:text="TextView"
                     android:textColor="#000000"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:text="TextView" />
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
             </TableRow>
         </TableLayout>

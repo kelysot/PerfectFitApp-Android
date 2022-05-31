@@ -96,7 +96,7 @@ public class UserProfilesFragment extends Fragment {
             addProfile(view);
         });
         ConstraintLayout con = view.findViewById(R.id.consraint_user_profiles);
-        con.setBackgroundResource(R.drawable.green_back_5);
+        //con.setBackgroundResource(R.drawable.green_back_5);
 
 
         text.setEnabled(false);

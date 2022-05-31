@@ -4,286 +4,317 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E7F3E7"
     tools:context=".create_profile.CreateProfileStep3Fragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#E7F3E7">
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="Body Sizes"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView25"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="8dp"
-            android:text="We at PerfectFit want to present you with the most tailored posts for you, so we ask you to fill in the following details:"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-
-        <TextView
-            android:id="@+id/textView26"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Explanation image is shown below"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView25" />
-
-        <TextView
-            android:id="@+id/textView28"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
-            android:text="Please write the following details in cm"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView26" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout8"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
-            app:boxBackgroundColor="@color/myWhite"
-            app:boxStrokeColor="#c1c1c1"
-            app:hintTextColor="#4f4f4f"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView28">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_step3_shoulder_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Shoulder"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout20"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            app:boxBackgroundColor="@color/myWhite"
-            app:boxStrokeColor="#c1c1c1"
-            app:hintTextColor="#4f4f4f"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textInputLayout8"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textInputLayout8">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_step3_chest_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Chest"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout21"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
-            android:layout_height="61dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
-            app:boxBackgroundColor="@color/myWhite"
-            app:boxStrokeColor="#c1c1c1"
-            app:hintTextColor="#4f4f4f"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout8">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_step3_basin_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Hips"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout22"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:boxBackgroundColor="@color/myWhite"
-            app:boxStrokeColor="#c1c1c1"
-            app:hintTextColor="#4f4f4f"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textInputLayout21"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout20">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_step3_waist_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Waist"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <TextView
-            android:id="@+id/textView29"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
-            android:text="Please write the height using cm and the weight using kg"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout21" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout23"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
-            app:boxBackgroundColor="@color/myWhite"
-            app:boxStrokeColor="#c1c1c1"
-            app:hintTextColor="#4f4f4f"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView29">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_step3_height_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Height"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout24"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            app:boxBackgroundColor="@color/myWhite"
-            app:boxStrokeColor="#c1c1c1"
-            app:hintTextColor="#4f4f4f"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textInputLayout23"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textInputLayout23">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_step3_weight_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Weight"
-                android:inputType="number" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <TextView
-            android:id="@+id/textView27"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
-            android:text="Please write your average shoe size"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout24" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout25"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
-            app:boxBackgroundColor="@color/myWhite"
-            app:boxStrokeColor="#c1c1c1"
-            app:hintTextColor="#4f4f4f"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView27">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_step3_foot_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Shoes size"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageView
-            android:id="@+id/register_step3_explanation_image"
-            android:layout_width="370dp"
-            android:layout_height="290dp"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/body_measurement_for_her"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout25" />
-
-        <Button
-            android:id="@+id/register_step3_register_btn"
-            android:layout_width="290dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="#8ec4b5"
-            android:text="Create Profile"
-            android:textColor="#FFFFFF"
-            app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_step3_explanation_image" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <View
-            android:id="@+id/divider2"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView26" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/register_step3_progress_bar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="116dp"
-            android:layout_height="112dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.531"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout24"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:boxStrokeColor="#c1c1c1"
+                    app:hintTextColor="#4f4f4f"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textInputLayout23"
+                    app:layout_constraintTop_toBottomOf="@+id/textView29">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_step3_weight_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Weight"
+                        android:inputType="number" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/register_step3_register_btn"
+                    android:layout_width="290dp"
+                    android:layout_height="52dp"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="70dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#8ec4b5"
+                    android:text="Create Profile"
+                    android:textColor="#FFFFFF"
+                    app:cornerRadius="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/register_step3_explanation_image" />
+
+                <TextView
+                    android:id="@+id/textView27"
+                    android:layout_width="252dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Please write your average shoe size"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout24" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout20"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:boxStrokeColor="#c1c1c1"
+                    app:hintTextColor="#4f4f4f"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textInputLayout8"
+                    app:layout_constraintTop_toBottomOf="@+id/textView28">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_step3_chest_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Chest"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="We at PerfectFit want to present you with the most tailored posts for you, so we ask you to fill in the following details:"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout23"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="4dp"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:boxStrokeColor="#c1c1c1"
+                    app:hintTextColor="#4f4f4f"
+                    app:layout_constraintEnd_toStartOf="@+id/textInputLayout24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView29">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_step3_height_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Height"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout21"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="61dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="4dp"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:boxStrokeColor="#c1c1c1"
+                    app:hintTextColor="#4f4f4f"
+                    app:layout_constraintEnd_toStartOf="@+id/textInputLayout22"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout8">
+
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_step3_basin_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Hips"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout22"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:boxStrokeColor="#c1c1c1"
+                    app:hintTextColor="#4f4f4f"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textInputLayout21"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout20">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_step3_waist_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Waist"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout25"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:boxStrokeColor="#c1c1c1"
+                    app:hintTextColor="#4f4f4f"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView27">
+
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_step3_foot_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Shoes size"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="6dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintBottom_toTopOf="@+id/textView28"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+                <ProgressBar
+                    android:id="@+id/register_step3_progress_bar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="116dp"
+                    android:layout_height="112dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView27"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/register_step3_explanation_image"
+                    android:layout_width="0dp"
+                    android:layout_height="290dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/body_measurement_for_her"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout25" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Body Sizes"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Please write the following details in cm"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+                <TextView
+                    android:id="@+id/textView29"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="Please write the height using cm and the weight using kg"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout21" />
+
+                <TextView
+                    android:id="@+id/textView26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="Explanation image is shown below"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/divider2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout8"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="4dp"
+                    app:boxBackgroundColor="@color/myWhite"
+                    app:boxStrokeColor="#c1c1c1"
+                    app:hintTextColor="#4f4f4f"
+                    app:layout_constraintEnd_toStartOf="@+id/textInputLayout20"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView28">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_step3_shoulder_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Shoulder"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
 
         <!--        <Button-->
@@ -303,13 +334,13 @@
 
 
     <!--    <Button-->
-<!--        android:id="@+id/register_step3_date_btn"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:onClick="showDatePickerDialog"-->
-<!--        android:text="pick a date"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView7" />-->
+    <!--        android:id="@+id/register_step3_date_btn"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="20dp"-->
+    <!--        android:onClick="showDatePickerDialog"-->
+    <!--        android:text="pick a date"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textView7" />-->
 </ScrollView>

@@ -10,199 +10,222 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FAFAFA">
+        android:background="#E7F3E7">
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:text="Create New Profile"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/register_step1_image_imv"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="25dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/avatar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout3"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="15dp"
-            app:boxBackgroundColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_step1_name_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FAFAFA"
-                android:hint="First Name"
-                android:inputType="textPersonName" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout26"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:boxBackgroundColor="@color/white"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textInputLayout3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textInputLayout3">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_step1_lastname_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FAFAFA"
-                android:hint="Last Name"
-                android:inputType="textPersonName" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout4"
-            android:layout_width="300dp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            app:boxBackgroundColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_step1_username_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FAFAFA"
-                android:drawableStart="@drawable/ic_user"
-                android:drawableLeft="@drawable/ic_user"
-                android:hint="User Name"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout28"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:boxBackgroundColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_step1_birthday_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:textColor="@color/black"
-                android:background="#FAFAFA"
-                android:hint="Birthday"
-                android:inputType="date" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/register_step1_continue_btn"
-            android:layout_width="251dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="#8ec4b5"
-            android:text="Continue"
-            app:cornerRadius="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_step1_female_cb" />
-
-        <ImageButton
-            android:id="@+id/register_step1_add_photo_imv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="136dp"
-            android:layout_marginEnd="74dp"
-            android:layout_marginBottom="39dp"
-            android:backgroundTint="#FAFAFA"
-            android:src="@drawable/ic_addphotoo"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout26"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/register_step1_image_imv"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-        <CheckBox
-            android:id="@+id/register_step1_female_cb"
-            android:layout_width="101dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
-            android:text="Female"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout28"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout28" />
-
-        <CheckBox
-            android:id="@+id/register_step1_male_cb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:text="Male"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/textInputLayout28"
-            app:layout_constraintStart_toEndOf="@+id/register_step1_female_cb"
-            app:layout_constraintTop_toTopOf="@+id/register_step1_female_cb" />
-
-        <CheckBox
-            android:id="@+id/register_step1_none_cb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Prefer not to say"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/register_step1_male_cb"
-            app:layout_constraintTop_toTopOf="@+id/register_step1_male_cb" />
-
-
-        <ImageView
-            android:id="@+id/register_step1_birthday_imv"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="3dp"
-            android:src="@drawable/calendar"
-            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout28"
-            app:layout_constraintStart_toEndOf="@+id/textInputLayout28"
-            app:layout_constraintTop_toTopOf="@+id/textInputLayout28" />
-
-        <ProgressBar
-            android:id="@+id/register_step1_progress_bar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="88dp"
-            android:layout_height="83dp"
+            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/register_step1_birthday_imv"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="32dp"
+                    android:src="@drawable/calendar"
+                    app:layout_constraintBottom_toBottomOf="@+id/textInputLayout28"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textInputLayout28" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout26"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textInputLayout3"
+                    app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_step1_lastname_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00FAFAFA"
+                        android:hint="Last Name"
+                        android:inputType="textPersonName" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/register_step1_continue_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="70dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#8ec4b5"
+                    android:text="Continue"
+                    app:cornerRadius="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/register_step1_none_cb" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:text="Create New Profile"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <CheckBox
+                    android:id="@+id/register_step1_none_cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Prefer not to say"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/register_step1_male_cb"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout28" />
+
+                <ImageButton
+                    android:id="@+id/register_step1_add_photo_imv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="58dp"
+                    android:backgroundTint="#FAFAFA"
+                    android:src="@drawable/ic_addphotoo"
+                    app:layout_constraintBottom_toBottomOf="@+id/register_step1_image_imv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/register_step1_image_imv"
+                    app:layout_constraintTop_toTopOf="@+id/register_step1_image_imv"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="4dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:layout_constraintEnd_toStartOf="@+id/register_step1_progress_bar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_step1_name_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00FAFAFA"
+                        android:hint="First Name"
+                        android:inputType="textPersonName" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout28"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="4dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:layout_constraintEnd_toStartOf="@+id/register_step1_birthday_imv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_step1_birthday_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00FAFAFA"
+                        android:enabled="false"
+                        android:hint="Birthday"
+                        android:inputType="date"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/register_step1_image_imv"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="25dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/avatar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
+                <CheckBox
+                    android:id="@+id/register_step1_male_cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="24dp"
+                    android:text="Male"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/register_step1_none_cb"
+                    app:layout_constraintStart_toEndOf="@+id/register_step1_female_cb"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout28" />
+
+                <ProgressBar
+                    android:id="@+id/register_step1_progress_bar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="88dp"
+                    android:layout_height="83dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout4"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_step1_username_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00FAFAFA"
+                        android:drawableStart="@drawable/ic_user"
+                        android:drawableLeft="@drawable/ic_user"
+                        android:hint="User Name"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <CheckBox
+                    android:id="@+id/register_step1_female_cb"
+                    android:layout_width="101dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="Female"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/register_step1_male_cb"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout28" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
