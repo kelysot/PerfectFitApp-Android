@@ -10,6 +10,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Server {
+//    static final String BASE_URL = "http://193.106.55.142:4000";
     static final String BASE_URL = "http://10.0.2.2:4000";
     RetrofitInterface service;
     SharedPreferences sp = MyApplication.getContext().getSharedPreferences("TAG", ContextThemeWrapper.MODE_PRIVATE);
