@@ -115,7 +115,6 @@ public class CommentFragment extends Fragment {
     private void refresh() {
         Model.instance.getCommentsByPostId(postId, commentList -> {
             //TODO: check if commetList is null - and open dialog
-            Collections.reverse(commentList);
             viewModel.setData(commentList);
             adapter.notifyDataSetChanged();
         });

@@ -52,6 +52,7 @@ public class ProfileFragment extends Fragment {
     int followersSize = 0;
     SwipeRefreshLayout swipeRefresh;
     View followersView, followingView;
+    int likesSize = 0;
 
 
     @Override
@@ -378,10 +379,19 @@ public class ProfileFragment extends Fragment {
             holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
-            holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
             holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
             holder.addToLikes.setOnClickListener(v -> addToLikes(holder, post));
             Model.instance.timeSince(post.getDate(), timeAgo -> holder.timeAgoTv.setText(timeAgo));
+
+            Model.instance.getProfilesByUserNames(post.getLikes(), profilesList -> {
+                likesSize = 0;
+                for(int i = 0; i< profilesList.size(); i++){
+                    if(profilesList.get(i).getIsDeleted().equals("false")){
+                        likesSize++;
+                    }
+                }
+                holder.likesNumberTV.setText(String.valueOf(likesSize) + " likes");
+            });
 
             Model.instance.getProfileByUserName(post.getProfileId(), profile -> {
                 if(profile!= null){
