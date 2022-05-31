@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -74,6 +75,7 @@ public class EditPostFragment extends Fragment {
     String postSource;
     ArrayList<String> pics = new ArrayList<>();
     List<String> sizesList, companiesList, colorsList;
+    ProgressBar progressBar;
 
 
     @Override
@@ -95,6 +97,9 @@ public class EditPostFragment extends Fragment {
 
         postImg = view.findViewById(R.id.editpost_image_imv);
         addPhoto = view.findViewById(R.id.editpost_add_photo_imv);
+
+        progressBar = view.findViewById(R.id.editpost_progressBar);
+        progressBar.setVisibility(View.GONE);
 
         postId = EditPostFragmentArgs.fromBundle(getArguments()).getPostId();
 //        post = Model.instance.getPostById(postId);
@@ -234,6 +239,7 @@ public class EditPostFragment extends Fragment {
 
     private void edit() {
 
+        progressBar.setVisibility(View.VISIBLE);
         editBtn.setEnabled(false);
         String productName, sku, size, company, color, category, subCategory, description;
         String link, price;
@@ -293,7 +299,7 @@ public class EditPostFragment extends Fragment {
             sku = "-";
         }
 
-        if(link.isEmpty()){
+        if(link.isEmpty() || link.equals("-")){
             link = "-";
         }
         else if(!Patterns.WEB_URL.matcher(link).matches() && !URLUtil.isHttpUrl(link)){
@@ -334,6 +340,7 @@ public class EditPostFragment extends Fragment {
             }
         }
         else {
+            progressBar.setVisibility(View.GONE);
             editBtn.setEnabled(true);
             final Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(() -> {
@@ -363,6 +370,7 @@ public class EditPostFragment extends Fragment {
             else{
                 //TODO: dialog
                 editBtn.setEnabled(true);
+                progressBar.setVisibility(View.GONE);
 
             }
         });

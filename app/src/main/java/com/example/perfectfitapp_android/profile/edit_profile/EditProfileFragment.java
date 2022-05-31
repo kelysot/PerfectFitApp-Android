@@ -273,10 +273,13 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
             if (mBitmap != null) {
                 Model.instance.uploadImage(mBitmap, getActivity(), url -> {
                     ModelProfile.instance.getEditProfile().setUserImageUrl(url);
+                    Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
+
                 });
+            } else {
+                Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
             }
 
-            Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
         }
         else{
             continueBtn.setEnabled(true);
