@@ -37,6 +37,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
     String subCategoryId;
     TextView subCategoryName;
     SwipeRefreshLayout swipeRefresh;
+    int likesSize = 0;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -155,7 +156,6 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
             holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
-            holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
             holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
             holder.addToLikes.setOnClickListener(v-> addToLikes(holder, post));
             Model.instance.timeSince(post.getDate(), timeAgo -> holder.timeAgoTv.setText(timeAgo));
@@ -176,6 +176,16 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                                 .into(holder.userPic);
                     }
                 }
+            });
+
+            Model.instance.getProfilesByUserNames(post.getLikes(), profilesList -> {
+                likesSize = 0;
+                for(int i = 0; i< profilesList.size(); i++){
+                    if(profilesList.get(i).getIsDeleted().equals("false")){
+                        likesSize++;
+                    }
+                }
+                holder.likesNumberTV.setText(String.valueOf(likesSize) + " likes");
             });
 
 

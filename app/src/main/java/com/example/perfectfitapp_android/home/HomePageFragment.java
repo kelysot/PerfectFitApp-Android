@@ -40,6 +40,8 @@ import com.example.perfectfitapp_android.user_profiles.UserProfilesActivity;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class HomePageFragment extends Fragment {
 
     HomePageViewModel viewModel;
@@ -48,6 +50,8 @@ public class HomePageFragment extends Fragment {
     SwipeRefreshLayout swipeRefresh;
     Button checkDate, makeGeneral;
     ProgressBar progressBar;
+    int likesSize = 0;
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -204,15 +208,24 @@ public class HomePageFragment extends Fragment {
             holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
-            holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
             holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
             holder.addToLikes.setOnClickListener(v-> addToLikes(holder, post));
             Model.instance.timeSince(post.getDate(), timeAgo -> holder.timeAgoTv.setText(timeAgo));
 
+            Model.instance.getProfilesByUserNames(post.getLikes(), profilesList -> {
+                likesSize = 0;
+                for(int i = 0; i< profilesList.size(); i++){
+                    if(profilesList.get(i).getIsDeleted().equals("false")){
+                        likesSize++;
+                    }
+                }
+                holder.likesNumberTV.setText(String.valueOf(likesSize) + " likes");
+            });
+
             Model.instance.getProfileByUserName(post.getProfileId(), profile -> {
                 if (profile != null){
                     String userImg = profile.getUserImageUrl();
-                    if(profile.getUserImageUrl() != null && !profile.getUserImageUrl().equals("")){
+                    if(userImg != null && !userImg.equals("")){
                         Model.instance.getImages(profile.getUserImageUrl(), bitmap -> {
                             holder.userPic.setImageBitmap(bitmap);
                         });

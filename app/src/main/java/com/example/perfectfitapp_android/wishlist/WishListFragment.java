@@ -39,6 +39,7 @@ public class WishListFragment extends Fragment {
     WishListViewModel viewModel;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
+    int likesSize = 0;
 
     //TODO: Can run from AppLocalDb
 
@@ -150,7 +151,6 @@ public class WishListFragment extends Fragment {
             holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
-            holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
             holder.addToWishListBtn.setImageResource(R.drawable.ic_addtowishlistfill);
             holder.addToWishListBtn.setOnClickListener(v -> removeFromList(holder, post));
             holder.addToLikes.setOnClickListener(v-> addToLikes(holder, post));
@@ -174,6 +174,16 @@ public class WishListFragment extends Fragment {
                 else{
                     errorDialog("Opss, There is an error. Please try to connect the app later.");
                 }
+            });
+
+            Model.instance.getProfilesByUserNames(post.getLikes(), profilesList -> {
+                likesSize = 0;
+                for(int i = 0; i< profilesList.size(); i++){
+                    if(profilesList.get(i).getIsDeleted().equals("false")){
+                        likesSize++;
+                    }
+                }
+                holder.likesNumberTV.setText(String.valueOf(likesSize) + " likes");
             });
 
 
