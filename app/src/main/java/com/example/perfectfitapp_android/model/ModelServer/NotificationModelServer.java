@@ -45,9 +45,15 @@ public class NotificationModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(null);
+                        if(tokensList != null) {
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            getNotificationsByIds(notificationsIds, listener);
+                            //                        listener.onComplete(null);
+                        }
+                        else{
+                            listener.onComplete(null);
+                        }
                     });
                 }
             }
@@ -80,9 +86,14 @@ public class NotificationModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(null);
+                        if(tokensList != null) {
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            addNewNotification(notification, listener);
+                        }
+                        else{
+                            listener.onComplete(null);
+                        }
                     });
                 }
             }
@@ -116,9 +127,14 @@ public class NotificationModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(null);
+                        if(tokensList != null) {
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            getAllNotification(listener);
+                        }
+                        else{
+                            listener.onComplete(null);
+                        }
                     });
                 }
             }
@@ -151,9 +167,14 @@ public class NotificationModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(null);
+                        if(tokensList != null) {
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            getNotificationById(notificationId, listener);
+                        }
+                        else{
+                            listener.onComplete(null);
+                        }
                     });
                 }
             }
@@ -188,9 +209,14 @@ public class NotificationModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(false);
+                        if(tokensList != null) {
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            editNotification(notification, listener);
+                        }
+                        else{
+                            listener.onComplete(false);
+                        }
                     });
                 }
             }
