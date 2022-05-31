@@ -125,8 +125,6 @@ public class UserModelServer {
                     Log.d("TAG", "failed in LogIn in ModelServer 1");
                     listener.onComplete(null);
                 } else if (response.code() == 400) {
-//                    Toast.makeText(MyApplication.getContext(), "Wrong email or password",
-//                            Toast.LENGTH_LONG).show();
                     listener.onComplete(null);
                     Log.d("TAG", "failed in LogIn in ModelServer 2");
                 }
@@ -139,13 +137,11 @@ public class UserModelServer {
                 listener.onComplete(null);
             }
         });
-
     }
 
     public void checkIfEmailExist(String email, Model.CheckIfEmailExist listener) {
 
         Call<Void> call = server.service.checkIfEmailExist(email);
-
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -163,7 +159,6 @@ public class UserModelServer {
                 listener.onComplete(false);
             }
         });
-
     }
 
     public void logout(Model.LogoutListener listener) {
@@ -185,15 +180,15 @@ public class UserModelServer {
                     listener.onComplete(false);
                 } else if (response.code() == 403) {
                     Model.instance.refreshToken(tokensList -> {
-                        System.out.println("in userModelServer - logout not working");
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("------------------------- log out false 403 -------------------------");
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(false);
+                        if(tokensList != null) {
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token in logout *********************************");
+                            logout(listener);
+                        }
+                        else{
+                            listener.onComplete(false);
+                        }
                     });
-//                    System.out.println("------------------------- log out false 403 -------------------------");
-//                    listener.onComplete(false);
-
                 }
             }
             @Override
@@ -220,9 +215,11 @@ public class UserModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-//                        listener.onComplete(false);
+                        if(tokensList != null) {
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            general(listener);
+                        }
                     });
                 }
             }
@@ -240,9 +237,7 @@ public class UserModelServer {
         if(previousEmail != null){
             userMap.put("previousEmail", previousEmail);
         }
-
         String token = server.sp.getString("ACCESS_TOKEN", "");
-
         Call<JsonObject> call = server.service.editUser(token, userMap);
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -260,8 +255,14 @@ public class UserModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
+                        if(tokensList != null) {
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            editUser(previousEmail, user, listener);
+                        }
+                        else{
+                            listener.onComplete(null);
+                        }
                     });
                 }
             }
@@ -276,6 +277,7 @@ public class UserModelServer {
         });
     }
 
+    //TODO: add token!
     public void resetPassword(String email, Model.ResetPasswordListener listener) {
 
         Call<JsonObject> call = server.service.resetPassword(email);
