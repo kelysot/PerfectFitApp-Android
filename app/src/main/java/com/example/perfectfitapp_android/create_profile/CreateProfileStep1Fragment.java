@@ -189,6 +189,8 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
     }
 
     private void continueStep2(View view) {
+        progressBar.setVisibility(View.VISIBLE);
+        continueBtn.setEnabled(false);
 
         if (mBitmap != null) {
             Model.instance.uploadImage(mBitmap, getActivity(), url -> {
@@ -204,8 +206,6 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
 
     public void checkIfUserNameExist(View view){
 
-        progressBar.setVisibility(View.VISIBLE);
-        continueBtn.setEnabled(false);
         String firstName = firstNameEt.getText().toString();
         String lastName = lastNameEt.getText().toString();
         String userName = userNameEt.getText().toString();
