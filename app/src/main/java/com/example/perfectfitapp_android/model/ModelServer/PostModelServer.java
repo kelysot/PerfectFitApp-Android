@@ -84,7 +84,7 @@ public class PostModelServer {
                         if(tokensList != null){
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
-                            listener.onComplete(null);
+                            addNewPost(post, listener);
                         }
                         else{
                             Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
@@ -126,7 +126,7 @@ public class PostModelServer {
                         if(tokensList != null){
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
-                            listener.onComplete(false);
+                            deletePost(postId, listener);
                         }
                         else{
                             Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
@@ -168,11 +168,12 @@ public class PostModelServer {
                         if(tokensList != null ){
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
-                            listener.onComplete(false);
+                            editPost(post, listener);
                         }
                         else{
                             Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                     Toast.LENGTH_LONG).show();
+                            listener.onComplete(false);
                         }
                     });
                 }
@@ -217,11 +218,12 @@ public class PostModelServer {
                         if(tokensList != null){
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
-                            listener.onComplete(null);
+                            getProfilePosts(userName, listener);
                         }
                         else{
                             Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                     Toast.LENGTH_LONG).show();
+                            listener.onComplete(null);
                         }
                     });
                 }
@@ -256,12 +258,12 @@ public class PostModelServer {
                         if(tokensList != null){
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
-                            listener.onComplete(null);
+                            getPostById(postId, listener);
                         }
                         else{
-                            //TODO: dialog
                             Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                     Toast.LENGTH_LONG).show();
+                            listener.onComplete(null);
                         }
                     });
                 }
@@ -307,11 +309,12 @@ public class PostModelServer {
                         if(tokensList != null){
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
-                            listener.onComplete(null);
+                            getPostsBySubCategoryId(subCategoryId, listener);
                         }
                         else{
                             Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                     Toast.LENGTH_LONG).show();
+                            listener.onComplete(null);
                         }
                     });
                 }
@@ -354,11 +357,12 @@ public class PostModelServer {
                         if(tokensList != null){
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
-                            listener.onComplete(null);
+                            getWishList(listener);
                         }
                         else{
                             Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                     Toast.LENGTH_LONG).show();
+                            listener.onComplete(null);
                         }
                     });
                 }
@@ -389,7 +393,7 @@ public class PostModelServer {
                         if(tokensList != null){
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
-                            listener.onComplete(null);
+                            getDatesFromServer(date, listener);
                         }
                         else{
                             Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
@@ -401,7 +405,7 @@ public class PostModelServer {
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-
+                //TODO
             }
         });
     }
@@ -426,14 +430,14 @@ public class PostModelServer {
                         if(tokensList != null){
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
-                            listener.onComplete(null);
+                            timeSince(date, listener);
                         }
                         else{
                             //TODO: check
                             System.out.println(" -------------- problem in PostModelServer 378 ----------- ");
-                            listener.onComplete(null);
                             Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                     Toast.LENGTH_LONG).show();
+                            listener.onComplete(null);
                         }
 
                     });
@@ -472,7 +476,8 @@ public class PostModelServer {
                         if(tokensList != null){
                         Model.instance.insertTokens(tokensList);
                         System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(null);
+                        getSuitablePosts(profileId, listener);
+                        //                        listener.onComplete(null);
                         }
                         else{
                             Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
@@ -513,12 +518,14 @@ public class PostModelServer {
                         if(tokensList != null){
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
-                            listener.onComplete(null);
+                            getSearchPosts(map, listener);
+                            //                            listener.onComplete(null);
 
                         }
                         else{
                             Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                     Toast.LENGTH_LONG).show();
+                            listener.onComplete(null);
                         }
                     });
                 }
@@ -576,7 +583,8 @@ public class PostModelServer {
                         if(tokensList != null){
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
-                            listener.onComplete(null);
+                            getGeneral(listener);
+                            //                            listener.onComplete(null);
                         }
                         else{
                             Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
@@ -638,7 +646,8 @@ public class PostModelServer {
                         if(tokensList != null){
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
-                            listener.onComplete(null);
+                            getPostsByIds(postsId, listener);
+                            //                            listener.onComplete(null);
                         }
                         else{
                             Toast.makeText(MyApplication.getContext(), "No Connection, please try later",

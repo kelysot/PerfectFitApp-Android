@@ -27,9 +27,7 @@ public class ProfileModelServer {
     public void getProfileFromServer(String email, String userName, Model.GetProfileListener listener) {
 
         String token = server.sp.getString("ACCESS_TOKEN", "");
-
         Call<JsonObject> call = server.service.executeGetProfile(token, email, userName);
-
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -51,17 +49,13 @@ public class ProfileModelServer {
                         if(tokensList != null){
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
-                            listener.onComplete(null);
+                            getProfileFromServer(email, userName, listener);
                         }
                         else{
-                            //TODO:
                             listener.onComplete(null);
                         }
-
                     });
                 }
-
-                //TODO: add to all functions the 403 failure
             }
 
             @Override
@@ -125,9 +119,14 @@ public class ProfileModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(false);
+                        if(tokensList != null) {
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            createProfile(profile, listener);
+                        }
+                        else{
+                            listener.onComplete(false);
+                        }
                     });
                 }
             }
@@ -145,9 +144,7 @@ public class ProfileModelServer {
     public void checkIfUserNameExist(String userName, Model.CheckIfUserNameExist listener) {
 
         String token = server.sp.getString("ACCESS_TOKEN", "");
-
         Call<Void> call = server.service.checkIfUserNameExist(token, userName);
-
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -158,9 +155,14 @@ public class ProfileModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(false);
+                        if(tokensList != null){
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            checkIfUserNameExist(userName, listener);
+                        }
+                        else{
+                            listener.onComplete(false);
+                        }
                     });
                 }
             }
@@ -177,9 +179,7 @@ public class ProfileModelServer {
     public void getProfileByUserName(String userName, Model.GetProfileByUserName listener) {
 
         String token = server.sp.getString("ACCESS_TOKEN", "");
-
         Call<JsonElement> call = server.service.getProfileByUserName(token, userName);
-
         call.enqueue(new Callback<JsonElement>() {
             @Override
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
@@ -195,14 +195,12 @@ public class ProfileModelServer {
                         if(tokensList != null){
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
-                            listener.onComplete(null);
+//                            listener.onComplete(null);
+                            getProfileByUserName(userName, listener);
                         }
                         else{
-                            //TODO: dialog
                             listener.onComplete(null);
-
                         }
-
                     });
                 }
             }
@@ -223,7 +221,6 @@ public class ProfileModelServer {
         }
 
         String token = server.sp.getString("ACCESS_TOKEN", "");
-
         Call<Void> call = server.service.editProfile(token, profileMap);
         call.enqueue(new Callback<Void>() {
             @Override
@@ -238,9 +235,15 @@ public class ProfileModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(false);
+                        if(tokensList != null) {
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+//                            listener.onComplete(false);
+                            editProfile(previousName, profile, listener);
+                        }
+                        else{
+                            listener.onComplete(false);
+                        }
                     });
                 }
             }
@@ -270,9 +273,16 @@ public class ProfileModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(false);
+                        if(tokensList != null) {
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            deleteProfile(userName, listener);
+                        }
+                        else{
+                            Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                    Toast.LENGTH_LONG).show();
+                            listener.onComplete(false);
+                        }
                     });
                 }
             }
@@ -294,7 +304,6 @@ public class ProfileModelServer {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 if(response.code() == 200){
-
                     List<Profile> profiles = Profile.jsonArrayToProfile(response.body());
                     listener.onComplete(profiles);
                 }
@@ -306,9 +315,16 @@ public class ProfileModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(null);
+                        if(tokensList != null) {
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            getProfilesByUserNames(userNames, listener);
+                        }
+                        else {
+                            Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
+                                    Toast.LENGTH_LONG).show();
+                            listener.onComplete(null);
+                        }
                     });
                 }
             }
@@ -342,9 +358,14 @@ public class ProfileModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(null);
+                        if(tokensList != null) {
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            getAllProfile(listener);
+                        }
+                        else{
+                            listener.onComplete(null);
+                        }
                     });
                 }
             }
