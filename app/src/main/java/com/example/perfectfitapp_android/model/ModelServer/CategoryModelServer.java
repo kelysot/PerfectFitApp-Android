@@ -38,9 +38,14 @@ public class CategoryModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(null);
+                        if(tokensList != null) {
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            getAllCategoriesListener(listener);
+                        }
+                        else{
+                            listener.onComplete(null);
+                        }
                     });
                 }
             }
@@ -52,5 +57,4 @@ public class CategoryModelServer {
             }
         });
     }
-
 }
