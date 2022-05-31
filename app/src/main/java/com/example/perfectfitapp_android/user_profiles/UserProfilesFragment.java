@@ -1,19 +1,29 @@
 package com.example.perfectfitapp_android.user_profiles;
 
+import static java.lang.System.out;
+
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,39 +31,34 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MainActivity;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
-import com.example.perfectfitapp_android.UserProfilesGraphDirections;
-import com.example.perfectfitapp_android.category.CategoryFragmentDirections;
-import com.example.perfectfitapp_android.home.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.login.LoginActivity;
 import com.example.perfectfitapp_android.model.Model;
-import com.example.perfectfitapp_android.model.Profile;
 import com.example.perfectfitapp_android.model.SubCategory;
 import com.example.perfectfitapp_android.model.generalModel;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import okio.Timeout;
 import pl.droidsonroids.gif.GifImageButton;
 
 
 public class UserProfilesFragment extends Fragment {
 
-    Button user1Btn, user2Btn, user3Btn, user4Btn, user5Btn;
-    ArrayList<Button> buttonList;
+    ImageView user1Img, user2Img, user3Img, user4Img, user5Img;
+    TextView user1Tv, user2Tv, user3Tv, user4Tv, user5Tv;
+    ArrayList<ImageView> imgList;
+    ArrayList<TextView> tvList;
+    ArrayList<CardView> cardViewsList;
     Model model;
     String longClickUserName;
     ProgressBar progressBar;
@@ -106,19 +111,35 @@ public class UserProfilesFragment extends Fragment {
         }
 
 
-        buttonList = new ArrayList<>();
+        imgList = new ArrayList<>();
 
-        user1Btn = view.findViewById(R.id.user_profiles_profile1_btn);
-        user2Btn = view.findViewById(R.id.user_profiles_profile2_btn);
-        user3Btn = view.findViewById(R.id.user_profiles_profile3_btn);
-        user4Btn = view.findViewById(R.id.user_profiles_profile4_btn);
-        user5Btn = view.findViewById(R.id.user_profiles_profile5_btn);
+        user1Img = view.findViewById(R.id.user_profiles_profile1_imv);
+        user2Img = view.findViewById(R.id.user_profiles_profile2_imv);
+        user3Img = view.findViewById(R.id.user_profiles_profile3_imv);
+        user4Img = view.findViewById(R.id.user_profiles_profile4_imv);
+        user5Img = view.findViewById(R.id.user_profiles_profile5_imv);
 
-        buttonList.add(user1Btn);
-        buttonList.add(user2Btn);
-        buttonList.add(user3Btn);
-        buttonList.add(user4Btn);
-        buttonList.add(user5Btn);
+        imgList.add(user1Img);
+        imgList.add(user2Img);
+        imgList.add(user3Img);
+        imgList.add(user4Img);
+        imgList.add(user5Img);
+
+        tvList = new ArrayList<>();
+
+        user1Tv = view.findViewById(R.id.user_profiles_profile1_tv);
+        user2Tv = view.findViewById(R.id.user_profiles_profile2_tv);
+        user3Tv = view.findViewById(R.id.user_profiles_profile3_tv);
+        user4Tv = view.findViewById(R.id.user_profiles_profile4_tv);
+        user5Tv = view.findViewById(R.id.user_profiles_profile5_tv);
+
+        tvList.add(user1Tv);
+        tvList.add(user2Tv);
+        tvList.add(user3Tv);
+        tvList.add(user4Tv);
+        tvList.add(user5Tv);
+
+
 
         setButtons();
         setHasOptionsMenu(true);
@@ -128,13 +149,19 @@ public class UserProfilesFragment extends Fragment {
 
     public void setButtonsEnable(boolean flag){
         if(flag){
-            for (Button b: buttonList) {
+            for (ImageView b: imgList) {
                 b.setEnabled(true);
+            }
+            for(TextView t: tvList){
+                t.setEnabled(true);
             }
         }
         else{
-            for (Button b: buttonList) {
+            for (ImageView b: imgList) {
                 b.setEnabled(false);
+            }
+            for(TextView t: tvList){
+                t.setEnabled(false);
             }
         }
     }
@@ -143,21 +170,35 @@ public class UserProfilesFragment extends Fragment {
 
         setButtonsEnable(true);
 
-        for(int j=0; j<buttonList.size(); j++){
-            buttonList.get(j).setVisibility(View.GONE);
-            registerForContextMenu(buttonList.get(j));
+        for(int j=0; j<imgList.size(); j++){
+            imgList.get(j).setVisibility(View.GONE);
+            tvList.get(j).setVisibility(View.GONE);
+            registerForContextMenu(imgList.get(j));
         }
 
         for(int i=0; i < Model.instance.getUser().getProfilesArray().size(); i++){
-            buttonList.get(i).setVisibility(View.VISIBLE);
-            buttonList.get(i).setText(Model.instance.getUser().getProfilesArray().get(i));
-            int finalI = i;
-            buttonList.get(i).setOnClickListener(v-> moveToHomePageWithProfile(model.getUser().getProfilesArray().get(finalI)));
+            imgList.get(i).setVisibility(View.VISIBLE);
+            tvList.get(i).setVisibility(View.VISIBLE);
+            int finalI1 = i;
+            Model.instance.getProfileByUserName(model.getUser().getProfilesArray().get(finalI1), profile -> {
+                tvList.get(finalI1).setText(profile.getUserName());
+                Model.instance.getImages(profile.getUserImageUrl(), bitmap -> {
+                    imgList.get(finalI1).setImageBitmap(bitmap);
+                });
+            });
+
+            imgList.get(i).setOnClickListener(v-> moveToHomePageWithProfile(model.getUser().getProfilesArray().get(finalI1)));
+            tvList.get(i).setOnClickListener(v-> moveToHomePageWithProfile(model.getUser().getProfilesArray().get(finalI1)));
             // addProfile instead of view
-            buttonList.get(i).setOnLongClickListener(v -> {
-                editProfileByLongClick(finalI);
+            imgList.get(i).setOnLongClickListener(v -> {
+                editProfileByLongClick(finalI1);
                 return false;
             });
+            tvList.get(i).setOnLongClickListener(v -> {
+                editProfileByLongClick(finalI1);
+                return false;
+            });
+
         }
     }
 
@@ -166,10 +207,10 @@ public class UserProfilesFragment extends Fragment {
         setButtonsEnable(false);
         progressBar.setVisibility(View.VISIBLE);
         if(!Model.instance.getProfile().getUserName().isEmpty()){
-            if(buttonList.contains(Model.instance.getProfile().getUserName())){
+            if(tvList.contains(Model.instance.getProfile().getUserName())){
                 Model.instance.getProfile().setStatus("false");
-                System.out.println("the profile: " + Model.instance.getProfile());
-                System.out.println("----------------" + Model.instance.getProfile().getUserName());
+                out.println("the profile: " + Model.instance.getProfile());
+                out.println("----------------" + Model.instance.getProfile().getUserName());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if(isSuccess){
                         changeProfile(userName);
@@ -310,8 +351,8 @@ public class UserProfilesFragment extends Fragment {
         Model.instance.deleteProfile(longClickUserName,isSuccess -> {
             if(isSuccess){
                 Model.instance.getUser().getProfilesArray().remove(posInArray); //current user
-//                        buttonList.get(posInArray).setVisibility(View.GONE);
-//                        buttonList.remove(posInArray);
+//                        imgList.get(posInArray).setVisibility(View.GONE);
+//                        imgList.remove(posInArray);
                 setButtons();
                 progressBar.setVisibility(View.GONE);
                 Navigation.findNavController(this.getView()).navigate(R.id.action_global_userProfilesFragment2);
