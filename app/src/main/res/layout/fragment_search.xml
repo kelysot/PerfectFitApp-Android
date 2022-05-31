@@ -93,9 +93,9 @@
             android:layout_height="57dp"
             android:layout_marginTop="20dp"
             android:text="Filter"
-            android:textColor="@color/black"
+            android:textColor="#315733"
             android:textSize="34sp"
-            android:textStyle="bold"
+            android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -262,7 +262,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintVertical_bias="0.411"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

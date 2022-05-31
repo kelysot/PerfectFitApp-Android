@@ -40,9 +40,14 @@ public class CommentModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(null);
+                        if(tokensList != null) {
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            getCommentsByPostId(postId, listener);
+                        }
+                        else{
+                            listener.onComplete(null);
+                        }
                     });
                 }
             }
@@ -76,9 +81,14 @@ public class CommentModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(null);
+                        if(tokensList != null) {
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            addNewComment(comment, listener);
+                        }
+                        else{
+                            listener.onComplete(null);
+                        }
                     });
                 }
             }
@@ -97,7 +107,6 @@ public class CommentModelServer {
 
         String token = server.sp.getString("ACCESS_TOKEN", "");
         Call<JsonElement> call = server.service.getCommentById(token, commentId);
-
         call.enqueue(new Callback<JsonElement>() {
             @Override
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
@@ -114,9 +123,14 @@ public class CommentModelServer {
                 }
                 else if(response.code() == 403){
                     Model.instance.refreshToken(tokensList -> {
-                        Model.instance.insertTokens(tokensList);
-                        System.out.println("********************************* change the token *********************************");
-                        listener.onComplete(null);
+                        if(tokensList != null) {
+                            Model.instance.insertTokens(tokensList);
+                            System.out.println("********************************* change the token *********************************");
+                            getCommentById(commentId, listener);
+                        }
+                        else{
+                            listener.onComplete(null);
+                        }
                     });
                 }
             }
@@ -129,11 +143,6 @@ public class CommentModelServer {
                 listener.onComplete(null);
             }
         });
-
-
     }
-
-
-
 
 }

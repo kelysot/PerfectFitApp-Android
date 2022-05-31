@@ -55,32 +55,32 @@ public class SearchFragment extends Fragment {
 
         if(SearchModel.instance.mapToServer.get("Categories") != null){
             if(!SearchModel.instance.mapToServer.get("Categories").isEmpty()) {
-                categoryBtn.setTextColor(Color.BLUE);
+                categoryBtn.setTextColor(Color.GRAY);
             }
         }
         if(SearchModel.instance.mapToServer.get("Sizes") != null){
             if(!SearchModel.instance.mapToServer.get("Sizes").isEmpty()){
-                sizeBtn.setTextColor(Color.BLUE);
+                sizeBtn.setTextColor(Color.GRAY);
             }
         }
         if(SearchModel.instance.mapToServer.get("Companies") != null){
             if(!SearchModel.instance.mapToServer.get("Companies").isEmpty()){
-                companyBtn.setTextColor(Color.BLUE);
+                companyBtn.setTextColor(Color.GRAY);
             }
         }
         if(SearchModel.instance.mapToServer.get("Colors") != null){
             if(!SearchModel.instance.mapToServer.get("Colors").isEmpty()){
-                colorBtn.setTextColor(Color.BLUE);
+                colorBtn.setTextColor(Color.GRAY);
             }
         }
         if(SearchModel.instance.mapToServer.get("BodyTypes") != null){
             if(!SearchModel.instance.mapToServer.get("BodyTypes").isEmpty()){
-                bodyTypeBtn.setTextColor(Color.BLUE);
+                bodyTypeBtn.setTextColor(Color.GRAY);
             }
         }
         if(SearchModel.instance.mapToServer.get("Gender") != null){
             if(!SearchModel.instance.mapToServer.get("Gender").isEmpty()){
-                genderBtn.setTextColor(Color.BLUE);
+                genderBtn.setTextColor(Color.GRAY);
             }
         }
 
