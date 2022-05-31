@@ -55,7 +55,8 @@ public class Model {
     Profile profile;
     Retrofit retrofit;
     RetrofitInterface retrofitInterface;
-    String BASE_URL = "http://10.0.2.2:4000";
+//    String BASE_URL = "http://193.106.55.142:4000";
+        String BASE_URL = "http://10.0.2.2:4000";
     List<Post> data = new LinkedList<Post>();
     List<Category> categories = new ArrayList<>();
     List<SubCategory> subCategories = new ArrayList<>();

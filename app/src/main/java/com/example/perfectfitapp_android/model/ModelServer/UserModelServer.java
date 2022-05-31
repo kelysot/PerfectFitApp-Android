@@ -88,8 +88,6 @@ public class UserModelServer {
                     }
                 } else if (response.code() == 400) {
                     Log.d("TAG", "failed to getUser in ModelServer 1");
-                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                            Toast.LENGTH_LONG).show();
                     listener.onComplete(null);
                 }
             }
