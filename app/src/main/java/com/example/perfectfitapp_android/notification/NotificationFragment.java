@@ -98,7 +98,6 @@ public class NotificationFragment extends Fragment {
                         if (count != 0) {
                             Model.instance.removeBadge();
                         }
-                        Collections.reverse(list);
                         viewModel.setData(list);
                         adapter.notifyDataSetChanged();
                     } else {

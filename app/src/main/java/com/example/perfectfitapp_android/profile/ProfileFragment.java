@@ -186,6 +186,7 @@ public class ProfileFragment extends Fragment {
                     profiles.remove(profilesList.get(i));
                 }
             }
+            followersSize = profiles.size();
             numOfFollowers.setText(String.valueOf(profiles.size()));
         });
 
