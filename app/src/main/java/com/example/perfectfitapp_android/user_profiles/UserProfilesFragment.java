@@ -4,20 +4,14 @@ import static java.lang.System.out;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -55,25 +49,26 @@ import pl.droidsonroids.gif.GifImageButton;
 public class UserProfilesFragment extends Fragment {
 
     ImageView user1Img, user2Img, user3Img, user4Img, user5Img;
+    Button profile1Btn, profile2Btn, profile3Btn, profile4Btn, profile5Btn;
     TextView user1Tv, user2Tv, user3Tv, user4Tv, user5Tv;
-    ArrayList<ImageView> imgList;
-    ArrayList<TextView> tvList;
+//    ArrayList<ImageView> imgList;
+    ArrayList<Button> profilesButtonsList;
+//    ArrayList<TextView> tvList;
     ArrayList<CardView> cardViewsList;
     Model model;
     String longClickUserName;
     ProgressBar progressBar;
-    TextView text;
+    TextView text, text2;
     int posInArray;
     GifImageButton greenGif;
+//    GifImageView tapeGif;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_user_profiles, container, false);
-
         model = Model.instance;
-
 
         /************* initialize general *************/
         Model.instance.getGeneral(map -> {
@@ -89,56 +84,79 @@ public class UserProfilesFragment extends Fragment {
 
         progressBar = view.findViewById(R.id.user_profiles_progress_bar);
         progressBar.setVisibility(View.GONE);
+//        tapeGif = view.findViewById(R.id.the_tape_gif);
+//        tapeGif.setVisibility(View.GONE);
 
-        text = view.findViewById(R.id.user_ptofiles_text);
+        text = view.findViewById(R.id.user_profiles_text);
+        text2 = view.findViewById(R.id.user_profiles_style_tv);
         greenGif = view.findViewById(R.id.gif_green);
         greenGif.setOnClickListener(v -> {
-            addProfile(view);
+            addProfile();
         });
-        ConstraintLayout con = view.findViewById(R.id.consraint_user_profiles);
-        //con.setBackgroundResource(R.drawable.green_back_5);
+        ConstraintLayout con = view.findViewById(R.id.cons_view_user_profiles);
 
-
+//        con.setBackgroundColor(Color.parseColor("#FFFFFF"));
+//
         text.setEnabled(false);
+        text2.setEnabled(false);
+        text2.setVisibility(View.GONE);
+        out.println("------------------------------------------------------");
+
+
+
         //TODO: ADD animation of legs lead to the addProfile button
         if(Model.instance.getUser().getProfilesArray().size() > 0){
+            text2.setVisibility(View.VISIBLE);
             text.setVisibility(View.GONE);
             greenGif.setVisibility(View.GONE);
             greenGif.setEnabled(false);
-
             con.setBackgroundResource(R.drawable.user_profiles_background);
 
+//            con.setBackgroundColor(Color.parseColor("#FFFDF1"));
+//            scroll.setBackgroundColor(Color.parseColor("#FFFDF1"));
         }
 
+        profilesButtonsList = new ArrayList<>();
 
-        imgList = new ArrayList<>();
+        profile1Btn = view.findViewById(R.id.user_profiles_profile1_btn);
+        profile2Btn = view.findViewById(R.id.user_profiles_profile2_btn);
+        profile3Btn = view.findViewById(R.id.user_profiles_profile3_btn);
+        profile4Btn = view.findViewById(R.id.user_profiles_profile4_btn);
+        profile5Btn = view.findViewById(R.id.user_profiles_profile5_btn);
 
-        user1Img = view.findViewById(R.id.user_profiles_profile1_imv);
-        user2Img = view.findViewById(R.id.user_profiles_profile2_imv);
-        user3Img = view.findViewById(R.id.user_profiles_profile3_imv);
-        user4Img = view.findViewById(R.id.user_profiles_profile4_imv);
-        user5Img = view.findViewById(R.id.user_profiles_profile5_imv);
+        profilesButtonsList.add(profile1Btn);
+        profilesButtonsList.add(profile2Btn);
+        profilesButtonsList.add(profile3Btn);
+        profilesButtonsList.add(profile4Btn);
+        profilesButtonsList.add(profile5Btn);
 
-        imgList.add(user1Img);
-        imgList.add(user2Img);
-        imgList.add(user3Img);
-        imgList.add(user4Img);
-        imgList.add(user5Img);
+//        imgList = new ArrayList<>();
 
-        tvList = new ArrayList<>();
+//        user1Img = view.findViewById(R.id.user_profiles_profile1_btn);
+//        user2Img = view.findViewById(R.id.user_profiles_profile2_btn);
+//        user3Img = view.findViewById(R.id.user_profiles_profile3_btn);
+//        user4Img = view.findViewById(R.id.user_profiles_profile4_btn);
+//        user5Img = view.findViewById(R.id.user_profiles_profile5_btn);
+//
+//        imgList.add(user1Img);
+//        imgList.add(user2Img);
+//        imgList.add(user3Img);
+//        imgList.add(user4Img);
+//        imgList.add(user5Img);
 
-        user1Tv = view.findViewById(R.id.user_profiles_profile1_tv);
-        user2Tv = view.findViewById(R.id.user_profiles_profile2_tv);
-        user3Tv = view.findViewById(R.id.user_profiles_profile3_tv);
-        user4Tv = view.findViewById(R.id.user_profiles_profile4_tv);
-        user5Tv = view.findViewById(R.id.user_profiles_profile5_tv);
+//        tvList = new ArrayList<>();
 
-        tvList.add(user1Tv);
-        tvList.add(user2Tv);
-        tvList.add(user3Tv);
-        tvList.add(user4Tv);
-        tvList.add(user5Tv);
+//        user1Tv = view.findViewById(R.id.user_profiles_profile1_tv);
+//        user2Tv = view.findViewById(R.id.user_profiles_profile2_tv);
+//        user3Tv = view.findViewById(R.id.user_profiles_profile3_tv);
+//        user4Tv = view.findViewById(R.id.user_profiles_profile4_tv);
+//        user5Tv = view.findViewById(R.id.user_profiles_profile5_tv);
 
+//        tvList.add(user1Tv);
+//        tvList.add(user2Tv);
+//        tvList.add(user3Tv);
+//        tvList.add(user4Tv);
+//        tvList.add(user5Tv);
 
 
         setButtons();
@@ -149,20 +167,20 @@ public class UserProfilesFragment extends Fragment {
 
     public void setButtonsEnable(boolean flag){
         if(flag){
-            for (ImageView b: imgList) {
+            for (Button b: profilesButtonsList) {
                 b.setEnabled(true);
             }
-            for(TextView t: tvList){
-                t.setEnabled(true);
-            }
+//            for(TextView t: tvList){
+//                t.setEnabled(true);
+//            }
         }
         else{
-            for (ImageView b: imgList) {
+            for (Button b: profilesButtonsList) {
                 b.setEnabled(false);
             }
-            for(TextView t: tvList){
-                t.setEnabled(false);
-            }
+//            for(TextView t: tvList){
+//                t.setEnabled(false);
+//            }
         }
     }
 
@@ -170,35 +188,65 @@ public class UserProfilesFragment extends Fragment {
 
         setButtonsEnable(true);
 
-        for(int j=0; j<imgList.size(); j++){
-            imgList.get(j).setVisibility(View.GONE);
-            tvList.get(j).setVisibility(View.GONE);
-            registerForContextMenu(imgList.get(j));
+        for(int j=0; j<profilesButtonsList.size(); j++){
+            profilesButtonsList.get(j).setVisibility(View.GONE);
+//            tvList.get(j).setVisibility(View.GONE);
+//            registerForContextMenu(profilesButtonsList.get(j));
         }
 
         for(int i=0; i < Model.instance.getUser().getProfilesArray().size(); i++){
-            imgList.get(i).setVisibility(View.VISIBLE);
-            tvList.get(i).setVisibility(View.VISIBLE);
+            profilesButtonsList.get(i).setVisibility(View.VISIBLE);
+            profilesButtonsList.get(i).setText(Model.instance.getUser().getProfilesArray().get(i));
+//            tvList.get(i).setVisibility(View.VISIBLE);
             int finalI1 = i;
-            Model.instance.getProfileByUserName(model.getUser().getProfilesArray().get(finalI1), profile -> {
-                tvList.get(finalI1).setText(profile.getUserName());
-                Model.instance.getImages(profile.getUserImageUrl(), bitmap -> {
-                    imgList.get(finalI1).setImageBitmap(bitmap);
-                });
-            });
+//            Model.instance.getProfileByUserName(model.getUser().getProfilesArray().get(finalI1), profile -> {
+////                tvList.get(finalI1).setText(profile.getUserName());
+//                Model.instance.getImages(profile.getUserImageUrl(), bitmap -> {
+//                    imgList.get(finalI1).setImageBitmap(bitmap);
+//                });
+//            });
 
-            imgList.get(i).setOnClickListener(v-> moveToHomePageWithProfile(model.getUser().getProfilesArray().get(finalI1)));
-            tvList.get(i).setOnClickListener(v-> moveToHomePageWithProfile(model.getUser().getProfilesArray().get(finalI1)));
+            int count =i;
+
+           Button btn = profilesButtonsList.get(i);
+//           btn.setOnTouchListener(new View.OnTouchListener() {
+//               @Override
+//               public boolean onTouch(View v, MotionEvent event) {
+//                   btn.setBackgroundColor(Color.parseColor("#003328"));
+//                   return false;
+//               }
+//           });
+//            profilesButtonsList.get(i).setOnTouchListener((v, hasFocus) -> {
+//                profilesButtonsList.get(count).setBackgroundColor(Color.parseColor("#003328"));
+//            });
+
+            profilesButtonsList.get(i).setOnClickListener(v-> moveToHomePageWithProfile(model.getUser().getProfilesArray().get(finalI1)));
+//            tvList.get(i).setOnClickListener(v-> moveToHomePageWithProfile(model.getUser().getProfilesArray().get(finalI1)));
             // addProfile instead of view
-            imgList.get(i).setOnLongClickListener(v -> {
+            profilesButtonsList.get(i).setOnLongClickListener(v -> {
                 editProfileByLongClick(finalI1);
                 return false;
             });
-            tvList.get(i).setOnLongClickListener(v -> {
-                editProfileByLongClick(finalI1);
-                return false;
-            });
+//            tvList.get(i).setOnLongClickListener(v -> {
+//                editProfileByLongClick(finalI1);
+//                return false;
+//            });
 
+            if(Model.instance.getUser().getProfilesArray().size() < 5){
+                Button b = profilesButtonsList.get(Model.instance.getUser().getProfilesArray().size());
+                b.setText("Create New Profile");
+                b.setVisibility(View.VISIBLE);
+                b.setBackgroundColor(Color.parseColor("#2EB39B"));
+
+//                b.setTextColor(Color.parseColor("#2EB39B"));
+//                b.setHighlightColor(Color.parseColor("#2EB39B"));
+//                b.setHintTextColor(Color.parseColor("#2EB39B"));
+
+                b.setOnClickListener(v -> {
+                    b.setEnabled(false);
+                    addProfile();
+                });
+            }
         }
     }
 
@@ -206,8 +254,9 @@ public class UserProfilesFragment extends Fragment {
     private void moveToHomePageWithProfile(String userName) {
         setButtonsEnable(false);
         progressBar.setVisibility(View.VISIBLE);
+//        tapeGif.setVisibility(View.VISIBLE);
         if(!Model.instance.getProfile().getUserName().isEmpty()){
-            if(tvList.contains(Model.instance.getProfile().getUserName())){
+            if(profilesButtonsList.contains(Model.instance.getProfile().getUserName())){
                 Model.instance.getProfile().setStatus("false");
                 out.println("the profile: " + Model.instance.getProfile());
                 out.println("----------------" + Model.instance.getProfile().getUserName());
@@ -218,6 +267,7 @@ public class UserProfilesFragment extends Fragment {
                     else{
                         // TODO dialog
                         progressBar.setVisibility(View.GONE);
+//                        tapeGif.setVisibility(View.GONE);
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                         Log.d("TAG", "failed in UserProfile in editProfile - change status to false");
@@ -263,6 +313,7 @@ public class UserProfilesFragment extends Fragment {
                     }
                     else{
                         progressBar.setVisibility(View.GONE);
+//                        tapeGif.setVisibility(View.GONE);
                         //TODO: dialog
                         Log.d("TAG", "failed in UserProfileFragment 1");
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
@@ -273,6 +324,7 @@ public class UserProfilesFragment extends Fragment {
             }
             else{
                 progressBar.setVisibility(View.GONE);
+//                tapeGif.setVisibility(View.GONE);
                 setButtonsEnable(true);
 //                Log.d("TAG", "failed in UserProfileFragment 1");
 //                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
@@ -287,19 +339,21 @@ public class UserProfilesFragment extends Fragment {
         });
     }
 
-    private void addProfile(View view) {
+    private void addProfile() {
 
         greenGif.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
+//        tapeGif.setVisibility(View.VISIBLE);
 
         //TODO: open dialog about the amount of profiles
 
-        if( Model.instance.getUser().getProfilesArray().size() == 5){
+        if(Model.instance.getUser().getProfilesArray().size() == 5){
             showOkDialog();
             progressBar.setVisibility(View.GONE);
+//            tapeGif.setVisibility(View.GONE);
         }
         else{
-            Navigation.findNavController(view).navigate(R.id.action_userProfilesFragment2_to_createProfileStep1Fragment2);
+            Navigation.findNavController(greenGif).navigate(R.id.action_userProfilesFragment2_to_createProfileStep1Fragment2);
         }
     }
 
@@ -332,6 +386,7 @@ public class UserProfilesFragment extends Fragment {
             case R.id.profile_edit_menuItem:{
                 // TODO: add the edit profile here
                 progressBar.setVisibility(View.VISIBLE);
+//                tapeGif.setVisibility(View.VISIBLE);
                 Navigation.findNavController(this.getView()).navigate(R.id.action_userProfilesFragment2_to_editProfileFragment2);
                 return true;
             }
@@ -348,6 +403,7 @@ public class UserProfilesFragment extends Fragment {
     private void delete() {
         //TODO: check delete
         progressBar.setVisibility(View.VISIBLE);
+//        tapeGif.setVisibility(View.VISIBLE);
         Model.instance.deleteProfile(longClickUserName,isSuccess -> {
             if(isSuccess){
                 Model.instance.getUser().getProfilesArray().remove(posInArray); //current user
@@ -355,6 +411,7 @@ public class UserProfilesFragment extends Fragment {
 //                        imgList.remove(posInArray);
                 setButtons();
                 progressBar.setVisibility(View.GONE);
+//                tapeGif.setVisibility(View.GONE);
                 Navigation.findNavController(this.getView()).navigate(R.id.action_global_userProfilesFragment2);
 
             }else{
@@ -418,7 +475,7 @@ public class UserProfilesFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.CreateProfileStep1Fragment) {
-            addProfile(this.getView());
+            addProfile();
             return true;
         }
         else if(item.getItemId() == R.id.EditUserFragment){
