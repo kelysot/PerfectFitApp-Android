@@ -350,8 +350,9 @@ public class UserModelServer {
                     listener.onComplete(tokenList);
                 }
                 else{
-                    System.out.println("here33333333333333333333");
+                    System.out.println("problem in refreshToken");
                     System.out.println(response.code());
+                    Model.instance.setRefreshFlag(true);
                     listener.onComplete(null);
                 }
             }

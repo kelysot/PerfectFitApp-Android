@@ -272,7 +272,12 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
 
             if (mBitmap != null) {
                 Model.instance.uploadImage(mBitmap, getActivity(), url -> {
-                    ModelProfile.instance.getEditProfile().setUserImageUrl(url);
+//                    ModelProfile.instance.getEditProfile().setUserImageUrl(url);
+                    StringBuilder newUrl = new StringBuilder(url);
+                    newUrl.replace(7,8,"/");
+                    ModelProfile.instance.getEditProfile().setUserImageUrl(newUrl.toString());
+//                    newUrl.append("uplaod");
+//                    System.out.println("the splite = " + str.toString());
                     Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
 
                 });
