@@ -137,7 +137,6 @@ public class SearchPostsFragment extends Fragment {
     public void search(){
         progressBar.setVisibility(View.VISIBLE);
         theSearch = searchEt.getText().toString();
-        System.out.println(theSearch);
         if(theSearch.isEmpty()){
             viewModel.setData(SearchModel.instance.list);
         }
@@ -151,7 +150,8 @@ public class SearchPostsFragment extends Fragment {
 
     public List<Post> searchMap(){
         List<Post> posts = new ArrayList<>();
-        for (Post p : viewModel.getData()) {
+//        for (Post p : viewModel.getData()) {
+        for(Post p : SearchModel.instance.list){
             if (p.getProfileId().contains(theSearch)) {
                 posts.add(p);
                 continue;
