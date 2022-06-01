@@ -77,14 +77,6 @@ public class ProfileFragment extends Fragment {
         followersView = view.findViewById(R.id.profile_followers_view);
         followingView = view.findViewById(R.id.profile_following_view);
 
-//        if(followingSize > 0){
-//            numOfFollowing.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    //TODO:fffff
-//                }
-//            });
-//        }
         swipeRefresh = view.findViewById(R.id.profile_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> refresh());
 
@@ -95,7 +87,6 @@ public class ProfileFragment extends Fragment {
 
                 if(profile != null){
 
-                    List<Post> correctList = null;
                     userNameTv.setText(profile.getUserName());
                     setNumOfPosts(profile.getMyPostsListId());
 
@@ -107,10 +98,9 @@ public class ProfileFragment extends Fragment {
                     }
 
                     setNumOfFollowers(profile);
-                    setNumOfFollowing(profile);
 
-                    followingView.setOnClickListener(v -> moveToTrackersList(v));
                     followersView.setOnClickListener(v -> moveToFollowersList(v));
+                    followingView.setOnClickListener(v -> moveToTrackersList(v));
 
                     String currentUserName = Model.instance.getProfile().getUserName();
                     if (!profile.getUserName().equals(currentUserName)) { //Check if the user go to his profile by click on his name or picture.
@@ -142,7 +132,6 @@ public class ProfileFragment extends Fragment {
             }
 
             setNumOfFollowers(profile);
-            setNumOfFollowing(profile);
 
             followingView.setOnClickListener(v -> moveToTrackersList(v));
             followersView.setOnClickListener(v -> moveToFollowersList(v));
@@ -181,6 +170,7 @@ public class ProfileFragment extends Fragment {
     private void setNumOfFollowers(Profile profile1){
         Model.instance.getProfilesByUserNames(profile1.getFollowers(), profilesList -> {
             List<Profile> profiles = profilesList;
+
             for(int i = 0; i < profilesList.size(); i ++){
                 if(profilesList.get(i).getIsDeleted().equals("true")){
                     profiles.remove(profilesList.get(i));
@@ -188,8 +178,8 @@ public class ProfileFragment extends Fragment {
             }
             followersSize = profiles.size();
             numOfFollowers.setText(String.valueOf(profiles.size()));
+            setNumOfFollowing(profile1);
         });
-
     }
 
     private void setNumOfFollowing(Profile profile1){
@@ -327,13 +317,12 @@ public class ProfileFragment extends Fragment {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView productNameTv, descriptionTv, categoryTv, subCategoryTv, userNameTv, likesNumberTV, timeAgoTv;
+        TextView descriptionTv, categoryTv, subCategoryTv, userNameTv, likesNumberTV, timeAgoTv;
         ShapeableImageView postPic, userPic;
         ImageButton addToWishList, commentsBtn, addToLikes;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
-            //TODO: change the productName to userName - by the profileID in the mongo
             userNameTv = itemView.findViewById(R.id.listrow_username_tv);
             descriptionTv = itemView.findViewById(R.id.listrow_description_tv);
             categoryTv = itemView.findViewById(R.id.listrow_category_tv);

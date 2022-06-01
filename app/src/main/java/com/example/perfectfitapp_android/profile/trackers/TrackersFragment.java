@@ -48,7 +48,7 @@ public class TrackersFragment extends Fragment {
         profileId = TrackersFragmentArgs.fromBundle(getArguments()).getProfileId();
 
         Model.instance.getProfileByUserName(profileId, profile -> {
-            Model.instance.getProfilesByUserNames(profile.getFollowers(), profilesList -> {
+            Model.instance.getProfilesByUserNames(profile.getTrackers(), profilesList -> {
                 viewModel.setTrackersProfiles(profilesList);
                 adapter.notifyDataSetChanged();
             });
