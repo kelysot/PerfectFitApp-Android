@@ -9,12 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,11 +29,13 @@ import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
+import com.example.perfectfitapp_android.home.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.login.LoginActivity;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Notification;
 import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.Profile;
+import com.example.perfectfitapp_android.user_profiles.UserProfilesActivity;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
@@ -161,6 +167,7 @@ public class ProfileFragment extends Fragment {
             });
         });
 
+        setHasOptionsMenu(true);
         Model.instance.checkNotification();
         refresh();
 
@@ -557,4 +564,72 @@ public class ProfileFragment extends Fragment {
         btnClose.setVisibility(View.GONE);
         dialog.show();
     }
+
+    /* *************************************** Menu Functions *************************************** */
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.profile_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.profile_edit_menuItem) {
+            NavHostFragment.findNavController(this).navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment());
+            return true;
+        }
+        else if(item.getItemId() == R.id.profile_delete_menuItem){
+            String s = "Are you sure you want to delete your profile?";
+            showDialog(s);
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void delete() {
+        Model.instance.deleteProfile(Model.instance.getProfile().getUserName(),isSuccess -> {
+            if(isSuccess){
+                ArrayList<String> profileArr = Model.instance.getUser().getProfilesArray();
+                for(int i = 0; i< profileArr.size(); i ++){
+                    if(profileArr.get(i).equals(Model.instance.getProfile().getUserName())){
+                        Model.instance.getUser().getProfilesArray().remove(i); //current user
+                        startActivity(new Intent(getContext(), UserProfilesActivity.class));
+                        getActivity().finish();
+                        break;
+                    }
+                }
+            }else{
+                //TODO: dialog
+                Log.d("TAG","not work");
+            }
+        });
+    }
+
+    private void showDialog(String text){
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText(text);
+
+        Button btnNo = dialog.findViewById(R.id.btn_no);
+        btnNo.setOnClickListener(v -> dialog.dismiss());
+
+        Button btnYes = dialog.findViewById(R.id.btn_yes);
+        btnYes.setOnClickListener(v -> {
+            delete();
+            dialog.dismiss();
+        });
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
+    }
+
 }

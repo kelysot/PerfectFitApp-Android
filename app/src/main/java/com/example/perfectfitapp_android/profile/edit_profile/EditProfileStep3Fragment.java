@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,7 +130,13 @@ public class EditProfileStep3Fragment extends Fragment {
                     String userName = ModelProfile.instance.getEditProfile().getUserName();
                     Model.instance.getUser().getProfilesArray().set(index, userName);
 
-                    Navigation.findNavController(view).navigate(R.id.action_global_userProfilesFragment2);
+                    String des = Navigation.findNavController(view).getGraph().getDisplayName();
+                    Log.d("TAG4444", des);
+                    if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){
+                        Navigation.findNavController(view).navigate(R.id.action_global_userProfilesFragment2);
+                    } else {
+                        Navigation.findNavController(view).navigate(R.id.action_global_profileFragment);
+                    }
                 }
                 else{
                     progressBar.setVisibility(View.GONE);
