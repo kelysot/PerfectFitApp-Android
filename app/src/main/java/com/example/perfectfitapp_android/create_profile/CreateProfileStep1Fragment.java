@@ -194,7 +194,9 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
 
         if (mBitmap != null) {
             Model.instance.uploadImage(mBitmap, getActivity(), url -> {
-                mImageUrl = url;
+                StringBuilder newUrl = new StringBuilder(url);
+                newUrl.replace(7,8,"/");
+                mImageUrl = newUrl.toString();
                 checkIfUserNameExist(view);
             });
         }

@@ -450,6 +450,11 @@ public class UserProfilesFragment extends Fragment {
             }
             else{
                 //TODO: dialog
+                if(Model.instance.getRefreshFlag()){
+                    Model.instance.setRefreshFlag(false);
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                    getActivity().finish();
+                }
                 Toast.makeText(MyApplication.getContext(), "Can't logout",
                         Toast.LENGTH_LONG).show();
             }

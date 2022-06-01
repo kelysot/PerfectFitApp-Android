@@ -65,6 +65,15 @@ public class Model {
     Map<String, ArrayList<String>> categoriesAndSubCategories = new HashMap<>();
     BottomNavigationView bottomNavigationView;
     Boolean flagBell = false;
+    Boolean refreshFlag = false;
+
+    public void setRefreshFlag(Boolean b){
+        this.refreshFlag = b;
+    }
+
+    public Boolean getRefreshFlag(){
+        return this.refreshFlag;
+    }
 
 
     Post post, newPost;
