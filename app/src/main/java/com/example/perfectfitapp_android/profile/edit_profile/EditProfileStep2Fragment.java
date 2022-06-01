@@ -122,6 +122,11 @@ public class EditProfileStep2Fragment extends Fragment {
     private void continueStep3(View view) {
         progressBar.setVisibility(View.VISIBLE);
         ModelProfile.instance.getEditProfile().setBodyType(bodyTypeTv.getText().toString());
-        Navigation.findNavController(view).navigate(R.id.action_editProfileStep2Fragment2_to_editProfileStep3Fragment2);
+        String des = Navigation.findNavController(view).getGraph().getDisplayName();
+        if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){
+            Navigation.findNavController(view).navigate(R.id.action_editProfileStep2Fragment2_to_editProfileStep3Fragment2);
+        } else {
+            Navigation.findNavController(view).navigate(R.id.action_editProfileStep2Fragment_to_editProfileStep3Fragment);
+        }
     }
 }

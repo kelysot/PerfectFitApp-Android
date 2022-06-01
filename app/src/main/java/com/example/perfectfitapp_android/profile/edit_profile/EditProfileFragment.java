@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -278,11 +279,21 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                     ModelProfile.instance.getEditProfile().setUserImageUrl(newUrl.toString());
 //                    newUrl.append("uplaod");
 //                    System.out.println("the splite = " + str.toString());
-                    Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
-
+                    String des = Navigation.findNavController(view).getGraph().getDisplayName();
+                    Log.d("TAG4444", des);
+                    if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){
+                        Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
+                    } else {
+                        Navigation.findNavController(view).navigate(R.id.action_editProfileFragment_to_editProfileStep2Fragment);
+                    }
                 });
             } else {
-                Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
+                String des = Navigation.findNavController(view).getGraph().getDisplayName();
+                if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){
+                    Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
+                } else {
+                    Navigation.findNavController(view).navigate(R.id.action_editProfileFragment_to_editProfileStep2Fragment);
+                }
             }
 
         }
