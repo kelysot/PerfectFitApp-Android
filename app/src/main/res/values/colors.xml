@@ -11,4 +11,6 @@
     <color name="myGreen">#233503</color>
     <color name="myWhite">#FFFFFFFF</color>
     <color name="myGold">#E5CC8C</color>
+    <color name="myCream">#FFF8E6</color>
+    <color name="buttonUserProfilesBtns">#00176C</color>
 </resources>
