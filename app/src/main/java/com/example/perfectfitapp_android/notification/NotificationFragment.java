@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
@@ -34,6 +35,8 @@ public class NotificationFragment extends Fragment {
     NotificationViewModel viewModel;
     MyAdapter adapter;
     int count = 0;
+    LottieAnimationView noPostImg;
+    TextView noPostTv;
 
     public NotificationFragment() {
     }
@@ -53,6 +56,11 @@ public class NotificationFragment extends Fragment {
         RecyclerView notificationList = view.findViewById(R.id.notification_rv);
         notificationList.setHasFixedSize(true);
         notificationList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        noPostImg = view.findViewById(R.id.notification_no_post_img);
+        noPostTv = view.findViewById(R.id.notification_no_post_tv);
+        noPostImg.setVisibility(View.GONE);
+        noPostTv.setVisibility(View.GONE);
 
         adapter = new MyAdapter();
         notificationList.setAdapter(adapter);
@@ -105,8 +113,9 @@ public class NotificationFragment extends Fragment {
                     }
                 });
             }
-            else{
-                //TODO: check if notification is null and dialog - no notification to the profile.
+            else {
+                noPostImg.setVisibility(View.VISIBLE);
+                noPostTv.setVisibility(View.VISIBLE);
             }
         });
 

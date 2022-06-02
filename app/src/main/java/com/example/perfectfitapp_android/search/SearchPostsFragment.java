@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.home.HomePageFragmentDirections;
@@ -48,6 +49,8 @@ public class SearchPostsFragment extends Fragment {
     ImageButton searchBtn;
     String theSearch;
     ProgressBar progressBar;
+    LottieAnimationView noPostImg;
+    TextView noPostTv;
 
 
     @Override
@@ -75,6 +78,11 @@ public class SearchPostsFragment extends Fragment {
 //        swipeRefresh = view.findViewById(R.id.searchposts_swiperefresh);
 //        swipeRefresh.setOnRefreshListener(() -> refresh());
 
+        noPostImg = view.findViewById(R.id.searchposts_no_post_img);
+        noPostTv = view.findViewById(R.id.searchposts_no_post_tv);
+        noPostImg.setVisibility(View.GONE);
+        noPostTv.setVisibility(View.GONE);
+
         adapter = new MyAdapter();
         rv.setAdapter(adapter);
 
@@ -93,25 +101,6 @@ public class SearchPostsFragment extends Fragment {
             });
         });
 
-        if(viewModel.getData().size() == 0){
-            String msg = "No matching posts found";
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
-            builder.setNegativeButton("OK", (dialog, which) ->{
-                setMapToServer();
-                //TODO: move to homepage or searchFragment?
-                Navigation.findNavController(view).navigate(SearchPostsFragmentDirections.actionGlobalHomePageFragment());
-                dialog.cancel();
-            });
-
-            AlertDialog alert = builder.create();
-            alert.setTitle("Error");
-            alert.setMessage("\n" + msg + "\n");
-            alert.show();
-        }
-
-        progressBar = view.findViewById(R.id.searchposts_progress_bar);
-        progressBar.setVisibility(View.GONE);
 
         searchEt = view.findViewById(R.id.searchposts_text_et);
         if(theSearch != null){
@@ -126,6 +115,32 @@ public class SearchPostsFragment extends Fragment {
         searchBtn.setOnClickListener(v -> {
             search();
         });
+
+        if(viewModel.getData().size() == 0){
+            noPostImg.setVisibility(View.VISIBLE);
+            noPostTv.setVisibility(View.VISIBLE);
+            searchEt.setVisibility(View.GONE);
+            searchBtn.setVisibility(View.GONE);
+
+//            String msg = "No matching posts found";
+//
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+//            builder.setNegativeButton("OK", (dialog, which) ->{
+//                setMapToServer();
+//                //TODO: move to homepage or searchFragment?
+//                Navigation.findNavController(view).navigate(SearchPostsFragmentDirections.actionGlobalHomePageFragment());
+//                dialog.cancel();
+//            });
+//
+//            AlertDialog alert = builder.create();
+//            alert.setTitle("Error");
+//            alert.setMessage("\n" + msg + "\n");
+//            alert.show();
+        }
+
+        progressBar = view.findViewById(R.id.searchposts_progress_bar);
+        progressBar.setVisibility(View.GONE);
+
 
 
 

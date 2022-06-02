@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.L;
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.home.HomePageFragmentDirections;
@@ -40,6 +43,8 @@ public class WishListFragment extends Fragment {
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
     int likesSize = 0;
+    LottieAnimationView noPostImg;
+    TextView noPostTv, titleTv;
 
     //TODO: Can run from AppLocalDb
 
@@ -61,6 +66,14 @@ public class WishListFragment extends Fragment {
 
         swipeRefresh = view.findViewById(R.id.wishlist_postlist_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> refresh());
+
+        titleTv = view.findViewById(R.id.wishlist_title_tv);
+        titleTv.setVisibility(View.VISIBLE);
+
+        noPostImg = view.findViewById(R.id.wishlist_no_post_img);
+        noPostTv = view.findViewById(R.id.wishlist_no_post_tv);
+        noPostImg.setVisibility(View.GONE);
+        noPostTv.setVisibility(View.GONE);
 
         adapter = new MyAdapter();
         myWishList.setAdapter(adapter);
@@ -86,11 +99,18 @@ public class WishListFragment extends Fragment {
     private void refresh() {
         Model.instance.getWishListFromServer(list -> {
             if(list != null){
-            viewModel.setData(list);
-            adapter.notifyDataSetChanged();
-            swipeRefresh.setRefreshing(false);
+                if( list.isEmpty()){
+                    noPostImg.setVisibility(View.VISIBLE);
+                    noPostTv.setVisibility(View.VISIBLE);
+                    titleTv.setVisibility(View.GONE);
+                }
+                viewModel.setData(list);
+                adapter.notifyDataSetChanged();
+                swipeRefresh.setRefreshing(false);
             }
             else{
+                noPostImg.setVisibility(View.VISIBLE);
+                noPostTv.setVisibility(View.VISIBLE);
                 errorDialog("Opss, There is an error. Please try to connect the app later.");
                 //TODO: dialog
             }

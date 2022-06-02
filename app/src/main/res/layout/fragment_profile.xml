@@ -175,4 +175,30 @@
         app:layout_constraintStart_toStartOf="@+id/textView18"
         app:layout_constraintTop_toTopOf="@+id/profile_num_following_tv" />
 
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/profile_no_post_img"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="@+id/profile_swiperefresh"
+        app:layout_constraintStart_toStartOf="@+id/profile_swiperefresh"
+        app:layout_constraintTop_toTopOf="@+id/profile_swiperefresh"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_url="https://assets6.lottiefiles.com/packages/lf20_0zv8teye.json" />
+
+    <TextView
+        android:id="@+id/profile_no_post_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="No posts yet "
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/profile_no_post_img"
+        app:layout_constraintStart_toStartOf="@+id/profile_no_post_img"
+        app:layout_constraintTop_toBottomOf="@+id/profile_no_post_img" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

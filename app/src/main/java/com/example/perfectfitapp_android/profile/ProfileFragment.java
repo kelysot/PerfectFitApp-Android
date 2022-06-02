@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.home.HomePageFragmentDirections;
@@ -59,6 +60,8 @@ public class ProfileFragment extends Fragment {
     SwipeRefreshLayout swipeRefresh;
     View followersView, followingView;
     int likesSize = 0;
+    LottieAnimationView noPostImg;
+    TextView noPostTv;
 
 
     @Override
@@ -82,6 +85,12 @@ public class ProfileFragment extends Fragment {
         followBtn = view.findViewById(R.id.profile_follow_btn);
         followersView = view.findViewById(R.id.profile_followers_view);
         followingView = view.findViewById(R.id.profile_following_view);
+
+        noPostImg = view.findViewById(R.id.profile_no_post_img);
+        noPostTv = view.findViewById(R.id.profile_no_post_tv);
+        noPostImg.setVisibility(View.GONE);
+        noPostTv.setVisibility(View.GONE);
+
 
         swipeRefresh = view.findViewById(R.id.profile_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> refresh());
@@ -214,6 +223,8 @@ public class ProfileFragment extends Fragment {
             });
         }
         else {
+            noPostImg.setVisibility(View.VISIBLE);
+            noPostTv.setVisibility(View.VISIBLE);
             numOfPosts.setText("0");
         }
 

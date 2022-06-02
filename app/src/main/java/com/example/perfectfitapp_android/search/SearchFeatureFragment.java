@@ -20,6 +20,7 @@ import com.example.perfectfitapp_android.create_profile.CreateProfileModel;
 import com.example.perfectfitapp_android.model.generalModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -158,6 +159,7 @@ public class SearchFeatureFragment extends Fragment {
         if(feature.equals("Categories")){
             nameTv.setText("Categories");
             theList = generalModel.instance.map.get("Categories");
+            Collections.sort(theList);
         }
         else if(feature.equals("Sizes")){
             nameTv.setText("Sizes");
@@ -166,14 +168,20 @@ public class SearchFeatureFragment extends Fragment {
         else if(feature.equals("Companies")){
             nameTv.setText("Companies");
             theList = generalModel.instance.map.get("Companies");
+
+            Collections.sort(theList);
+            theList.remove("Other");
+            theList.add("Other");
         }
         else if(feature.equals("Colors")){
             nameTv.setText("Colors");
             theList = generalModel.instance.map.get("Colors");
+            Collections.sort(theList);
         }
         else if(feature.equals("BodyTypes")){
             nameTv.setText("Body Types");
             theList = generalModel.instance.map.get("BodyTypes");
+            Collections.sort(theList);
         }
         else if(feature.equals("Gender")){
             nameTv.setText("Gender");
