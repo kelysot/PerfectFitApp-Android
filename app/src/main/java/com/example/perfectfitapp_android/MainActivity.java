@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.perfectfitapp_android.model.Model;
@@ -28,6 +29,7 @@ import com.example.perfectfitapp_android.profile.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +38,14 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     NavController navCtl;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         Model.instance.setBottomNavigationView(bottomNavigationView);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder().build();
@@ -50,9 +53,36 @@ public class MainActivity extends AppCompatActivity {
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
         navCtl = navHost.getNavController();
 
+
         NavigationUI.setupWithNavController(bottomNavigationView, navCtl);
         NavigationUI.setupActionBarWithNavController(this, navCtl);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.homePageFragment:
+                    navCtl.navigate(R.id.homePageFragment);
+                    break;
+                case R.id.profileFragment:
+                    navCtl.navigate(R.id.profileFragment);
+                    break;
+                case R.id.categoryFragment:
+                    navCtl.navigate(R.id.categoryFragment);
+                    break;
+                case R.id.notificationFragment:
+                    navCtl.navigate(R.id.notificationFragment);
+                    break;
+                case R.id.wishListFragment:
+                    navCtl.navigate(R.id.wishListFragment);
+                    break;
+            }
+            return true;
+        });
     }
 
     @Override

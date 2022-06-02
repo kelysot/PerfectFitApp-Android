@@ -84,8 +84,6 @@ public class PostPageFragment extends Fragment {
                 descriptionEt.setText(post.getDescription());
                 priceEt.setText(post.getPrice());
                 linkEt.setText(post.getLink());
-                Log.d("TAG22", post.getSizeAdjustment());
-                Log.d("TAG22", post.getPostId());
                 sizeAdj.setRating(Float.parseFloat(post.getSizeAdjustment()));
                 rating.setRating(Float.parseFloat(post.getRating()));
 

@@ -385,7 +385,6 @@ public class PostModelServer {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 if(response.code() == 200){
-                    Log.d("TAG111", response.body().toString());
                     System.out.println("222222222222222222222222222222222222222222");
                 }
                 else if(response.code() == 403){
