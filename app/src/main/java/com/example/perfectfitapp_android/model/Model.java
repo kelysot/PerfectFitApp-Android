@@ -948,7 +948,6 @@ public class Model {
 
     public void addBadge(int count){
         flagBell = true;
-        Log.d("TAG6667", String.valueOf(count));
         BottomNavigationMenuView bottomNavigationMenuView =
                 (BottomNavigationMenuView) Model.instance.getBottomNavigationView().getChildAt(0);
         View v = bottomNavigationMenuView.getChildAt(3);
