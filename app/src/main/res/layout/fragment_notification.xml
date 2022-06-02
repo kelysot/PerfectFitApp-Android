@@ -20,4 +20,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/notification_no_post_img"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="110dp"
+        app:layout_constraintEnd_toEndOf="@+id/notification_rv"
+        app:layout_constraintStart_toStartOf="@+id/notification_rv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_url="https://assets9.lottiefiles.com/datafiles/7fhdA6zZsyPRcTo/data.json" />
+
+    <TextView
+        android:id="@+id/notification_no_post_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="No notification yet"
+        android:textColor="@color/black"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/notification_no_post_img"
+        app:layout_constraintStart_toStartOf="@+id/notification_no_post_img"
+        app:layout_constraintTop_toBottomOf="@+id/notification_no_post_img" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
