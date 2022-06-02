@@ -104,7 +104,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView productNameTv, descriptionTv, categoryTv, subCategoryTv, userNameTv, likesNumberTV, timeAgoTv;
+        TextView descriptionTv, categoryTv, subCategoryTv, userNameTv, likesNumberTV, timeAgoTv;
         ShapeableImageView postPic, userPic ;
         ImageButton addToWishList, commentsBtn, addToLikes;
 
@@ -202,17 +202,17 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
             }
 
             if(checkIfInsideWishList(post)){
-                holder.addToWishList.setImageResource(R.drawable.ic_full_star);
+                holder.addToWishList.setImageResource(R.drawable.ic_addtowishlistfill);
             }
             else{
-                holder.addToWishList.setImageResource(R.drawable.ic_star);
+                holder.addToWishList.setImageResource(R.drawable.ic_addtowishlist);
             }
 
             if(checkIfInsideLikes(post)){
-                holder.addToLikes.setImageResource(R.drawable.ic_red_heart);
+                holder.addToLikes.setImageResource(R.drawable.ic_full_heart);
             }
             else{
-                holder.addToLikes.setImageResource(R.drawable.ic_heart);
+                holder.addToLikes.setImageResource(R.drawable.ic_heart1);
             }
 
             // Move to different pages from post.
@@ -246,7 +246,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                 Model.instance.editPost(post, isSuccess -> {
                     if(isSuccess){
                         holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
-                        holder.addToLikes.setImageResource(R.drawable.ic_heart);
+                        holder.addToLikes.setImageResource(R.drawable.ic_heart1);
                         refresh();
                     }
                     else {
@@ -262,7 +262,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                 Model.instance.editPost(post, isSuccess -> {
                     if(isSuccess){
                         holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
-                        holder.addToLikes.setImageResource(R.drawable.ic_red_heart);
+                        holder.addToLikes.setImageResource(R.drawable.ic_full_heart);
                         refresh();
                     }
                     else{
@@ -286,7 +286,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                 Model.instance.getProfile().getWishlist().remove(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if(isSuccess){
-                        holder.addToWishList.setImageResource(R.drawable.ic_star);
+                        holder.addToWishList.setImageResource(R.drawable.ic_addtowishlist);
                     }
                     else{
                         //TODO: dlialog
@@ -299,7 +299,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                 Model.instance.getProfile().getWishlist().add(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if(isSuccess){
-                        holder.addToWishList.setImageResource(R.drawable.ic_full_star);
+                        holder.addToWishList.setImageResource(R.drawable.ic_addtowishlistfill);
                         System.out.println("the posts added to the list");
                         System.out.println(Model.instance.getProfile().getWishlist());
                     }
