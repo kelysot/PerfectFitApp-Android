@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E7F3E7"
+    android:background="@color/myCream"
     tools:context=".create_profile.CreateProfileStep2Fragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E7F3E7">
+        android:background="@color/myCream">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="80dp"
                     android:layout_marginBottom="16dp"
-                    android:backgroundTint="#8ec4b5"
+                    android:backgroundTint="@color/btnColor"
                     android:text="Continue"
                     android:textColor="#FFFFFF"
                     app:cornerRadius="10dp"
