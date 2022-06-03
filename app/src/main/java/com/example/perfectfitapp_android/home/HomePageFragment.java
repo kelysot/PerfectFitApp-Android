@@ -396,7 +396,9 @@ public class HomePageFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.NewPostFragment) {
-            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionHomePageFragmentToAddNewPostStep1Fragment());
+//            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionHomePageFragmentToAddNewPostStep1Fragment());
+            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionHomePageFragmentToAddNewPostStep2());
+
             return true;
         }
         else if(item.getItemId() == R.id.UserProfileFragment){
