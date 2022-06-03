@@ -125,7 +125,7 @@
             android:layout_marginTop="40dp"
             android:shadowColor="#C2EFCD"
             android:text="Let's create a profile!"
-            android:textColor="#344C3F"
+            android:textColor="#191919"
             android:textSize="32dp"
             android:textStyle="bold|italic"
             app:autoSizeTextType="uniform"
@@ -134,20 +134,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/MultiWave" />
 
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/gif_green"
-                android:layout_width="398dp"
-                android:layout_height="234dp"
-                android:layout_marginTop="35dp"
-                android:layout_marginBottom="240dp"
-                android:src="@drawable/plud_green_gif"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/user_profiles_text" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/gif_green"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:layout_constraintBottom_toBottomOf="@+id/MultiWaveFotter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_url="https://assets5.lottiefiles.com/packages/lf20_2etizxzl.json" />
 
-            <!--        <pl.droidsonroids.gif.GifImageButton-->
+        <!--        <pl.droidsonroids.gif.GifImageButton-->
             <!--            android:id="@+id/gif_tape"-->
             <!--            android:layout_width="398dp"-->
             <!--            android:layout_height="234dp"-->

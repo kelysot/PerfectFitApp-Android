@@ -30,6 +30,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.MainActivity;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
@@ -61,7 +62,7 @@ public class UserProfilesFragment extends Fragment {
     ProgressBar progressBar;
     TextView text;
     int posInArray;
-    GifImageButton greenGif;
+    LottieAnimationView greenGif;
 //    GifImageView tapeGif;
     MultiWaveHeader waveHeader, waveFotter;
 
