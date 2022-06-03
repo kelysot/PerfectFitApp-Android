@@ -30,6 +30,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.MainActivity;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
@@ -59,11 +60,11 @@ public class UserProfilesFragment extends Fragment {
     Model model;
     String longClickUserName;
     ProgressBar progressBar;
-    TextView text, text2;
+    TextView text;
     int posInArray;
-    GifImageButton greenGif;
+    LottieAnimationView greenGif;
 //    GifImageView tapeGif;
-    MultiWaveHeader waveHeader;
+    MultiWaveHeader waveHeader, waveFotter;
 
 
     @Override
@@ -91,29 +92,25 @@ public class UserProfilesFragment extends Fragment {
 //        tapeGif.setVisibility(View.GONE);
 
         text = view.findViewById(R.id.user_profiles_text);
-        text2 = view.findViewById(R.id.user_profiles_style_tv);
         greenGif = view.findViewById(R.id.gif_green);
         greenGif.setOnClickListener(v -> {
             addProfile();
         });
-        ConstraintLayout con = view.findViewById(R.id.cons_view_user_profiles);
+//        ConstraintLayout con = view.findViewById(R.id.cons_view_user_profiles);
 
 //        con.setBackgroundColor(Color.parseColor("#FFFFFF"));
 //
         text.setEnabled(false);
-        text2.setEnabled(false);
-        text2.setVisibility(View.GONE);
         out.println("------------------------------------------------------");
 
 
 
         //TODO: ADD animation of legs lead to the addProfile button
         if(Model.instance.getUser().getProfilesArray().size() > 0){
-            text2.setVisibility(View.VISIBLE);
             text.setVisibility(View.GONE);
             greenGif.setVisibility(View.GONE);
             greenGif.setEnabled(false);
-            con.setBackgroundResource(R.drawable.user_profiles_background);
+//            con.setBackgroundResource(R.drawable.user_profiles_background);
 
 //            con.setBackgroundColor(Color.parseColor("#FFFDF1"));
 //            scroll.setBackgroundColor(Color.parseColor("#FFFDF1"));
@@ -134,6 +131,15 @@ public class UserProfilesFragment extends Fragment {
         profilesButtonsList.add(profile5Btn);
 
         waveHeader = view.findViewById(R.id.MultiWave);
+        waveHeader.setVelocity(1);
+        waveHeader.setProgress(1);
+        waveHeader.isRunning();
+        waveHeader.setGradientAngle(45);
+        waveHeader.setWaveHeight(40);
+        waveHeader.setStartColor(0XFFDEC1);
+        waveHeader.setCloseColor(0Xfff0d3);
+
+        waveHeader = view.findViewById(R.id.MultiWaveFotter);
         waveHeader.setVelocity(1);
         waveHeader.setProgress(1);
         waveHeader.isRunning();
