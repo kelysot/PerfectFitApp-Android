@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_homePageFragment_to_likesFragment"
             app:destination="@id/likesFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_addNewPostStep2"
+            app:destination="@id/addNewPostStep2" />
     </fragment>
     <fragment
         android:id="@+id/addNewPostFragment"
@@ -156,6 +159,9 @@
         <action
             android:id="@+id/action_addNewPostStep1Fragment_to_addNewPostFragment"
             app:destination="@id/addNewPostFragment" />
+        <action
+            android:id="@+id/action_addNewPostStep1Fragment_to_addNewPostStep2"
+            app:destination="@id/addNewPostStep2" />
     </fragment>
     <fragment
         android:id="@+id/commentFragment"
@@ -252,4 +258,9 @@
         android:name="com.example.perfectfitapp_android.profile.edit_profile.EditProfileStep3Fragment"
         android:label="Edit Profile Step 3"
         tools:layout="@layout/fragment_edit_profile_step3" />
+    <fragment
+        android:id="@+id/addNewPostStep2"
+        android:name="com.example.perfectfitapp_android.post.add_post.AddNewPostStep2"
+        android:label="fragment_add_new_post_step2"
+        tools:layout="@layout/fragment_add_new_post_step2" />
 </navigation>

@@ -63,7 +63,7 @@ public class AddNewPostStep1Fragment extends Fragment {
     private String mImageUrl = "";
 
     ImageView image;
-    Button okBtn;
+    Button okBtn, continueBtn;
     Bitmap mBitmap;
     ProgressBar progressBar;
 
@@ -81,6 +81,11 @@ public class AddNewPostStep1Fragment extends Fragment {
         okBtn.setOnClickListener(v -> moveStep2());
 
         image.setOnClickListener(v -> showImagePickDialog());
+        continueBtn = view.findViewById(R.id.continue_2);
+        continueBtn.setOnClickListener(v -> {
+            Navigation.findNavController(okBtn)
+                    .navigate(AddNewPostStep1FragmentDirections.actionAddNewPostStep1FragmentToAddNewPostStep2());
+        });
 
         return view;
     }
@@ -157,14 +162,18 @@ public class AddNewPostStep1Fragment extends Fragment {
         if (mBitmap != null) {
             Model.instance.uploadImage(mBitmap, getActivity(), url -> {
                 mImageUrl = url;
+//                Navigation.findNavController(okBtn)
+//                        .navigate(AddNewPostStep1FragmentDirections.actionAddNewPostStep1FragmentToAddNewPostFragment(mImageUrl));
                 Navigation.findNavController(okBtn)
-                        .navigate(AddNewPostStep1FragmentDirections.actionAddNewPostStep1FragmentToAddNewPostFragment(mImageUrl));
+                        .navigate(AddNewPostStep1FragmentDirections.actionAddNewPostStep1FragmentToAddNewPostStep2());
             });
         } else {
             ArrayList<String> picturesArr = new ArrayList<>();
             Model.instance.getNewPost().setPicturesUrl(picturesArr);
+//            Navigation.findNavController(okBtn)
+//                    .navigate(AddNewPostStep1FragmentDirections.actionAddNewPostStep1FragmentToAddNewPostFragment(mImageUrl));
             Navigation.findNavController(okBtn)
-                    .navigate(AddNewPostStep1FragmentDirections.actionAddNewPostStep1FragmentToAddNewPostFragment(mImageUrl));
+                    .navigate(AddNewPostStep1FragmentDirections.actionAddNewPostStep1FragmentToAddNewPostStep2());
         }
 
     }
