@@ -7,10 +7,26 @@
     android:layout_height="match_parent"
     tools:context=".user_profiles.UserProfilesFragment">
 
+
+    <com.scwang.wave.MultiWaveHeader
+        android:id="@+id/MultiWave"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/user_profiles_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.scwang.wave.MultiWaveHeader>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/consraint_user_profiles"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MultiWave">
 
         <Button
             android:id="@+id/user_profiles_profile1_btn"
