@@ -37,6 +37,7 @@ import com.example.perfectfitapp_android.login.LoginActivity;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.SubCategory;
 import com.example.perfectfitapp_android.model.generalModel;
+import com.scwang.wave.MultiWaveHeader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,6 +63,8 @@ public class UserProfilesFragment extends Fragment {
     int posInArray;
     GifImageButton greenGif;
 //    GifImageView tapeGif;
+    MultiWaveHeader waveHeader;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -129,6 +132,15 @@ public class UserProfilesFragment extends Fragment {
         profilesButtonsList.add(profile3Btn);
         profilesButtonsList.add(profile4Btn);
         profilesButtonsList.add(profile5Btn);
+
+        waveHeader = view.findViewById(R.id.MultiWave);
+        waveHeader.setVelocity(1);
+        waveHeader.setProgress(1);
+        waveHeader.isRunning();
+        waveHeader.setGradientAngle(45);
+        waveHeader.setWaveHeight(40);
+        waveHeader.setStartColor(0XFFDEC1);
+        waveHeader.setCloseColor(0Xfff0d3);
 
 //        imgList = new ArrayList<>();
 

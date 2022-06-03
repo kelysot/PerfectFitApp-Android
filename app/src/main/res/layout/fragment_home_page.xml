@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E7F3E7"
+    android:background="#FFF8E6"
     tools:context=".home.HomePageFragment">
 
 
@@ -22,14 +22,14 @@
         android:id="@+id/postlist_swiperefresh"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/postlist_rv"
@@ -47,30 +47,5 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
-        android:text="Hey ,"
-        android:textColor="#191919"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/home_page_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="Name"
-        android:textColor="#191919"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
-        app:layout_constraintStart_toEndOf="@+id/textView4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

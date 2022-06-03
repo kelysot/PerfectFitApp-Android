@@ -46,7 +46,6 @@ public class HomePageFragment extends Fragment {
 
     HomePageViewModel viewModel;
     MyAdapter adapter;
-    TextView userName;
     SwipeRefreshLayout swipeRefresh;
     Button checkDate, makeGeneral;
     ProgressBar progressBar;
@@ -79,9 +78,6 @@ public class HomePageFragment extends Fragment {
 
         progressBar = view.findViewById(R.id.home_page_progress_bar);
         progressBar.setVisibility(View.GONE);
-
-        userName = view.findViewById(R.id.home_page_name_tv);
-        userName.setText(Model.instance.getProfile().getUserName());
 
         swipeRefresh = view.findViewById(R.id.postlist_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshPostsList());

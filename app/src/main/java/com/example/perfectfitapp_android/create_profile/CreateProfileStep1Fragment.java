@@ -201,7 +201,7 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
             });
         }
         else {
-            mImageUrl = "uploads/f86488dab7577b9c557670dc0f63d2d6.png";
+            mImageUrl = "uploads/bdc5b50e3358d8ffe1a7b3e92fb60c22.png";
             checkIfUserNameExist(view);
         }
     }
