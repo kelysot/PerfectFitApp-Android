@@ -59,7 +59,7 @@ public class UserProfilesFragment extends Fragment {
     ArrayList<CardView> cardViewsList;
     Model model;
     String longClickUserName;
-    ProgressBar progressBar;
+    LottieAnimationView progressBar;
     TextView text;
     int posInArray;
     LottieAnimationView greenGif;

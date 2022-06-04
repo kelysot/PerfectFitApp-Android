@@ -38,6 +38,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
@@ -75,7 +76,7 @@ public class EditPostFragment extends Fragment {
     String postSource;
     ArrayList<String> pics = new ArrayList<>();
     List<String> sizesList, companiesList, colorsList;
-    ProgressBar progressBar;
+    LottieAnimationView progressBar;
 
 
     @Override

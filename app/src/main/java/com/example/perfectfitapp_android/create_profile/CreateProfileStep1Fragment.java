@@ -29,6 +29,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
 import com.google.android.material.textfield.TextInputEditText;
@@ -48,7 +49,7 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
     Bitmap mBitmap;
     CheckBox femaleCB, maleCB, noneCB;
     String gender;
-    ProgressBar progressBar;
+    LottieAnimationView progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

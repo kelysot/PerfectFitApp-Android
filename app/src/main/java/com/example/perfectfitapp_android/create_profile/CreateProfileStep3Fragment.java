@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
 
@@ -26,7 +27,7 @@ public class CreateProfileStep3Fragment extends Fragment {
     Button registerBtn, b, continueBtn;
     ImageView explenationImg;
     Model model;
-    ProgressBar progressBar;
+    LottieAnimationView progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

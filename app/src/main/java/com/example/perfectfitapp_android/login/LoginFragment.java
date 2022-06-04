@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.home.HomePageFragmentDirections;
@@ -34,7 +35,7 @@ public class LoginFragment extends Fragment {
     EditText emailEt, passwordEt;
     Button loginBtn, signupBtn;
     TextView resetPass;
-    ProgressBar progressBar;
+    LottieAnimationView progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
