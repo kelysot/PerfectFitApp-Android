@@ -235,7 +235,7 @@ public class HomePageFragment extends Fragment {
                     }
                 }
                 else{
-                    errorDialog("Opss, There is an error. Please try to connect the app later.");
+                    errorDialog(getResources().getString(R.string.connectionError));
                 }
             });
 
