@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/myCream"
     tools:context=".search.SearchPostsFragment">
 
     <!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
@@ -74,14 +75,14 @@
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/searchposts_no_post_img"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:layout_marginTop="110dp"
         app:layout_constraintEnd_toEndOf="@+id/searchposts_rv"
         app:layout_constraintStart_toStartOf="@+id/searchposts_rv"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_url="https://assets7.lottiefiles.com/packages/lf20_nrtm9xfr.json" />
+        app:lottie_url="https://assets9.lottiefiles.com/packages/lf20_7z9s9li0.json" />
 
     <TextView
         android:id="@+id/searchposts_no_post_tv"
