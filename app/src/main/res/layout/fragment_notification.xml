@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E7F3E7"
+    android:background="@color/myCream"
     tools:context=".notification.NotificationFragment">
 
 
@@ -24,8 +24,10 @@
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/notification_no_post_img"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginTop="110dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="365dp"
+        app:layout_constraintBottom_toBottomOf="@+id/notification_rv"
         app:layout_constraintEnd_toEndOf="@+id/notification_rv"
         app:layout_constraintStart_toStartOf="@+id/notification_rv"
         app:layout_constraintTop_toTopOf="parent"
