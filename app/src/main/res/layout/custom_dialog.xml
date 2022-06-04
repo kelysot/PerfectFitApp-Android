@@ -36,9 +36,9 @@
                 android:id="@+id/img_icon"
                 android:layout_width="120dp"
                 android:layout_height="70dp"
-                android:layout_marginRight="5dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="12dp"
+                android:layout_marginRight="5dp"
                 android:elevation="8dp"
                 android:src="@drawable/logowhite" />
 
@@ -51,9 +51,9 @@
                 android:gravity="center_horizontal"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:textSize="18dp"
                 android:text="Although this is a demo project, And this project is all about the customization of a Dialog Box. We can design whatever we want!"
-                android:textColor="#3A3A3A" />
+                android:textColor="#3A3A3A"
+                android:textSize="18dp" />
 
 
             <LinearLayout
@@ -68,7 +68,7 @@
                     android:id="@+id/btn_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
+                    android:backgroundTint="@color/btnColor"
                     android:text="No"
                     android:textColor="@color/white" />
 
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginLeft="24dp"
-                    android:backgroundTint="@color/black"
+                    android:backgroundTint="@color/btnColor"
                     android:text="Yes"
                     android:textColor="@color/white" />
 

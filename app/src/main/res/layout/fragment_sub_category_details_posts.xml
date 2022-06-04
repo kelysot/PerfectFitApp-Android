@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/myCream"
     tools:context=".sub_category.SubCategoryDetailsPostsFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -39,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="TextView"
-        android:textColor="#8CB88E"
+        android:textColor="#191919"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

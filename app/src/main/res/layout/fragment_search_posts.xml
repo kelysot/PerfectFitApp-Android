@@ -70,11 +70,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/searchposts_no_post_img"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="150dp"
         android:layout_marginTop="110dp"
         app:layout_constraintEnd_toEndOf="@+id/searchposts_rv"
         app:layout_constraintStart_toStartOf="@+id/searchposts_rv"
