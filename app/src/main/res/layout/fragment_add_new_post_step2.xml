@@ -454,7 +454,7 @@
         <ImageView
             android:id="@+id/addnewpost_step2_image_imv"
             android:layout_width="0dp"
-            android:layout_height="350dp"
+            android:layout_height="400dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_image"
             app:layout_constraintEnd_toEndOf="parent"

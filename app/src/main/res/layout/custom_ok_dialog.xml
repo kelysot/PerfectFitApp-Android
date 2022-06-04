@@ -47,13 +47,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:fontFamily="@font/roboto_black"
+                android:fontFamily="@font/dosis_medium"
                 android:gravity="center_horizontal"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:textSize="18dp"
                 android:text="Although this is a demo project, And this project is all about the customization of a Dialog Box. We can design whatever we want!"
-                android:textColor="#3A3A3A" />
+                android:textColor="#3A3A3A"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
 
             <LinearLayout

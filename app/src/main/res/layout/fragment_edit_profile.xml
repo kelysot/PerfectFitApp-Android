@@ -4,199 +4,247 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fafafa"
+    android:background="@color/myCream"
     tools:context=".profile.edit_profile.EditProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fafafa">
+        android:background="@color/myCream">
 
-        <ImageView
-            android:id="@+id/edit_profile_step1_birthday_imv"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="3dp"
-            android:src="@drawable/calendar"
-            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout30"
-            app:layout_constraintStart_toEndOf="@+id/textInputLayout30"
-            app:layout_constraintTop_toTopOf="@+id/textInputLayout30" />
-
-        <TextView
-            android:id="@+id/edit_profile_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:text="Edit Profile"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/edit_profile_step1_image_imv"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="25dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/avatar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_1"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_profile_3"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="16dp"
-            app:boxBackgroundColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/edit_profile_4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_step1_image_imv">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_profile_step1_name_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#fafafa"
-                android:hint="First Name"
-                android:inputType="textPersonName" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout10"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
-            app:boxBackgroundColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/edit_profile_4"
-            app:layout_constraintStart_toEndOf="@+id/edit_profile_3">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_profile_step1_lastname_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#fafafa"
-                android:hint="Last Name"
-                android:inputType="textPersonName" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_profile_4"
-            android:layout_width="300dp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            app:boxBackgroundColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_3">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_profile_step1_username_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#fafafa"
-                android:drawableStart="@drawable/ic_user"
-                android:hint="User Name"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout30"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:boxBackgroundColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_4">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_profile_step1_birthday_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#fafafa"
-                android:hint="Birthday"
-                android:inputType="date"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/edit_profile_step1_continue_btn"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/btnColor"
-            android:text="Continue"
-            app:cornerRadius="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_profile_step1_female_cb" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/edit_profile_step1_add_photo_imv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="195dp"
-            android:layout_marginEnd="74dp"
-            android:layout_marginBottom="41dp"
-            android:backgroundTint="#FAFAFA"
-            android:src="@drawable/ic_addphotoo"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout10"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/edit_profile_step1_image_imv"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <CheckBox
-            android:id="@+id/edit_profile_step1_female_cb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="17dp"
-            android:text="Female"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout30"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout30" />
+                <CheckBox
+                    android:id="@+id/edit_profile_step1_male_cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/dosis"
+                    android:text="Male"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:boxBackgroundColor="@color/white"
+                    app:layout_constraintEnd_toStartOf="@+id/edit_profile_step1_none_cb"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout30" />
 
-        <CheckBox
-            android:id="@+id/edit_profile_step1_male_cb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="Male"
-            app:boxBackgroundColor="@color/white"
-            app:layout_constraintStart_toEndOf="@+id/edit_profile_step1_female_cb"
-            app:layout_constraintTop_toTopOf="@+id/edit_profile_step1_female_cb" />
+                <CheckBox
+                    android:id="@+id/edit_profile_step1_female_cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginEnd="24dp"
+                    android:fontFamily="@font/dosis"
+                    android:text="Female"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/edit_profile_step1_male_cb"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout30" />
 
-        <CheckBox
-            android:id="@+id/edit_profile_step1_none_cb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Prefer not to say"
-            app:boxBackgroundColor="@color/white"
-            app:layout_constraintStart_toEndOf="@+id/edit_profile_step1_male_cb"
-            app:layout_constraintTop_toTopOf="@+id/edit_profile_step1_female_cb" />
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/edit_profile_step1_progress_bar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_url="https://assets9.lottiefiles.com/packages/lf20_ocv8gwxx.json"
+                    tools:layout_editor_absoluteX="156dp"
+                    tools:layout_editor_absoluteY="277dp" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/edit_profile_step1_progress_bar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_url="https://assets9.lottiefiles.com/packages/lf20_ocv8gwxx.json" />
+                <TextView
+                    android:id="@+id/edit_profile_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="130dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginEnd="130dp"
+                    android:fontFamily="@font/dosis_medium"
+                    android:text="Edit Profile"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_profile_4"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="63dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_profile_3">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_profile_step1_username_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#00FAFAFA"
+                        android:drawableStart="@drawable/ic_user"
+                        android:fontFamily="@font/dosis"
+                        android:hint="User Name"
+                        android:inputType="text"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/edit_profile_step1_birthday_imv"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="117dp"
+                    android:src="@drawable/calendar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_profile_4" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/edit_profile_step1_image_imv"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="25dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/avatar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_profile_1"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
+                <CheckBox
+                    android:id="@+id/edit_profile_step1_none_cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginEnd="60dp"
+                    android:fontFamily="@font/dosis"
+                    android:text="Prefer not to say"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:boxBackgroundColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout30" />
+
+                <ImageButton
+                    android:id="@+id/edit_profile_step1_add_photo_imv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="195dp"
+                    android:layout_marginEnd="41dp"
+                    android:backgroundTint="#FAFAFA"
+                    android:src="@drawable/ic_addphotoo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/edit_profile_step1_image_imv"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout30"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:layout_constraintEnd_toStartOf="@+id/edit_profile_step1_birthday_imv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_profile_4">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_profile_step1_birthday_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#00FAFAFA"
+                        android:fontFamily="@font/dosis"
+                        android:hint="Birthday"
+                        android:inputType="date"
+                        android:textColor="@color/black"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/edit_profile_step1_continue_btn"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="70dp"
+                    android:backgroundTint="@color/btnColor"
+                    android:text="Continue"
+                    app:cornerRadius="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_profile_step1_male_cb" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_profile_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="8dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:layout_constraintEnd_toStartOf="@+id/textInputLayout10"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_profile_step1_image_imv">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_profile_step1_name_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#00FAFAFA"
+                        android:fontFamily="@font/dosis"
+                        android:hint="First Name"
+                        android:inputType="textPersonName"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="20dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/edit_profile_3"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_profile_step1_image_imv">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_profile_step1_lastname_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#00FAFAFA"
+                        android:fontFamily="@font/dosis"
+                        android:hint="Last Name"
+                        android:inputType="textPersonName"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

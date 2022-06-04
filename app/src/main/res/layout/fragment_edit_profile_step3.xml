@@ -17,8 +17,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
+            android:fontFamily="@font/dosis_medium"
             android:text="Please write your average shoe size"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,8 +33,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
+            android:fontFamily="@font/dosis_medium"
             android:text="Please write the height using cm and the weight using kg"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,8 +48,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/dosis_medium"
             android:text="Please write the following details in cm:"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,8 +63,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
+            android:fontFamily="@font/dosis_medium"
             android:text="Explanation image is shown below"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,8 +77,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:fontFamily="@font/dosis_medium"
             android:text="Body Sizes"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -91,8 +100,10 @@
                 android:id="@+id/edit_profile_step3_shoulder_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/dosis_medium"
                 android:hint="Shoulder"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -109,8 +120,10 @@
                 android:id="@+id/edit_profile_step3_chest_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/dosis_medium"
                 android:hint="Chest"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -128,8 +141,10 @@
                 android:id="@+id/edit_profile_step3_basin_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/dosis_medium"
                 android:hint="Hips"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -146,8 +161,10 @@
                 android:id="@+id/edit_profile_step3_waist_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/dosis_medium"
                 android:hint="Waist"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -183,8 +200,10 @@
                 android:id="@+id/edit_profile_step3_weight_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/dosis_medium"
                 android:hint="Weight"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textStyle="bold" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -203,8 +222,10 @@
                 android:id="@+id/edit_profile_step3_foot_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/dosis_medium"
                 android:hint="Shoes size"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView

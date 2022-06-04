@@ -55,8 +55,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#00FAFAFA"
+                        android:fontFamily="@font/dosis"
                         android:hint="Last Name"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
@@ -80,8 +83,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="35dp"
+                    android:fontFamily="@font/dosis_medium"
                     android:text="Create New Profile"
-                    android:textSize="20sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -91,11 +95,13 @@
                     android:id="@+id/register_step1_none_cb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/dosis"
                     android:text="Prefer not to say"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/register_step1_male_cb"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout28" />
@@ -130,8 +136,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#00FAFAFA"
+                        android:fontFamily="@font/dosis"
                         android:hint="First Name"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -152,9 +161,12 @@
                         android:layout_height="wrap_content"
                         android:background="#00FAFAFA"
                         android:enabled="false"
+                        android:fontFamily="@font/dosis"
                         android:hint="Birthday"
                         android:inputType="date"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.imageview.ShapeableImageView
@@ -173,10 +185,12 @@
                     android:id="@+id/register_step1_male_cb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="24dp"
+                    android:fontFamily="@font/dosis"
                     android:text="Male"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/register_step1_none_cb"
                     app:layout_constraintStart_toEndOf="@+id/register_step1_female_cb"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout28" />
@@ -211,8 +225,11 @@
                         android:background="#00FAFAFA"
                         android:drawableStart="@drawable/ic_user"
                         android:drawableLeft="@drawable/ic_user"
+                        android:fontFamily="@font/dosis"
                         android:hint="User Name"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <CheckBox
@@ -221,8 +238,10 @@
                     android:layout_height="48dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
+                    android:fontFamily="@font/dosis"
                     android:text="Female"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/register_step1_male_cb"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout28" />

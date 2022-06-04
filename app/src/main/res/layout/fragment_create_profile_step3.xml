@@ -47,8 +47,10 @@
                         android:id="@+id/register_step3_weight_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/dosis_medium"
                         android:hint="Weight"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:textStyle="bold" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -75,8 +77,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:fontFamily="@font/dosis_medium"
                     android:text="Please write your average shoe size"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout24" />
 
@@ -99,8 +103,10 @@
                         android:id="@+id/register_step3_chest_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/dosis_medium"
                         android:hint="Chest"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -110,8 +116,10 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/dosis_medium"
                     android:text="We at PerfectFit want to present you with the most tailored posts for you, so we ask you to fill in the following details:"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -135,8 +143,10 @@
                         android:id="@+id/register_step3_height_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/dosis_medium"
                         android:hint="Height"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -159,8 +169,10 @@
                         android:id="@+id/register_step3_basin_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/dosis_medium"
                         android:hint="Hips"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -182,8 +194,10 @@
                         android:id="@+id/register_step3_waist_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/dosis_medium"
                         android:hint="Waist"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -204,8 +218,10 @@
                         android:id="@+id/register_step3_foot_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/dosis_medium"
                         android:hint="Shoes size"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <View
@@ -250,8 +266,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:fontFamily="@font/dosis_medium"
                     android:text="Body Sizes"
-                    android:textSize="20sp"
+                    android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -263,8 +280,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="12dp"
+                    android:fontFamily="@font/dosis_medium"
                     android:text="Please write the following details in cm"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
@@ -275,8 +294,10 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/dosis_medium"
                     android:text="Please write the height using cm and the weight using kg"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout21" />
@@ -288,8 +309,10 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/dosis_medium"
                     android:text="Explanation image is shown below"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/divider2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView25" />
@@ -313,8 +336,10 @@
                         android:id="@+id/register_step3_shoulder_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/dosis_medium"
                         android:hint="Shoulder"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 <!--                <com.airbnb.lottie.LottieAnimationView-->
