@@ -416,8 +416,7 @@ public class ProfileFragment extends Fragment {
                     }
                 }
                 else{
-                    errorDialog("Opss, There is an error. Please try to connect the app later.");
-//                    System.out.println("1222222233333333344444444444");
+                    errorDialog(getResources().getString(R.string.connectionError));
 //                    Model.instance.refreshToken(tokensList -> {
 //                        refresh();
 //                    });

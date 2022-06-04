@@ -111,8 +111,7 @@ public class WishListFragment extends Fragment {
             else{
                 noPostImg.setVisibility(View.VISIBLE);
                 noPostTv.setVisibility(View.VISIBLE);
-                errorDialog("Opss, There is an error. Please try to connect the app later.");
-                //TODO: dialog
+                errorDialog(getResources().getString(R.string.connectionError));
             }
         });
     }
@@ -192,7 +191,7 @@ public class WishListFragment extends Fragment {
                     }
                 }
                 else{
-                    errorDialog("Opss, There is an error. Please try to connect the app later.");
+                    errorDialog(getResources().getString(R.string.connectionError));
                 }
             });
 
@@ -261,9 +260,7 @@ public class WishListFragment extends Fragment {
                         refresh();
                     }
                     else {
-                        //TODO: dialog
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        errorDialog(getResources().getString(R.string.outError));
                     }
                 });
 

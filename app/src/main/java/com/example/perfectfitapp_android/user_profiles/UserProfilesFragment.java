@@ -88,32 +88,19 @@ public class UserProfilesFragment extends Fragment {
 
         progressBar = view.findViewById(R.id.user_profiles_progress_bar);
         progressBar.setVisibility(View.GONE);
-//        tapeGif = view.findViewById(R.id.the_tape_gif);
-//        tapeGif.setVisibility(View.GONE);
 
         text = view.findViewById(R.id.user_profiles_text);
         greenGif = view.findViewById(R.id.gif_green);
         greenGif.setOnClickListener(v -> {
             addProfile();
         });
-//        ConstraintLayout con = view.findViewById(R.id.cons_view_user_profiles);
 
-//        con.setBackgroundColor(Color.parseColor("#FFFFFF"));
-//
         text.setEnabled(false);
-        out.println("------------------------------------------------------");
 
-
-
-        //TODO: ADD animation of legs lead to the addProfile button
         if(Model.instance.getUser().getProfilesArray().size() > 0){
             text.setVisibility(View.GONE);
             greenGif.setVisibility(View.GONE);
             greenGif.setEnabled(false);
-//            con.setBackgroundResource(R.drawable.user_profiles_background);
-
-//            con.setBackgroundColor(Color.parseColor("#FFFDF1"));
-//            scroll.setBackgroundColor(Color.parseColor("#FFFDF1"));
         }
 
         profilesButtonsList = new ArrayList<>();
@@ -209,7 +196,7 @@ public class UserProfilesFragment extends Fragment {
         for(int j=0; j<profilesButtonsList.size(); j++){
             profilesButtonsList.get(j).setVisibility(View.GONE);
 //            tvList.get(j).setVisibility(View.GONE);
-//            registerForContextMenu(profilesButtonsList.get(j));
+            registerForContextMenu(profilesButtonsList.get(j));
         }
 
         for(int i=0; i < Model.instance.getUser().getProfilesArray().size(); i++){
@@ -255,11 +242,6 @@ public class UserProfilesFragment extends Fragment {
                 b.setText("Create New Profile");
                 b.setVisibility(View.VISIBLE);
                 b.setBackgroundColor(Color.parseColor("#2EB39B"));
-
-//                b.setTextColor(Color.parseColor("#2EB39B"));
-//                b.setHighlightColor(Color.parseColor("#2EB39B"));
-//                b.setHintTextColor(Color.parseColor("#2EB39B"));
-
                 b.setOnClickListener(v -> {
                     b.setEnabled(false);
                     addProfile();
@@ -272,12 +254,11 @@ public class UserProfilesFragment extends Fragment {
     private void moveToHomePageWithProfile(String userName) {
         setButtonsEnable(false);
         progressBar.setVisibility(View.VISIBLE);
-//        tapeGif.setVisibility(View.VISIBLE);
         if(!Model.instance.getProfile().getUserName().isEmpty()){
             if(profilesButtonsList.contains(Model.instance.getProfile().getUserName())){
                 Model.instance.getProfile().setStatus("false");
-                out.println("the profile: " + Model.instance.getProfile());
-                out.println("----------------" + Model.instance.getProfile().getUserName());
+//                out.println("the profile: " + Model.instance.getProfile());
+//                out.println("----------------" + Model.instance.getProfile().getUserName());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
                     if(isSuccess){
                         changeProfile(userName);
@@ -285,7 +266,6 @@ public class UserProfilesFragment extends Fragment {
                     else{
                         // TODO dialog
                         progressBar.setVisibility(View.GONE);
-//                        tapeGif.setVisibility(View.GONE);
                         Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
                                 Toast.LENGTH_LONG).show();
                         Log.d("TAG", "failed in UserProfile in editProfile - change status to false");
@@ -331,28 +311,14 @@ public class UserProfilesFragment extends Fragment {
                     }
                     else{
                         progressBar.setVisibility(View.GONE);
-//                        tapeGif.setVisibility(View.GONE);
-                        //TODO: dialog
-                        Log.d("TAG", "failed in UserProfileFragment 1");
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                         setButtonsEnable(true);
                     }
                 });
             }
             else{
                 progressBar.setVisibility(View.GONE);
-//                tapeGif.setVisibility(View.GONE);
                 setButtonsEnable(true);
-//                Log.d("TAG", "failed in UserProfileFragment 1");
-//                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-//                        Toast.LENGTH_LONG).show();
-//                setButtonsEnable(true);
-//                progressBar.setVisibility(View.GONE);
-//
-//                System.out.println("maybe forbidden - need to check it");
-//                startActivity(new Intent(getContext(), LoginActivity.class));
-//                getActivity().finish();
             }
         });
     }
@@ -361,14 +327,10 @@ public class UserProfilesFragment extends Fragment {
 
         greenGif.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
-//        tapeGif.setVisibility(View.VISIBLE);
-
-        //TODO: open dialog about the amount of profiles
 
         if(Model.instance.getUser().getProfilesArray().size() == 5){
-            showOkDialog();
+            showOkDialog("Sorry, you can only have 5 profiles.");
             progressBar.setVisibility(View.GONE);
-//            tapeGif.setVisibility(View.GONE);
         }
         else{
             Navigation.findNavController(greenGif).navigate(R.id.action_userProfilesFragment2_to_createProfileStep1Fragment2);
@@ -390,7 +352,7 @@ public class UserProfilesFragment extends Fragment {
                 Model.instance.setProfile(profile);
             }
             else{
-                //TODO: dialog
+                showOkDialog(getResources().getString(R.string.outError));
             }
         });
     }
@@ -402,9 +364,7 @@ public class UserProfilesFragment extends Fragment {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()) {
             case R.id.profile_edit_menuItem:{
-                // TODO: add the edit profile here
                 progressBar.setVisibility(View.VISIBLE);
-//                tapeGif.setVisibility(View.VISIBLE);
                 Navigation.findNavController(this.getView()).navigate(R.id.action_userProfilesFragment2_to_editProfileFragment2);
                 return true;
             }
@@ -419,9 +379,7 @@ public class UserProfilesFragment extends Fragment {
     }
 
     private void delete() {
-        //TODO: check delete
         progressBar.setVisibility(View.VISIBLE);
-//        tapeGif.setVisibility(View.VISIBLE);
         Model.instance.deleteProfile(longClickUserName,isSuccess -> {
             if(isSuccess){
                 Model.instance.getUser().getProfilesArray().remove(posInArray); //current user
@@ -429,12 +387,10 @@ public class UserProfilesFragment extends Fragment {
 //                        imgList.remove(posInArray);
                 setButtons();
                 progressBar.setVisibility(View.GONE);
-//                tapeGif.setVisibility(View.GONE);
                 Navigation.findNavController(this.getView()).navigate(R.id.action_global_userProfilesFragment2);
 
             }else{
-                //TODO: dialog
-                Log.d("TAG","not work");
+                showOkDialog(getResources().getString(R.string.outError));
             }
         });
     }
@@ -463,14 +419,14 @@ public class UserProfilesFragment extends Fragment {
         dialog.show();
     }
 
-    private void showOkDialog(){
+    private void showOkDialog(String str){
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_ok_dialog);
 
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
 
         TextView tx = dialog.findViewById(R.id.txtDesc);
-        tx.setText("Sorry, you can only have 5 profiles.");
+        tx.setText(str);
 
         Button btnOk = dialog.findViewById(R.id.btn_ok);
         btnOk.setOnClickListener(v -> dialog.dismiss());
@@ -524,12 +480,13 @@ public class UserProfilesFragment extends Fragment {
                 });
             }
             else{
-                //TODO: dialog
+
                 if(Model.instance.getRefreshFlag()){
                     Model.instance.setRefreshFlag(false);
                     startActivity(new Intent(getContext(), LoginActivity.class));
                     getActivity().finish();
                 }
+                //TODO: dialog
                 Toast.makeText(MyApplication.getContext(), "Can't logout",
                         Toast.LENGTH_LONG).show();
             }
@@ -549,7 +506,6 @@ public class UserProfilesFragment extends Fragment {
         btnNo.setOnClickListener(v -> dialog.dismiss());
 
         Button btnYes = dialog.findViewById(R.id.btn_yes);
-//        btnYes.setOnClickListener(v -> logout());
         btnYes.setOnClickListener(v -> {
             btnYes.setEnabled(false);
             btnNo.setEnabled(false);
@@ -561,4 +517,5 @@ public class UserProfilesFragment extends Fragment {
 
         dialog.show();
     }
+
 }
