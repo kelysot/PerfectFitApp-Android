@@ -84,13 +84,13 @@ public class CreateUserFragment extends Fragment {
                             } else {
                                 progressBar.setVisibility(View.GONE);
                                 registerBtn.setEnabled(true);
-                                showOkDialog("Opss.. something wrong. Please try later");
+                                showOkDialog(getResources().getString(R.string.outError));
                             }
                         });
                     } else {
                         progressBar.setVisibility(View.GONE);
                         registerBtn.setEnabled(true);
-                        showOkDialog("Opss.. something wrong. Please try later");
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
             } else {

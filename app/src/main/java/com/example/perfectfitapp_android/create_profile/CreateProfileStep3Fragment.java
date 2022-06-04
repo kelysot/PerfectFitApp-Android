@@ -130,13 +130,13 @@ public class CreateProfileStep3Fragment extends Fragment {
                         } else {
                             registerBtn.setEnabled(true);
                             progressBar.setVisibility(View.GONE);
-                            showOkDialog("Opss.. There is something wrong. Please try again later");
+                            showOkDialog(getResources().getString(R.string.outError));
                         }
                     });
                 } else {
                     registerBtn.setEnabled(true);
                     progressBar.setVisibility(View.GONE);
-                    showOkDialog("Opss.. There is something wrong. Please try again later");
+                    showOkDialog(getResources().getString(R.string.outError));
                 }
             });
         }

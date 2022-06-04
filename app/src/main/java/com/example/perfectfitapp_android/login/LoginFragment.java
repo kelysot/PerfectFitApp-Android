@@ -105,8 +105,7 @@ public class LoginFragment extends Fragment {
                     } else {
                         progressBar.setVisibility(View.GONE);
                         loginBtn.setEnabled(true);
-                        String str = "Opss.. Something wrong. Please try later";
-                        showOkDialog(str);
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
             } else {

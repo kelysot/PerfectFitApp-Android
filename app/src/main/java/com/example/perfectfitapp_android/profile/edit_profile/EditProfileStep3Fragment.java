@@ -159,7 +159,7 @@ public class EditProfileStep3Fragment extends Fragment {
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
 
         TextView tx = dialog.findViewById(R.id.txtDesc);
-        tx.setText("Opss.. There is something wrong. Please try again later");
+        tx.setText(getResources().getString(R.string.outError));
 
         Button btnOk = dialog.findViewById(R.id.btn_ok);
         btnOk.setOnClickListener(v -> dialog.dismiss());
