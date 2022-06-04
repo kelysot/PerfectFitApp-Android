@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.User;
@@ -27,7 +28,7 @@ public class ResetPasswordFragment extends Fragment {
     EditText codeEt, passEt;
     Button resetPassBtn;
     String code, email;
-    ProgressBar progressBar;
+    LottieAnimationView progressBar;
 
     public ResetPasswordFragment() {}
 

@@ -48,7 +48,7 @@ public class SearchPostsFragment extends Fragment {
     EditText searchEt;
     ImageButton searchBtn;
     String theSearch;
-    ProgressBar progressBar;
+    LottieAnimationView progressBar;
     LottieAnimationView noPostImg;
     TextView noPostTv;
 

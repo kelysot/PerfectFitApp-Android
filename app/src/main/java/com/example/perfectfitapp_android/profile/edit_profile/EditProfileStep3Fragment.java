@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.profile.ModelProfile;
@@ -27,7 +28,7 @@ public class EditProfileStep3Fragment extends Fragment {
     EditText shoulderEt, chestEt, basinEt, waistEt, heightEt, weightEt, footEt;
     Button saveChangesBtn;
     ImageView explenationImg;
-    ProgressBar progressBar;
+    LottieAnimationView progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

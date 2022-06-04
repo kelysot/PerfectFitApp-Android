@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.user_profiles.UserProfilesActivity;
@@ -31,7 +32,7 @@ public class CreateUserFragment extends Fragment {
 
     EditText emailEt, passwordEt;
     Button registerBtn;
-    ProgressBar progressBar;
+    LottieAnimationView progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

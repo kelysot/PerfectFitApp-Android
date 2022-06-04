@@ -95,15 +95,19 @@
                     app:layout_constraintStart_toEndOf="@+id/register_step2_budyimage_imv"
                     app:layout_constraintTop_toTopOf="@+id/register_step2_budyimage_imv" />
 
-                <ProgressBar
+
+                <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/register_step2_progress_bar"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="97dp"
-                    android:layout_height="112dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_url="https://assets9.lottiefiles.com/packages/lf20_ocv8gwxx.json" />
+
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/register_step2_card"

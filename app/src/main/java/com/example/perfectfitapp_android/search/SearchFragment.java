@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.generalModel;
@@ -30,7 +31,7 @@ public class SearchFragment extends Fragment {
 
     Button categoryBtn, sizeBtn, companyBtn, colorBtn, bodyTypeBtn, genderBtn, searchBtn;
     EditText priceFromEt, priceToEt;
-    ProgressBar progressBar;
+    LottieAnimationView progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

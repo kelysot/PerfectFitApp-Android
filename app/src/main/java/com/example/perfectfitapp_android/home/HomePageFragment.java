@@ -27,6 +27,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.login.LoginActivity;
@@ -48,7 +49,7 @@ public class HomePageFragment extends Fragment {
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
     Button checkDate, makeGeneral;
-    ProgressBar progressBar;
+    LottieAnimationView progressBar;
     int likesSize = 0;
 
 
