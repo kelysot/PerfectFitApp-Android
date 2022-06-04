@@ -24,7 +24,7 @@
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/notification_no_post_img"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="250dp"
         android:layout_marginTop="200dp"
         android:layout_marginBottom="365dp"
         app:layout_constraintBottom_toBottomOf="@+id/notification_rv"
@@ -33,13 +33,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_url="https://assets9.lottiefiles.com/datafiles/7fhdA6zZsyPRcTo/data.json" />
+        app:lottie_url="https://assets5.lottiefiles.com/packages/lf20_opbp63is.json" />
 
     <TextView
         android:id="@+id/notification_no_post_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="No notification yet"
         android:textColor="@color/black"
