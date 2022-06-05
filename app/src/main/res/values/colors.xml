@@ -16,4 +16,5 @@
     <color name="btnColor">#191919</color>
     <color name="myGreen1">#E7F3E7</color>
     <color name="myPurple">#EEE3FF</color>
+    <color name="mybtnlogin">#EDA47C</color>
 </resources>
