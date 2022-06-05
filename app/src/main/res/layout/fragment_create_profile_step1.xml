@@ -111,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="58dp"
-                    android:backgroundTint="#FAFAFA"
+                    android:backgroundTint="#00FAFAFA"
                     android:src="@drawable/ic_addphotoo"
                     app:layout_constraintBottom_toBottomOf="@+id/register_step1_image_imv"
                     app:layout_constraintEnd_toEndOf="parent"

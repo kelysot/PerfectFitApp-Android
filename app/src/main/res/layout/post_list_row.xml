@@ -42,8 +42,10 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="44dp"
+            android:fontFamily="@font/dosis_medium"
             android:textColor="#000000"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/listrow_time_ago_tv"
             app:layout_constraintStart_toEndOf="@+id/listrow_avatar_imv"
             app:layout_constraintTop_toTopOf="parent" />
@@ -65,7 +67,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:background="#00FFFFFF"
+            android:fontFamily="@font/dosis_medium"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/listrow_post_likes_btn" />
@@ -76,8 +80,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="4dp"
+            android:fontFamily="@font/dosis_medium"
             android:text="category"
             android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/listrow_avatar_imv"
             app:layout_constraintTop_toBottomOf="@+id/listrow_username_tv" />
 
@@ -87,8 +93,10 @@
             android:layout_height="30dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="1dp"
+            android:fontFamily="@font/dosis_medium"
             android:text="/"
             android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/listrow_subcategory_tv"
             app:layout_constraintStart_toEndOf="@+id/listrow_category_tv"
             app:layout_constraintTop_toBottomOf="@+id/listrow_username_tv" />
@@ -99,8 +107,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="74dp"
+            android:fontFamily="@font/dosis_medium"
             android:text="subCategory"
             android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView10"
             app:layout_constraintTop_toBottomOf="@+id/listrow_username_tv" />
@@ -112,9 +122,11 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="16dp"
+            android:fontFamily="@font/dosis_medium"
             android:text="likes"
             android:textColor="#000000"
-            android:textSize="14sp"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/listrow_description_tv" />
@@ -127,6 +139,7 @@
             android:layout_marginEnd="16dp"
             android:text="TextView"
             android:textSize="12sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
