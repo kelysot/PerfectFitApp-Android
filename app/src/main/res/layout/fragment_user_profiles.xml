@@ -26,7 +26,7 @@
         <Button
             android:id="@+id/user_profiles_profile1_btn"
             style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="359dp"
+            android:layout_width="300dp"
             android:layout_height="75dp"
             android:layout_marginTop="40dp"
             android:fontFamily="@font/dosis_medium"
@@ -37,6 +37,7 @@
             android:textColorHint="@color/buttonUserProfilesBtns"
             android:textSize="24sp"
             android:textStyle="bold"
+            app:cornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/MultiWave"
@@ -46,7 +47,7 @@
         <Button
             android:id="@+id/user_profiles_profile5_btn"
             style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="359dp"
+            android:layout_width="300dp"
             android:layout_height="75dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/dosis_medium"
@@ -57,6 +58,7 @@
             android:textColorHint="@color/buttonUserProfilesBtns"
             android:textSize="24sp"
             android:textStyle="bold"
+            app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +69,7 @@
         <Button
             android:id="@+id/user_profiles_profile4_btn"
             style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="359dp"
+            android:layout_width="300dp"
             android:layout_height="75dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/dosis_medium"
@@ -78,6 +80,7 @@
             android:textColorHint="@color/buttonUserProfilesBtns"
             android:textSize="24sp"
             android:textStyle="bold"
+            app:cornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_profiles_profile3_btn"
@@ -86,7 +89,7 @@
         <Button
             android:id="@+id/user_profiles_profile3_btn"
             style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="359dp"
+            android:layout_width="300dp"
             android:layout_height="75dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/dosis_medium"
@@ -97,6 +100,7 @@
             android:textColorHint="@color/buttonUserProfilesBtns"
             android:textSize="24sp"
             android:textStyle="bold"
+            app:cornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_profiles_profile2_btn"
@@ -105,7 +109,7 @@
         <Button
             android:id="@+id/user_profiles_profile2_btn"
             style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="359dp"
+            android:layout_width="300dp"
             android:layout_height="75dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/dosis_medium"
@@ -116,6 +120,7 @@
             android:textColorHint="@color/buttonUserProfilesBtns"
             android:textSize="24sp"
             android:textStyle="bold"
+            app:cornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_profiles_profile1_btn"
@@ -145,7 +150,6 @@
             android:id="@+id/gif_green"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            app:layout_constraintBottom_toBottomOf="@+id/MultiWaveFotter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -178,21 +182,6 @@
             app:lottie_loop="true"
             app:lottie_url="https://assets9.lottiefiles.com/packages/lf20_ocv8gwxx.json" />
 
-
-        <com.scwang.wave.MultiWaveHeader
-            android:id="@+id/MultiWaveFotter"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="520dp"
-            android:background="@drawable/user_profiles_background"
-            android:scaleY="-1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/MultiWave">
-
-        </com.scwang.wave.MultiWaveHeader>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

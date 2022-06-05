@@ -162,6 +162,7 @@ public class ProfileFragment extends Fragment {
         RecyclerView postsList = view.findViewById(R.id.profile_user_posts_rv);
         postsList.setHasFixedSize(true);
         postsList.setLayoutManager(new LinearLayoutManager(getContext()));
+        //postsList.setNestedScrollingEnabled(false);
 
         adapter = new MyAdapter();
         postsList.setAdapter(adapter);

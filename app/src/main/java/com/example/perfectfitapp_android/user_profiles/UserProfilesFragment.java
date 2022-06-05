@@ -26,7 +26,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -117,6 +119,28 @@ public class UserProfilesFragment extends Fragment {
         profilesButtonsList.add(profile4Btn);
         profilesButtonsList.add(profile5Btn);
 
+        //btn animation
+        profile1Btn.setAlpha(0f);
+        profile1Btn.setTranslationY(50);
+        profile1Btn.animate().alpha(1f).translationYBy(-50).setDuration(500);
+
+        profile2Btn.setAlpha(0f);
+        profile2Btn.setTranslationY(50);
+        profile2Btn.animate().alpha(1f).translationYBy(-50).setDuration(1000);
+
+        profile3Btn.setAlpha(0f);
+        profile3Btn.setTranslationY(50);
+        profile3Btn.animate().alpha(1f).translationYBy(-50).setDuration(1500);
+
+        profile4Btn.setAlpha(0f);
+        profile4Btn.setTranslationY(50);
+        profile4Btn.animate().alpha(1f).translationYBy(-50).setDuration(2000);
+
+        profile5Btn.setAlpha(0f);
+        profile5Btn.setTranslationY(50);
+        profile5Btn.animate().alpha(1f).translationYBy(-50).setDuration(2500);
+
+
         waveHeader = view.findViewById(R.id.MultiWave);
         waveHeader.setVelocity(1);
         waveHeader.setProgress(1);
@@ -126,14 +150,14 @@ public class UserProfilesFragment extends Fragment {
         waveHeader.setStartColor(0XFFDEC1);
         waveHeader.setCloseColor(0Xfff0d3);
 
-        waveHeader = view.findViewById(R.id.MultiWaveFotter);
+        /*waveHeader = view.findViewById(R.id.MultiWaveFotter);
         waveHeader.setVelocity(1);
         waveHeader.setProgress(1);
         waveHeader.isRunning();
         waveHeader.setGradientAngle(45);
         waveHeader.setWaveHeight(40);
         waveHeader.setStartColor(0XFFDEC1);
-        waveHeader.setCloseColor(0Xfff0d3);
+        waveHeader.setCloseColor(0Xfff0d3);*/
 
 //        imgList = new ArrayList<>();
 
@@ -241,7 +265,11 @@ public class UserProfilesFragment extends Fragment {
                 Button b = profilesButtonsList.get(Model.instance.getUser().getProfilesArray().size());
                 b.setText("Create New Profile");
                 b.setVisibility(View.VISIBLE);
-                b.setBackgroundColor(Color.parseColor("#2EB39B"));
+                b.setBackgroundColor(Color.parseColor("#191919"));
+                b.setTextColor(Color.parseColor("#FFFFFF"));
+                b.getLayoutParams().height = 150;
+                b.getLayoutParams().width = 620;
+                b.setTextSize(16);
                 b.setOnClickListener(v -> {
                     b.setEnabled(false);
                     addProfile();
