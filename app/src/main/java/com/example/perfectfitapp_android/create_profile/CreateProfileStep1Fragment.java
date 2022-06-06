@@ -35,7 +35,10 @@ import com.example.perfectfitapp_android.model.Model;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.InputStream;
+import java.time.Year;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 public class CreateProfileStep1Fragment extends Fragment implements DatePickerDialog.OnDateSetListener {
@@ -276,6 +279,17 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
                 Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+
+        datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            int theYear = Year.now().getValue();
+            theYear = theYear-120;
+            Calendar call = new GregorianCalendar();
+            call.set(theYear, 1, 1);
+            datePickerDialog.getDatePicker().setMinDate(call.getTime().getTime());
+        }
+
         datePickerDialog.show();
     }
 
