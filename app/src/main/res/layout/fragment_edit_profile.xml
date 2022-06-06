@@ -150,7 +150,7 @@
                     android:layout_marginStart="17dp"
                     android:layout_marginTop="195dp"
                     android:layout_marginEnd="41dp"
-                    android:backgroundTint="#FAFAFA"
+                    android:backgroundTint="#00FAFAFA"
                     android:src="@drawable/ic_addphotoo"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/edit_profile_step1_image_imv"
