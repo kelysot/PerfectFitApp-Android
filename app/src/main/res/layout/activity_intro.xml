@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_background"
+    android:background="@color/myCream"
     tools:context=".IntroActivity">
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="349dp"
-        android:layout_height="175dp"
+        android:layout_width="400dp"
+        android:layout_height="250dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="292dp"
         android:layout_marginEnd="30dp"
@@ -19,5 +19,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logowhite" />
+        app:srcCompat="@drawable/logo_black_2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

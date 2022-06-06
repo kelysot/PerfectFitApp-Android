@@ -25,8 +25,9 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView4"
         android:layout_width="300dp"
-        android:layout_height="95dp"
+        android:layout_height="80dp"
         android:layout_marginTop="10dp"
+        app:cardBackgroundColor="#D0FFFFFF"
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +35,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#D0FFFFFF"
+            android:backgroundTint="#D0FFFFFF">
 
             <TextView
                 android:id="@+id/profile_num_followers_tv"

@@ -431,7 +431,7 @@ public class ProfileFragment extends Fragment {
                 });
             } else {
                 Picasso.get()
-                        .load(R.drawable.pic1_shirts).resize(250, 180)
+                        .load(R.drawable.ic_image).resize(250, 180)
                         .centerCrop()
                         .into(holder.postPic);
             }
