@@ -11,7 +11,7 @@
         android:title="Profile"/>
     <item
         android:id="@+id/categoryFragment"
-        android:icon="@drawable/ic_search"
+        android:icon="@drawable/ic_search3"
         android:title="Category"/>
     <item
         android:id="@+id/notificationFragment"

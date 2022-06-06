@@ -1,5 +1,6 @@
 package com.example.perfectfitapp_android.search;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -93,12 +94,15 @@ public class SearchFeatureFragment extends Fragment {
                 String fr = theList.get(position);
                 if(listToSave.contains(fr)){
                     listToSave.remove(fr);
+                    itemView.setBackgroundColor(Color.parseColor("#fafafa"));
                 }
                 else{
                     listToSave.add(fr);
+                    itemView.setBackgroundColor(Color.parseColor("#F5F5F5"));
                 }
                 SearchModel.instance.mapToServer.put(feature, listToSave);
                 System.out.println(SearchModel.instance.mapToServer);
+
             });
         }
     }
@@ -129,6 +133,7 @@ public class SearchFeatureFragment extends Fragment {
 
             String a = theList.get(position);
             holder.nameTv.setText(theList.get(position));
+
             //TODO: set checked to the cb
 
             if(SearchModel.instance.mapToServer.get(feature) != null){

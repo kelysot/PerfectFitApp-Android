@@ -55,7 +55,8 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:src="@drawable/ic_search1"
+        android:background="#00FAFAFA"
+        android:src="@drawable/ic_search3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/searchposts_text_et"
         app:layout_constraintTop_toTopOf="parent" />
