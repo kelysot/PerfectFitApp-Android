@@ -90,8 +90,6 @@ public class EditProfileStep2Fragment extends Fragment {
 
         if (ModelProfile.instance.getEditProfile().getGender().equals("Female")) {
 
-            //TODO: find Pear/Apple picture
-
             // if its a female:
             resBodyType.add(R.drawable.body_hourglass_female);
             resBodyType.add(R.drawable.body_pear_female);

@@ -229,7 +229,6 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
     }
 
     private void continueStep3(View view) {
-        //TODO: add validations
         String firstName = firstNameEt.getText().toString();
         String lastName = lastNameEt.getText().toString();
         String userName = userNameEt.getText().toString();

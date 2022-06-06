@@ -6,7 +6,7 @@
     <string name="URL">http://10.0.2.2:4000</string>
 <!--    <string name="URL">http://193.106.55.142:4000</string>-->
 
-    <string name="outError">Opss, There is something wrong. Please try later.</string>
+    <string name="outError">Opss, There is something wrong. \n Please try later.</string>
     <string name="connectionError">Opss, There is an error. Please try to connect the app later.</string>
 
     <string-array name="gender">

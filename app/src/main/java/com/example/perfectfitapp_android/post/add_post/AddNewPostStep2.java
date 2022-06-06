@@ -3,6 +3,7 @@ package com.example.perfectfitapp_android.post.add_post;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -30,11 +31,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
+import com.example.perfectfitapp_android.login.LoginActivity;
 import com.example.perfectfitapp_android.model.Model;
 import com.example.perfectfitapp_android.model.Post;
 import com.example.perfectfitapp_android.model.generalModel;
@@ -106,7 +109,6 @@ public class AddNewPostStep2 extends Fragment {
     String link, price;
     String sizeAdj, rating;
 
-    //TODO: Make all fields require.
     private void post(View view) {
 
         progressBar.setVisibility(View.VISIBLE);
@@ -128,7 +130,6 @@ public class AddNewPostStep2 extends Fragment {
         sizeAdj = String.valueOf(sizeAdjSk.getRating());
         price = priceEt.getText().toString();
 
-        //TODO: add validations
 
         boolean flag = true;
 
@@ -161,13 +162,10 @@ public class AddNewPostStep2 extends Fragment {
             productNameEt.setError("Please enter product name.");
             flag = false;
         }
-
-
-        //TODO: Require or not:
-
         if(description.isEmpty()){
-            description = "-";
+            descriptionEt.setError("Please enter description.");
         }
+
         if (sku.isEmpty()){
             sku = "-";
         }
@@ -242,11 +240,9 @@ public class AddNewPostStep2 extends Fragment {
                 Navigation.findNavController(postBtn)
                         .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
             } else {
-                //TODO: dialog
                 postBtn.setEnabled(true);
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(MyApplication.getContext(), "Post didn't saved",
-                        Toast.LENGTH_LONG).show();
+                errorDialog(getResources().getString(R.string.outError));
             }
         });
 
@@ -399,5 +395,30 @@ public class AddNewPostStep2 extends Fragment {
                 }
             }
         }
+    }
+
+    public void errorDialog(String str){
+
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText(str);
+
+        Button btnNo = dialog.findViewById(R.id.btn_no);
+        btnNo.setText("OK");
+
+        btnNo.setOnClickListener(v -> {
+            btnNo.setEnabled(false);
+            dialog.dismiss();
+        });
+
+        Button btnYes = dialog.findViewById(R.id.btn_yes);
+        btnYes.setVisibility(View.GONE);
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setVisibility(View.GONE);
+        dialog.show();
     }
 }

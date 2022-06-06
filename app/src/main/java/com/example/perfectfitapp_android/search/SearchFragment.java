@@ -106,75 +106,83 @@ public class SearchFragment extends Fragment {
 
         searchBtn = view.findViewById(R.id.search_search_btn);
         searchBtn.setOnClickListener(v -> {
-
-            progressBar.setVisibility(View.VISIBLE);
-            searchBtn.setEnabled(false);
-            int count = 0;
-
-            //TODO: check if isEmpty
-            if(SearchModel.instance.mapToServer.get("Sizes").isEmpty()){
-                SearchModel.instance.mapToServer.put("Sizes", generalModel.instance.map.get("Sizes"));
-                count++;
-            }
-            if(SearchModel.instance.mapToServer.get("Categories").isEmpty()){
-                SearchModel.instance.mapToServer.put("Categories", generalModel.instance.map.get("Categories"));
-                count++;
-            }
-            if(SearchModel.instance.mapToServer.get("Colors").isEmpty()){
-                SearchModel.instance.mapToServer.put("Colors", generalModel.instance.map.get("Colors"));
-                count++;
-            }if(SearchModel.instance.mapToServer.get("Companies").isEmpty()){
-                SearchModel.instance.mapToServer.put("Companies", generalModel.instance.map.get("Companies"));
-                count++;
-            }
-            if(SearchModel.instance.mapToServer.get("BodyTypes").isEmpty()){
-                SearchModel.instance.mapToServer.put("BodyTypes", generalModel.instance.map.get("BodyTypes"));
-                count++;
-            }
-            if(SearchModel.instance.mapToServer.get("Gender").isEmpty()){
-                SearchModel.instance.mapToServer.put("Gender", generalModel.instance.map.get("Gender"));
-                count++;
-            }
-
-            List<String> countList = new ArrayList<>();
-            if(count == 6){
-                countList.add("true");
-            }
-            else{
-                countList.add("false");
-            }
-            SearchModel.instance.mapToServer.put("Count", countList);
-
-            List<String> priceList = new ArrayList<>();
-            String priceFrom = priceFromEt.getText().toString().trim();
-            if(priceFrom.isEmpty()){
-                priceFrom = "false";
-            }
-            String priceTo = priceToEt.getText().toString().trim();
-            if(priceTo.isEmpty()){
-                priceTo = "false";
-            }
-            priceList.add(priceFrom);
-            priceList.add(priceTo);
-            SearchModel.instance.mapToServer.put("Price", priceList);
-
-            Model.instance.getSearchPosts(SearchModel.instance.mapToServer, posts -> {
-                if(posts != null){
-                    setMapToServer();
-                    SearchModel.instance.list = posts;
-                    Navigation.findNavController(view).navigate(SearchFragmentDirections.actionSearchFragmentToSearchPostsFragment());
-                }
-                else{
-                    System.out.println("problem at searchFragment 1");
-                    progressBar.setVisibility(View.GONE);
-                    searchBtn.setEnabled(true);
-                    //TODO: dialog
-                    showOkDialog();
-                }
-            });
+            search();
         });
 
         return view;
+    }
+
+
+    public void search(){
+
+        progressBar.setVisibility(View.VISIBLE);
+        searchBtn.setEnabled(false);
+        int count = 0;
+
+        //TODO: check if isEmpty
+        if(SearchModel.instance.mapToServer.get("Sizes").isEmpty()){
+            SearchModel.instance.mapToServer.put("Sizes", generalModel.instance.map.get("Sizes"));
+            count++;
+        }
+        if(SearchModel.instance.mapToServer.get("Categories").isEmpty()){
+            SearchModel.instance.mapToServer.put("Categories", generalModel.instance.map.get("Categories"));
+            count++;
+        }
+        if(SearchModel.instance.mapToServer.get("Colors").isEmpty()){
+            SearchModel.instance.mapToServer.put("Colors", generalModel.instance.map.get("Colors"));
+            count++;
+        }if(SearchModel.instance.mapToServer.get("Companies").isEmpty()){
+            SearchModel.instance.mapToServer.put("Companies", generalModel.instance.map.get("Companies"));
+            count++;
+        }
+        if(SearchModel.instance.mapToServer.get("BodyTypes").isEmpty()){
+            SearchModel.instance.mapToServer.put("BodyTypes", generalModel.instance.map.get("BodyTypes"));
+            count++;
+        }
+        if(SearchModel.instance.mapToServer.get("Gender").isEmpty()){
+            SearchModel.instance.mapToServer.put("Gender", generalModel.instance.map.get("Gender"));
+            count++;
+        }
+
+        List<String> countList = new ArrayList<>();
+        if(count == 6){
+            countList.add("true");
+        }
+        else{
+            countList.add("false");
+        }
+        SearchModel.instance.mapToServer.put("Count", countList);
+
+        List<String> priceList = new ArrayList<>();
+        String priceFrom = priceFromEt.getText().toString().trim();
+        if(priceFrom.isEmpty()){
+            priceFrom = "false";
+        }
+        String priceTo = priceToEt.getText().toString().trim();
+        if(priceTo.isEmpty()){
+            priceTo = "false";
+        }
+        priceList.add(priceFrom);
+        priceList.add(priceTo);
+        SearchModel.instance.mapToServer.put("Price", priceList);
+
+        Model.instance.getSearchPosts(SearchModel.instance.mapToServer, posts -> {
+            if(posts != null){
+                setMapToServer();
+                SearchModel.instance.list = posts;
+                Navigation.findNavController(bodyTypeBtn).navigate(SearchFragmentDirections.actionSearchFragmentToSearchPostsFragment());
+            }
+            else{
+                System.out.println("problem at searchFragment 1");
+                progressBar.setVisibility(View.GONE);
+                searchBtn.setEnabled(true);
+                //TODO: dialog
+                showOkDialog();
+            }
+        });
+
+
+
     }
 
     //TODO: this function need to be called when we press on "filter" button.
@@ -192,7 +200,7 @@ public class SearchFragment extends Fragment {
             }
             else{
 
-                //TODO: dialog
+                showOkDialog();
             }
         });
 //        Model.instance.getAllCategoriesListener(categoryList -> {
@@ -227,7 +235,9 @@ public class SearchFragment extends Fragment {
         tx.setText(getResources().getString(R.string.outError));
 
         Button btnOk = dialog.findViewById(R.id.btn_ok);
-        btnOk.setOnClickListener(v -> dialog.dismiss());
+        btnOk.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
 
         ImageView btnClose = dialog.findViewById(R.id.btn_close);
         btnClose.setOnClickListener(view -> dialog.dismiss());
