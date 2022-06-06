@@ -142,7 +142,6 @@ public class EditProfileStep3Fragment extends Fragment {
                 else{
                     progressBar.setVisibility(View.GONE);
                     saveChangesBtn.setEnabled(true);
-                    //TODO: dialog
                     showOkDialog();
                 }
             });

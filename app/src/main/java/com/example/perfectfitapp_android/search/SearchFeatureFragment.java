@@ -37,8 +37,6 @@ public class SearchFeatureFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //TODO: need to get the sizes/categories/companies/colors/bodyTypes from the server.
-
         View view = inflater.inflate(R.layout.fragment_search_feature, container, false);
 
         feature = SearchFeatureFragmentArgs.fromBundle(getArguments()).getFeature();
