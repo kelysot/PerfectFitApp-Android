@@ -67,20 +67,6 @@
                     tools:layout_editor_absoluteX="156dp"
                     tools:layout_editor_absoluteY="277dp" />
 
-                <TextView
-                    android:id="@+id/edit_profile_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="130dp"
-                    android:layout_marginTop="35dp"
-                    android:layout_marginEnd="130dp"
-                    android:fontFamily="@font/dosis_medium"
-                    android:text="Edit Profile"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_profile_4"
@@ -117,17 +103,43 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edit_profile_4" />
 
+                <ImageView
+                    android:id="@+id/edit_profile_step1_big_image_imv"
+                    android:layout_width="0dp"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/sentence_about_life"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_profile_1" />
+
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/edit_profile_step1_image_imv"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="-50dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/avatar"
+                    android:src="@drawable/user_default"
+                    app:layout_constraintStart_toStartOf="@+id/edit_profile_step1_big_image_imv"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_profile_step1_big_image_imv"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
+                <TextView
+                    android:id="@+id/edit_profile_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="130dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginEnd="130dp"
+                    android:fontFamily="@font/dosis_medium"
+                    android:text="Edit Profile"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_profile_1"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <CheckBox
                     android:id="@+id/edit_profile_step1_none_cb"
@@ -147,14 +159,22 @@
                     android:id="@+id/edit_profile_step1_add_photo_imv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="17dp"
-                    android:layout_marginTop="195dp"
-                    android:layout_marginEnd="41dp"
+                    android:layout_marginEnd="-10dp"
+                    android:layout_marginBottom="-10dp"
                     android:backgroundTint="#00FAFAFA"
                     android:src="@drawable/ic_addphotoo"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/edit_profile_step1_image_imv"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="@+id/edit_profile_step1_image_imv"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_profile_step1_image_imv" />
+
+                <ImageButton
+                    android:id="@+id/edit_profile_step1_add_big_photo_imv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-16dp"
+                    android:backgroundTint="#00FAFAFA"
+                    android:src="@drawable/ic_addphotoo"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_profile_step1_big_image_imv"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_profile_step1_big_image_imv" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout30"

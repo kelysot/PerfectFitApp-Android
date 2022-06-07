@@ -16,7 +16,7 @@ public class Profile {
 
     //TODO: change status "active" to "true/false"
     //TODO:Add profileId in profile model in server side.
-    String userId, profileId, firstName, lastName,gender, userName, birthday, userImageUrl;
+    String userId, profileId, firstName, lastName,gender, userName, birthday, userImageUrl, bigPictureUrl;
     String shoulder, chest, basin, waist, foot, height, weight, bodyType, status, isDeleted;
     ArrayList<String> similarProfileId;
     ArrayList<String> followers, trackers;
@@ -55,7 +55,7 @@ public class Profile {
 
     public Profile(String userId, String profileId, String firstName, String lastName, String gender, String userName,
                    String birthday, String userImageUrl, String shoulder, String chest, String basin,
-                   String waist, String foot, String height, String weight, String bodyType, String isDeleted) {
+                   String waist, String foot, String height, String weight, String bodyType, String isDeleted, String bigPictureUrl) {
 
         this.userId = userId;
         this.profileId = profileId;
@@ -73,6 +73,7 @@ public class Profile {
         this.height = height;
         this.weight = weight;
         this.bodyType = bodyType;
+        this.bigPictureUrl = bigPictureUrl;
 
         this.isDeleted = isDeleted;
         this.status = "active";
@@ -88,7 +89,7 @@ public class Profile {
                    String birthday, String userImageUrl, String shoulder, String chest, String basin,
                    String waist, String foot, String height, String weight, String bodyType, String status, ArrayList<String> similarProfileId,
                    ArrayList<String> followers, ArrayList<String> trackers, ArrayList<String> notifications,
-                   ArrayList<String> wishlist, ArrayList<String> myPostsListId, String isDeleted) {
+                   ArrayList<String> wishlist, ArrayList<String> myPostsListId, String isDeleted, String bigPictureUrl) {
 
         this.userId = userId;
         this.profileId = profileId;
@@ -106,6 +107,7 @@ public class Profile {
         this.height = height;
         this.weight = weight;
         this.bodyType = bodyType;
+        this.bigPictureUrl = bigPictureUrl;
 
         this.isDeleted = isDeleted;
         this.status = status;
@@ -358,6 +360,14 @@ public class Profile {
         this.myPostsListId = myPostsListId;
     }
 
+    public String getBigPictureUrl() {
+        return bigPictureUrl;
+    }
+
+    public void setBigPictureUrl(String bigPictureUrl) {
+        this.bigPictureUrl = bigPictureUrl;
+    }
+
     public static Profile jsonElementToProfile(JsonElement profilesJson){
         String userId = profilesJson.getAsJsonObject().get("_id").getAsString();
         String profileId = profilesJson.getAsJsonObject().get("userId").getAsString();
@@ -367,6 +377,7 @@ public class Profile {
         String userName = profilesJson.getAsJsonObject().get("userName").getAsString();
         String birthday = profilesJson.getAsJsonObject().get("birthday").getAsString();
         String userImageUrl = profilesJson.getAsJsonObject().get("pictureUrl").getAsString();
+        String bigPictureUrl = profilesJson.getAsJsonObject().get("bigPictureUrl").getAsString();
         String shoulder = profilesJson.getAsJsonObject().get("shoulder").getAsString();
         String chest = profilesJson.getAsJsonObject().get("chest").getAsString();
         String basin = profilesJson.getAsJsonObject().get("basin").getAsString();
@@ -429,7 +440,7 @@ public class Profile {
         Profile profile = new Profile(userId, profileId, firstName, lastName, gender, userName,
                 birthday, userImageUrl, shoulder, chest, basin, waist, foot, height,
                 weight, bodyType, status, similarProfileId, followers, trackers, notifications,
-                wishlist, myPostsListId, isDeleted);
+                wishlist, myPostsListId, isDeleted, bigPictureUrl);
         return profile;
     }
 
@@ -441,6 +452,7 @@ public class Profile {
         String userName = profilesJson.get("userName").getAsString();
         String birthday = profilesJson.get("birthday").getAsString();
         String userImageUrl = profilesJson.get("pictureUrl").getAsString();
+        String bigPictureUrl = profilesJson.get("bigPictureUrl").getAsString();
         String shoulder = profilesJson.get("shoulder").getAsString();
         String chest = profilesJson.get("chest").getAsString();
         String basin = profilesJson.get("basin").getAsString();
@@ -503,7 +515,7 @@ public class Profile {
         Profile profile = new Profile(userId, null, firstName, lastName, gender, userName,
                 birthday, userImageUrl, shoulder, chest, basin, waist, foot, height,
                 weight, bodyType, status, similarProfileId, followers, trackers, notifications,
-                wishlist, myPostsListId, isDeleted);
+                wishlist, myPostsListId, isDeleted, bigPictureUrl);
         return profile;
     }
 
@@ -518,6 +530,7 @@ public class Profile {
         map.put("userName", this.getUserName());
         map.put("birthday", this.getBirthday());
         map.put("pictureUrl", this.getUserImageUrl());
+        map.put("bigPictureUrl", this.getBigPictureUrl());
         map.put("shoulder", this.getShoulder());
         map.put("chest", this.getChest());
         map.put("basin", this.getBasin());

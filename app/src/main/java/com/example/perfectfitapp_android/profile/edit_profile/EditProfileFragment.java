@@ -48,12 +48,13 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
     private static final int REQUEST_IMAGE_PIC = 2;
 
     TextInputEditText firstNameEt, lastNameEt, birthdayEt, userNameEt;
-    ImageView image, addPhoto, birthdayDateImv;
+    ImageView image, addPhoto, birthdayDateImv, bigPictureUrlImv, addBigPhoto;
     Button continueBtn;
-    Bitmap mBitmap;
+    Bitmap mBitmap, mBigBitmap;
     CheckBox femaleCB, maleCB, noneCB;
     String gender;
     LottieAnimationView progressBar;
+    String photoFlag;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +67,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
         userNameEt = view.findViewById(R.id.edit_profile_step1_username_et);
         birthdayEt = view.findViewById(R.id.edit_profile_step1_birthday_et);
         image = view.findViewById(R.id.edit_profile_step1_image_imv);
+        bigPictureUrlImv = view.findViewById(R.id.edit_profile_step1_big_image_imv);
         femaleCB = view.findViewById(R.id.edit_profile_step1_female_cb);
         maleCB = view.findViewById(R.id.edit_profile_step1_male_cb);
         noneCB = view.findViewById(R.id.edit_profile_step1_none_cb);
@@ -74,6 +76,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
         progressBar.setVisibility(View.GONE);
 
         addPhoto = view.findViewById(R.id.edit_profile_step1_add_photo_imv);
+        addBigPhoto = view.findViewById(R.id.edit_profile_step1_add_big_photo_imv2);
         continueBtn = view.findViewById(R.id.edit_profile_step1_continue_btn);
         continueBtn.setOnClickListener(v-> continueStep2(view));
 
@@ -87,6 +90,19 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
         birthdayDateImv.setOnClickListener(v -> {
             pickBirthdayDate();
         });
+
+        String userImg = Model.instance.getProfile().getUserImageUrl();
+        if (userImg != null && !userImg.equals("")) {
+            Model.instance.getImages(userImg, bitmap -> {
+                image.setImageBitmap(bitmap);
+            });
+        }
+        String userBigImg = Model.instance.getProfile().getBigPictureUrl();
+        if (userBigImg != null && !userBigImg.equals("")) {
+            Model.instance.getImages(userBigImg, bitmap1 -> {
+                bigPictureUrlImv.setImageBitmap(bitmap1);
+            });
+        }
 
         if(!ModelProfile.instance.getEditProfile().getGender().isEmpty()){
             String genderFromServer = ModelProfile.instance.getEditProfile().getGender().toString();
@@ -134,7 +150,15 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
         });
 
         ModelProfile.instance.setPreviousName(Model.instance.getProfile().getUserName());
-        addPhoto.setOnClickListener(v -> showImagePickDialog());
+
+        addPhoto.setOnClickListener(v -> {
+            photoFlag = "photo";
+            showImagePickDialog();
+        });
+        addBigPhoto.setOnClickListener(v -> {
+            photoFlag = "bigPhoto";
+            showImagePickDialog();
+        });
 
         return view;
     }
@@ -180,16 +204,26 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
-                mBitmap = (Bitmap) extras.get("data");
-                image.setImageBitmap(mBitmap);
+                if (photoFlag.equals("photo")) {
+                    mBitmap = (Bitmap) extras.get("data");
+                    image.setImageBitmap(mBitmap);
+                } else {
+                    mBigBitmap = (Bitmap) extras.get("data");
+                    bigPictureUrlImv.setImageBitmap(mBigBitmap);
+                }
             }
         } else if (requestCode == REQUEST_IMAGE_PIC) {
             if (resultCode == RESULT_OK) {
                 try {
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
-                    mBitmap = BitmapFactory.decodeStream(imageStream);
-                    image.setImageBitmap(mBitmap);
+                    if (photoFlag.equals("photo")) {
+                        mBitmap = BitmapFactory.decodeStream(imageStream);
+                        image.setImageBitmap(mBitmap);
+                    } else {
+                        mBigBitmap = BitmapFactory.decodeStream(imageStream);
+                        bigPictureUrlImv.setImageBitmap(mBigBitmap);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
@@ -271,28 +305,56 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
             ModelProfile.instance.getEditProfile().setGender(gender);
 
 
-            if (mBitmap != null) {
+            if (mBitmap != null) { // upload profile pic.
                 Model.instance.uploadImage(mBitmap, getActivity(), url -> {
-//                    ModelProfile.instance.getEditProfile().setUserImageUrl(url);
                     StringBuilder newUrl = new StringBuilder(url);
                     newUrl.replace(7,8,"/");
                     ModelProfile.instance.getEditProfile().setUserImageUrl(newUrl.toString());
-//                    newUrl.append("uplaod");
-//                    System.out.println("the splite = " + str.toString());
+
+                    if (mBigBitmap != null) { // upload big pic.
+                        Model.instance.uploadImage(mBigBitmap, getActivity(), mImageUrl1 -> {
+                            StringBuilder newUrl1 = new StringBuilder(mImageUrl1);
+                            newUrl1.replace(7, 8, "/");
+                            ModelProfile.instance.getEditProfile().setBigPictureUrl(newUrl1.toString());
+
+                            String des = Navigation.findNavController(view).getGraph().getDisplayName();
+                            if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){
+                                Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
+                            } else {
+                                Navigation.findNavController(view).navigate(R.id.action_editProfileFragment_to_editProfileStep2Fragment);
+                            }
+                        });
+                    } else { // upload profile pic but not big pic.
+                        String des = Navigation.findNavController(view).getGraph().getDisplayName();
+                        if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){
+                            Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
+                        } else {
+                            Navigation.findNavController(view).navigate(R.id.action_editProfileFragment_to_editProfileStep2Fragment);
+                        }
+                    }
+                });
+            } else { // didn't upload profile pic.
+
+                if (mBigBitmap != null) { // upload big pic.
+                    Model.instance.uploadImage(mBigBitmap, getActivity(), mImageUrl1 -> {
+                        StringBuilder newUrl1 = new StringBuilder(mImageUrl1);
+                        newUrl1.replace(7, 8, "/");
+                        ModelProfile.instance.getEditProfile().setBigPictureUrl(newUrl1.toString());
+
+                        String des = Navigation.findNavController(view).getGraph().getDisplayName();
+                        if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){
+                            Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
+                        } else {
+                            Navigation.findNavController(view).navigate(R.id.action_editProfileFragment_to_editProfileStep2Fragment);
+                        }
+                    });
+                } else { // didn't upload profile pic or big pic.
                     String des = Navigation.findNavController(view).getGraph().getDisplayName();
-                    Log.d("TAG4444", des);
                     if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){
                         Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
                     } else {
                         Navigation.findNavController(view).navigate(R.id.action_editProfileFragment_to_editProfileStep2Fragment);
                     }
-                });
-            } else {
-                String des = Navigation.findNavController(view).getGraph().getDisplayName();
-                if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){
-                    Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
-                } else {
-                    Navigation.findNavController(view).navigate(R.id.action_editProfileFragment_to_editProfileStep2Fragment);
                 }
             }
 

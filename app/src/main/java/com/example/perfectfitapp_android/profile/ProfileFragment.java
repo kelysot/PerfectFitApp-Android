@@ -49,7 +49,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ProfileFragment extends Fragment {
 
     ProfileViewModel viewModel;
-    ImageView userPic;
+    ImageView userPic, bigPic;
     TextView userNameTv;
     TextView numOfPosts, numOfFollowers, numOfFollowing;
     //    ImageButton editProfileBtn;
@@ -77,6 +77,7 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         userPic = view.findViewById(R.id.profile_profile_img);
+        bigPic = view.findViewById(R.id.profile_big_img);
         userNameTv = view.findViewById(R.id.profile_user_name);
         numOfPosts = view.findViewById(R.id.profile_num_posts_tv);
 
@@ -111,6 +112,12 @@ public class ProfileFragment extends Fragment {
                             userPic.setImageBitmap(bitmap);
                         });
                     }
+                    String userBigImg = profile.getBigPictureUrl();
+                    if (userBigImg != null && !userBigImg.equals("")) {
+                        Model.instance.getImages(userBigImg, bitmap1 -> {
+                            bigPic.setImageBitmap(bitmap1);
+                        });
+                    }
 
                     setNumOfFollowers(profile);
 
@@ -143,6 +150,12 @@ public class ProfileFragment extends Fragment {
             if (userImg != null && !userImg.equals("")) {
                 Model.instance.getImages(userImg, bitmap -> {
                     userPic.setImageBitmap(bitmap);
+                });
+            }
+            String userBigImg = profile.getBigPictureUrl();
+            if (userBigImg != null && !userBigImg.equals("")) {
+                Model.instance.getImages(userBigImg, bitmap1 -> {
+                    bigPic.setImageBitmap(bitmap1);
                 });
             }
 
