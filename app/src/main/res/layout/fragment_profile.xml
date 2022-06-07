@@ -5,224 +5,245 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/myCream"
+    android:orientation="vertical"
     tools:context=".profile.ProfileFragment">
 
 
-    <TextView
-        android:id="@+id/profile_user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/dosis_medium"
-        android:text="TextView"
-        android:textColor="#191919"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_profile_img" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView4"
-        android:layout_width="300dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="10dp"
-        app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_user_name">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#D0FFFFFF"
-            android:backgroundTint="#D0FFFFFF">
-
-            <TextView
-                android:id="@+id/profile_num_followers_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="22dp"
-                android:fontFamily="@font/dosis_medium"
-                android:text="0"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/profile_num_following_tv"
-                app:layout_constraintStart_toEndOf="@+id/profile_num_posts_tv"
-                app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="88dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="12dp"
-                android:fontFamily="@font/dosis_medium"
-                android:text="Following"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/profile_num_following_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="60dp"
-                android:layout_marginBottom="22dp"
-                android:fontFamily="@font/dosis_medium"
-                android:text="0"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-            <TextView
-                android:id="@+id/profile_num_posts_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="22dp"
-                android:fontFamily="@font/dosis_medium"
-                android:text="0"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/dosis_medium"
-                android:text="Posts"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="25dp"
-                android:fontFamily="@font/dosis_medium"
-                android:text="Followers"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toStartOf="@+id/textView18"
-                app:layout_constraintStart_toEndOf="@+id/textView14"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/profile_followers_view"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                app:layout_constraintEnd_toEndOf="@+id/textView17"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/textView17"
-                app:layout_constraintTop_toTopOf="@+id/textView17" />
-
-            <View
-                android:id="@+id/profile_following_view"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@+id/profile_num_following_tv"
-                app:layout_constraintEnd_toEndOf="@+id/textView18"
-                app:layout_constraintStart_toStartOf="@+id/textView18"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/profile_swiperefresh"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="8dp"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_follow_btn">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/profile_user_posts_rv"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_user_name" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/profile_con_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:scrollbars="vertical">
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            <TextView
+                android:id="@+id/profile_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/dosis_medium"
+                android:text="TextView"
+                android:textColor="#191919"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profile_profile_img" />
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/profile_profile_img"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="8dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/avatar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView4"
+                android:layout_width="300dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profile_user_name">
 
-    <Button
-        android:id="@+id/profile_follow_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/btnColor"
-        android:text="Follow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#D0FFFFFF"
+                    android:backgroundTint="#D0FFFFFF">
+
+                    <TextView
+                        android:id="@+id/profile_num_followers_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="22dp"
+                        android:fontFamily="@font/dosis_medium"
+                        android:text="0"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/profile_num_following_tv"
+                        app:layout_constraintStart_toEndOf="@+id/profile_num_posts_tv"
+                        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        android:layout_width="88dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/dosis_medium"
+                        android:text="Following"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/profile_num_following_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="60dp"
+                        android:layout_marginBottom="22dp"
+                        android:fontFamily="@font/dosis_medium"
+                        android:text="0"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+                    <TextView
+                        android:id="@+id/profile_num_posts_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="22dp"
+                        android:fontFamily="@font/dosis_medium"
+                        android:text="0"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/dosis_medium"
+                        android:text="Posts"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="25dp"
+                        android:fontFamily="@font/dosis_medium"
+                        android:text="Followers"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toStartOf="@+id/textView18"
+                        app:layout_constraintStart_toEndOf="@+id/textView14"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/profile_followers_view"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        app:layout_constraintEnd_toEndOf="@+id/textView17"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/textView17"
+                        app:layout_constraintTop_toTopOf="@+id/textView17" />
+
+                    <View
+                        android:id="@+id/profile_following_view"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/profile_num_following_tv"
+                        app:layout_constraintEnd_toEndOf="@+id/textView18"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/profile_swiperefresh"
+                android:layout_width="0dp"
+                android:layout_height="400dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profile_follow_btn">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/profile_user_posts_rv"
+                    android:layout_width="0dp"
+                    android:layout_height="400dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/profile_user_name" />
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profile_profile_img"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
+            <Button
+                android:id="@+id/profile_follow_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/btnColor"
+                android:text="Follow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView4" />
 
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/profile_no_post_img"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintEnd_toEndOf="@+id/profile_swiperefresh"
-        app:layout_constraintStart_toStartOf="@+id/profile_swiperefresh"
-        app:layout_constraintTop_toTopOf="@+id/profile_swiperefresh"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_url="https://assets6.lottiefiles.com/packages/lf20_0zv8teye.json" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/profile_no_post_img"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="50dp"
+                app:layout_constraintEnd_toEndOf="@+id/profile_swiperefresh"
+                app:layout_constraintStart_toStartOf="@+id/profile_swiperefresh"
+                app:layout_constraintTop_toBottomOf="@+id/profile_follow_btn"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_url="https://assets6.lottiefiles.com/packages/lf20_0zv8teye.json" />
 
-    <TextView
-        android:id="@+id/profile_no_post_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/dosis_medium"
-        android:text="No posts yet "
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/profile_no_post_img"
-        app:layout_constraintStart_toStartOf="@+id/profile_no_post_img"
-        app:layout_constraintTop_toBottomOf="@+id/profile_no_post_img" />
+            <TextView
+                android:id="@+id/profile_no_post_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/dosis_medium"
+                android:text="No posts yet "
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/profile_no_post_img"
+                app:layout_constraintStart_toStartOf="@+id/profile_no_post_img"
+                app:layout_constraintTop_toBottomOf="@+id/profile_no_post_img" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
