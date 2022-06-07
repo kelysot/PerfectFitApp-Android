@@ -126,7 +126,8 @@
                     <AutoCompleteTextView
                         android:id="@+id/addnewpost_company_auto"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:editable="false" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -222,7 +223,8 @@
                     <AutoCompleteTextView
                         android:id="@+id/addnewpost_size_auto"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:editable="false" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.airbnb.lottie.LottieAnimationView
@@ -265,7 +267,8 @@
                     <AutoCompleteTextView
                         android:id="@+id/addnewpost_color_auto"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:editable="false" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -403,7 +406,8 @@
                     <AutoCompleteTextView
                         android:id="@+id/addnewpost_subcategory_auto"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:editable="false" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -433,7 +437,9 @@
                     <AutoCompleteTextView
                         android:id="@+id/addnewpost_category_auto"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:editable="false"
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
