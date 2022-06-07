@@ -12,9 +12,9 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:fillViewport="true"
         android:scrollbars="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -170,7 +170,7 @@
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/profile_swiperefresh"
                 android:layout_width="0dp"
-                android:layout_height="400dp"
+                android:layout_height="500dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="8dp"
@@ -182,7 +182,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/profile_user_posts_rv"
                     android:layout_width="0dp"
-                    android:layout_height="400dp"
+                    android:layout_height="500dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="16dp"
@@ -194,16 +194,25 @@
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+            <ImageView
+                android:id="@+id/profile_big_img"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:src="@drawable/sentence_about_life"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/profile_profile_img"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="-50dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/avatar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/user_default"
+                app:layout_constraintStart_toStartOf="@+id/profile_big_img"
+                app:layout_constraintTop_toBottomOf="@+id/profile_big_img"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
             <Button
@@ -243,6 +252,8 @@
                 app:layout_constraintEnd_toEndOf="@+id/profile_no_post_img"
                 app:layout_constraintStart_toStartOf="@+id/profile_no_post_img"
                 app:layout_constraintTop_toBottomOf="@+id/profile_no_post_img" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

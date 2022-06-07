@@ -16,7 +16,7 @@
             android:id="@+id/MultiWave"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@drawable/user_profiles_background"
+            android:background="@color/myCream"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -132,7 +132,7 @@
             android:layout_width="321dp"
             android:layout_height="86dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="50dp"
             android:fontFamily="@font/dosis_medium"
             android:shadowColor="#C2EFCD"
             android:text="Let's create a profile!"
@@ -148,11 +148,12 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/gif_green"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_profiles_text"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_url="https://assets5.lottiefiles.com/packages/lf20_2etizxzl.json" />

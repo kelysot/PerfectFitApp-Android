@@ -45,14 +45,16 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PIC = 2;
     private String mImageUrl = "";
+    private String mBigImageUrl = "";
 
     TextInputEditText firstNameEt, lastNameEt, birthdayEt, userNameEt;
-    ImageView image, addPhoto, birthdayDateImv;
+    ImageView image, addPhoto, birthdayDateImv, bigPictureUrlImv, addBigPhoto;
     Button continueBtn;
-    Bitmap mBitmap;
+    Bitmap mBitmap, mBigBitmap;
     CheckBox femaleCB, maleCB, noneCB;
     String gender;
     LottieAnimationView progressBar;
+    String photoFlag;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +66,7 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
         userNameEt = view.findViewById(R.id.register_step1_username_et);
         birthdayEt = view.findViewById(R.id.register_step1_birthday_et);
         image = view.findViewById(R.id.register_step1_image_imv);
+        bigPictureUrlImv = view.findViewById(R.id.register_step1_big_image_imv);
         femaleCB = view.findViewById(R.id.register_step1_female_cb);
         maleCB = view.findViewById(R.id.register_step1_male_cb);
         noneCB = view.findViewById(R.id.register_step1_none_cb);
@@ -74,23 +77,30 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
 //        genderAuto = view.findViewById(R.id.register_step1_gender_et);
 
         addPhoto = view.findViewById(R.id.register_step1_add_photo_imv);
+        addBigPhoto = view.findViewById(R.id.register_step1_add_big_photo_imv);
         continueBtn = view.findViewById(R.id.register_step1_continue_btn);
-        continueBtn.setOnClickListener(v-> continueStep2(view));
+        continueBtn.setOnClickListener(v -> continueStep2(view));
 
-        addPhoto.setOnClickListener(v -> showImagePickDialog());
+        addPhoto.setOnClickListener(v -> {
+            photoFlag = "photo";
+            showImagePickDialog();
+        });
+        addBigPhoto.setOnClickListener(v -> {
+            photoFlag = "bigPhoto";
+            showImagePickDialog();
+        });
 
         birthdayDateImv = view.findViewById(R.id.register_step1_birthday_imv);
         birthdayDateImv.setOnClickListener(v -> {
             pickBirthdayDate();
         });
 
-        if(!CreateProfileModel.instance.profile.getGender().isEmpty()){
+        if (!CreateProfileModel.instance.profile.getGender().isEmpty()) {
             String genderFromServer = CreateProfileModel.instance.profile.getGender().toString();
-            if(genderFromServer.equals("Female")){
+            if (genderFromServer.equals("Female")) {
                 femaleCB.setChecked(true);
                 gender = "Female";
-            }
-            else if (genderFromServer.equals("Male")){
+            } else if (genderFromServer.equals("Male")) {
                 maleCB.setChecked(true);
                 gender = "Male";
             } else {
@@ -100,30 +110,27 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
         }
 
         femaleCB.setOnClickListener(v -> {
-            if(maleCB.isChecked()){
+            if (maleCB.isChecked()) {
                 maleCB.setChecked(false);
-            }
-            else if (noneCB.isChecked()){
+            } else if (noneCB.isChecked()) {
                 noneCB.setChecked(false);
             }
             gender = "Female";
         });
 
         maleCB.setOnClickListener(v -> {
-            if(femaleCB.isChecked()){
+            if (femaleCB.isChecked()) {
                 femaleCB.setChecked(false);
-            }
-            else if (noneCB.isChecked()){
+            } else if (noneCB.isChecked()) {
                 noneCB.setChecked(false);
             }
             gender = "Male";
         });
 
         noneCB.setOnClickListener(v -> {
-            if(femaleCB.isChecked()){
+            if (femaleCB.isChecked()) {
                 femaleCB.setChecked(false);
-            }
-            else if (maleCB.isChecked()){
+            } else if (maleCB.isChecked()) {
                 maleCB.setChecked(false);
             }
             gender = "None";
@@ -174,16 +181,27 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
-                mBitmap = (Bitmap) extras.get("data");
-                image.setImageBitmap(mBitmap);
+                if (photoFlag.equals("photo")) {
+                    mBitmap = (Bitmap) extras.get("data");
+                    image.setImageBitmap(mBitmap);
+                } else {
+                    mBigBitmap = (Bitmap) extras.get("data");
+                    bigPictureUrlImv.setImageBitmap(mBigBitmap);
+                }
+
             }
         } else if (requestCode == REQUEST_IMAGE_PIC) {
             if (resultCode == RESULT_OK) {
                 try {
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
-                    mBitmap = BitmapFactory.decodeStream(imageStream);
-                    image.setImageBitmap(mBitmap);
+                    if (photoFlag.equals("photo")) {
+                        mBitmap = BitmapFactory.decodeStream(imageStream);
+                        image.setImageBitmap(mBitmap);
+                    } else {
+                        mBigBitmap = BitmapFactory.decodeStream(imageStream);
+                        bigPictureUrlImv.setImageBitmap(mBigBitmap);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
@@ -196,21 +214,40 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
         progressBar.setVisibility(View.VISIBLE);
         continueBtn.setEnabled(false);
 
-        if (mBitmap != null) {
+        if (mBitmap != null) { // upload profile pic.
             Model.instance.uploadImage(mBitmap, getActivity(), url -> {
                 StringBuilder newUrl = new StringBuilder(url);
-                newUrl.replace(7,8,"/");
+                newUrl.replace(7, 8, "/");
                 mImageUrl = newUrl.toString();
-                checkIfUserNameExist(view);
+                if (mBigBitmap != null) { // upload big pic.
+                    Model.instance.uploadImage(mBigBitmap, getActivity(), mImageUrl1 -> {
+                        StringBuilder newUrl1 = new StringBuilder(mImageUrl1);
+                        newUrl1.replace(7, 8, "/");
+                        mBigImageUrl = newUrl1.toString();
+                        checkIfUserNameExist(view);
+                    });
+                } else { // upload profile pic but not big pic.
+                    //mBigImageUrl = "uploads/bdc5b50e3358d8ffe1a7b3e92fb60c22.png";
+                    checkIfUserNameExist(view);
+                }
             });
-        }
-        else {
+        } else { // didn't upload profile pic.
             mImageUrl = "uploads/bdc5b50e3358d8ffe1a7b3e92fb60c22.png";
-            checkIfUserNameExist(view);
+            if (mBigBitmap != null) { // upload big pic.
+                Model.instance.uploadImage(mBigBitmap, getActivity(), mImageUrl1 -> {
+                    StringBuilder newUrl1 = new StringBuilder(mImageUrl1);
+                    newUrl1.replace(7, 8, "/");
+                    mBigImageUrl = newUrl1.toString();
+                    checkIfUserNameExist(view);
+                });
+            } else { // didn't upload profile pic or big pic.
+                //mBigImageUrl = "uploads/bdc5b50e3358d8ffe1a7b3e92fb60c22.png";
+                checkIfUserNameExist(view);
+            }
         }
     }
 
-    public void checkIfUserNameExist(View view){
+    public void checkIfUserNameExist(View view) {
 
         String firstName = firstNameEt.getText().toString();
         String lastName = lastNameEt.getText().toString();
@@ -220,35 +257,35 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
 
         boolean flag = true;
 
-        if(firstName.isEmpty()){
+        if (firstName.isEmpty()) {
             firstNameEt.setError("Please enter your first name.");
             continueBtn.setEnabled(true);
             flag = false;
         }
-        if(lastName.isEmpty()){
+        if (lastName.isEmpty()) {
             lastNameEt.setError("Please enter your last name.");
             continueBtn.setEnabled(true);
             flag = false;
         }
-        if(userName.isEmpty()){
+        if (userName.isEmpty()) {
             userNameEt.setError("Please enter your user name.");
             continueBtn.setEnabled(true);
             flag = false;
         }
-        if(birthday.isEmpty()){
+        if (birthday.isEmpty()) {
             String s = "Please enter your birthday.";
             showOkDialog(s);
             continueBtn.setEnabled(true);
             flag = false;
         }
-        if(!femaleCB.isChecked() && !maleCB.isChecked() && !noneCB.isChecked()){
+        if (!femaleCB.isChecked() && !maleCB.isChecked() && !noneCB.isChecked()) {
             String s = "Please chose your gender.";
             showOkDialog(s);
             continueBtn.setEnabled(true);
             flag = false;
         }
 
-        if(flag){
+        if (flag) {
             Model.instance.checkIfUserNameExist(userName, isSuccess -> {
                 if (isSuccess) {
                     CreateProfileModel.instance.profile.setUserName(userName);
@@ -257,6 +294,7 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
                     CreateProfileModel.instance.profile.setBirthday(birthday);
                     CreateProfileModel.instance.profile.setGender(gender);
                     CreateProfileModel.instance.profile.setUserImageUrl(mImageUrl);
+                    CreateProfileModel.instance.profile.setBigPictureUrl(mBigImageUrl);
                     Navigation.findNavController(view).navigate(R.id.action_createProfileStep1Fragment2_to_createProfileStep2Fragment2);
                 } else {
                     continueBtn.setEnabled(true);
@@ -265,8 +303,7 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
                     showOkDialog(s);
                 }
             });
-        }
-        else{
+        } else {
             continueBtn.setEnabled(true);
             progressBar.setVisibility(View.GONE);
         }
@@ -284,7 +321,7 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             int theYear = Year.now().getValue();
-            theYear = theYear-120;
+            theYear = theYear - 120;
             Calendar call = new GregorianCalendar();
             call.set(theYear, 1, 1);
             datePickerDialog.getDatePicker().setMinDate(call.getTime().getTime());
@@ -295,11 +332,11 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date = dayOfMonth + "/" + (month +1)  + "/" + year;
+        String date = dayOfMonth + "/" + (month + 1) + "/" + year;
         birthdayEt.setText(date);
     }
 
-    private void showOkDialog(String text){
+    private void showOkDialog(String text) {
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_ok_dialog);
 
