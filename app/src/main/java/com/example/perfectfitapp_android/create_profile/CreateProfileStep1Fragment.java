@@ -2,6 +2,7 @@ package com.example.perfectfitapp_android.create_profile;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -18,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.L;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.model.Model;
@@ -55,6 +58,8 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
     String gender;
     LottieAnimationView progressBar;
     String photoFlag;
+    int dialogFlag = 0;
+    int dialogBigPhotoFlag = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,11 +88,20 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
 
         addPhoto.setOnClickListener(v -> {
             photoFlag = "photo";
-            showImagePickDialog();
+            if (dialogFlag == 1) {
+                createDialog3();
+            } else {
+                createDialog2();
+            }
         });
+
         addBigPhoto.setOnClickListener(v -> {
             photoFlag = "bigPhoto";
-            showImagePickDialog();
+            if (dialogBigPhotoFlag == 1) {
+                createDialog3();
+            } else {
+                createDialog2();
+            }
         });
 
         birthdayDateImv = view.findViewById(R.id.register_step1_birthday_imv);
@@ -139,10 +153,8 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
         return view;
     }
 
-
-    private void showImagePickDialog() {
-
-        String[] items = {"Camera", "Gallery"};
+    private void createDialog3() {
+        String[] items = {"Camera", "Gallery", "Delete Photo"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         builder.setTitle("Choose an Option");
@@ -157,12 +169,56 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
                 if (i == 1) {
                     openGallery();
                 }
+                if (i == 2) {
+                    deleteImage();
+                }
+            }
+        });
+        builder.create().show();
+
+    }
+
+    private void createDialog2() {
+        String[] items = {"Camera", "Gallery"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        builder.setTitle("Choose an Option");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                if (photoFlag.equals("photo")) {
+                    dialogFlag = 1;
+                } else {
+                    dialogBigPhotoFlag = 1;
+                }
+
+                if (i == 0) {
+                    openCam();
+                }
+
+                if (i == 1) {
+                    openGallery();
+                }
             }
         });
 
         builder.create().show();
+
     }
 
+    private void deleteImage() {
+        if (photoFlag.equals("photo")) {
+            dialogFlag = 0;
+            mBitmap = null;
+            image.setImageBitmap(null);
+            image.setBackgroundResource(R.drawable.user_default);
+        } else {
+            dialogBigPhotoFlag = 0;
+            mBigBitmap = null;
+            bigPictureUrlImv.setImageBitmap(null);
+            bigPictureUrlImv.setBackgroundResource(R.drawable.sentence_about_life);
+        }
+    }
 
     public void openCam() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -183,9 +239,11 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
                 Bundle extras = data.getExtras();
                 if (photoFlag.equals("photo")) {
                     mBitmap = (Bitmap) extras.get("data");
+                    image.setBackgroundResource(0);
                     image.setImageBitmap(mBitmap);
                 } else {
                     mBigBitmap = (Bitmap) extras.get("data");
+                    bigPictureUrlImv.setBackgroundResource(0);
                     bigPictureUrlImv.setImageBitmap(mBigBitmap);
                 }
 
@@ -197,9 +255,11 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
                     if (photoFlag.equals("photo")) {
                         mBitmap = BitmapFactory.decodeStream(imageStream);
+                        image.setBackgroundResource(0);
                         image.setImageBitmap(mBitmap);
                     } else {
                         mBigBitmap = BitmapFactory.decodeStream(imageStream);
+                        bigPictureUrlImv.setBackgroundResource(0);
                         bigPictureUrlImv.setImageBitmap(mBigBitmap);
                     }
                 } catch (Exception e) {

@@ -55,6 +55,8 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
     String gender;
     LottieAnimationView progressBar;
     String photoFlag;
+    int dialogFlag = 0;
+    int dialogBigPhotoFlag = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,12 +95,14 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
 
         String userImg = Model.instance.getProfile().getUserImageUrl();
         if (userImg != null && !userImg.equals("")) {
+            dialogFlag = 1;
             Model.instance.getImages(userImg, bitmap -> {
                 image.setImageBitmap(bitmap);
             });
         }
         String userBigImg = Model.instance.getProfile().getBigPictureUrl();
         if (userBigImg != null && !userBigImg.equals("")) {
+            dialogBigPhotoFlag = 1;
             Model.instance.getImages(userBigImg, bitmap1 -> {
                 bigPictureUrlImv.setImageBitmap(bitmap1);
             });
@@ -153,19 +157,26 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
 
         addPhoto.setOnClickListener(v -> {
             photoFlag = "photo";
-            showImagePickDialog();
-        });
-        addBigPhoto.setOnClickListener(v -> {
-            photoFlag = "bigPhoto";
-            showImagePickDialog();
+            if (dialogFlag == 1) {
+                createDialog3();
+            } else {
+                createDialog2();
+            }
         });
 
+        addBigPhoto.setOnClickListener(v -> {
+            photoFlag = "bigPhoto";
+            if (dialogBigPhotoFlag == 1) {
+                createDialog3();
+            } else {
+                createDialog2();
+            }
+        });
         return view;
     }
 
-    private void showImagePickDialog() {
-
-        String[] items = {"Camera", "Gallery"};
+    private void createDialog3() {
+        String[] items = {"Camera", "Gallery", "Delete Photo"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         builder.setTitle("Choose an Option");
@@ -180,12 +191,56 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                 if (i == 1) {
                     openGallery();
                 }
+                if (i == 2) {
+                    deleteImage();
+                }
+            }
+        });
+        builder.create().show();
+
+    }
+
+    private void createDialog2() {
+        String[] items = {"Camera", "Gallery"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        builder.setTitle("Choose an Option");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                if (photoFlag.equals("photo")) {
+                    dialogFlag = 1;
+                } else {
+                    dialogBigPhotoFlag = 1;
+                }
+
+                if (i == 0) {
+                    openCam();
+                }
+
+                if (i == 1) {
+                    openGallery();
+                }
             }
         });
 
         builder.create().show();
+
     }
 
+    private void deleteImage() {
+        if (photoFlag.equals("photo")) {
+            dialogFlag = 0;
+            mBitmap = null;
+            image.setImageBitmap(null);
+            image.setBackgroundResource(R.drawable.user_default);
+        } else {
+            dialogBigPhotoFlag = 0;
+            mBigBitmap = null;
+            bigPictureUrlImv.setImageBitmap(null);
+            bigPictureUrlImv.setBackgroundResource(R.drawable.sentence_about_life);
+        }
+    }
 
     public void openCam() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -206,9 +261,11 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                 Bundle extras = data.getExtras();
                 if (photoFlag.equals("photo")) {
                     mBitmap = (Bitmap) extras.get("data");
+                    image.setBackgroundResource(0);
                     image.setImageBitmap(mBitmap);
                 } else {
                     mBigBitmap = (Bitmap) extras.get("data");
+                    bigPictureUrlImv.setBackgroundResource(0);
                     bigPictureUrlImv.setImageBitmap(mBigBitmap);
                 }
             }
@@ -219,9 +276,11 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
                     if (photoFlag.equals("photo")) {
                         mBitmap = BitmapFactory.decodeStream(imageStream);
+                        image.setBackgroundResource(0);
                         image.setImageBitmap(mBitmap);
                     } else {
                         mBigBitmap = BitmapFactory.decodeStream(imageStream);
+                        bigPictureUrlImv.setBackgroundResource(0);
                         bigPictureUrlImv.setImageBitmap(mBigBitmap);
                     }
                 } catch (Exception e) {
@@ -325,6 +384,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                             }
                         });
                     } else { // upload profile pic but not big pic.
+                        ModelProfile.instance.getEditProfile().setBigPictureUrl("");
                         String des = Navigation.findNavController(view).getGraph().getDisplayName();
                         if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){
                             Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
@@ -334,6 +394,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                     }
                 });
             } else { // didn't upload profile pic.
+                ModelProfile.instance.getEditProfile().setUserImageUrl("");
 
                 if (mBigBitmap != null) { // upload big pic.
                     Model.instance.uploadImage(mBigBitmap, getActivity(), mImageUrl1 -> {
@@ -349,6 +410,8 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                         }
                     });
                 } else { // didn't upload profile pic or big pic.
+                    ModelProfile.instance.getEditProfile().setBigPictureUrl("");
+
                     String des = Navigation.findNavController(view).getGraph().getDisplayName();
                     if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){
                         Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
