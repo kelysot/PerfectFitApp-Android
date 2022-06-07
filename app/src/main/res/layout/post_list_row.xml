@@ -33,7 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            app:srcCompat="@drawable/avatar" />
+            app:srcCompat="@drawable/user_default" />
 
         <TextView
             android:id="@+id/listrow_username_tv"

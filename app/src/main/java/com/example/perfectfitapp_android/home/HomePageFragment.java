@@ -230,7 +230,7 @@ public class HomePageFragment extends Fragment {
                     }
                     else {
                         Picasso.get()
-                                .load(R.drawable.avatar).resize(250, 180)
+                                .load(R.drawable.user_default).resize(250, 180)
                                 .centerCrop()
                                 .into(holder.userPic);
                     }
