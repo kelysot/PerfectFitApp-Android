@@ -28,6 +28,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <ImageView
+                    android:id="@+id/edit_profile_step1_big_image_imv"
+                    android:layout_width="377dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="15dp"
+                    android:background="#ffffff"
+                    android:src="@drawable/coverphotoprofile"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_profile_1" />
+
                 <CheckBox
                     android:id="@+id/edit_profile_step1_male_cb"
                     android:layout_width="wrap_content"
@@ -103,26 +114,15 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edit_profile_4" />
 
-                <ImageView
-                    android:id="@+id/edit_profile_step1_big_image_imv"
-                    android:layout_width="0dp"
-                    android:layout_height="300dp"
-                    android:layout_marginTop="12dp"
-                    android:src="@drawable/sentence_about_life"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_profile_1" />
-
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/edit_profile_step1_image_imv"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="-50dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/user_default"
-                    app:layout_constraintStart_toStartOf="@+id/edit_profile_step1_big_image_imv"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edit_profile_step1_big_image_imv"
                     app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
@@ -170,10 +170,11 @@
                     android:id="@+id/edit_profile_step1_add_big_photo_imv2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="-16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
                     android:backgroundTint="#00FAFAFA"
                     android:src="@drawable/ic_addphotoo"
-                    app:layout_constraintEnd_toEndOf="@+id/edit_profile_step1_big_image_imv"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edit_profile_step1_big_image_imv" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -263,6 +264,7 @@
                         android:textSize="18dp"
                         android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 

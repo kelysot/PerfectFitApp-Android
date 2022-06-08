@@ -42,6 +42,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_profile_img" />
 
+            <ImageView
+                android:id="@+id/profile_big_img"
+                android:layout_width="410dp"
+                android:layout_height="200dp"
+                android:background="#ffffff"
+                android:src="@drawable/coverphotoprofile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView4"
                 android:layout_width="300dp"
@@ -194,15 +204,6 @@
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            <ImageView
-                android:id="@+id/profile_big_img"
-                android:layout_width="0dp"
-                android:layout_height="300dp"
-                android:src="@drawable/sentence_about_life"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/profile_profile_img"
                 android:layout_width="100dp"
@@ -211,7 +212,7 @@
                 android:layout_marginTop="-50dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/user_default"
-                app:layout_constraintStart_toStartOf="@+id/profile_big_img"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_big_img"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
