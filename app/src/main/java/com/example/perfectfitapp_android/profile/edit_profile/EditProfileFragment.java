@@ -240,7 +240,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
             dialogBigPhotoFlag = 0;
             mBigBitmap = null;
             bigPictureUrlImv.setImageBitmap(null);
-            bigPictureUrlImv.setBackgroundResource(R.drawable.sentence_about_life);
+            bigPictureUrlImv.setBackgroundResource(R.drawable.coverphotoprofile);
         }
     }
 

@@ -111,7 +111,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             userNameTv = itemView.findViewById(R.id.listrow_username_tv);
-            descriptionTv = itemView.findViewById(R.id.listrow_description_tv);
+           // descriptionTv = itemView.findViewById(R.id.listrow_description_tv);
             categoryTv = itemView.findViewById(R.id.listrow_category_tv);
             subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
             postPic = itemView.findViewById(R.id.listrow_post_img);
@@ -153,7 +153,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             Post post = viewModel.getData().get(position);
             holder.userNameTv.setText(post.getProfileId());
-            holder.descriptionTv.setText(post.getDescription());
+//            holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
             holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
@@ -196,7 +196,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
             }
             else {
                 Picasso.get()
-                        .load(R.drawable.pic1_shirts).resize(250, 180)
+                        .load(R.drawable.coverphotoprofile).resize(250, 180)
                         .centerCrop()
                         .into(holder.postPic);
             }

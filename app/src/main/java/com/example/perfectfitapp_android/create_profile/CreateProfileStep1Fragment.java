@@ -216,7 +216,7 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
             dialogBigPhotoFlag = 0;
             mBigBitmap = null;
             bigPictureUrlImv.setImageBitmap(null);
-            bigPictureUrlImv.setBackgroundResource(R.drawable.sentence_about_life);
+            bigPictureUrlImv.setBackgroundResource(R.drawable.coverphotoprofile);
         }
     }
 

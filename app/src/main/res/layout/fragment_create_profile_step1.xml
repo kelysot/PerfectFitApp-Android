@@ -30,11 +30,14 @@
 
                 <ImageView
                     android:id="@+id/register_step1_big_image_imv"
-                    android:layout_width="377dp"
+                    android:layout_width="0dp"
                     android:layout_height="200dp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginTop="15dp"
-                    android:background="#ffffff"
+                    android:adjustViewBounds="true"
+                    android:background="#C9FFFFFF"
                     android:src="@drawable/coverphotoprofile"
+                    app:layout_constraintDimensionRatio="w,21:9"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -58,6 +61,7 @@
                     android:layout_marginEnd="16dp"
                     app:boxBackgroundColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/textInputLayout3"
                     app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv">
 
@@ -114,7 +118,8 @@
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="4dp"
                     app:boxBackgroundColor="@color/white"
-                    app:layout_constraintEnd_toStartOf="@+id/register_step1_progress_bar"
+                    app:layout_constraintEnd_toStartOf="@+id/textInputLayout26"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv">
 
@@ -171,7 +176,7 @@
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
+                    android:layout_marginTop="32dp"
                     android:fontFamily="@font/dosis_medium"
                     android:text="Create New Profile"
                     android:textSize="22sp"
@@ -196,12 +201,13 @@
                     android:id="@+id/register_step1_add_photo_imv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="-10dp"
-                    android:layout_marginBottom="-10dp"
+                    android:layout_marginStart="-20dp"
+                    android:layout_marginTop="-20dp"
                     android:backgroundTint="#00FAFAFA"
                     android:src="@drawable/ic_addphotoo"
-                    app:layout_constraintBottom_toBottomOf="@+id/register_step1_image_imv"
-                    app:layout_constraintEnd_toEndOf="@+id/register_step1_image_imv" />
+                    app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
+                    app:layout_constraintStart_toEndOf="@+id/register_step1_image_imv"
+                    app:layout_constraintTop_toBottomOf="@+id/register_step1_image_imv" />
 
                 <CheckBox
                     android:id="@+id/register_step1_male_cb"

@@ -161,7 +161,7 @@ public class HomePageFragment extends Fragment {
             super(itemView);
             //TODO: change the productName to userName - by the profileID in the mongo
             userNameTv = itemView.findViewById(R.id.listrow_username_tv);
-            descriptionTv = itemView.findViewById(R.id.listrow_description_tv);
+            //descriptionTv = itemView.findViewById(R.id.listrow_description_tv);
             categoryTv = itemView.findViewById(R.id.listrow_category_tv);
             subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
             addToWishList = itemView.findViewById(R.id.add_to_wish_list_btn);
@@ -203,7 +203,7 @@ public class HomePageFragment extends Fragment {
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             Post post = viewModel.getData().getValue().get(position);
             holder.userNameTv.setText(post.getProfileId());
-            holder.descriptionTv.setText(post.getDescription());
+//            holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
             holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
@@ -248,7 +248,7 @@ public class HomePageFragment extends Fragment {
             }
             else {
                 Picasso.get()
-                        .load(R.drawable.ic_image).resize(250, 180)
+                        .load(R.drawable.coverphotoprofile).resize(250, 180)
                         .centerCrop()
                         .into(holder.postPic);
             }
