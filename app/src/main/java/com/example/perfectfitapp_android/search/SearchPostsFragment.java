@@ -46,9 +46,9 @@ public class SearchPostsFragment extends Fragment {
     SearchViewModel viewModel;
 //    SwipeRefreshLayout swipeRefresh;
     EditText searchEt;
-    ImageButton searchBtn;
+//    ImageButton searchBtn;
     String theSearch;
-    LottieAnimationView progressBar;
+    LottieAnimationView progressBar, searchBtn;
     LottieAnimationView noPostImg;
     TextView noPostTv;
 
