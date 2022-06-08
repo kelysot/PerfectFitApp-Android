@@ -48,18 +48,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
+<!--    <ImageButton-->
+<!--        android:id="@+id/searchposts_search_btn"-->
+<!--        android:layout_width="62dp"-->
+<!--        android:layout_height="52dp"-->
+<!--        android:layout_marginStart="4dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:background="#00FAFAFA"-->
+<!--        android:src="@drawable/ic_search3"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/searchposts_text_et"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/searchposts_search_btn"
-        android:layout_width="62dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="4dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#00FAFAFA"
-        android:src="@drawable/ic_search3"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/searchposts_text_et"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_url="https://assets1.lottiefiles.com/private_files/lf30_kskakh1u.json" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/searchposts_progress_bar"

@@ -72,11 +72,13 @@
                     android:id="@+id/edit_profile_step1_progress_bar"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
-                    app:lottie_url="https://assets9.lottiefiles.com/packages/lf20_ocv8gwxx.json"
-                    tools:layout_editor_absoluteX="156dp"
-                    tools:layout_editor_absoluteY="277dp" />
+                    app:lottie_url="https://assets9.lottiefiles.com/packages/lf20_ocv8gwxx.json" />
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -266,6 +268,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
