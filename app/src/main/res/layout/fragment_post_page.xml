@@ -9,7 +9,8 @@
     android:isScrollContainer="false"
     android:keepScreenOn="false"
     android:scrollbars="none"
-    tools:context=".post.PostPageFragment">
+    tools:context=".post.PostPageFragment"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
