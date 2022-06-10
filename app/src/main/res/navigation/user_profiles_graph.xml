@@ -12,13 +12,17 @@
         tools:layout="@layout/fragment_user_profiles" >
         <action
             android:id="@+id/action_userProfilesFragment2_to_createProfileStep1Fragment2"
-            app:destination="@id/createProfileStep1Fragment2" />
+            app:destination="@id/createProfileStep1Fragment2"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation" />
         <action
             android:id="@+id/action_userProfilesFragment2_to_editProfileFragment2"
-            app:destination="@id/editProfileFragment2" />
+            app:destination="@id/editProfileFragment2"
+            app:enterAnim="@anim/enter_animation" />
         <action
             android:id="@+id/action_userProfilesFragment2_to_editUserFragment"
-            app:destination="@id/editUserFragment" />
+            app:destination="@id/editUserFragment"
+            app:enterAnim="@anim/enter_animation" />
     </fragment>
     <fragment
         android:id="@+id/createProfileStep1Fragment2"
@@ -27,7 +31,9 @@
         tools:layout="@layout/fragment_create_profile_step1" >
         <action
             android:id="@+id/action_createProfileStep1Fragment2_to_createProfileStep2Fragment2"
-            app:destination="@id/createProfileStep2Fragment2" />
+            app:destination="@id/createProfileStep2Fragment2"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation" />
     </fragment>
     <fragment
         android:id="@+id/createProfileStep2Fragment2"
@@ -36,7 +42,9 @@
         tools:layout="@layout/fragment_create_profile_step2" >
         <action
             android:id="@+id/action_createProfileStep2Fragment2_to_createProfileStep3Fragment2"
-            app:destination="@id/createProfileStep3Fragment2" />
+            app:destination="@id/createProfileStep3Fragment2"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation" />
     </fragment>
     <fragment
         android:id="@+id/createProfileStep3Fragment2"
@@ -50,7 +58,8 @@
         tools:layout="@layout/fragment_edit_profile" >
         <action
             android:id="@+id/action_editProfileFragment2_to_editProfileStep2Fragment2"
-            app:destination="@id/editProfileStep2Fragment2" />
+            app:destination="@id/editProfileStep2Fragment2"
+            app:enterAnim="@anim/enter_animation" />
     </fragment>
     <fragment
         android:id="@+id/editProfileStep2Fragment2"
@@ -59,7 +68,8 @@
         tools:layout="@layout/fragment_edit_profile_step2" >
         <action
             android:id="@+id/action_editProfileStep2Fragment2_to_editProfileStep3Fragment2"
-            app:destination="@id/editProfileStep3Fragment2" />
+            app:destination="@id/editProfileStep3Fragment2"
+            app:enterAnim="@anim/enter_animation" />
     </fragment>
     <fragment
         android:id="@+id/editProfileStep3Fragment2"

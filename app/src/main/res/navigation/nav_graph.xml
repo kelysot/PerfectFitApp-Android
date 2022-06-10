@@ -13,25 +13,32 @@
         <action
             android:id="@+id/action_homePageFragment_to_addNewPostFragment"
             app:destination="@id/addNewPostFragment"
+            app:enterAnim="@anim/enter_animation"
             app:popUpTo="@id/homePageFragment" />
         <action
             android:id="@+id/action_homePageFragment_to_postPageFragment2"
-            app:destination="@id/postPageFragment" />
+            app:destination="@id/postPageFragment"
+            app:enterAnim="@anim/enter_animation" />
         <action
             android:id="@+id/action_homePageFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/enter_animation" />
         <action
             android:id="@+id/action_homePageFragment_to_addNewPostStep1Fragment"
-            app:destination="@id/addNewPostStep1Fragment" />
+            app:destination="@id/addNewPostStep1Fragment"
+            app:enterAnim="@anim/enter_animation" />
         <action
             android:id="@+id/action_homePageFragment_to_commentFragment"
-            app:destination="@id/commentFragment" />
+            app:destination="@id/commentFragment"
+            app:enterAnim="@anim/up_animation" />
         <action
             android:id="@+id/action_homePageFragment_to_likesFragment"
-            app:destination="@id/likesFragment" />
+            app:destination="@id/likesFragment"
+            app:enterAnim="@anim/up_animation" />
         <action
             android:id="@+id/action_homePageFragment_to_addNewPostStep2"
-            app:destination="@id/addNewPostStep2" />
+            app:destination="@id/addNewPostStep2"
+            app:enterAnim="@anim/enter_animation" />
     </fragment>
     <fragment
         android:id="@+id/addNewPostFragment"
@@ -42,8 +49,14 @@
             android:name="encodedImage"
             app:argType="string" />
     </fragment>
-    <action android:id="@+id/action_global_addNewPostFragment" app:destination="@id/addNewPostFragment" />
-    <action android:id="@+id/action_global_homePageFragment" app:destination="@id/homePageFragment" />
+    <action
+        android:id="@+id/action_global_addNewPostFragment"
+        app:destination="@id/addNewPostFragment"
+        app:enterAnim="@anim/enter_animation" />
+    <action
+        android:id="@+id/action_global_homePageFragment"
+        app:destination="@id/homePageFragment"
+        app:enterAnim="@anim/enter_animation" />
     <fragment
         android:id="@+id/editPostFragment"
         android:name="com.example.perfectfitapp_android.post.EditPostFragment"
@@ -61,7 +74,8 @@
         tools:layout="@layout/fragment_post_page" >
         <action
             android:id="@+id/action_postPageFragment_to_editPostFragment"
-            app:destination="@id/editPostFragment" />
+            app:destination="@id/editPostFragment"
+            app:enterAnim="@anim/enter_animation" />
         <argument
             android:name="postId"
             app:argType="string" />
@@ -74,23 +88,28 @@
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_profileFragment_to_commentFragment"
-            app:destination="@id/commentFragment" />
+            app:destination="@id/commentFragment"
+            app:enterAnim="@anim/up_animation" />
         <action
             android:id="@+id/action_profileFragment_to_likesFragment"
-            app:destination="@id/likesFragment" />
+            app:destination="@id/likesFragment"
+            app:enterAnim="@anim/up_animation" />
         <argument
             android:name="profileId"
             app:argType="string"
             app:nullable="true" />
         <action
             android:id="@+id/action_profileFragment_to_followersFragment"
-            app:destination="@id/followersFragment" />
+            app:destination="@id/followersFragment"
+            app:enterAnim="@anim/enter_animation" />
         <action
             android:id="@+id/action_profileFragment_to_trackersFragment"
-            app:destination="@id/trackersFragment" />
+            app:destination="@id/trackersFragment"
+            app:enterAnim="@anim/enter_animation" />
         <action
             android:id="@+id/action_profileFragment_to_editProfileFragment"
-            app:destination="@id/editProfileFragment" />
+            app:destination="@id/editProfileFragment"
+            app:enterAnim="@anim/enter_animation" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -100,17 +119,21 @@
         <action
             android:id="@+id/action_categoryFragment_to_subCategoryFragment"
             app:destination="@id/subCategoryFragment"
+            app:enterAnim="@anim/enter_animation"
             app:popUpTo="@id/categoryFragment" />
         <action
             android:id="@+id/action_categoryFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
+            app:destination="@id/searchFragment"
+            app:enterAnim="@anim/enter_animation" />
     </fragment>
     <action
         android:id="@+id/action_global_categoryFragment"
-        app:destination="@id/categoryFragment" />
+        app:destination="@id/categoryFragment"
+        app:enterAnim="@anim/enter_animation" />
     <action
         android:id="@+id/action_global_profileFragment"
         app:destination="@id/profileFragment"
+        app:enterAnim="@anim/enter_animation"
         app:popUpTo="@id/profileFragment" />
     <fragment
         android:id="@+id/subCategoryFragment"
@@ -122,7 +145,8 @@
             app:argType="string" />
         <action
             android:id="@+id/action_subCategoryFragment_to_subCategoryDetailsPostsFragment2"
-            app:destination="@id/subCategoryDetailsPostsFragment" />
+            app:destination="@id/subCategoryDetailsPostsFragment"
+            app:enterAnim="@anim/enter_animation" />
     </fragment>
     <fragment
         android:id="@+id/wishListFragment"
@@ -131,11 +155,21 @@
         tools:layout="@layout/fragment_wish_list" >
         <action
             android:id="@+id/action_wishListFragment_to_commentFragment"
-            app:destination="@id/commentFragment" />
+            app:destination="@id/commentFragment"
+            app:enterAnim="@anim/up_animation" />
         <action
             android:id="@+id/action_wishListFragment_to_likesFragment"
-            app:destination="@id/likesFragment" />
-    </fragment><action android:id="@+id/action_global_wishListFragment" app:destination="@id/wishListFragment"/><action android:id="@+id/action_global_postPageFragment" app:destination="@id/postPageFragment"/>
+            app:destination="@id/likesFragment"
+            app:enterAnim="@anim/up_animation" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_wishListFragment"
+        app:destination="@id/wishListFragment"
+        app:enterAnim="@anim/enter_animation" />
+    <action
+        android:id="@+id/action_global_postPageFragment"
+        app:destination="@id/postPageFragment"
+        app:enterAnim="@anim/enter_animation" />
     <fragment
         android:id="@+id/subCategoryDetailsPostsFragment"
         android:name="com.example.perfectfitapp_android.sub_category.SubCategoryDetailsPostsFragment"
@@ -146,10 +180,12 @@
             app:argType="string" />
         <action
             android:id="@+id/action_subCategoryDetailsPostsFragment_to_commentFragment"
-            app:destination="@id/commentFragment" />
+            app:destination="@id/commentFragment"
+            app:enterAnim="@anim/up_animation" />
         <action
             android:id="@+id/action_subCategoryDetailsPostsFragment_to_likesFragment"
-            app:destination="@id/likesFragment" />
+            app:destination="@id/likesFragment"
+            app:enterAnim="@anim/up_animation" />
     </fragment>
     <fragment
         android:id="@+id/addNewPostStep1Fragment"
@@ -158,10 +194,12 @@
         tools:layout="@layout/fragment_add_new_post_step1" >
         <action
             android:id="@+id/action_addNewPostStep1Fragment_to_addNewPostFragment"
-            app:destination="@id/addNewPostFragment" />
+            app:destination="@id/addNewPostFragment"
+            app:enterAnim="@anim/enter_animation" />
         <action
             android:id="@+id/action_addNewPostStep1Fragment_to_addNewPostStep2"
-            app:destination="@id/addNewPostStep2" />
+            app:destination="@id/addNewPostStep2"
+            app:enterAnim="@anim/enter_animation" />
     </fragment>
     <fragment
         android:id="@+id/commentFragment"
@@ -185,7 +223,11 @@
         android:id="@+id/notificationFragment"
         android:name="com.example.perfectfitapp_android.notification.NotificationFragment"
         android:label="Notifications"
-        tools:layout="@layout/fragment_notification" /><action android:id="@+id/action_global_notificationFragment" app:destination="@id/notificationFragment"/>
+        tools:layout="@layout/fragment_notification" />
+    <action
+        android:id="@+id/action_global_notificationFragment"
+        app:destination="@id/notificationFragment"
+        app:enterAnim="@anim/up_animation" />
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.perfectfitapp_android.search.SearchFragment"
@@ -193,10 +235,12 @@
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_searchFragment_to_searchFeatureFragment"
-            app:destination="@id/searchFeatureFragment" />
+            app:destination="@id/searchFeatureFragment"
+            app:enterAnim="@anim/enter_animation" />
         <action
             android:id="@+id/action_searchFragment_to_searchPostsFragment"
             app:destination="@id/searchPostsFragment"
+            app:enterAnim="@anim/enter_animation"
             app:popUpTo="@id/homePageFragment" />
     </fragment>
     <fragment
@@ -215,7 +259,8 @@
         tools:layout="@layout/fragment_search_posts" >
         <action
             android:id="@+id/action_searchPostsFragment_self"
-            app:destination="@id/searchPostsFragment" />
+            app:destination="@id/searchPostsFragment"
+            app:enterAnim="@anim/enter_animation" />
     </fragment>
     <fragment
         android:id="@+id/followersFragment"
@@ -242,7 +287,8 @@
         tools:layout="@layout/fragment_edit_profile" >
         <action
             android:id="@+id/action_editProfileFragment_to_editProfileStep2Fragment"
-            app:destination="@id/editProfileStep2Fragment" />
+            app:destination="@id/editProfileStep2Fragment"
+            app:enterAnim="@anim/enter_animation" />
     </fragment>
     <fragment
         android:id="@+id/editProfileStep2Fragment"
@@ -251,7 +297,8 @@
         tools:layout="@layout/fragment_edit_profile_step2" >
         <action
             android:id="@+id/action_editProfileStep2Fragment_to_editProfileStep3Fragment"
-            app:destination="@id/editProfileStep3Fragment" />
+            app:destination="@id/editProfileStep3Fragment"
+            app:enterAnim="@anim/enter_animation" />
     </fragment>
     <fragment
         android:id="@+id/editProfileStep3Fragment"

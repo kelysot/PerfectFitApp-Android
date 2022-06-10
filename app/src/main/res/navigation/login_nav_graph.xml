@@ -35,7 +35,8 @@
             app:argType="string" />
         <action
             android:id="@+id/action_resetPasswordFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/exit_animation" />
     </fragment>
     <fragment
         android:id="@+id/resetPassword1EmailFragment"
@@ -44,6 +45,8 @@
         tools:layout="@layout/fragment_reset_password1_email" >
         <action
             android:id="@+id/action_resetPassword1EmailFragment_to_resetPasswordFragment"
-            app:destination="@id/resetPasswordFragment" />
+            app:destination="@id/resetPasswordFragment"
+            app:enterAnim="@anim/enter_animation"
+            app:exitAnim="@anim/exit_animation" />
     </fragment>
 </navigation>
