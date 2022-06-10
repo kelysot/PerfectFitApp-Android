@@ -261,6 +261,6 @@
     <fragment
         android:id="@+id/addNewPostStep2"
         android:name="com.example.perfectfitapp_android.post.add_post.AddNewPostStep2"
-        android:label="fragment_add_new_post_step2"
+        android:label="New post"
         tools:layout="@layout/fragment_add_new_post_step2" />
 </navigation>

@@ -171,9 +171,9 @@
 
                 <ImageButton
                     android:id="@+id/edit_profile_step1_add_big_photo_imv2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="8dp"
                     android:backgroundTint="#00FAFAFA"
                     android:src="@drawable/ic_addphotoo"
