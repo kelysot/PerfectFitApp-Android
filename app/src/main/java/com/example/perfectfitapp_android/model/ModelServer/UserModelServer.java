@@ -64,7 +64,6 @@ public class UserModelServer {
 
                 if (response.code() == 200) {
                     JsonElement js = response.body().get("tokens");
-                    System.out.println("size ---------------------------------------------- " + js.getAsJsonArray().size());
                     if(js.getAsJsonArray().size() != 0){
                         String aToken = "Bearer " + js.getAsJsonArray().get(0).getAsString();
                         String rToken = null;

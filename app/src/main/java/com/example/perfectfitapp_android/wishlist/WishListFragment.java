@@ -46,8 +46,6 @@ public class WishListFragment extends Fragment {
     LottieAnimationView noPostImg;
     TextView noPostTv, titleTv;
 
-    //TODO: Can run from AppLocalDb
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -83,7 +81,6 @@ public class WishListFragment extends Fragment {
             System.out.println("post " + postId + " was clicked");
             Model.instance.getPostById(postId, post -> {
                 if(post != null){
-                    //TODO: bring the post from appLocalDB
                     Model.instance.setPost(post);
                     Navigation.findNavController(v).navigate(WishListFragmentDirections.actionGlobalPostPageFragment(postId,"wishlist" ));
                 }
@@ -274,9 +271,7 @@ public class WishListFragment extends Fragment {
                         refresh();
                     }
                     else{
-                        //TODO: dialog
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
 
@@ -296,9 +291,7 @@ public class WishListFragment extends Fragment {
                     refresh();
                 }
                 else{
-                    //TODO: dialog
-                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                            Toast.LENGTH_LONG).show();
+                    showOkDialog(getResources().getString(R.string.outError));
                 }
             });
 
@@ -338,11 +331,28 @@ public class WishListFragment extends Fragment {
             startActivity(new Intent(getContext(), LoginActivity.class));
             getActivity().finish();
         });
-        //TODO: set the buttons to be enable false
         Button btnYes = dialog.findViewById(R.id.btn_yes);
         btnYes.setVisibility(View.GONE);
         ImageView btnClose = dialog.findViewById(R.id.btn_close);
         btnClose.setVisibility(View.GONE);
+        dialog.show();
+    }
+
+    private void showOkDialog(String text){
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_ok_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText(text);
+
+        Button btnOk = dialog.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(v -> dialog.dismiss());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
         dialog.show();
     }
 

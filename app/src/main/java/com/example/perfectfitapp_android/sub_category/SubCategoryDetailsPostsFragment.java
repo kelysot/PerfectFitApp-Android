@@ -1,5 +1,6 @@
 package com.example.perfectfitapp_android.sub_category;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -14,7 +15,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,7 +62,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                 subCategoryName.setText(subCategory.getName());
             }
             else{
-                //TODO: dialog
+                showOkDialog(getResources().getString(R.string.outError));
             }
         });
 
@@ -250,9 +253,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                         refresh();
                     }
                     else {
-                        //TODO: dialog
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
 
@@ -266,9 +267,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                         refresh();
                     }
                     else{
-                        //TODO: dialog
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
 
@@ -289,9 +288,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                         holder.addToWishList.setImageResource(R.drawable.ic_addtowishlist);
                     }
                     else{
-                        //TODO: dlialog
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
             }
@@ -304,9 +301,7 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
                         System.out.println(Model.instance.getProfile().getWishlist());
                     }
                     else{
-                        //TODO: dialog
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
             }
@@ -329,6 +324,24 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
         public boolean checkIfInsideLikes(Post post){
             return post.getLikes().contains(Model.instance.getProfile().getUserName());
         }
+    }
+
+    private void showOkDialog(String text){
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_ok_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText(text);
+
+        Button btnOk = dialog.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(v -> dialog.dismiss());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
     }
 
 }
