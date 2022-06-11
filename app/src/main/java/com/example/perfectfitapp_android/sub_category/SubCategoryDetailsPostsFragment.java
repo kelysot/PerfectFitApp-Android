@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
 import com.example.perfectfitapp_android.home.HomePageFragmentDirections;
@@ -41,6 +42,8 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
     TextView subCategoryName;
     SwipeRefreshLayout swipeRefresh;
     int likesSize = 0;
+    LottieAnimationView noPostImg;
+    TextView noPostTv;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -84,6 +87,11 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
             });
         });
 
+        noPostImg = view.findViewById(R.id.sub_category_no_post_img);
+        noPostTv = view.findViewById(R.id.sub_category_no_post_tv);
+        noPostImg.setVisibility(View.GONE);
+        noPostTv.setVisibility(View.GONE);
+
         refresh();
 
 
@@ -94,10 +102,20 @@ public class SubCategoryDetailsPostsFragment extends Fragment {
 
         Model.instance.getPostsBySubCategoryId(subCategoryId, posts -> {
             if (posts != null) {
-                Collections.reverse(posts);
-                viewModel.setData(posts);
-                swipeRefresh.setRefreshing(false);
-                adapter.notifyDataSetChanged();
+                if(posts.size() > 0) {
+                    Collections.reverse(posts);
+                    viewModel.setData(posts);
+                    swipeRefresh.setRefreshing(false);
+                    adapter.notifyDataSetChanged();
+                }
+                else{
+                    noPostImg.setVisibility(View.VISIBLE);
+                    noPostTv.setVisibility(View.VISIBLE);
+                    swipeRefresh.setEnabled(false);
+                }
+            }
+            else{
+                showOkDialog(getResources().getString(R.string.outError));
             }
         });
     }
