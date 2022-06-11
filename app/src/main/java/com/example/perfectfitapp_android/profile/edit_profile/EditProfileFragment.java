@@ -409,7 +409,6 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                         }
                     });
                 } else { // didn't upload profile pic or big pic.
-                    ModelProfile.instance.getEditProfile().setBigPictureUrl("");
 
                     String des = Navigation.findNavController(view).getGraph().getDisplayName();
                     if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){

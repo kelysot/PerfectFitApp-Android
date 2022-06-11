@@ -40,7 +40,6 @@ import java.util.List;
 import java.util.Set;
 
 
-
 public class SearchPostsFragment extends Fragment {
 
     RecyclerView rv;
@@ -51,6 +50,7 @@ public class SearchPostsFragment extends Fragment {
     LottieAnimationView progressBar, searchBtn;
     LottieAnimationView noPostImg;
     TextView noPostTv;
+    int likesSize = 0;
 
 
     @Override
@@ -82,13 +82,12 @@ public class SearchPostsFragment extends Fragment {
         adapter.setOnItemClickListener((v, position) -> {
             String postId = viewModel.getData().get(position).getPostId();
             Model.instance.getPostById(postId, post -> {
-                if(post != null){
+                if (post != null) {
 
                     //TODO: bring the post from appLocalDB
                     Model.instance.setPost(post);
-                    Navigation.findNavController(v).navigate(SearchPostsFragmentDirections.actionGlobalPostPageFragment(postId,"wishlist" ));
-                }
-                else{
+                    Navigation.findNavController(v).navigate(SearchPostsFragmentDirections.actionGlobalPostPageFragment(postId, "wishlist"));
+                } else {
                     showOkDialog(getResources().getString(R.string.outError));
                 }
             });
@@ -96,8 +95,8 @@ public class SearchPostsFragment extends Fragment {
 
 
         searchEt = view.findViewById(R.id.searchposts_text_et);
-        if(theSearch != null){
-            if(!theSearch.isEmpty()){
+        if (theSearch != null) {
+            if (!theSearch.isEmpty()) {
                 List<Post> posts = searchMap();
                 viewModel.setData(posts);
                 adapter.notifyDataSetChanged();
@@ -109,7 +108,7 @@ public class SearchPostsFragment extends Fragment {
             search();
         });
 
-        if(viewModel.getData().size() == 0){
+        if (viewModel.getData().size() == 0) {
             noPostImg.setVisibility(View.VISIBLE);
             noPostTv.setVisibility(View.VISIBLE);
             searchEt.setVisibility(View.GONE);
@@ -124,13 +123,12 @@ public class SearchPostsFragment extends Fragment {
         return view;
     }
 
-    public void search(){
+    public void search() {
         progressBar.setVisibility(View.VISIBLE);
         theSearch = searchEt.getText().toString();
-        if(theSearch.isEmpty()){
+        if (theSearch.isEmpty()) {
             viewModel.setData(SearchModel.instance.list);
-        }
-        else {
+        } else {
             List<Post> posts = searchMap();
             viewModel.setData(posts);
         }
@@ -138,10 +136,10 @@ public class SearchPostsFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    public List<Post> searchMap(){
+    public List<Post> searchMap() {
         List<Post> posts = new ArrayList<>();
 //        for (Post p : viewModel.getData()) {
-        for(Post p : SearchModel.instance.list){
+        for (Post p : SearchModel.instance.list) {
             if (p.getProfileId().contains(theSearch)) {
                 posts.add(p);
                 continue;
@@ -189,14 +187,14 @@ public class SearchPostsFragment extends Fragment {
         }
         return posts;
     }
+
     private void refresh() {
         Model.instance.getSearchPosts(SearchModel.instance.mapToServer, posts -> {
-            if(posts != null){
+            if (posts != null) {
                 viewModel.setData(posts);
                 adapter.notifyDataSetChanged();
 //                swipeRefresh.setRefreshing(false);
-            }
-            else{
+            } else {
                 showOkDialog(getResources().getString(R.string.outError));
             }
         });
@@ -205,7 +203,7 @@ public class SearchPostsFragment extends Fragment {
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView descriptionTv,categoryTv, subCategoryTv, userNameTv, likesNumberTV, timeAgoTv;
+        TextView descriptionTv, categoryTv, subCategoryTv, userNameTv, likesNumberTV, timeAgoTv;
         ImageButton addToWishList, addToLikes, commentsBtn;
         ShapeableImageView postPic, userPic;
 
@@ -260,19 +258,17 @@ public class SearchPostsFragment extends Fragment {
 //            holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
-            holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
             holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
-            holder.addToLikes.setOnClickListener(v-> addToLikes(holder, post));
+            holder.addToLikes.setOnClickListener(v -> addToLikes(holder, post));
             Model.instance.timeSince(post.getDate(), timeAgo -> holder.timeAgoTv.setText(timeAgo));
 
             Model.instance.getProfileByUserName(post.getProfileId(), profile -> {
                 String userImg = profile.getUserImageUrl();
-                if(userImg != null && !userImg.equals("")){
+                if (userImg != null && !userImg.equals("")) {
                     Model.instance.getImages(userImg, bitmap -> {
                         holder.userPic.setImageBitmap(bitmap);
                     });
-                }
-                else {
+                } else {
                     Picasso.get()
                             .load(R.drawable.user_default).resize(250, 180)
                             .centerCrop()
@@ -280,116 +276,115 @@ public class SearchPostsFragment extends Fragment {
                 }
             });
 
+            Model.instance.getProfilesByUserNames(post.getLikes(), profilesList -> {
+                likesSize = 0;
+                for (int i = 0; i < profilesList.size(); i++) {
+                    if (profilesList.get(i).getIsDeleted().equals("false")) {
+                        likesSize++;
+                    }
+                }
+                holder.likesNumberTV.setText(String.valueOf(likesSize) + " likes");
+            });
 
-            if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0 ) {
+            if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0) {
                 Model.instance.getImages(post.getPicturesUrl().get(0), bitmap -> {
                     holder.postPic.setImageBitmap(bitmap);
                 });
-            }
-            else {
+            } else {
                 Picasso.get()
                         .load(R.drawable.coverphotoprofile).resize(250, 180)
                         .centerCrop()
                         .into(holder.postPic);
             }
 
-            if(checkIfInsideWishList(post)){
+            if (checkIfInsideWishList(post)) {
                 holder.addToWishList.setImageResource(R.drawable.ic_addtowishlistfill);
-            }
-            else{
+            } else {
                 holder.addToWishList.setImageResource(R.drawable.ic_addtowishlist);
             }
 
-            if(checkIfInsideLikes(post)){
+            if (checkIfInsideLikes(post)) {
                 holder.addToLikes.setImageResource(R.drawable.ic_full_heart);
-            }
-            else{
+            } else {
                 holder.addToLikes.setImageResource(R.drawable.ic_heart1);
             }
 
             // Move to different pages from post.
 
             holder.userNameTv.setOnClickListener(v -> {
-                Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionGlobalProfileFragment(post.getProfileId()));
+                Navigation.findNavController(v).navigate(SearchPostsFragmentDirections.actionGlobalProfileFragment(post.getProfileId()));
             });
 
             holder.userPic.setOnClickListener(v -> {
-                Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionGlobalProfileFragment(post.getProfileId()));
+                Navigation.findNavController(v).navigate(SearchPostsFragmentDirections.actionGlobalProfileFragment(post.getProfileId()));
             });
 
-            if(post.getLikes().size() != 0){
+            if (post.getLikes().size() != 0) {
                 holder.likesNumberTV.setOnClickListener(v -> {
-                    Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToLikesFragment(post.getPostId()));
+                    Navigation.findNavController(v).navigate(SearchPostsFragmentDirections.actionSearchPostsFragmentToLikesFragment(post.getPostId()));
                 });
-            }
-            else {
-                holder.likesNumberTV.setOnClickListener(v -> {}); //So when user click on likes and when its empty he wont get into post page but won't get anything.
+            } else {
+                holder.likesNumberTV.setOnClickListener(v -> {
+                }); //So when user click on likes and when its empty he wont get into post page but won't get anything.
             }
 
             holder.commentsBtn.setOnClickListener(v -> {
-                Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToCommentFragment(post.getPostId()));
+                Navigation.findNavController(v).navigate(SearchPostsFragmentDirections.actionSearchPostsFragmentToCommentFragment(post.getPostId()));
             });
         }
 
         private void addToLikes(MyViewHolder holder, Post post) {
             String userName = Model.instance.getProfile().getUserName();
-            if(checkIfInsideLikes(post)){
+            if (checkIfInsideLikes(post)) {
                 post.getLikes().remove(userName);
                 Model.instance.editPost(post, isSuccess -> {
-                    if(isSuccess){
+                    if (isSuccess) {
                         holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
                         holder.addToLikes.setImageResource(R.drawable.ic_heart1);
-                        refresh();
-                    }
-                    else {
+                    } else {
                         showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
 
-            }
-            else{
+            } else {
                 post.getLikes().add(userName);
                 Model.instance.editPost(post, isSuccess -> {
-                    if(isSuccess){
+                    if (isSuccess) {
                         holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
                         holder.addToLikes.setImageResource(R.drawable.ic_full_heart);
-                        refresh();
-                    }
-                    else{
+                    } else {
                         showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
 
-                if(!Model.instance.getProfile().getUserName().equals(post.getProfileId())){
-                    Notification notification =  new Notification("0", Model.instance.getProfile().getUserName(),
-                            post.getProfileId(), Model.instance.getProfile().getUserName() + " liked your post.", "10/5/22", post.getPostId(), "false");
-                    Model.instance.addNewNotification(notification, notification1 -> {});
+                if (!Model.instance.getProfile().getUserName().equals(post.getProfileId())) {
+                    Notification notification = new Notification("0", Model.instance.getProfile().getUserName(),
+                            post.getProfileId(), "Liked your post.", "10/5/22", post.getPostId(), "false");
+                    Model.instance.addNewNotification(notification, notification1 -> {
+                    });
                 }
             }
         }
 
         private void addToWishList(MyViewHolder holder, Post post) {
 
-            if(checkIfInsideWishList(post)){
+            if (checkIfInsideWishList(post)) {
                 Model.instance.getProfile().getWishlist().remove(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
-                    if(isSuccess){
+                    if (isSuccess) {
                         holder.addToWishList.setImageResource(R.drawable.ic_addtowishlist);
-                    }
-                    else{
+                    } else {
                         showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
-            }
-            else{
+            } else {
                 Model.instance.getProfile().getWishlist().add(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
-                    if(isSuccess){
+                    if (isSuccess) {
                         holder.addToWishList.setImageResource(R.drawable.ic_addtowishlistfill);
                         System.out.println("the posts added to the list");
                         System.out.println(Model.instance.getProfile().getWishlist());
-                    }
-                    else{
+                    } else {
                         showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
@@ -398,35 +393,33 @@ public class SearchPostsFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if( viewModel.getData() == null){
+            if (viewModel.getData() == null) {
                 return 0;
             }
             return viewModel.getData().size();
         }
+
+        public boolean checkIfInsideWishList(Post post) {
+            return Model.instance.getProfile().getWishlist().contains(post.getPostId());
+        }
+
+        public boolean checkIfInsideLikes(Post post) {
+            return post.getLikes().contains(Model.instance.getProfile().getUserName());
+        }
     }
 
 
-
-    public boolean checkIfInsideWishList(Post post){
-        return Model.instance.getProfile().getWishlist().contains(post.getPostId());
-    }
-
-    public boolean checkIfInsideLikes(Post post){
-        return post.getLikes().contains(Model.instance.getProfile().getUserName());
-    }
-
-        public void setMapToServer(){
+    public void setMapToServer() {
         Set<String> names = generalModel.instance.map.keySet();
         String[] arr = new String[names.size()];
         arr = names.toArray(arr);
-        for(String a : arr){
+        for (String a : arr) {
             SearchModel.instance.mapToServer.remove(a);
             SearchModel.instance.mapToServer.put(a, new ArrayList<>());
         }
     }
 
-
-    private void showOkDialog(String text){
+    private void showOkDialog(String text) {
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_ok_dialog);
 

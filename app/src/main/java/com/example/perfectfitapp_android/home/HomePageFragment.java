@@ -315,7 +315,7 @@ public class HomePageFragment extends Fragment {
 
                 if(!Model.instance.getProfile().getUserName().equals(post.getProfileId())){
                     Notification notification =  new Notification("0", Model.instance.getProfile().getUserName(),
-                            post.getProfileId(), Model.instance.getProfile().getUserName() + " liked your post.", "10/5/22", post.getPostId(), "false");
+                            post.getProfileId(), "Liked your post.", "10/5/22", post.getPostId(), "false");
                     Model.instance.addNewNotification(notification, notification1 -> {});
                 }
             }

@@ -93,12 +93,6 @@ public class PostPageFragment extends Fragment {
                         image.setImageBitmap(bitmap);
                     });
                 }
-                else {
-                    Picasso.get()
-                            .load(R.drawable.ic_image).resize(250, 180)
-                            .centerCrop()
-                            .into(image);
-                }
 
                 linkEt.setOnClickListener(v -> {
                     if(post.getLink().contains("http")){ // missing 'http://' will cause crashed

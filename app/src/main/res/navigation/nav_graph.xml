@@ -261,6 +261,12 @@
             android:id="@+id/action_searchPostsFragment_self"
             app:destination="@id/searchPostsFragment"
             app:enterAnim="@anim/enter_animation" />
+        <action
+            android:id="@+id/action_searchPostsFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
+        <action
+            android:id="@+id/action_searchPostsFragment_to_likesFragment"
+            app:destination="@id/likesFragment" />
     </fragment>
     <fragment
         android:id="@+id/followersFragment"
