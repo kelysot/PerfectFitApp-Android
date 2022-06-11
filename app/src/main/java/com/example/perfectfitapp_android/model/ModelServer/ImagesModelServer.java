@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.model.Model;
@@ -60,11 +59,11 @@ public class ImagesModelServer {
         MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload");
 
-        Call<ResponseBody> call = server.service.uploadImage(body,name);
+        Call<ResponseBody> call = server.service.uploadImage(body, name);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response1) {
-                if (response1.code()==200) {
+                if (response1.code() == 200) {
                     try {
                         listener.onComplete(response1.body().string());
                     } catch (IOException e) {
@@ -84,27 +83,23 @@ public class ImagesModelServer {
         });
     }
 
-    public void getImages(String urlImage, Model.GetImagesListener listener){
+    public void getImages(String urlImage, Model.GetImagesListener listener) {
         Call<ResponseBody> call = server.service.getImage(urlImage);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.code() == 200){
-                    if(response.body() != null){
+                if (response.code() == 200) {
+                    if (response.body() != null) {
                         try {
                             Bitmap bitmap = convertCompressedByteArrayToBitmap(response.body().bytes());
                             listener.onComplete(bitmap);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    }
-                    else {
+                    } else {
                         listener.onComplete(null);
                     }
-                }
-                else{
-                    Toast.makeText(MyApplication.getContext(), "Didn't get pics.",
-                            Toast.LENGTH_LONG).show();
+                } else {
                     listener.onComplete(null);
                 }
             }
@@ -117,7 +112,7 @@ public class ImagesModelServer {
         });
     }
 
-    public static Bitmap convertCompressedByteArrayToBitmap(byte[] src){
+    public static Bitmap convertCompressedByteArrayToBitmap(byte[] src) {
         return BitmapFactory.decodeByteArray(src, 0, src.length);
     }
 }

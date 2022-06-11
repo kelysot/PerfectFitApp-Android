@@ -7,19 +7,6 @@
     android:background="@color/myCream"
     tools:context=".search.SearchPostsFragment">
 
-    <!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-    <!--        android:id="@+id/searchposts_swiperefresh"-->
-    <!--        android:layout_width="392dp"-->
-    <!--        android:layout_height="600dp"-->
-    <!--        android:layout_marginStart="8dp"-->
-    <!--        android:layout_marginTop="80dp"-->
-    <!--        android:layout_marginEnd="8dp"-->
-    <!--        android:layout_marginBottom="30dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/searchposts_text_et">-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchposts_rv"
         android:layout_width="0dp"
@@ -33,8 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchposts_text_et" />
 
-    <!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
-
 
     <EditText
         android:id="@+id/searchposts_text_et"
@@ -47,19 +32,6 @@
         android:maxLines="1"
         app:layout_constraintStart_toStartOf="@+id/searchposts_rv"
         app:layout_constraintTop_toTopOf="parent" />
-
-<!--    <ImageButton-->
-<!--        android:id="@+id/searchposts_search_btn"-->
-<!--        android:layout_width="62dp"-->
-<!--        android:layout_height="52dp"-->
-<!--        android:layout_marginStart="4dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        android:background="#00FAFAFA"-->
-<!--        android:src="@drawable/ic_search3"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/searchposts_text_et"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/searchposts_search_btn"

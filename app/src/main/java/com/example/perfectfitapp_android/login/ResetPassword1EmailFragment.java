@@ -28,7 +28,8 @@ public class ResetPassword1EmailFragment extends Fragment {
     String email;
     LottieAnimationView progressBar;
 
-    public ResetPassword1EmailFragment() {}
+    public ResetPassword1EmailFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,9 +52,9 @@ public class ResetPassword1EmailFragment extends Fragment {
 
         email = emailEt.getText().toString().trim();
         Model.instance.checkIfEmailExist(email, isSuccess -> {
-            if(!isSuccess){
+            if (!isSuccess) {
                 Model.instance.resetPassword(email, code -> {
-                    if(code != null){
+                    if (code != null) {
                         Navigation.findNavController(view).navigate(ResetPassword1EmailFragmentDirections.actionResetPassword1EmailFragmentToResetPasswordFragment(code, email));
                     }
                 });
@@ -66,7 +67,7 @@ public class ResetPassword1EmailFragment extends Fragment {
         });
     }
 
-    private void showOkDialog(String text){
+    private void showOkDialog(String text) {
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_ok_dialog);
 

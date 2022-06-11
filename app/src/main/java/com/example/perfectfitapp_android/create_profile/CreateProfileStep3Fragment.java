@@ -24,7 +24,7 @@ import com.example.perfectfitapp_android.model.Model;
 public class CreateProfileStep3Fragment extends Fragment {
 
     EditText shoulderEt, chestEt, basinEt, waistEt, heightEt, weightEt, footEt;
-    Button registerBtn, b, continueBtn;
+    Button registerBtn;
     ImageView explenationImg;
     Model model;
     LottieAnimationView progressBar;
@@ -34,8 +34,6 @@ public class CreateProfileStep3Fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_create_profile_step3, container, false);
-//        b = view.findViewById(R.id.register_step3_date_btn);
-//        b.setOnClickListener(v-> pickDate(view));
 
         model = Model.instance;
 
@@ -50,15 +48,14 @@ public class CreateProfileStep3Fragment extends Fragment {
         progressBar = view.findViewById(R.id.register_step3_progress_bar);
         progressBar.setVisibility(View.GONE);
 
-        if(CreateProfileModel.instance.profile.getGender().equals("Female")){
+        if (CreateProfileModel.instance.profile.getGender().equals("Female")) {
             explenationImg.setImageResource(R.drawable.body_measurement_for_her);
-        }
-        else{
+        } else {
             explenationImg.setImageResource(R.drawable.body_measurement_for_him);
         }
 
         registerBtn = view.findViewById(R.id.register_step3_register_btn);
-        registerBtn.setOnClickListener(v-> registerApp(view));
+        registerBtn.setOnClickListener(v -> registerApp(view));
 
         return view;
     }
@@ -69,43 +66,43 @@ public class CreateProfileStep3Fragment extends Fragment {
         registerBtn.setEnabled(false);
         boolean flag = true;
 
-        if(shoulderEt.getText().toString().isEmpty()){
+        if (shoulderEt.getText().toString().isEmpty()) {
             shoulderEt.setError("Please enter your shoulder size.");
             registerBtn.setEnabled(true);
             flag = false;
         }
-        if(chestEt.getText().toString().isEmpty()){
+        if (chestEt.getText().toString().isEmpty()) {
             chestEt.setError("Please enter your chest size.");
             registerBtn.setEnabled(true);
             flag = false;
         }
-        if(basinEt.getText().toString().isEmpty()){
+        if (basinEt.getText().toString().isEmpty()) {
             basinEt.setError("Please enter your hips size.");
             registerBtn.setEnabled(true);
             flag = false;
         }
-        if(waistEt.getText().toString().isEmpty()){
+        if (waistEt.getText().toString().isEmpty()) {
             waistEt.setError("Please enter your waist size.");
             registerBtn.setEnabled(true);
             flag = false;
         }
-        if(heightEt.getText().toString().isEmpty()){
+        if (heightEt.getText().toString().isEmpty()) {
             heightEt.setError("Please enter your height size.");
             registerBtn.setEnabled(true);
             flag = false;
         }
-        if(weightEt.getText().toString().isEmpty()){
+        if (weightEt.getText().toString().isEmpty()) {
             weightEt.setError("Please enter your weight size.");
             registerBtn.setEnabled(true);
             flag = false;
         }
-        if(footEt.getText().toString().isEmpty()){
+        if (footEt.getText().toString().isEmpty()) {
             footEt.setError("Please enter your shoes size.");
             registerBtn.setEnabled(true);
             flag = false;
         }
 
-        if(flag) {
+        if (flag) {
 
             CreateProfileModel.instance.profile.setShoulder(shoulderEt.getText().toString());
             CreateProfileModel.instance.profile.setChest(chestEt.getText().toString());
@@ -140,24 +137,13 @@ public class CreateProfileStep3Fragment extends Fragment {
                     showOkDialog(getResources().getString(R.string.outError));
                 }
             });
-        }
-        else {
+        } else {
             progressBar.setVisibility(View.GONE);
             showOkDialog("Please fill in all the details ");
         }
     }
 
-
-    private void pickDate(View view) {
-        showDatePickerDialog(view);
-    }
-
-    public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getChildFragmentManager(), "datePicker");
-    }
-
-    private void showOkDialog(String str){
+    private void showOkDialog(String str) {
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_ok_dialog);
 

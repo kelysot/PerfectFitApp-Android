@@ -89,9 +89,9 @@ public class Category {
                 '}';
     }
 
-    public static Category jsonObjectToCategory(JsonElement categoriesJson){
+    public static Category jsonObjectToCategory(JsonElement categoriesJson) {
         String isDeleted = categoriesJson.getAsJsonObject().get("isDeleted").getAsString();
-        if(isDeleted.equals("true")){
+        if (isDeleted.equals("true")) {
             return null;
         }
         String categoryId = categoriesJson.getAsJsonObject().get("_id").getAsString();
@@ -102,7 +102,7 @@ public class Category {
 
         JsonElement subCategoryJson = categoriesJson.getAsJsonObject().get("subCategory");
         ArrayList<String> subCategory = new ArrayList<>();
-        if(!subCategoryJson.toString().equals("null") || !subCategoryJson.isJsonNull()){
+        if (!subCategoryJson.toString().equals("null") || !subCategoryJson.isJsonNull()) {
             for (JsonElement similarProfile : subCategoryJson.getAsJsonArray()) {
                 subCategory.add(similarProfile.getAsString());
             }
@@ -113,7 +113,7 @@ public class Category {
         return category;
     }
 
-    public HashMap<String, Object> toJson(){
+    public HashMap<String, Object> toJson() {
 
         HashMap<String, Object> map = new HashMap<>();
 
@@ -126,11 +126,11 @@ public class Category {
         return map;
     }
 
-    public static List<Category> jsonArrayToCategory(JsonArray categoriesJson){
+    public static List<Category> jsonArrayToCategory(JsonArray categoriesJson) {
         List<Category> categoryList = new ArrayList<>();
         for (int i = 0; i < categoriesJson.size(); i++) {
             Category category = Category.jsonObjectToCategory(categoriesJson.get(i));
-            if(category != null)
+            if (category != null)
                 categoryList.add(category);
         }
         return categoryList;

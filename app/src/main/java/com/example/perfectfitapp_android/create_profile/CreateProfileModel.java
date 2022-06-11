@@ -15,11 +15,10 @@ public class CreateProfileModel {
         this.profile = profile;
     }
 
-    public CreateProfileModel(){
+    public CreateProfileModel() {
         user = new User();
         profile = new Profile();
     }
-
 
 
 }

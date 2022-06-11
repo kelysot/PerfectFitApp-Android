@@ -1,4 +1,5 @@
 package com.example.perfectfitapp_android.sub_category;
+
 import android.content.Context;
 import android.os.Bundle;
 
@@ -35,7 +36,8 @@ public class SubCategoryFragment extends Fragment {
     MyAdapter adapter;
     String categoryId;
 
-    public SubCategoryFragment(){}
+    public SubCategoryFragment() {
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -59,34 +61,33 @@ public class SubCategoryFragment extends Fragment {
         adapter.setOnItemClickListener((v, position) -> {
             String subCategoryId = viewModel.getData().get(position).getSubCategoryId();
             Navigation.findNavController(v).navigate(SubCategoryFragmentDirections.actionSubCategoryFragmentToSubCategoryDetailsPostsFragment2(subCategoryId));
-//            System.out.println(viewModel.getData().get(position).getName());
         });
 
         refresh();
 
-        return  view;
+        return view;
     }
 
     private void refresh() {
-        Model.instance.getSubCategoriesByCategoryId(categoryId,Model.instance.getProfile().getGender(),subCategoryList -> {
+        Model.instance.getSubCategoriesByCategoryId(categoryId, Model.instance.getProfile().getGender(), subCategoryList -> {
             Collections.sort(subCategoryList, (o1, o2) -> o1.getName().compareTo(o2.getName()));
             viewModel.setData(subCategoryList);
             adapter.notifyDataSetChanged();
         });
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView subCategoryNameTv;
         ImageView subCategoryPictureUrl;
 
-        public MyViewHolder(@NonNull View itemView,OnItemClickListener listener) {
+        public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             subCategoryNameTv = itemView.findViewById(R.id.subCategory_name);
             subCategoryPictureUrl = itemView.findViewById(R.id.subCategory_name_image);
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
-                listener.onItemClick(v,pos);
+                listener.onItemClick(v, pos);
             });
         }
     }
@@ -95,9 +96,10 @@ public class SubCategoryFragment extends Fragment {
         void onItemClick(View v, int position);
     }
 
-    class MyAdapter extends RecyclerView.Adapter<SubCategoryFragment.MyViewHolder>{
+    class MyAdapter extends RecyclerView.Adapter<SubCategoryFragment.MyViewHolder> {
 
         SubCategoryFragment.OnItemClickListener listener;
+
         public void setOnItemClickListener(SubCategoryFragment.OnItemClickListener listener) {
             this.listener = listener;
         }
@@ -105,8 +107,8 @@ public class SubCategoryFragment extends Fragment {
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.sub_category_list_row,parent,false);
-            SubCategoryFragment.MyViewHolder holder = new SubCategoryFragment.MyViewHolder(view,listener);
+            View view = getLayoutInflater().inflate(R.layout.sub_category_list_row, parent, false);
+            SubCategoryFragment.MyViewHolder holder = new SubCategoryFragment.MyViewHolder(view, listener);
             return holder;
         }
 
@@ -121,7 +123,7 @@ public class SubCategoryFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(viewModel.getData() == null)
+            if (viewModel.getData() == null)
                 return 0;
             else
                 return viewModel.getData().size();

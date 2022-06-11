@@ -54,11 +54,10 @@ public class EditProfileStep2Fragment extends Fragment {
         progressBar = view.findViewById(R.id.edit_profile_step2_progress_bar);
         progressBar.setVisibility(View.GONE);
 
-        for (String str:bodyTypesList) {
-            if(str.equals(ModelProfile.instance.getEditProfile().getBodyType())){
+        for (String str : bodyTypesList) {
+            if (str.equals(ModelProfile.instance.getEditProfile().getBodyType())) {
                 break;
-            }
-            else{
+            } else {
                 place++;
             }
         }
@@ -67,12 +66,12 @@ public class EditProfileStep2Fragment extends Fragment {
         setBodyType();
 
         rightBtn = view.findViewById(R.id.edit_profile_step2_right_img_btn);
-        rightBtn.setOnClickListener(v-> goRight());
+        rightBtn.setOnClickListener(v -> goRight());
         leftBtn = view.findViewById(R.id.edit_profile_step2_left_img_btn);
-        leftBtn.setOnClickListener(v-> goLeft());
+        leftBtn.setOnClickListener(v -> goLeft());
 
         continueBtn = view.findViewById(R.id.edit_profile_step2_continue_btn);
-        continueBtn.setOnClickListener(v-> continueStep3(view));
+        continueBtn.setOnClickListener(v -> continueStep3(view));
 
         return view;
     }
@@ -84,7 +83,7 @@ public class EditProfileStep2Fragment extends Fragment {
         bodyTypeTv.setText(bodyTypesList.get(place));
     }
 
-    public void setResBodyType(){
+    public void setResBodyType() {
 
         resBodyType = new ArrayList<>();
 
@@ -95,8 +94,7 @@ public class EditProfileStep2Fragment extends Fragment {
             resBodyType.add(R.drawable.body_pear_female);
             resBodyType.add(R.drawable.body_round_female);
             resBodyType.add(R.drawable.body_rectangle_female);
-        }
-        else{
+        } else {
             resBodyType.add(R.drawable.body_inverted_triangle_men);
             resBodyType.add(R.drawable.body_trapezoid_men);
             resBodyType.add(R.drawable.body_round_men);
@@ -105,14 +103,14 @@ public class EditProfileStep2Fragment extends Fragment {
     }
 
     private void goLeft() {
-        if(place != 0){
+        if (place != 0) {
             place--;
         }
         setBodyType();
     }
 
     private void goRight() {
-        if(place != (bodyTypesList.size()-1)){
+        if (place != (bodyTypesList.size() - 1)) {
             place++;
         }
         setBodyType();
@@ -122,7 +120,7 @@ public class EditProfileStep2Fragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         ModelProfile.instance.getEditProfile().setBodyType(bodyTypeTv.getText().toString());
         String des = Navigation.findNavController(view).getGraph().getDisplayName();
-        if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){
+        if (des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")) {
             Navigation.findNavController(view).navigate(R.id.action_editProfileStep2Fragment2_to_editProfileStep3Fragment2);
         } else {
             Navigation.findNavController(view).navigate(R.id.action_editProfileStep2Fragment_to_editProfileStep3Fragment);

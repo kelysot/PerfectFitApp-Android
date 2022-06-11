@@ -18,21 +18,21 @@ public class User {
     String password, isConnected;
     ArrayList<String> profilesId;
 
-    public User(){
+    public User() {
         this.email = "";
         this.password = "";
         this.isConnected = "";
         profilesId = new ArrayList<>();
     }
 
-    public User(@NonNull String email, String password, String isConnected){
+    public User(@NonNull String email, String password, String isConnected) {
         this.email = email;
         this.password = password;
         this.isConnected = isConnected;
         profilesId = new ArrayList<>();
     }
 
-    public User(@NonNull String email, String isConnected, ArrayList<String> profilesId){
+    public User(@NonNull String email, String isConnected, ArrayList<String> profilesId) {
         this.email = email;
         this.isConnected = isConnected;
         this.profilesId = profilesId;
@@ -53,6 +53,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
     public ArrayList<String> getProfilesArray() {
         return profilesId;
     }
@@ -69,7 +70,7 @@ public class User {
         this.isConnected = isConnected;
     }
 
-    public HashMap<String, Object> toJson(){
+    public HashMap<String, Object> toJson() {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("email", this.getEmail());
@@ -80,29 +81,27 @@ public class User {
         return map;
     }
 
-    public User fromJson(JsonObject json){
+    public User fromJson(JsonObject json) {
         User user = new User();
 
         user.setEmail(json.get("email").getAsString());
         user.setIsConnected(json.get("isConnected").getAsString());
-//        user.setPassword(json.get("password").getAsString()); //TODO: need the password here?
         ArrayList<String> arr = new ArrayList<>();
-        for (JsonElement j: json.get("profilesId").getAsJsonArray()) {
+        for (JsonElement j : json.get("profilesId").getAsJsonArray()) {
             arr.add(j.getAsString());
         }
         user.setProfilesArray(arr);
 
-        // TODO: get the Tokens
         return user;
     }
 
-    public static User jsonElementToUser(JsonElement userJson){
+    public static User jsonElementToUser(JsonElement userJson) {
         String email = userJson.getAsJsonObject().get("email").getAsString();
         String isConnected = userJson.getAsJsonObject().get("isConnected").getAsString();
 
         JsonElement profilesIdJson = userJson.getAsJsonObject().get("profilesId");
         ArrayList<String> profilesId = new ArrayList<>();
-        if(!profilesIdJson.toString().equals("null") || !profilesIdJson.isJsonNull()){
+        if (!profilesIdJson.toString().equals("null") || !profilesIdJson.isJsonNull()) {
             for (JsonElement profileId : profilesIdJson.getAsJsonArray()) {
                 profilesId.add(profileId.getAsString());
             }
@@ -113,13 +112,13 @@ public class User {
         return user;
     }
 
-    public static User jsonObjectToUser(JsonObject userJson){
+    public static User jsonObjectToUser(JsonObject userJson) {
         String email = userJson.get("email").getAsString();
         String isConnected = userJson.get("isConnected").getAsString();
 
         JsonElement profilesIdJson = userJson.get("profilesId");
         ArrayList<String> profilesId = new ArrayList<>();
-        if(!profilesIdJson.toString().equals("null") || !profilesIdJson.isJsonNull()){
+        if (!profilesIdJson.toString().equals("null") || !profilesIdJson.isJsonNull()) {
             for (JsonElement profilesId1 : profilesIdJson.getAsJsonArray()) {
                 profilesId.add(profilesId1.getAsString());
             }

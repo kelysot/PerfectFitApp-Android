@@ -18,7 +18,7 @@ import retrofit2.Response;
 public class Post {
 
     String profileId, productName, SKU, size, company, color, categoryId, subCategoryId;
-    String description,date, link, sizeAdjustment, rating, isDeleted;
+    String description, date, link, sizeAdjustment, rating, isDeleted;
     String postId;
     String price;
     ArrayList<String> likes, picturesUrl;
@@ -27,11 +27,11 @@ public class Post {
 
     /*--------------------------------- Getters & Setters -------------------------------*/
 
-    public String getIsDeleted(){
+    public String getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(String isDeleted){
+    public void setIsDeleted(String isDeleted) {
         this.isDeleted = isDeleted;
     }
 
@@ -215,10 +215,8 @@ public class Post {
 
     /*--------------------------------- Constructors -------------------------------*/
 
-    public Post(){
-        //TODO: postId
+    public Post() {
         this.postId = "";
-
         this.profileId = "";
         this.productName = "";
         this.SKU = "";
@@ -244,7 +242,6 @@ public class Post {
                 String date, String link, String sizeAdjustment, String rating,
                 String price, String isDeleted) {
 
-        //TODO: postId
         this.postId = postId;
         this.profileId = profileId;
         this.productName = productName;
@@ -271,7 +268,6 @@ public class Post {
                 String date, String link, String sizeAdjustment, String rating, ArrayList<String> picturesUrl,
                 String price, ArrayList<String> likes, ArrayList<String> comments, String isDeleted) {
 
-        //TODO: postId, likes, comments
         this.postId = postId;
         this.profileId = profileId;
         this.productName = productName;
@@ -293,7 +289,7 @@ public class Post {
         this.isDeleted = isDeleted;
     }
 
-/************************************ Json ************************************/
+    /************************************ Json ************************************/
 
     public static Post fromJson(Map<String, Object> json) {
         String postId = (String) json.get("_id").toString();
@@ -316,25 +312,18 @@ public class Post {
         ArrayList<String> comments = (ArrayList<String>) json.get("comments");
         String isDeleted = (String) json.get("isDeleted");
 
-//        Timestamp ts = (Timestamp) json.get("updateDate");
-//        Long updateDate = ts.getSeconds();
-
-//        Post post = new Post(id, dishName, restaurant, address, category, description,
-//                review, image, rate, userEmail, display);
-//        post.setUpdateDate(updateDate);
-
-       Post post = new Post(postId, profileId, productName, sku, size, company, color, categoryId, subCategoryId,
-               description, date, link, sizeAdjustment, rating, picturesUrl, price, likes, comments, isDeleted);
+        Post post = new Post(postId, profileId, productName, sku, size, company, color, categoryId, subCategoryId,
+                description, date, link, sizeAdjustment, rating, picturesUrl, price, likes, comments, isDeleted);
 
         return post;
     }
 
-    public static List<Post> getPostsFromJson(List<Map<String, Object>> map){
+    public static List<Post> getPostsFromJson(List<Map<String, Object>> map) {
         ArrayList<Post> list = new ArrayList<>();
-        for (Map<String, Object> a: map) {
+        for (Map<String, Object> a : map) {
 
-           Post post =  fromJson(a);
-           list.add(post);
+            Post post = fromJson(a);
+            list.add(post);
 
         }
         return list;
@@ -344,7 +333,7 @@ public class Post {
 
     public HashMap<String, Object> toJson() {
         HashMap<String, Object> json = new HashMap<String, Object>();
-        json.put("postId",postId );
+        json.put("postId", postId);
         json.put("profileId", profileId);
         json.put("productName", productName);
         json.put("sku", SKU);
@@ -393,7 +382,7 @@ public class Post {
 
         JsonElement picturesJson = postsJson.get("picturesUrl");
         ArrayList<String> picturesUrl = new ArrayList<>();
-        if(!picturesJson.toString().equals("null") || !picturesJson.isJsonNull()){
+        if (!picturesJson.toString().equals("null") || !picturesJson.isJsonNull()) {
             for (JsonElement pic : picturesJson.getAsJsonArray()) {
                 picturesUrl.add(pic.getAsString());
             }
@@ -401,7 +390,7 @@ public class Post {
 
         JsonElement likesJson = postsJson.get("likes");
         ArrayList<String> likes = new ArrayList<>();
-        if(!likesJson.toString().equals("null") || !likesJson.isJsonNull()){
+        if (!likesJson.toString().equals("null") || !likesJson.isJsonNull()) {
             for (JsonElement like : likesJson.getAsJsonArray()) {
                 likes.add(like.getAsString());
             }
@@ -409,7 +398,7 @@ public class Post {
 
         JsonElement commentsJson = postsJson.get("comments");
         ArrayList<String> comments = new ArrayList<>();
-        if(!commentsJson.toString().equals("null") || !commentsJson.isJsonNull()){
+        if (!commentsJson.toString().equals("null") || !commentsJson.isJsonNull()) {
             for (JsonElement comment : commentsJson.getAsJsonArray()) {
                 comments.add(comment.getAsString());
             }
@@ -422,7 +411,7 @@ public class Post {
         return post;
     }
 
-    public static Post jsonElementToPost(JsonElement postsJson){
+    public static Post jsonElementToPost(JsonElement postsJson) {
         String isDeleted = postsJson.getAsJsonObject().get("isDeleted").getAsString();
         String id = postsJson.getAsJsonObject().get("_id").getAsString();
         String profileId = postsJson.getAsJsonObject().get("profileId").getAsString();
@@ -442,7 +431,7 @@ public class Post {
 
         JsonElement picturesJson = postsJson.getAsJsonObject().get("picturesUrl");
         ArrayList<String> picturesUrl = new ArrayList<>();
-        if(!picturesJson.toString().equals("null") || !picturesJson.isJsonNull()){
+        if (!picturesJson.toString().equals("null") || !picturesJson.isJsonNull()) {
             for (JsonElement pic : picturesJson.getAsJsonArray()) {
                 picturesUrl.add(pic.getAsString());
             }
@@ -450,7 +439,7 @@ public class Post {
 
         JsonElement likesJson = postsJson.getAsJsonObject().get("likes");
         ArrayList<String> likes = new ArrayList<>();
-        if(!likesJson.toString().equals("null") || !likesJson.isJsonNull()){
+        if (!likesJson.toString().equals("null") || !likesJson.isJsonNull()) {
             for (JsonElement like : likesJson.getAsJsonArray()) {
                 likes.add(like.getAsString());
             }
@@ -458,7 +447,7 @@ public class Post {
 
         JsonElement commentsJson = postsJson.getAsJsonObject().get("comments");
         ArrayList<String> comments = new ArrayList<>();
-        if(!commentsJson.toString().equals("null") || !commentsJson.isJsonNull()){
+        if (!commentsJson.toString().equals("null") || !commentsJson.isJsonNull()) {
             for (JsonElement comment : commentsJson.getAsJsonArray()) {
                 comments.add(comment.getAsString());
             }
@@ -471,7 +460,7 @@ public class Post {
         return post;
     }
 
-    public static List<Post> jsonArrayToPost(JsonArray postsJson){
+    public static List<Post> jsonArrayToPost(JsonArray postsJson) {
         List<Post> postsList = new ArrayList<>();
         for (int i = 0; i < postsJson.size(); i++) {
             postsList.add(Post.jsonElementToPost(postsJson.get(i)));
@@ -479,9 +468,4 @@ public class Post {
         return postsList;
     }
 
-
-    //TODO: ...
-    public Long getUpdateDate() {
-        return updateDate;
-    }
 }

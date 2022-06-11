@@ -48,10 +48,8 @@ public class HomePageFragment extends Fragment {
     HomePageViewModel viewModel;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
-    Button checkDate, makeGeneral;
     LottieAnimationView progressBar;
     int likesSize = 0;
-
 
 
     @Override
@@ -65,17 +63,6 @@ public class HomePageFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
-
-        /*******************/
-
-//        makeGeneral = view.findViewById(R.id.general);
-//        makeGeneral.setOnClickListener(v -> {
-//            Model.instance.general(isSuccess -> {
-//                System.out.println("generallll");
-//            });
-//        });
-
-        /*******************/
 
         progressBar = view.findViewById(R.id.home_page_progress_bar);
         progressBar.setVisibility(View.GONE);
@@ -92,69 +79,45 @@ public class HomePageFragment extends Fragment {
 
         adapter.setOnItemClickListener((v, position) -> {
             String postId = viewModel.getData().getValue().get(position).getPostId();
-            System.out.println("post " + postId + " was clicked");
-            //TODO: bring the post from appLocalDB
-
-//            System.out.println("the post is: " + viewModel.getData().getValue().get(position).getPostId());
-
             Model.instance.setPost(viewModel.getData().getValue().get(position));
             Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToPostPageFragment2(postId, "home"));
 
-            /////////////
-//            Model.instance.getPostById(postId, post -> {
-//                if(post != null){
-//                    System.out.println("the posts id after server: " + post.getPostId());
-//                    Model.instance.setPost(post);
-//                    Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToPostPageFragment2(postId, "home"));
-//                }
-//                else{
-//                    //TODO: dialog
-////                    errorDialog("Please try later");
-//                }
-//            });
         });
 
         setHasOptionsMenu(true);
-        viewModel.getData().observe(getViewLifecycleOwner(), posts -> { refresh(); });
+        viewModel.getData().observe(getViewLifecycleOwner(), posts -> {
+            refresh();
+        });
         swipeRefresh.setRefreshing(Model.instance.getPostListLoadingState().getValue() == Model.PostListLoadingState.loading);
         Model.instance.getPostListLoadingState().observe(getViewLifecycleOwner(), postListLoadingState -> {
 
-            if(postListLoadingState == Model.PostListLoadingState.loading){
+            if (postListLoadingState == Model.PostListLoadingState.loading) {
                 swipeRefresh.setRefreshing(true);
-            }
-            else{
+            } else {
                 swipeRefresh.setRefreshing(false);
             }
         });
 
 
         Model.instance.checkNotification();
-//        Model.instance.refreshPostsList();
         return view;
     }
 
     private void refresh() {
         adapter.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);
-//        Model.instance.getAllPostsFromServer(postList -> {
-//            viewModel.setData(postList);
-//            adapter.notifyDataSetChanged();
-//            swipeRefresh.setRefreshing(false);
-//        });
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView descriptionTv,categoryTv, subCategoryTv, userNameTv, likesNumberTV, timeAgoTv;
+        TextView categoryTv, subCategoryTv, userNameTv, likesNumberTV, timeAgoTv;
 
         ImageButton addToWishList, addToLikes, commentsBtn;
-        
+
         ShapeableImageView postPic, userPic;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
-            //TODO: change the productName to userName - by the profileID in the mongo
             userNameTv = itemView.findViewById(R.id.listrow_username_tv);
-            //descriptionTv = itemView.findViewById(R.id.listrow_description_tv);
             categoryTv = itemView.findViewById(R.id.listrow_category_tv);
             subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
             addToWishList = itemView.findViewById(R.id.add_to_wish_list_btn);
@@ -196,17 +159,16 @@ public class HomePageFragment extends Fragment {
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             Post post = viewModel.getData().getValue().get(position);
             holder.userNameTv.setText(post.getProfileId());
-//            holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
             holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
-            holder.addToLikes.setOnClickListener(v-> addToLikes(holder, post));
+            holder.addToLikes.setOnClickListener(v -> addToLikes(holder, post));
             Model.instance.timeSince(post.getDate(), timeAgo -> holder.timeAgoTv.setText(timeAgo));
 
             Model.instance.getProfilesByUserNames(post.getLikes(), profilesList -> {
                 likesSize = 0;
-                for(int i = 0; i< profilesList.size(); i++){
-                    if(profilesList.get(i).getIsDeleted().equals("false")){
+                for (int i = 0; i < profilesList.size(); i++) {
+                    if (profilesList.get(i).getIsDeleted().equals("false")) {
                         likesSize++;
                     }
                 }
@@ -214,49 +176,44 @@ public class HomePageFragment extends Fragment {
             });
 
             Model.instance.getProfileByUserName(post.getProfileId(), profile -> {
-                if (profile != null){
+                if (profile != null) {
                     String userImg = profile.getUserImageUrl();
-                    if(userImg != null && !userImg.equals("")){
+                    if (userImg != null && !userImg.equals("")) {
                         Model.instance.getImages(profile.getUserImageUrl(), bitmap -> {
                             holder.userPic.setImageBitmap(bitmap);
                         });
-                    }
-                    else {
+                    } else {
                         Picasso.get()
                                 .load(R.drawable.user_default).resize(250, 180)
                                 .centerCrop()
                                 .into(holder.userPic);
                     }
-                }
-                else{
+                } else {
                     errorDialog(getResources().getString(R.string.connectionError));
                 }
             });
 
 
-            if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0 ) {
+            if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0) {
                 Model.instance.getImages(post.getPicturesUrl().get(0), bitmap -> {
                     holder.postPic.setImageBitmap(bitmap);
                 });
-            }
-            else {
+            } else {
                 Picasso.get()
                         .load(R.drawable.coverphotoprofile).resize(250, 180)
                         .centerCrop()
                         .into(holder.postPic);
             }
 
-            if(checkIfInsideWishList(post)){
+            if (checkIfInsideWishList(post)) {
                 holder.addToWishList.setImageResource(R.drawable.ic_addtowishlistfill);
-            }
-            else{
+            } else {
                 holder.addToWishList.setImageResource(R.drawable.ic_addtowishlist);
             }
 
-            if(checkIfInsideLikes(post)){
+            if (checkIfInsideLikes(post)) {
                 holder.addToLikes.setImageResource(R.drawable.ic_full_heart);
-            }
-            else{
+            } else {
                 holder.addToLikes.setImageResource(R.drawable.ic_heart1);
             }
 
@@ -270,13 +227,13 @@ public class HomePageFragment extends Fragment {
                 Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionGlobalProfileFragment(post.getProfileId()));
             });
 
-            if(post.getLikes().size() != 0){
+            if (post.getLikes().size() != 0) {
                 holder.likesNumberTV.setOnClickListener(v -> {
                     Navigation.findNavController(v).navigate(HomePageFragmentDirections.actionHomePageFragmentToLikesFragment(post.getPostId()));
                 });
-            }
-            else {
-                holder.likesNumberTV.setOnClickListener(v -> {}); //So when user click on likes and when its empty he wont get into post page but won't get anything.
+            } else {
+                holder.likesNumberTV.setOnClickListener(v -> {
+                }); //So when user click on likes and when its empty he wont get into post page but won't get anything.
             }
 
             holder.commentsBtn.setOnClickListener(v -> {
@@ -286,63 +243,58 @@ public class HomePageFragment extends Fragment {
 
         private void addToLikes(MyViewHolder holder, Post post) {
             String userName = Model.instance.getProfile().getUserName();
-            if(checkIfInsideLikes(post)){
+            if (checkIfInsideLikes(post)) {
                 post.getLikes().remove(userName);
                 Model.instance.editPost(post, isSuccess -> {
-                    if(isSuccess){
+                    if (isSuccess) {
                         holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
                         holder.addToLikes.setImageResource(R.drawable.ic_heart1);
                         refresh();
-                    }
-                    else {
+                    } else {
                         showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
 
-            }
-            else{
+            } else {
                 post.getLikes().add(userName);
                 Model.instance.editPost(post, isSuccess -> {
-                    if(isSuccess){
+                    if (isSuccess) {
                         holder.likesNumberTV.setText(String.valueOf(post.getLikes().size()) + " likes");
                         holder.addToLikes.setImageResource(R.drawable.ic_full_heart);
                         refresh();
-                    }
-                    else{
+                    } else {
                         showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
 
-                if(!Model.instance.getProfile().getUserName().equals(post.getProfileId())){
-                    Notification notification =  new Notification("0", Model.instance.getProfile().getUserName(),
+                if (!Model.instance.getProfile().getUserName().equals(post.getProfileId())) {
+                    Notification notification = new Notification("0", Model.instance.getProfile().getUserName(),
                             post.getProfileId(), "Liked your post.", "10/5/22", post.getPostId(), "false");
-                    Model.instance.addNewNotification(notification, notification1 -> {});
+                    Model.instance.addNewNotification(notification, notification1 -> {
+                    });
                 }
             }
         }
 
         private void addToWishList(MyViewHolder holder, Post post) {
 
-            if(checkIfInsideWishList(post)){
+            if (checkIfInsideWishList(post)) {
                 Model.instance.getProfile().getWishlist().remove(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
-                    if(isSuccess){
+                    if (isSuccess) {
                         holder.addToWishList.setImageResource(R.drawable.ic_addtowishlist);
-                    }
-                    else{
+                    } else {
                         showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
-            }
-            else{
+            } else {
                 Model.instance.getProfile().getWishlist().add(post.getPostId());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
-                    if(isSuccess){
+                    if (isSuccess) {
                         holder.addToWishList.setImageResource(R.drawable.ic_addtowishlistfill);
                         System.out.println("the posts added to the list");
                         System.out.println(Model.instance.getProfile().getWishlist());
-                    }
-                    else{
+                    } else {
                         showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
@@ -351,18 +303,18 @@ public class HomePageFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(viewModel.getData().getValue() == null){
+            if (viewModel.getData().getValue() == null) {
                 return 0;
             }
             return viewModel.getData().getValue().size();
         }
     }
 
-    public boolean checkIfInsideWishList(Post post){
+    public boolean checkIfInsideWishList(Post post) {
         return Model.instance.getProfile().getWishlist().contains(post.getPostId());
     }
 
-    public boolean checkIfInsideLikes(Post post){
+    public boolean checkIfInsideLikes(Post post) {
         return post.getLikes().contains(Model.instance.getProfile().getUserName());
     }
 
@@ -378,26 +330,22 @@ public class HomePageFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.NewPostFragment) {
-//            NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionHomePageFragmentToAddNewPostStep1Fragment());
             NavHostFragment.findNavController(this).navigate(HomePageFragmentDirections.actionHomePageFragmentToAddNewPostStep2());
 
             return true;
-        }
-        else if(item.getItemId() == R.id.UserProfileFragment){
+        } else if (item.getItemId() == R.id.UserProfileFragment) {
             startActivity(new Intent(getContext(), UserProfilesActivity.class));
             getActivity().finish();
             return true;
-        }
-        else if(item.getItemId() == R.id.logout){
+        } else if (item.getItemId() == R.id.logout) {
             showDialog();
             return true;
-        }
-        else {
+        } else {
             return super.onOptionsItemSelected(item);
         }
     }
 
-    private void showDialog(){
+    private void showDialog() {
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_dialog);
 
@@ -416,7 +364,6 @@ public class HomePageFragment extends Fragment {
             btnNo.setEnabled(false);
             logout();
         });
-//        btnYes.setOnClickListener(v -> logout());
 
         ImageView btnClose = dialog.findViewById(R.id.btn_close);
         btnClose.setOnClickListener(view -> dialog.dismiss());
@@ -424,7 +371,7 @@ public class HomePageFragment extends Fragment {
         dialog.show();
     }
 
-    public void errorDialog(String str){
+    public void errorDialog(String str) {
 
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_dialog);
@@ -470,26 +417,24 @@ public class HomePageFragment extends Fragment {
 
     private void logout() {
         Model.instance.logout(isSuccess -> {
-            if(isSuccess){
+            if (isSuccess) {
                 Model.instance.getProfile().setStatus("false");
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess1 -> {
-                    if(isSuccess1){
+                    if (isSuccess1) {
                         Model.instance.logoutFromAppLocalDB(isSuccess2 -> {
-                            if(isSuccess2){
+                            if (isSuccess2) {
                                 startActivity(new Intent(getContext(), LoginActivity.class));
                                 getActivity().finish();
                             }
                         });
-                    }
-                    else {
+                    } else {
                         progressBar.setVisibility(View.GONE);
                         Model.instance.getProfile().setStatus("true");
                         showOkDialog(getResources().getString(R.string.outError));
 
                     }
                 });
-            }
-            else{
+            } else {
                 progressBar.setVisibility(View.GONE);
                 showOkDialog(getResources().getString(R.string.outError));
             }

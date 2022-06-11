@@ -30,7 +30,7 @@ public class SearchFeatureFragment extends Fragment {
     TextView nameTv;
     RecyclerView rv;
     String feature;
-    List<String> theList,listToSave;
+    List<String> theList, listToSave;
     MyAdapter adapter;
 
     @Override
@@ -52,19 +52,15 @@ public class SearchFeatureFragment extends Fragment {
         adapter = new MyAdapter();
         rv.setAdapter(adapter);
 
-        if(SearchModel.instance.mapToServer.get(feature) != null){
+        if (SearchModel.instance.mapToServer.get(feature) != null) {
             listToSave = SearchModel.instance.mapToServer.get(feature);
-        }
-        else{
+        } else {
             listToSave = new ArrayList<>();
         }
 
         adapter.setOnItemClickListener((v, position) -> {
             String aa = theList.get(position);
-            System.out.println("row " + aa + "was clicked");
         });
-
-        System.out.println("list to save --------- " + listToSave);
 
         return view;
     }
@@ -90,11 +86,10 @@ public class SearchFeatureFragment extends Fragment {
             cb.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 String fr = theList.get(position);
-                if(listToSave.contains(fr)){
+                if (listToSave.contains(fr)) {
                     listToSave.remove(fr);
                     itemView.setBackgroundColor(Color.parseColor("#fafafa"));
-                }
-                else{
+                } else {
                     listToSave.add(fr);
                     itemView.setBackgroundColor(Color.parseColor("#F5F5F5"));
                 }
@@ -132,61 +127,52 @@ public class SearchFeatureFragment extends Fragment {
             String a = theList.get(position);
             holder.nameTv.setText(theList.get(position));
 
-            //TODO: set checked to the cb
-
-            if(SearchModel.instance.mapToServer.get(feature) != null){
+            if (SearchModel.instance.mapToServer.get(feature) != null) {
                 if (SearchModel.instance.mapToServer.get(feature).contains(theList.get(position))) {
                     holder.cb.setChecked(true);
                 } else {
                     holder.cb.setChecked(false);
                 }
-            }
-            else{
+            } else {
                 holder.cb.setChecked(false);
             }
         }
 
         @Override
         public int getItemCount() {
-            if(theList == null) {
+            if (theList == null) {
                 return 0;
-            }
-            else {
+            } else {
                 return theList.size();
             }
         }
     }
 
 
-    public void checkFeature(){
-        if(feature.equals("Categories")){
+    public void checkFeature() {
+        if (feature.equals("Categories")) {
             nameTv.setText("Categories");
             theList = generalModel.instance.map.get("Categories");
             Collections.sort(theList);
-        }
-        else if(feature.equals("Sizes")){
+        } else if (feature.equals("Sizes")) {
             nameTv.setText("Sizes");
             theList = generalModel.instance.map.get("Sizes");
-        }
-        else if(feature.equals("Companies")){
+        } else if (feature.equals("Companies")) {
             nameTv.setText("Companies");
             theList = generalModel.instance.map.get("Companies");
 
             Collections.sort(theList);
             theList.remove("Other");
             theList.add("Other");
-        }
-        else if(feature.equals("Colors")){
+        } else if (feature.equals("Colors")) {
             nameTv.setText("Colors");
             theList = generalModel.instance.map.get("Colors");
             Collections.sort(theList);
-        }
-        else if(feature.equals("BodyTypes")){
+        } else if (feature.equals("BodyTypes")) {
             nameTv.setText("Body Types");
             theList = generalModel.instance.map.get("BodyTypes");
             Collections.sort(theList);
-        }
-        else if(feature.equals("Gender")){
+        } else if (feature.equals("Gender")) {
             nameTv.setText("Gender");
             theList = generalModel.instance.map.get("Gender");
         }

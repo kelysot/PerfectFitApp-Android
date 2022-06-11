@@ -19,8 +19,7 @@
             android:src="@drawable/ic_gallery"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView2"
@@ -85,11 +84,6 @@
                         android:fontFamily="@font/dosis_medium"
                         android:inputType="none" />
 
-                    <!--            <com.google.android.material.textfield.TextInputEditText-->
-                    <!--                android:id="@+id/editpost_subcategory_et"-->
-                    <!--                android:layout_width="match_parent"-->
-                    <!--                android:layout_height="59dp"-->
-                    <!--                android:hint="Sub category" />-->
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -188,11 +182,6 @@
                         android:fontFamily="@font/dosis_medium"
                         android:inputType="none" />
 
-                    <!--            <com.google.android.material.textfield.TextInputEditText-->
-                    <!--                android:id="@+id/editpost_color_et"-->
-                    <!--                android:layout_width="match_parent"-->
-                    <!--                android:layout_height="wrap_content"-->
-                    <!--                android:hint="Color" />-->
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -218,11 +207,6 @@
                         android:fontFamily="@font/dosis_medium"
                         android:inputType="none" />
 
-                    <!--            <com.google.android.material.textfield.TextInputEditText-->
-                    <!--                android:id="@+id/editpost_size_et"-->
-                    <!--                android:layout_width="match_parent"-->
-                    <!--                android:layout_height="wrap_content"-->
-                    <!--                android:hint="size" />-->
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -248,11 +232,6 @@
                         android:fontFamily="@font/dosis_medium"
                         android:inputType="none" />
 
-                    <!--            <com.google.android.material.textfield.TextInputEditText-->
-                    <!--                android:id="@+id/editpost_company_et"-->
-                    <!--                android:layout_width="match_parent"-->
-                    <!--                android:layout_height="wrap_content"-->
-                    <!--                android:hint="company" />-->
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -278,11 +257,6 @@
                         android:fontFamily="@font/dosis_medium"
                         android:inputType="none" />
 
-                    <!--            <com.google.android.material.textfield.TextInputEditText-->
-                    <!--                android:id="@+id/editpost_category_et"-->
-                    <!--                android:layout_width="match_parent"-->
-                    <!--                android:layout_height="54dp"-->
-                    <!--                android:hint="Category" />-->
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <RatingBar

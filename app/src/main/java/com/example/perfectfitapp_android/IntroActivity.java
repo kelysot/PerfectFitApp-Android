@@ -21,11 +21,10 @@ public class IntroActivity extends AppCompatActivity {
 
         Model.instance.executor.execute(() -> {
             try {
-                Thread.sleep(0000); // Change to 3000 later
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-//            Model.instance.isSignIn()
             if (Model.instance.isSignIn()){
                 Model.instance.mainThread.post(() -> {
                     Model.instance.getUserFromRoom(user -> {

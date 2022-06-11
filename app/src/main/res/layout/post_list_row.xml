@@ -17,12 +17,6 @@
         android:layout_height="match_parent"
         android:background="#ffffff">
 
-        <!--        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"-->
-
-
-        <!--            android:progressTint="@color/ratingBarPrimary"-->
-        <!--            android:secondaryProgressTint="@color/ratingBarSecondary"-->
-
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/listrow_avatar_imv"
             android:layout_width="70dp"
@@ -49,16 +43,6 @@
             app:layout_constraintEnd_toStartOf="@+id/listrow_time_ago_tv"
             app:layout_constraintStart_toEndOf="@+id/listrow_avatar_imv"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <!--        <Button-->
-        <!--            android:id="@+id/listrow_comments_btn"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="15dp"-->
-        <!--            android:layout_marginTop="8dp"-->
-        <!--            android:text="Comments"-->
-        <!--            app:layout_constraintStart_toEndOf="@+id/listrow_likes_btn"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/listrow_post_likes_btn" />-->
 
         <TextView
             android:id="@+id/listrow_category_tv"
@@ -160,10 +144,6 @@
             app:layout_constraintStart_toEndOf="@+id/listrow_comments_btn"
             app:layout_constraintTop_toBottomOf="@+id/listrow_post_img"
             app:srcCompat="@drawable/ic_addtowishlist" />
-
-        <!--            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize8Percent"-->
-        <!--            app:srcCompat="@drawable/image_place"-->
-        <!--        />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

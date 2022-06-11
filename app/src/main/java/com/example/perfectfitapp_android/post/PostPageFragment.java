@@ -28,7 +28,7 @@ import com.squareup.picasso.Picasso;
 public class PostPageFragment extends Fragment {
 
     TextView productNameEt;
-    EditText skuEt, sizeEt, companyEt, colorEt, categoryEt, subCategoryEt, descriptionEt;
+    EditText skuEt, sizeEt, companyEt, colorEt, descriptionEt;
     EditText linkEt, priceEt;
     TextView categoryTv, subCategoryTv;
     ImageView image;
@@ -45,7 +45,6 @@ public class PostPageFragment extends Fragment {
         postSource = PostPageFragmentArgs.fromBundle(getArguments()).getSource();
 
         postId = PostPageFragmentArgs.fromBundle(getArguments()).getPostId();
-        //TODO: delete all the Model.instance.post..
 
         productNameEt = view.findViewById(R.id.postpage_productname_et);
         skuEt = view.findViewById(R.id.postpage_sku_et);
@@ -62,16 +61,15 @@ public class PostPageFragment extends Fragment {
         image = view.findViewById(R.id.postpage_image_imv);
 
         editBtn = view.findViewById(R.id.postpage_edit_btn);
-        editBtn.setOnClickListener(v-> editPost(view));
+        editBtn.setOnClickListener(v -> editPost(view));
 
         /***************************** set *****************************/
 
-//        Post post = Model.instance.getPost();
         Model.instance.getPostById(postId, post -> {
 
-            if(post != null){
+            if (post != null) {
 
-                if(!Model.instance.getProfile().getUserName().equals(post.getProfileId())){
+                if (!Model.instance.getProfile().getUserName().equals(post.getProfileId())) {
                     editBtn.setVisibility(View.GONE);
                 }
 
@@ -88,21 +86,20 @@ public class PostPageFragment extends Fragment {
                 sizeAdj.setRating(Float.parseFloat(post.getSizeAdjustment()));
                 rating.setRating(Float.parseFloat(post.getRating()));
 
-                if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0 ) {
+                if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0) {
                     Model.instance.getImages(post.getPicturesUrl().get(0), bitmap -> {
                         image.setImageBitmap(bitmap);
                     });
                 }
 
                 linkEt.setOnClickListener(v -> {
-                    if(post.getLink().contains("http")){ // missing 'http://' will cause crashed
+                    if (post.getLink().contains("http")) { // missing 'http://' will cause crashed
                         Uri uri = Uri.parse(post.getLink());
                         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                         startActivity(intent);
                     }
                 });
-            }
-            else{
+            } else {
                 showOkDialog(getResources().getString(R.string.outError));
             }
         });
@@ -125,7 +122,7 @@ public class PostPageFragment extends Fragment {
     }
 
 
-    private void showOkDialog(String text){
+    private void showOkDialog(String text) {
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_ok_dialog);
 

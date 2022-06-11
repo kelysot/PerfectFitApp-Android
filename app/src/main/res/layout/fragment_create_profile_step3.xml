@@ -342,45 +342,9 @@
                         android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-<!--                <com.airbnb.lottie.LottieAnimationView-->
-<!--                    android:id="@+id/register_step3_progress_bar"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="100dp"-->
-<!--                    android:layout_marginBottom="100dp"-->
-<!--                    app:layout_constraintBottom_toTopOf="@+id/register_step3_register_btn"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:lottie_autoPlay="true"-->
-<!--                    app:lottie_loop="true"-->
-<!--                    app:lottie_url="https://assets9.lottiefiles.com/packages/lf20_ocv8gwxx.json" />-->
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-        <!--        <Button-->
-        <!--            android:id="@+id/register_step3_continue_btn"-->
-        <!--            android:layout_width="130dp"-->
-        <!--            android:layout_height="46dp"-->
-        <!--            android:layout_marginTop="20dp"-->
-        <!--            android:layout_marginEnd="8dp"-->
-        <!--            android:layout_marginBottom="15dp"-->
-        <!--            android:text="Continue"-->
-        <!--            app:cornerRadius="20dp"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/textInputLayout25" />-->
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <!--    <Button-->
-    <!--        android:id="@+id/register_step3_date_btn"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="20dp"-->
-    <!--        android:onClick="showDatePickerDialog"-->
-    <!--        android:text="pick a date"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/textView7" />-->
 </ScrollView>

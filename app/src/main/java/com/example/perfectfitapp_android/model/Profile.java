@@ -14,9 +14,7 @@ import java.util.List;
 
 public class Profile {
 
-    //TODO: change status "active" to "true/false"
-    //TODO:Add profileId in profile model in server side.
-    String userId, profileId, firstName, lastName,gender, userName, birthday, userImageUrl, bigPictureUrl;
+    String userId, profileId, firstName, lastName, gender, userName, birthday, userImageUrl, bigPictureUrl;
     String shoulder, chest, basin, waist, foot, height, weight, bodyType, status, isDeleted;
     ArrayList<String> similarProfileId;
     ArrayList<String> followers, trackers;
@@ -85,6 +83,7 @@ public class Profile {
         this.wishlist = new ArrayList<>();
         this.myPostsListId = new ArrayList<>();
     }
+
     public Profile(String userId, String profileId, String firstName, String lastName, String gender, String userName,
                    String birthday, String userImageUrl, String shoulder, String chest, String basin,
                    String waist, String foot, String height, String weight, String bodyType, String status, ArrayList<String> similarProfileId,
@@ -117,7 +116,7 @@ public class Profile {
         this.trackers = trackers;
         this.notifications = notifications;
         this.wishlist = wishlist;
-        this.myPostsListId =myPostsListId;
+        this.myPostsListId = myPostsListId;
     }
 
     /*--------------------------------- Getters & Setters -------------------------------*/
@@ -368,7 +367,7 @@ public class Profile {
         this.bigPictureUrl = bigPictureUrl;
     }
 
-    public static Profile jsonElementToProfile(JsonElement profilesJson){
+    public static Profile jsonElementToProfile(JsonElement profilesJson) {
         String userId = profilesJson.getAsJsonObject().get("_id").getAsString();
         String profileId = profilesJson.getAsJsonObject().get("userId").getAsString();
         String firstName = profilesJson.getAsJsonObject().get("firstName").getAsString();
@@ -391,7 +390,7 @@ public class Profile {
 
         JsonElement similarProfileIdJson = profilesJson.getAsJsonObject().get("similarProfileId");
         ArrayList<String> similarProfileId = new ArrayList<>();
-        if(!similarProfileIdJson.toString().equals("null") || !similarProfileIdJson.isJsonNull()){
+        if (!similarProfileIdJson.toString().equals("null") || !similarProfileIdJson.isJsonNull()) {
             for (JsonElement similarProfile : similarProfileIdJson.getAsJsonArray()) {
                 similarProfileId.add(similarProfile.getAsString());
             }
@@ -399,7 +398,7 @@ public class Profile {
 
         JsonElement followersJson = profilesJson.getAsJsonObject().get("followers");
         ArrayList<String> followers = new ArrayList<>();
-        if(!followersJson.toString().equals("null") || !followersJson.isJsonNull()){
+        if (!followersJson.toString().equals("null") || !followersJson.isJsonNull()) {
             for (JsonElement follower : followersJson.getAsJsonArray()) {
                 followers.add(follower.getAsString());
             }
@@ -407,7 +406,7 @@ public class Profile {
 
         JsonElement trackersJson = profilesJson.getAsJsonObject().get("trackers");
         ArrayList<String> trackers = new ArrayList<>();
-        if(!trackersJson.toString().equals("null") || !trackersJson.isJsonNull()){
+        if (!trackersJson.toString().equals("null") || !trackersJson.isJsonNull()) {
             for (JsonElement tracker : trackersJson.getAsJsonArray()) {
                 trackers.add(tracker.getAsString());
             }
@@ -415,7 +414,7 @@ public class Profile {
 
         JsonElement notificationsJson = profilesJson.getAsJsonObject().get("notifications");
         ArrayList<String> notifications = new ArrayList<>();
-        if(!notificationsJson.toString().equals("null") || !notificationsJson.isJsonNull()){
+        if (!notificationsJson.toString().equals("null") || !notificationsJson.isJsonNull()) {
             for (JsonElement notification : notificationsJson.getAsJsonArray()) {
                 notifications.add(notification.getAsString());
             }
@@ -423,7 +422,7 @@ public class Profile {
 
         JsonElement wishlistJson = profilesJson.getAsJsonObject().get("wishlist");
         ArrayList<String> wishlist = new ArrayList<>();
-        if(!wishlistJson.toString().equals("null") || !wishlistJson.isJsonNull()){
+        if (!wishlistJson.toString().equals("null") || !wishlistJson.isJsonNull()) {
             for (JsonElement wishlist1 : wishlistJson.getAsJsonArray()) {
                 wishlist.add(wishlist1.getAsString());
             }
@@ -431,7 +430,7 @@ public class Profile {
 
         JsonElement myPostsListIdJson = profilesJson.getAsJsonObject().get("myPostsListId");
         ArrayList<String> myPostsListId = new ArrayList<>();
-        if(!myPostsListIdJson.toString().equals("null") || !myPostsListIdJson.isJsonNull()){
+        if (!myPostsListIdJson.toString().equals("null") || !myPostsListIdJson.isJsonNull()) {
             for (JsonElement myPost : myPostsListIdJson.getAsJsonArray()) {
                 myPostsListId.add(myPost.getAsString());
             }
@@ -444,7 +443,7 @@ public class Profile {
         return profile;
     }
 
-    public static Profile jsonObjectToProfile(JsonObject profilesJson){
+    public static Profile jsonObjectToProfile(JsonObject profilesJson) {
         String userId = profilesJson.get("_id").getAsString();
         String firstName = profilesJson.get("firstName").getAsString();
         String lastName = profilesJson.get("lastName").getAsString();
@@ -466,7 +465,7 @@ public class Profile {
 
         JsonElement similarProfileIdJson = profilesJson.get("similarProfileId");
         ArrayList<String> similarProfileId = new ArrayList<>();
-        if(!similarProfileIdJson.toString().equals("null") || !similarProfileIdJson.isJsonNull()){
+        if (!similarProfileIdJson.toString().equals("null") || !similarProfileIdJson.isJsonNull()) {
             for (JsonElement similarProfile : similarProfileIdJson.getAsJsonArray()) {
                 similarProfileId.add(similarProfile.getAsString());
             }
@@ -474,7 +473,7 @@ public class Profile {
 
         JsonElement followersJson = profilesJson.get("followers");
         ArrayList<String> followers = new ArrayList<>();
-        if(!followersJson.toString().equals("null") || !followersJson.isJsonNull()){
+        if (!followersJson.toString().equals("null") || !followersJson.isJsonNull()) {
             for (JsonElement follower : followersJson.getAsJsonArray()) {
                 followers.add(follower.getAsString());
             }
@@ -482,7 +481,7 @@ public class Profile {
 
         JsonElement trackersJson = profilesJson.get("trackers");
         ArrayList<String> trackers = new ArrayList<>();
-        if(!trackersJson.toString().equals("null") || !trackersJson.isJsonNull()){
+        if (!trackersJson.toString().equals("null") || !trackersJson.isJsonNull()) {
             for (JsonElement tracker : trackersJson.getAsJsonArray()) {
                 trackers.add(tracker.getAsString());
             }
@@ -490,7 +489,7 @@ public class Profile {
 
         JsonElement notificationsJson = profilesJson.get("notifications");
         ArrayList<String> notifications = new ArrayList<>();
-        if(!notificationsJson.toString().equals("null") || !notificationsJson.isJsonNull()){
+        if (!notificationsJson.toString().equals("null") || !notificationsJson.isJsonNull()) {
             for (JsonElement notification : notificationsJson.getAsJsonArray()) {
                 notifications.add(notification.getAsString());
             }
@@ -498,7 +497,7 @@ public class Profile {
 
         JsonElement wishlistJson = profilesJson.get("wishlist");
         ArrayList<String> wishlist = new ArrayList<>();
-        if(!wishlistJson.toString().equals("null") || !wishlistJson.isJsonNull()){
+        if (!wishlistJson.toString().equals("null") || !wishlistJson.isJsonNull()) {
             for (JsonElement wishlist1 : wishlistJson.getAsJsonArray()) {
                 wishlist.add(wishlist1.getAsString());
             }
@@ -506,7 +505,7 @@ public class Profile {
 
         JsonElement myPostsListIdJson = profilesJson.get("myPostsListId");
         ArrayList<String> myPostsListId = new ArrayList<>();
-        if(!myPostsListIdJson.toString().equals("null") || !myPostsListIdJson.isJsonNull()){
+        if (!myPostsListIdJson.toString().equals("null") || !myPostsListIdJson.isJsonNull()) {
             for (JsonElement myPost : myPostsListIdJson.getAsJsonArray()) {
                 myPostsListId.add(myPost.getAsString());
             }
@@ -519,7 +518,7 @@ public class Profile {
         return profile;
     }
 
-    public HashMap<String, Object> toJson(){
+    public HashMap<String, Object> toJson() {
 
         HashMap<String, Object> map = new HashMap<>();
 
@@ -551,7 +550,7 @@ public class Profile {
         return map;
     }
 
-    public static HashMap<String, List<Object>> toJson(List<String> userNames){
+    public static HashMap<String, List<Object>> toJson(List<String> userNames) {
 
         HashMap<String, List<Object>> map = new HashMap<>();
 
@@ -560,7 +559,7 @@ public class Profile {
         return map;
     }
 
-    public static List<Profile> jsonArrayToProfile(JsonArray profilesJson){
+    public static List<Profile> jsonArrayToProfile(JsonArray profilesJson) {
         List<Profile> profilesList = new ArrayList<>();
         for (int i = 0; i < profilesJson.size(); i++) {
             profilesList.add(Profile.jsonElementToProfile(profilesJson.get(i)));

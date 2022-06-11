@@ -62,9 +62,7 @@ public class CommentFragment extends Fragment {
 
         adapter.setOnItemClickListener((v, position) -> {
             String commentId = viewModel.getData().get(position).getCommentId();
-            System.out.println("notification " + commentId + " was clicked");
             Model.instance.getCommentById(commentId, comment -> {
-                System.out.println("comment " + comment.getProfileId() + " was clicked");
                 Navigation.findNavController(v).navigate(CommentFragmentDirections.actionGlobalProfileFragment(comment.getProfileId()));
             });
         });
@@ -89,23 +87,23 @@ public class CommentFragment extends Fragment {
         Comment comment = new Comment("0", Model.instance.getProfile().getUserName(), postId, date, text);
 
         Model.instance.addNewComment(comment, newComment -> {
-           if(newComment != null){
-               refresh();
-               commentET.setText("");
-               addBtn.setEnabled(true);
+            if (newComment != null) {
+                refresh();
+                commentET.setText("");
+                addBtn.setEnabled(true);
 
-               Model.instance.getPostById(postId, post -> {
-                   if(!Model.instance.getProfile().getUserName().equals(post.getProfileId())){
-                       Notification notification =  new Notification("0", Model.instance.getProfile().getUserName(),
-                               post.getProfileId(), "Commented on your post.", "10/5/22", postId, "false");
-                       Model.instance.addNewNotification(notification, notification1 -> {});
-                   }
-               });
-           }
-           else{
-               addBtn.setEnabled(true);
-               showOkDialog(getResources().getString(R.string.outError));
-           }
+                Model.instance.getPostById(postId, post -> {
+                    if (!Model.instance.getProfile().getUserName().equals(post.getProfileId())) {
+                        Notification notification = new Notification("0", Model.instance.getProfile().getUserName(),
+                                post.getProfileId(), "Commented on your post.", "10/5/22", postId, "false");
+                        Model.instance.addNewNotification(notification, notification1 -> {
+                        });
+                    }
+                });
+            } else {
+                addBtn.setEnabled(true);
+                showOkDialog(getResources().getString(R.string.outError));
+            }
 
 
         });
@@ -113,7 +111,6 @@ public class CommentFragment extends Fragment {
 
     private void refresh() {
         Model.instance.getCommentsByPostId(postId, commentList -> {
-            //TODO: check if commetList is null - and open dialog
             viewModel.setData(commentList);
             adapter.notifyDataSetChanged();
         });
@@ -169,12 +166,11 @@ public class CommentFragment extends Fragment {
                 @Override
                 public void onComplete(Profile profile) {
                     String userImg = profile.getUserImageUrl();
-                    if(userImg != null && !userImg.equals("")){
+                    if (userImg != null && !userImg.equals("")) {
                         Model.instance.getImages(userImg, bitmap -> {
                             holder.userPic.setImageBitmap(bitmap);
                         });
-                    }
-                    else {
+                    } else {
                         Picasso.get()
                                 .load(R.drawable.avatar).resize(250, 180)
                                 .centerCrop()
@@ -183,9 +179,10 @@ public class CommentFragment extends Fragment {
                 }
             });
         }
+
         @Override
         public int getItemCount() {
-            if(viewModel.getData() == null){
+            if (viewModel.getData() == null) {
                 return 0;
             }
             return viewModel.getData().size();

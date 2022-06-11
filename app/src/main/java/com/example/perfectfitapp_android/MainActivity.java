@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         Model.instance.setBottomNavigationView(bottomNavigationView);
 
@@ -56,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
         navCtl = navHost.getNavController();
-
 
         NavigationUI.setupWithNavController(bottomNavigationView, navCtl);
         NavigationUI.setupActionBarWithNavController(this, navCtl);
@@ -68,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.homePageFragment:
                     navCtl.navigate(R.id.homePageFragment);
                     break;

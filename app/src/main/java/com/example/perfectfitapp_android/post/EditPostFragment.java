@@ -59,7 +59,7 @@ public class EditPostFragment extends Fragment {
     private static final int REQUEST_IMAGE_PIC = 2;
     Bitmap mBitmap;
 
-    EditText productNameEt, skuEt, sizeEt, companyEt, colorEt, categoryEt, subCategoryEt, descriptionEt;
+    EditText productNameEt, skuEt, descriptionEt;
     EditText linkEt, priceEt;
     ImageView postImg, addPhoto;
     RatingBar sizeAdj, rating;
@@ -103,8 +103,6 @@ public class EditPostFragment extends Fragment {
         progressBar.setVisibility(View.GONE);
 
         postId = EditPostFragmentArgs.fromBundle(getArguments()).getPostId();
-//        post = Model.instance.getPostById(postId);
-
         post = Model.instance.getPost();
 
         setAllDropDownMenus(view, post);
@@ -117,7 +115,7 @@ public class EditPostFragment extends Fragment {
         sizeAdj.setRating(Float.parseFloat(post.getSizeAdjustment()));
         rating.setRating(Float.parseFloat(post.getRating()));
 
-        if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0 ) {
+        if (post.getPicturesUrl() != null && post.getPicturesUrl().size() != 0) {
             Model.instance.getImages(post.getPicturesUrl().get(0), bitmap -> {
                 postImg.setImageBitmap(bitmap);
             });
@@ -140,17 +138,14 @@ public class EditPostFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         builder.setTitle("Choose an Option");
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int i) {
+        builder.setItems(items, (dialog, i) -> {
 
-                if (i == 0) {
-                    openCam();
-                }
+            if (i == 0) {
+                openCam();
+            }
 
-                if (i == 1) {
-                    openGallery();
-                }
+            if (i == 1) {
+                openGallery();
             }
         });
 
@@ -176,7 +171,7 @@ public class EditPostFragment extends Fragment {
                 Bundle extras = data.getExtras();
                 mBitmap = (Bitmap) extras.get("data");
                 int width = getActivity().getResources().getDisplayMetrics().widthPixels;
-                int height = (width*mBitmap.getHeight())/mBitmap.getWidth();
+                int height = (width * mBitmap.getHeight()) / mBitmap.getWidth();
                 mBitmap = Bitmap.createScaledBitmap(mBitmap, width, height, true);
                 postImg.setImageBitmap(mBitmap);
             }
@@ -187,12 +182,11 @@ public class EditPostFragment extends Fragment {
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
                     mBitmap = BitmapFactory.decodeStream(imageStream);
                     int width = getActivity().getResources().getDisplayMetrics().widthPixels;
-                    int height = (width*mBitmap.getHeight())/mBitmap.getWidth();
+                    int height = (width * mBitmap.getHeight()) / mBitmap.getWidth();
                     mBitmap = Bitmap.createScaledBitmap(mBitmap, width, height, true);
                     postImg.setImageBitmap(mBitmap);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -202,17 +196,16 @@ public class EditPostFragment extends Fragment {
 
         deleteBtn.setEnabled(false);
         Model.instance.deletePostFromServer(post.getPostId(), isSuccess -> {
-            if(isSuccess){
+            if (isSuccess) {
                 toPage();
-            }
-            else{
+            } else {
                 deleteBtn.setEnabled(true);
                 showOkDialog(getResources().getString(R.string.outError));
             }
         });
     }
 
-    private void showDialog(){
+    private void showDialog() {
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_dialog);
 
@@ -259,60 +252,56 @@ public class EditPostFragment extends Fragment {
 
         boolean flag = true;
 
-        if(category.isEmpty()){
+        if (category.isEmpty()) {
             categoryAuto.setError("Please enter category.");
-            //TODO: remove the error after the client fill the field
             flag = false;
         }
-        if(subCategory.isEmpty()){
+        if (subCategory.isEmpty()) {
             subCategoryAuto.setError("Please enter sub-category.");
             flag = false;
         }
-        if(company.isEmpty()){
+        if (company.isEmpty()) {
             companyAuto.setError("Please enter company.");
             flag = false;
         }
-        if(color.isEmpty()){
+        if (color.isEmpty()) {
             colorAuto.setError("Please enter color.");
             flag = false;
         }
-        if(size.isEmpty()){
+        if (size.isEmpty()) {
             sizeAutoTv.setError("Please enter size.");
             flag = false;
         }
-        if(price.isEmpty()){
+        if (price.isEmpty()) {
             priceEt.setError("Please enter price.");
             flag = false;
         }
-        if(productName.isEmpty()){
+        if (productName.isEmpty()) {
             productNameEt.setError("Please enter product name.");
             flag = false;
         }
-
-        //TODO: Require or not:
-
-        if(description.isEmpty()){
-            description = "-";
+        if (description.isEmpty()) {
+            descriptionEt.setError("Please enter description.");
+            flag = false;
         }
-        if (sku.isEmpty()){
+
+        if (sku.isEmpty()) {
             sku = "-";
         }
 
-        if(link.isEmpty() || link.equals("-")){
+        if (link.isEmpty() || link.equals("-")) {
             link = "-";
-        }
-        else if(!Patterns.WEB_URL.matcher(link).matches() && !URLUtil.isHttpUrl(link)){
+        } else if (!Patterns.WEB_URL.matcher(link).matches() && !URLUtil.isHttpUrl(link)) {
             linkEt.setError("Please enter a valid link or leave the field blank.");
             flag = false;
-        }
-        else{
-            if(!link.contains("http")){
+        } else {
+            if (!link.contains("http")) {
                 String newLink = "http://" + link;
                 link = newLink;
             }
         }
 
-        if(flag) {
+        if (flag) {
 
             post.setProductName(productName);
             post.setSKU(sku);
@@ -337,8 +326,7 @@ public class EditPostFragment extends Fragment {
                 pics = null;
                 editPage();
             }
-        }
-        else {
+        } else {
             progressBar.setVisibility(View.GONE);
             editBtn.setEnabled(true);
             final Handler handler = new Handler(Looper.getMainLooper());
@@ -356,17 +344,11 @@ public class EditPostFragment extends Fragment {
 
     }
 
-    public void editPage(){
+    public void editPage() {
         Model.instance.editPost(post, isSuccess -> {
-            if(isSuccess){
-//                Post p = Model.instance.getPostById(post.getPostId());
-//                int index = Model.instance.getAllPosts().indexOf(p);
-//                Model.instance.getAllPosts().set(index, post);
-
-                //TODO: navigate to homepage or postpage, need o do the refresh
+            if (isSuccess) {
                 toPage();
-            }
-            else{
+            } else {
                 showOkDialog(getResources().getString(R.string.outError));
                 editBtn.setEnabled(true);
                 progressBar.setVisibility(View.GONE);
@@ -380,7 +362,6 @@ public class EditPostFragment extends Fragment {
         /****** size ******/
         sizeTxtIL = view.findViewById(R.id.editpost_size_txtil);
         sizeAutoTv = view.findViewById(R.id.editpost_size_auto);
-//        sizeArr = getResources().getStringArray(R.array.sizes);
         sizesList = generalModel.instance.map.get("Sizes");
 
         sizeAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, sizesList);
@@ -396,8 +377,8 @@ public class EditPostFragment extends Fragment {
         int size = Model.instance.getCategories().size();
         categoryArr = new String[size];
         int i = 0;
-        for(String key : Model.instance.getCategoriesAndSubCategories().keySet()){
-            categoryArr[i]= key;
+        for (String key : Model.instance.getCategoriesAndSubCategories().keySet()) {
+            categoryArr[i] = key;
             i++;
         }
 
@@ -406,20 +387,17 @@ public class EditPostFragment extends Fragment {
         categoryAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, categoryArr);
         categoryAuto.setText(post.getCategoryId());
         categoryAuto.setAdapter(categoryAdapter);
-        categoryAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                chosenCategory = categoryAuto.getText().toString();
+        categoryAuto.setOnItemClickListener((parent, view1, position, id) -> {
+            chosenCategory = categoryAuto.getText().toString();
 
-                subCategoryAuto.setEnabled(true);
-                subcategoryTxtIL.setEnabled(true);
-                subcategoryArr= Model.instance.getCategoriesAndSubCategories().get(chosenCategory);
-                Collections.sort(subcategoryArr);
+            subCategoryAuto.setEnabled(true);
+            subcategoryTxtIL.setEnabled(true);
+            subcategoryArr = Model.instance.getCategoriesAndSubCategories().get(chosenCategory);
+            Collections.sort(subcategoryArr);
 
-                subcategoryAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, subcategoryArr);
-                subCategoryAuto.setAdapter(subcategoryAdapter);
-                subCategoryAuto.setThreshold(1);
-            }
+            subcategoryAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, subcategoryArr);
+            subCategoryAuto.setAdapter(subcategoryAdapter);
+            subCategoryAuto.setThreshold(1);
         });
         categoryAuto.setThreshold(1);
 
@@ -430,13 +408,6 @@ public class EditPostFragment extends Fragment {
 
         subCategoryAuto.setEnabled(false);
         subcategoryTxtIL.setEnabled(false);
-
-//        subcategoryArr =  getResources().getStringArray(R.array.subcategories_shirts);
-//
-//        subcategoryAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, subcategoryArr);
-//        subCategoryAuto.setText(post.getSubCategoryId());
-//        subCategoryAuto.setAdapter(subcategoryAdapter);
-//        subCategoryAuto.setThreshold(1);
 
         /****** companies ******/
         companyTxtIl = view.findViewById(R.id.editpost_companies_txtil);
@@ -463,30 +434,21 @@ public class EditPostFragment extends Fragment {
         colorAuto.setAdapter(colorAdapter);
         colorAuto.setThreshold(1);
     }
-    //TODO: add subCategoryDetailsPostsFragment, check EditPostFragmentDirections / AddNewPostFragmentDirections
-    public void toPage(){
-        if(postSource.equals("home")){
+
+    public void toPage() {
+        if (postSource.equals("home")) {
             Navigation.findNavController(editBtn)
                     .navigate(EditPostFragmentDirections.actionGlobalHomePageFragment());
 
-        }
-        else if(postSource.equals("profile")){
+        } else if (postSource.equals("profile")) {
             Navigation.findNavController(editBtn)
-                .navigate(EditPostFragmentDirections.actionGlobalProfileFragment(Model.instance.getProfile().getUserName()));
+                    .navigate(EditPostFragmentDirections.actionGlobalProfileFragment(Model.instance.getProfile().getUserName()));
 
-        }
-        else if(postSource.equals("wishlist")){
+        } else if (postSource.equals("wishlist")) {
             Navigation.findNavController(editBtn)
                     .navigate(EditPostFragmentDirections.actionGlobalWishListFragment());
 
         }
-//        else if(postSource.equals("subCategoryDetailsPostsFragment")){
-//            Navigation.findNavController(editBtn)
-//                    .navigate(AddNewPostFragmentDirections.actionGlobalWishListFragment());
-//
-//        }
-
-
     }
 
     private void showOkDialog(String text) {
