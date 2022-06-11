@@ -1,6 +1,7 @@
 package com.example.perfectfitapp_android.search;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,9 +46,7 @@ public class SearchPostsFragment extends Fragment {
     RecyclerView rv;
     MyAdapter adapter;
     SearchViewModel viewModel;
-//    SwipeRefreshLayout swipeRefresh;
     EditText searchEt;
-//    ImageButton searchBtn;
     String theSearch;
     LottieAnimationView progressBar, searchBtn;
     LottieAnimationView noPostImg;
@@ -66,17 +66,10 @@ public class SearchPostsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search_posts, container, false);
 
         viewModel.setData(SearchModel.instance.list);
-        //TODO: check if SearchModel.instance.list.size() == 0
-        // if so, we need to popup and build a button that return to search and delete
-        // the mapToSend
 
         rv = view.findViewById(R.id.searchposts_rv);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        //TODO: turn off the swipeRefresh
-//        swipeRefresh = view.findViewById(R.id.searchposts_swiperefresh);
-//        swipeRefresh.setOnRefreshListener(() -> refresh());
 
         noPostImg = view.findViewById(R.id.searchposts_no_post_img);
         noPostTv = view.findViewById(R.id.searchposts_no_post_tv);
@@ -96,7 +89,7 @@ public class SearchPostsFragment extends Fragment {
                     Navigation.findNavController(v).navigate(SearchPostsFragmentDirections.actionGlobalPostPageFragment(postId,"wishlist" ));
                 }
                 else{
-                    //TODO: dialog
+                    showOkDialog(getResources().getString(R.string.outError));
                 }
             });
         });
@@ -121,28 +114,10 @@ public class SearchPostsFragment extends Fragment {
             noPostTv.setVisibility(View.VISIBLE);
             searchEt.setVisibility(View.GONE);
             searchBtn.setVisibility(View.GONE);
-
-//            String msg = "No matching posts found";
-//
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
-//            builder.setNegativeButton("OK", (dialog, which) ->{
-//                setMapToServer();
-//                //TODO: move to homepage or searchFragment?
-//                Navigation.findNavController(view).navigate(SearchPostsFragmentDirections.actionGlobalHomePageFragment());
-//                dialog.cancel();
-//            });
-//
-//            AlertDialog alert = builder.create();
-//            alert.setTitle("Error");
-//            alert.setMessage("\n" + msg + "\n");
-//            alert.show();
         }
 
         progressBar = view.findViewById(R.id.searchposts_progress_bar);
         progressBar.setVisibility(View.GONE);
-
-
-
 
 //        refresh();
 
@@ -222,7 +197,7 @@ public class SearchPostsFragment extends Fragment {
 //                swipeRefresh.setRefreshing(false);
             }
             else{
-                //TODO: dialog
+                showOkDialog(getResources().getString(R.string.outError));
             }
         });
     }
@@ -367,9 +342,7 @@ public class SearchPostsFragment extends Fragment {
                         refresh();
                     }
                     else {
-                        //TODO: dialog
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
 
@@ -383,9 +356,7 @@ public class SearchPostsFragment extends Fragment {
                         refresh();
                     }
                     else{
-                        //TODO: dialog
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
 
@@ -406,9 +377,7 @@ public class SearchPostsFragment extends Fragment {
                         holder.addToWishList.setImageResource(R.drawable.ic_addtowishlist);
                     }
                     else{
-                        //TODO: dialog
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
             }
@@ -421,9 +390,7 @@ public class SearchPostsFragment extends Fragment {
                         System.out.println(Model.instance.getProfile().getWishlist());
                     }
                     else{
-                        //TODO: dialog
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
             }
@@ -456,5 +423,24 @@ public class SearchPostsFragment extends Fragment {
             SearchModel.instance.mapToServer.remove(a);
             SearchModel.instance.mapToServer.put(a, new ArrayList<>());
         }
+    }
+
+
+    private void showOkDialog(String text){
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_ok_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText(text);
+
+        Button btnOk = dialog.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(v -> dialog.dismiss());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
     }
 }

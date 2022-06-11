@@ -9,7 +9,8 @@
     android:isScrollContainer="false"
     android:keepScreenOn="false"
     android:scrollbars="none"
-    tools:context=".post.PostPageFragment">
+    tools:context=".post.PostPageFragment"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -61,8 +62,8 @@
                         android:fontFamily="@font/dosis_medium"
                         android:text="Product Name"
                         android:textColor="#7C7676"
-                        android:textSize="20sp"
-                        android:textStyle="normal"
+                        android:textSize="22sp"
+                        android:textStyle="normal|bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -238,7 +239,7 @@
                         android:text="Size adjustment:"
                         android:textSize="16dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/postpage_category_tv" />
+                        app:layout_constraintTop_toBottomOf="@+id/postpage_subcategort_tv" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputLayout13"
@@ -311,31 +312,16 @@
                         android:id="@+id/postpage_subcategort_tv"
                         style="Widget.Holo.Light.TextView.SpinnerItem"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_height="27dp"
+                        android:layout_marginTop="4dp"
                         android:fontFamily="@font/dosis"
                         android:text="SubCategory"
                         android:textColor="#7C7676"
-                        android:textSize="20sp"
+                        android:textSize="14dp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@+id/textView6"
-                        app:layout_constraintTop_toBottomOf="@+id/postpage_productname_et" />
-
-                    <TextView
-                        android:id="@+id/textView6"
-                        style="Widget.Holo.Light.TextView.SpinnerItem"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/dosis"
-                        android:text="/"
-                        android:textColor="#7C7676"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/postpage_subcategort_tv"
-                        app:layout_constraintStart_toEndOf="@+id/postpage_category_tv"
-                        app:layout_constraintTop_toBottomOf="@+id/postpage_productname_et" />
+                        app:layout_constraintEnd_toEndOf="@+id/postpage_category_tv"
+                        app:layout_constraintStart_toStartOf="@+id/postpage_category_tv"
+                        app:layout_constraintTop_toBottomOf="@+id/postpage_category_tv" />
 
                     <TextView
                         android:id="@+id/postpage_category_tv"
@@ -344,13 +330,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
-                        android:layout_marginEnd="4dp"
                         android:fontFamily="@font/dosis"
                         android:text="Category"
                         android:textColor="#7C7676"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/textView6"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/postpage_productname_et" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
