@@ -52,7 +52,6 @@ public class ProfileFragment extends Fragment {
     ImageView userPic, bigPic;
     TextView userNameTv;
     TextView numOfPosts, numOfFollowers, numOfFollowing;
-    //    ImageButton editProfileBtn;
     MyAdapter adapter;
     String profileId;
     Button followBtn;
@@ -101,7 +100,7 @@ public class ProfileFragment extends Fragment {
             profileId = ProfileFragmentArgs.fromBundle(getArguments()).getProfileId();
             Model.instance.getProfileByUserName(profileId, profile -> {
 
-                if(profile != null){
+                if (profile != null) {
 
                     userNameTv.setText(profile.getUserName());
                     setNumOfPosts(profile.getMyPostsListId());
@@ -136,8 +135,7 @@ public class ProfileFragment extends Fragment {
                     } else
                         followBtn.setVisibility(View.GONE);
 
-                }
-                else{
+                } else {
                     showOkDialog(getResources().getString(R.string.outError));
                 }
             });
@@ -167,24 +165,16 @@ public class ProfileFragment extends Fragment {
             followBtn.setVisibility(View.GONE);
         }
 
-
-//        editProfileBtn = view.findViewById(R.id.profile_edit_profile_btn);
-//        editProfileBtn.setOnClickListener(v-> editProfile(view));
-
-
         RecyclerView postsList = view.findViewById(R.id.profile_user_posts_rv);
         postsList.setHasFixedSize(true);
         postsList.setNestedScrollingEnabled(true);
         postsList.setLayoutManager(new LinearLayoutManager(getContext()));
-        //postsList.setNestedScrollingEnabled(false);
 
         adapter = new MyAdapter();
         postsList.setAdapter(adapter);
 
         adapter.setOnItemClickListener((v, position) -> {
             String postId = viewModel.getData().get(position).getPostId();
-            System.out.println("post " + postId + " was clicked");
-            //TODO: bring the post from appLocalDB
             Model.instance.getPostById(postId, post -> {
                 Model.instance.setPost(post);
                 Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionGlobalPostPageFragment(postId, "profile"));
@@ -198,12 +188,12 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    private void setNumOfFollowers(Profile profile1){
+    private void setNumOfFollowers(Profile profile1) {
         Model.instance.getProfilesByUserNames(profile1.getFollowers(), profilesList -> {
             List<Profile> profiles = profilesList;
 
-            for(int i = 0; i < profilesList.size(); i ++){
-                if(profilesList.get(i).getIsDeleted().equals("true")){
+            for (int i = 0; i < profilesList.size(); i++) {
+                if (profilesList.get(i).getIsDeleted().equals("true")) {
                     profiles.remove(profilesList.get(i));
                 }
             }
@@ -213,11 +203,11 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void setNumOfFollowing(Profile profile1){
+    private void setNumOfFollowing(Profile profile1) {
         Model.instance.getProfilesByUserNames(profile1.getTrackers(), profilesList -> {
             List<Profile> profiles = profilesList;
-            for(int i = 0; i < profilesList.size(); i ++){
-                if(profilesList.get(i).getIsDeleted().equals("true")){
+            for (int i = 0; i < profilesList.size(); i++) {
+                if (profilesList.get(i).getIsDeleted().equals("true")) {
                     profiles.remove(profilesList.get(i));
                 }
             }
@@ -227,27 +217,23 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setNumOfPosts(ArrayList<String> myPostsListId) {
-        if(myPostsListId.size() != 0){
+        if (myPostsListId.size() != 0) {
             Model.instance.getPostsByIds(myPostsListId, postList -> {
-                for(int i = 0; i < postList.size(); i++){
-                    if(postList.get(i).getIsDeleted().equals("true")){
+                for (int i = 0; i < postList.size(); i++) {
+                    if (postList.get(i).getIsDeleted().equals("true")) {
                         postList.remove(postList.get(i));
                     }
                 }
                 numOfPosts.setText(String.valueOf(postList.size()));
             });
-        }
-        else {
+        } else {
             noPostImg.setVisibility(View.VISIBLE);
             noPostTv.setVisibility(View.VISIBLE);
             numOfPosts.setText("0");
         }
-
-
     }
 
     private void refresh() {
-        //        swipeRefresh.setRefreshing(true);
         Model.instance.getProfileByUserName(profileId, profile -> {
             if (profile != null) {
                 Model.instance.getProfilePosts(profile.getUserName(), postList -> {
@@ -293,9 +279,10 @@ public class ProfileFragment extends Fragment {
                         followBtn.setText("Following");
                         followersSize++;
                         numOfFollowers.setText(String.valueOf(followersSize));
-                        Notification notification =  new Notification("0", currentUserName,
-                                profile.getUserName(),  "Started following you.", "", " ", "false");
-                        Model.instance.addNewNotification(notification, notification1 -> {});
+                        Notification notification = new Notification("0", currentUserName,
+                                profile.getUserName(), "Started following you.", "", " ", "false");
+                        Model.instance.addNewNotification(notification, notification1 -> {
+                        });
                     } else
                         showOkDialog(getResources().getString(R.string.outError));
                 });
@@ -342,14 +329,13 @@ public class ProfileFragment extends Fragment {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView descriptionTv, categoryTv, subCategoryTv, userNameTv, likesNumberTV, timeAgoTv;
+        TextView categoryTv, subCategoryTv, userNameTv, likesNumberTV, timeAgoTv;
         ShapeableImageView postPic, userPic;
         ImageButton addToWishList, commentsBtn, addToLikes;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             userNameTv = itemView.findViewById(R.id.listrow_username_tv);
-            //descriptionTv = itemView.findViewById(R.id.listrow_description_tv);
             categoryTv = itemView.findViewById(R.id.listrow_category_tv);
             subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
             postPic = itemView.findViewById(R.id.listrow_post_img);
@@ -391,7 +377,6 @@ public class ProfileFragment extends Fragment {
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             Post post = viewModel.getData().get(position);
             holder.userNameTv.setText(post.getProfileId());
-//            holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
             holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));
@@ -400,8 +385,8 @@ public class ProfileFragment extends Fragment {
 
             Model.instance.getProfilesByUserNames(post.getLikes(), profilesList -> {
                 likesSize = 0;
-                for(int i = 0; i< profilesList.size(); i++){
-                    if(profilesList.get(i).getIsDeleted().equals("false")){
+                for (int i = 0; i < profilesList.size(); i++) {
+                    if (profilesList.get(i).getIsDeleted().equals("false")) {
                         likesSize++;
                     }
                 }
@@ -409,7 +394,7 @@ public class ProfileFragment extends Fragment {
             });
 
             Model.instance.getProfileByUserName(post.getProfileId(), profile -> {
-                if(profile!= null){
+                if (profile != null) {
                     String userImg = profile.getUserImageUrl();
                     if (userImg != null && !userImg.equals("")) {
                         Model.instance.getImages(userImg, bitmap -> {
@@ -421,12 +406,8 @@ public class ProfileFragment extends Fragment {
                                 .centerCrop()
                                 .into(holder.userPic);
                     }
-                }
-                else{
+                } else {
                     errorDialog(getResources().getString(R.string.connectionError));
-//                    Model.instance.refreshToken(tokensList -> {
-//                        refresh();
-//                    });
                 }
             });
 
@@ -478,8 +459,7 @@ public class ProfileFragment extends Fragment {
                         holder.addToLikes.setImageResource(R.drawable.ic_heart1);
                         refresh();
                     } else {
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
 
@@ -491,8 +471,7 @@ public class ProfileFragment extends Fragment {
                         holder.addToLikes.setImageResource(R.drawable.ic_full_heart);
                         refresh();
                     } else {
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
 
@@ -547,12 +526,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-
-//    private void editProfile(View view) {
-//        Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment());
-//    }
-
-    public void errorDialog(String str){
+    public void errorDialog(String str) {
 
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_dialog);
@@ -570,7 +544,6 @@ public class ProfileFragment extends Fragment {
             startActivity(new Intent(getContext(), LoginActivity.class));
             getActivity().finish();
         });
-        //TODO: set the buttons to be enable false
         Button btnYes = dialog.findViewById(R.id.btn_yes);
         btnYes.setVisibility(View.GONE);
         ImageView btnClose = dialog.findViewById(R.id.btn_close);
@@ -591,36 +564,34 @@ public class ProfileFragment extends Fragment {
         if (item.getItemId() == R.id.profile_edit_menuItem) {
             NavHostFragment.findNavController(this).navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment());
             return true;
-        }
-        else if(item.getItemId() == R.id.profile_delete_menuItem){
+        } else if (item.getItemId() == R.id.profile_delete_menuItem) {
             String s = "Are you sure you want to delete your profile?";
             showDialog(s);
             return true;
-        }
-        else {
+        } else {
             return super.onOptionsItemSelected(item);
         }
     }
 
     private void delete() {
-        Model.instance.deleteProfile(Model.instance.getProfile().getUserName(),isSuccess -> {
-            if(isSuccess){
+        Model.instance.deleteProfile(Model.instance.getProfile().getUserName(), isSuccess -> {
+            if (isSuccess) {
                 ArrayList<String> profileArr = Model.instance.getUser().getProfilesArray();
-                for(int i = 0; i< profileArr.size(); i ++){
-                    if(profileArr.get(i).equals(Model.instance.getProfile().getUserName())){
+                for (int i = 0; i < profileArr.size(); i++) {
+                    if (profileArr.get(i).equals(Model.instance.getProfile().getUserName())) {
                         Model.instance.getUser().getProfilesArray().remove(i); //current user
                         startActivity(new Intent(getContext(), UserProfilesActivity.class));
                         getActivity().finish();
                         break;
                     }
                 }
-            }else{
+            } else {
                 showOkDialog(getResources().getString(R.string.outError));
             }
         });
     }
 
-    private void showDialog(String text){
+    private void showDialog(String text) {
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_dialog);
 

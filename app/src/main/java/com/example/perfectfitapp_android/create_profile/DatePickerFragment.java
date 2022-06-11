@@ -49,6 +49,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         // Create a new instance of DatePickerDialog and return it
         return new DatePickerDialog(getActivity(), this, year, month, day);
     }
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         this.day = dayOfMonth;

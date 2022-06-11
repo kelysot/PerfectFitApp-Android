@@ -11,7 +11,7 @@ public class Comment {
 
     String commentId, profileId, postId, date, text;
 
-    public Comment(){
+    public Comment() {
         this.commentId = "";
         this.profileId = "";
         this.postId = "";
@@ -80,30 +80,28 @@ public class Comment {
 
     public HashMap<String, Object> toJson() {
         HashMap<String, Object> json = new HashMap<String, Object>();
-        json.put("_id", commentId );
+        json.put("_id", commentId);
         json.put("profileId", profileId);
         json.put("postId", postId);
         json.put("date", date);
         json.put("text", text);
 
-//        json.put("updateDate", FieldValue.serverTimestamp());
-
         return json;
     }
 
-    public static Comment jsonElementToComment(JsonElement commentJson){
+    public static Comment jsonElementToComment(JsonElement commentJson) {
         String id = commentJson.getAsJsonObject().get("_id").getAsString();
         String profileId = commentJson.getAsJsonObject().get("profileId").getAsString();
         String postId = commentJson.getAsJsonObject().get("postId").getAsString();
         String date = commentJson.getAsJsonObject().get("date").getAsString();
         String text = commentJson.getAsJsonObject().get("text").getAsString();
 
-        Comment comment = new Comment(id, profileId, postId, date , text);
+        Comment comment = new Comment(id, profileId, postId, date, text);
 
         return comment;
     }
 
-    public static Comment jsonObjectToComment(JsonElement commentsJson){
+    public static Comment jsonObjectToComment(JsonElement commentsJson) {
         String commentId = commentsJson.getAsJsonObject().get("_id").getAsString();
         String profileId = commentsJson.getAsJsonObject().get("profileId").getAsString();
         String postId = commentsJson.getAsJsonObject().get("postId").getAsString();
@@ -115,7 +113,7 @@ public class Comment {
         return comment;
     }
 
-    public static List<Comment> jsonArrayToCategory(JsonArray commentsJson){
+    public static List<Comment> jsonArrayToCategory(JsonArray commentsJson) {
         List<Comment> commentsList = new ArrayList<>();
         for (int i = 0; i < commentsJson.size(); i++) {
             commentsList.add(Comment.jsonObjectToComment(commentsJson.get(i)));

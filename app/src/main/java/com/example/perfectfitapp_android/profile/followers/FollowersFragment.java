@@ -29,7 +29,8 @@ public class FollowersFragment extends Fragment {
     MyAdapter adapter;
     String profileId;
 
-    public FollowersFragment() {}
+    public FollowersFragment() {
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -40,7 +41,6 @@ public class FollowersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_followers, container, false);
 
         profileId = FollowersFragmentArgs.fromBundle(getArguments()).getProfileId();
@@ -110,12 +110,11 @@ public class FollowersFragment extends Fragment {
             holder.userNameTv.setText(profile.getUserName());
 
             String userImg = profile.getUserImageUrl();
-            if(userImg != null && !userImg.equals("")){
+            if (userImg != null && !userImg.equals("")) {
                 Model.instance.getImages(userImg, bitmap -> {
                     holder.userPic.setImageBitmap(bitmap);
                 });
-            }
-            else {
+            } else {
                 Picasso.get()
                         .load(R.drawable.avatar).resize(250, 180)
                         .centerCrop()
@@ -126,7 +125,7 @@ public class FollowersFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(viewModel.getFollowersProfiles() == null){
+            if (viewModel.getFollowersProfiles() == null) {
                 return 0;
             }
             return viewModel.getFollowersProfiles().size();

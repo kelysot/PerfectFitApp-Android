@@ -30,7 +30,8 @@ public class ResetPasswordFragment extends Fragment {
     String code, email;
     LottieAnimationView progressBar;
 
-    public ResetPasswordFragment() {}
+    public ResetPasswordFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,7 +57,7 @@ public class ResetPasswordFragment extends Fragment {
         String userCode = codeEt.getText().toString().trim();
         resetPassBtn.setEnabled(false);
 
-        if(code.equals(userCode)){
+        if (code.equals(userCode)) {
             Model.instance.getUserFromServer(email, user -> {
                 user.setPassword(passEt.getText().toString().trim());
                 Model.instance.changePassword(user, isSuccess -> {
@@ -72,7 +73,7 @@ public class ResetPasswordFragment extends Fragment {
         }
     }
 
-    private void showOkDialog(String text){
+    private void showOkDialog(String text) {
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_ok_dialog);
 

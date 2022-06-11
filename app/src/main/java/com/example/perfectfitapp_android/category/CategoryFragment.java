@@ -36,7 +36,6 @@ public class CategoryFragment extends Fragment {
 
 
     public CategoryFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -48,7 +47,6 @@ public class CategoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_category, container, false);
 
         RecyclerView categoryList = view.findViewById(R.id.category_rv);
@@ -130,7 +128,7 @@ public class CategoryFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(viewModel.getData() == null)
+            if (viewModel.getData() == null)
                 return 0;
             else
                 return viewModel.getData().size();

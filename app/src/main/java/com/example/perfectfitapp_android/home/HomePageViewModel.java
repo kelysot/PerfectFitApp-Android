@@ -12,7 +12,7 @@ public class HomePageViewModel extends ViewModel {
 
     LiveData<List<Post>> data;
 
-    public HomePageViewModel(){
+    public HomePageViewModel() {
         data = Model.instance.getAll();
     }
 

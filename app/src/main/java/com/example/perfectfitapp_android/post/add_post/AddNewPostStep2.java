@@ -71,8 +71,6 @@ public class AddNewPostStep2 extends Fragment {
     ImageView image;
     Bitmap mBitmap;
 
-    int check = 0;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -115,7 +113,6 @@ public class AddNewPostStep2 extends Fragment {
         postBtn.setEnabled(false);
 
 
-
         productName = productNameEt.getText().toString();
         sku = skuEt.getText().toString();
         description = descriptionEt.getText().toString();
@@ -133,59 +130,55 @@ public class AddNewPostStep2 extends Fragment {
 
         boolean flag = true;
 
-        if(category.isEmpty()){
+        if (category.isEmpty()) {
             categoryAuto.setError("Please enter category");
             flag = false;
         }
-        if(subCategory.isEmpty()){
+        if (subCategory.isEmpty()) {
             subCategoryAuto.setError("Please enter sub-category.");
             flag = false;
         }
-        if(company.isEmpty()){
+        if (company.isEmpty()) {
             companyAuto.setError("Please enter company.");
             flag = false;
         }
-        if(color.isEmpty()){
+        if (color.isEmpty()) {
             colorAuto.setError("Please enter color.");
             flag = false;
         }
-        if(size.isEmpty()){
+        if (size.isEmpty()) {
             sizeAutoTv.setError("Please enter size.");
             flag = false;
         }
-        if(price.isEmpty()){
+        if (price.isEmpty()) {
             priceEt.setError("Please enter price.");
             flag = false;
         }
-        if(productName.isEmpty()){
+        if (productName.isEmpty()) {
             productNameEt.setError("Please enter product name.");
             flag = false;
         }
-        if(description.isEmpty()){
+        if (description.isEmpty()) {
             descriptionEt.setError("Please enter description.");
         }
 
-        if (sku.isEmpty()){
+        if (sku.isEmpty()) {
             sku = "-";
         }
 
-        if(link.isEmpty()){
+        if (link.isEmpty()) {
             link = "-";
-        }
-        else if(!Patterns.WEB_URL.matcher(link).matches() && !URLUtil.isHttpUrl(link)){
+        } else if (!Patterns.WEB_URL.matcher(link).matches() && !URLUtil.isHttpUrl(link)) {
             linkEt.setError("Please enter a valid link or leave the field blank.");
             flag = false;
-        }
-        else{
-            if(!link.contains("http")){
+        } else {
+            if (!link.contains("http")) {
                 String newLink = "http://" + link;
                 link = newLink;
             }
         }
 
-        if(flag){
-
-            String date = "";
+        if (flag) {
 
             StringBuilder count = new StringBuilder();
             count.append(Model.instance.getCount());
@@ -206,10 +199,7 @@ public class AddNewPostStep2 extends Fragment {
             /*********************************/
 
 
-//        newPost.setPicturesUrl(Model.instance.getNewPost().getPicturesUrl());
-
-        }
-        else{
+        } else {
             progressBar.setVisibility(View.GONE);
             postBtn.setEnabled(true);
             final Handler handler = new Handler(Looper.getMainLooper());
@@ -225,7 +215,7 @@ public class AddNewPostStep2 extends Fragment {
         }
     }
 
-    public void sendPostToServer(){
+    public void sendPostToServer() {
 
         Post newPost = new Post("", Model.instance.getProfile().getUserName(), productName, sku, size, company, color, category,
                 subCategory, description, "", link, sizeAdj, rating, pics, price, null, null, "false");
@@ -237,7 +227,7 @@ public class AddNewPostStep2 extends Fragment {
                 Model.instance.setNewPost(new Post());
                 Model.instance.getProfile().getMyPostsListId().add(post.getPostId());
                 Navigation.findNavController(postBtn)
-                        .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
+                        .navigate(AddNewPostStep2Directions.actionGlobalHomePageFragment());
             } else {
                 postBtn.setEnabled(true);
                 progressBar.setVisibility(View.GONE);
@@ -247,11 +237,11 @@ public class AddNewPostStep2 extends Fragment {
 
     }
 
-    public void delay(){
+    public void delay() {
         categoryTxtIL.setError(null);
     }
 
-    public void setAllDropDownMenus(View view){
+    public void setAllDropDownMenus(View view) {
 
         /****** size ******/
         sizeTxtIL = view.findViewById(R.id.addnewpost_size_txtil);
@@ -271,8 +261,8 @@ public class AddNewPostStep2 extends Fragment {
         int size = Model.instance.getCategories().size();
         categoryArr = new String[size];
         int i = 0;
-        for(String key : Model.instance.getCategoriesAndSubCategories().keySet()){
-            categoryArr[i]= key;
+        for (String key : Model.instance.getCategoriesAndSubCategories().keySet()) {
+            categoryArr[i] = key;
             i++;
         }
 
@@ -280,21 +270,18 @@ public class AddNewPostStep2 extends Fragment {
 
         categoryAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, categoryArr);
         categoryAuto.setAdapter(categoryAdapter);
-        categoryAuto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                chosenCategory = categoryAuto.getText().toString();
+        categoryAuto.setOnItemClickListener((parent, view1, position, id) -> {
+            chosenCategory = categoryAuto.getText().toString();
 
-                subCategoryAuto.setEnabled(true);
-                subcategoryTxtIL.setEnabled(true);
-                subcategoryArr= Model.instance.getCategoriesAndSubCategories().get(chosenCategory);
+            subCategoryAuto.setEnabled(true);
+            subcategoryTxtIL.setEnabled(true);
+            subcategoryArr = Model.instance.getCategoriesAndSubCategories().get(chosenCategory);
 
-                Collections.sort(subcategoryArr);
+            Collections.sort(subcategoryArr);
 
-                subcategoryAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, subcategoryArr);
-                subCategoryAuto.setAdapter(subcategoryAdapter);
-                subCategoryAuto.setThreshold(1);
-            }
+            subcategoryAdapter = new ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, subcategoryArr);
+            subCategoryAuto.setAdapter(subcategoryAdapter);
+            subCategoryAuto.setThreshold(1);
         });
         categoryAuto.setThreshold(1);
 
@@ -308,7 +295,6 @@ public class AddNewPostStep2 extends Fragment {
         /****** companies ******/
         companyTxtIl = view.findViewById(R.id.addnewpost_companies_txtil);
         companyAuto = view.findViewById(R.id.addnewpost_company_auto);
-//        companyArr = getResources().getStringArray(R.array.companies);
         companiesList = generalModel.instance.map.get("Companies");
 
         Collections.sort(companiesList);
@@ -322,7 +308,6 @@ public class AddNewPostStep2 extends Fragment {
         /****** colors ******/
         colorTxtIl = view.findViewById(R.id.addnewpost_colors_txtil);
         colorAuto = view.findViewById(R.id.addnewpost_color_auto);
-//        colorArr = getResources().getStringArray(R.array.colors);
         colorsList = generalModel.instance.map.get("Colors");
         Collections.sort(colorsList);
 
@@ -338,17 +323,14 @@ public class AddNewPostStep2 extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         builder.setTitle("Choose an Option");
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int i) {
+        builder.setItems(items, (dialog, i) -> {
 
-                if (i == 0) {
-                    openCam();
-                }
+            if (i == 0) {
+                openCam();
+            }
 
-                if (i == 1) {
-                    openGallery();
-                }
+            if (i == 1) {
+                openGallery();
             }
         });
 
@@ -374,7 +356,7 @@ public class AddNewPostStep2 extends Fragment {
                 Bundle extras = data.getExtras();
                 mBitmap = (Bitmap) extras.get("data");
                 int width = getActivity().getResources().getDisplayMetrics().widthPixels;
-                int height = (width*mBitmap.getHeight())/mBitmap.getWidth();
+                int height = (width * mBitmap.getHeight()) / mBitmap.getWidth();
                 mBitmap = Bitmap.createScaledBitmap(mBitmap, width, height, true);
                 image.setImageBitmap(mBitmap);
             }
@@ -385,18 +367,17 @@ public class AddNewPostStep2 extends Fragment {
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
                     mBitmap = BitmapFactory.decodeStream(imageStream);
                     int width = getActivity().getResources().getDisplayMetrics().widthPixels;
-                    int height = (width*mBitmap.getHeight())/mBitmap.getWidth();
+                    int height = (width * mBitmap.getHeight()) / mBitmap.getWidth();
                     mBitmap = Bitmap.createScaledBitmap(mBitmap, width, height, true);
                     image.setImageBitmap(mBitmap);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
             }
         }
     }
 
-    public void errorDialog(String str){
+    public void errorDialog(String str) {
 
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_dialog);

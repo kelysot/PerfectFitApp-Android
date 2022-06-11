@@ -50,7 +50,6 @@ public class NotificationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
 
         RecyclerView notificationList = view.findViewById(R.id.notification_rv);
@@ -112,8 +111,7 @@ public class NotificationFragment extends Fragment {
                         Log.d("TAG", "failed in getNotificationsByIds");
                     }
                 });
-            }
-            else {
+            } else {
                 noPostImg.setVisibility(View.VISIBLE);
                 noPostTv.setVisibility(View.VISIBLE);
             }
@@ -168,20 +166,17 @@ public class NotificationFragment extends Fragment {
 
             Model.instance.timeSince(notification.getDate(), timeAgo -> holder.dateTV.setText(timeAgo));
 
-            Model.instance.getProfileByUserName(notification.getProfileIdFrom(), new Model.GetProfileByUserName() {
-                @Override
-                public void onComplete(Profile profile) {
-                    String userImg = profile.getUserImageUrl();
-                    if (userImg != null && !userImg.equals("")) {
-                        Model.instance.getImages(userImg, bitmap -> {
-                            holder.userPic.setImageBitmap(bitmap);
-                        });
-                    } else {
-                        Picasso.get()
-                                .load(R.drawable.avatar).resize(250, 180)
-                                .centerCrop()
-                                .into(holder.userPic);
-                    }
+            Model.instance.getProfileByUserName(notification.getProfileIdFrom(), profile -> {
+                String userImg = profile.getUserImageUrl();
+                if (userImg != null && !userImg.equals("")) {
+                    Model.instance.getImages(userImg, bitmap -> {
+                        holder.userPic.setImageBitmap(bitmap);
+                    });
+                } else {
+                    Picasso.get()
+                            .load(R.drawable.avatar).resize(250, 180)
+                            .centerCrop()
+                            .into(holder.userPic);
                 }
             });
         }

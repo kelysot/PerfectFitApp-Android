@@ -31,7 +31,8 @@ public class TrackersFragment extends Fragment {
     MyAdapter adapter;
     String profileId;
 
-    public TrackersFragment() {}
+    public TrackersFragment() {
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -42,8 +43,7 @@ public class TrackersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_trackers, container, false);
+        View view = inflater.inflate(R.layout.fragment_trackers, container, false);
 
         profileId = TrackersFragmentArgs.fromBundle(getArguments()).getProfileId();
 
@@ -111,12 +111,11 @@ public class TrackersFragment extends Fragment {
             holder.userNameTv.setText(profile.getUserName());
 
             String userImg = profile.getUserImageUrl();
-            if(userImg != null && !userImg.equals("")){
+            if (userImg != null && !userImg.equals("")) {
                 Model.instance.getImages(userImg, bitmap -> {
                     holder.userPic.setImageBitmap(bitmap);
                 });
-            }
-            else {
+            } else {
                 Picasso.get()
                         .load(R.drawable.avatar).resize(250, 180)
                         .centerCrop()
@@ -127,7 +126,7 @@ public class TrackersFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(viewModel.getTrackersProfiles() == null){
+            if (viewModel.getTrackersProfiles() == null) {
                 return 0;
             }
             return viewModel.getTrackersProfiles().size();

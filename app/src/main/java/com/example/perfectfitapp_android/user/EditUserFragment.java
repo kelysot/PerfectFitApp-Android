@@ -28,7 +28,8 @@ public class EditUserFragment extends Fragment {
     EditText emailEt, passwordEt;
     Button editBtn;
 
-    public EditUserFragment() {}
+    public EditUserFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,7 +41,7 @@ public class EditUserFragment extends Fragment {
         passwordEt = view.findViewById(R.id.edit_user_password_et);
 
         editBtn = view.findViewById(R.id.edit_user_edit_btn);
-        editBtn.setOnClickListener(v-> edit(v));
+        editBtn.setOnClickListener(v -> edit(v));
 
         return view;
     }
@@ -54,20 +55,20 @@ public class EditUserFragment extends Fragment {
 
         /* *************************************** Validations *************************************** */
 
-//        if (!isValidEmail(email)) {
-//            emailEt.setError("Please enter valid email address.");
-//            emailEt.requestFocus();
-//            editBtn.setEnabled(true);
-//            return;
-//        }
-//
-//        if (!isValidPassword(password)) {
-//            passwordEt.requestFocus();
-//            String s = "Your password needs to contain 8 characters.";
-//            showOkDialog(s);
-//            editBtn.setEnabled(true);
-//            return;
-//        }
+        if (!isValidEmail(email)) {
+            emailEt.setError("Please enter valid email address.");
+            emailEt.requestFocus();
+            editBtn.setEnabled(true);
+            return;
+        }
+
+        if (!isValidPassword(password)) {
+            passwordEt.requestFocus();
+            String s = "Your password needs to contain 8 characters.";
+            showOkDialog(s);
+            editBtn.setEnabled(true);
+            return;
+        }
 
         if (previousEmail.equals(email)) {
             Model.instance.getUser().setPassword(password);
@@ -87,17 +88,16 @@ public class EditUserFragment extends Fragment {
                     Model.instance.editUser(previousEmail, Model.instance.getUser(), user -> {
                         if (user != null) {
                             Model.instance.removeFromRoom(isSuccess1 -> {
-                                if(isSuccess1){
+                                if (isSuccess1) {
                                     Model.instance.addToRoom(user, isSuccess11 -> {
-                                        if(isSuccess11){
+                                        if (isSuccess11) {
                                             Model.instance.setUser(user);
-                                        }else {
+                                        } else {
                                             Log.d("TAG", "User didn't add to room in edit user.");
                                             editBtn.setEnabled(true);
                                         }
                                     });
-                                }
-                                else {
+                                } else {
                                     Log.d("TAG", "Old user didn't remove from room in edit user.");
                                     editBtn.setEnabled(true);
                                 }
@@ -127,7 +127,7 @@ public class EditUserFragment extends Fragment {
         return !TextUtils.isEmpty(s) && PASSWORD_PATTERN.matcher(s).matches();
     }
 
-    private void showOkDialog(String text){
+    private void showOkDialog(String text) {
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_ok_dialog);
 

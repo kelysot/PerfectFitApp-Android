@@ -14,7 +14,7 @@ public class SearchModel {
 
     public static final SearchModel instance = new SearchModel();
 
-    public SearchModel(){
+    public SearchModel() {
         list = new ArrayList<>();
         mapToServer = new HashMap<>();
         mapToServer.put("Categories", new ArrayList<>());

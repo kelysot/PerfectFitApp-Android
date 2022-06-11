@@ -78,9 +78,6 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
         progressBar = view.findViewById(R.id.register_step1_progress_bar);
         progressBar.setVisibility(View.GONE);
 
-//        genderTxtIL = view.findViewById(R.id.register_step1_gender_txl);
-//        genderAuto = view.findViewById(R.id.register_step1_gender_et);
-
         addPhoto = view.findViewById(R.id.register_step1_add_photo_imv);
         addBigPhoto = view.findViewById(R.id.register_step1_add_big_photo_imv);
         continueBtn = view.findViewById(R.id.register_step1_continue_btn);
@@ -264,7 +261,6 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -287,7 +283,6 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
                         checkIfUserNameExist(view);
                     });
                 } else { // upload profile pic but not big pic.
-                    //mBigImageUrl = "uploads/bdc5b50e3358d8ffe1a7b3e92fb60c22.png";
                     checkIfUserNameExist(view);
                 }
             });
@@ -301,7 +296,6 @@ public class CreateProfileStep1Fragment extends Fragment implements DatePickerDi
                     checkIfUserNameExist(view);
                 });
             } else { // didn't upload profile pic or big pic.
-                //mBigImageUrl = "uploads/bdc5b50e3358d8ffe1a7b3e92fb60c22.png";
                 checkIfUserNameExist(view);
             }
         }

@@ -87,9 +87,9 @@ public class SubCategory {
                 '}';
     }
 
-    public static SubCategory jsonElementToSubCategory(JsonElement subCategoriesJson){
+    public static SubCategory jsonElementToSubCategory(JsonElement subCategoriesJson) {
         String isDeleted = subCategoriesJson.getAsJsonObject().get("isDeleted").getAsString();
-        if(isDeleted.equals("true")){
+        if (isDeleted.equals("true")) {
             return null;
         }
         String subCategoryId = subCategoriesJson.getAsJsonObject().get("_id").getAsString();
@@ -99,7 +99,7 @@ public class SubCategory {
 
         JsonElement postsJson = subCategoriesJson.getAsJsonObject().get("posts");
         ArrayList<String> postsArray = new ArrayList<>();
-        if(!postsJson.toString().equals("null") || !postsJson.isJsonNull()){
+        if (!postsJson.toString().equals("null") || !postsJson.isJsonNull()) {
             for (JsonElement similarProfile : postsJson.getAsJsonArray()) {
                 postsArray.add(similarProfile.getAsString());
             }
@@ -109,23 +109,23 @@ public class SubCategory {
         return subCategory;
     }
 
-    public HashMap<String,Object> toJson(){
+    public HashMap<String, Object> toJson() {
 
-        HashMap<String,Object> map = new HashMap<>();
-        map.put("subCategoryId",this.subCategoryId);
-        map.put("categoryId",this.categoryId);
-        map.put("name",this.name);
-        map.put("pictureUrl",this.pictureUrl);
-        map.put("posts",this.getPosts());
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("subCategoryId", this.subCategoryId);
+        map.put("categoryId", this.categoryId);
+        map.put("name", this.name);
+        map.put("pictureUrl", this.pictureUrl);
+        map.put("posts", this.getPosts());
 
         return map;
     }
 
-    public static List<SubCategory> jsonArrayToSubCategory(JsonArray subCategoriesJson){
+    public static List<SubCategory> jsonArrayToSubCategory(JsonArray subCategoriesJson) {
         List<SubCategory> subCategoryList = new ArrayList<>();
-        for (int i=0;i<subCategoriesJson.size();i++){
+        for (int i = 0; i < subCategoriesJson.size(); i++) {
             SubCategory subCategory = SubCategory.jsonElementToSubCategory(subCategoriesJson.get(i));
-            if(subCategory != null)
+            if (subCategory != null)
                 subCategoryList.add(subCategory);
         }
         return subCategoryList;

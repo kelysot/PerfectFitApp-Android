@@ -52,21 +52,15 @@ import pl.droidsonroids.gif.GifImageButton;
 
 public class UserProfilesFragment extends Fragment {
 
-    ImageView user1Img, user2Img, user3Img, user4Img, user5Img;
     Button profile1Btn, profile2Btn, profile3Btn, profile4Btn, profile5Btn;
-    TextView user1Tv, user2Tv, user3Tv, user4Tv, user5Tv;
-//    ArrayList<ImageView> imgList;
     ArrayList<Button> profilesButtonsList;
-//    ArrayList<TextView> tvList;
-    ArrayList<CardView> cardViewsList;
     Model model;
     String longClickUserName;
     LottieAnimationView progressBar;
     TextView text;
     int posInArray;
     LottieAnimationView greenGif;
-//    GifImageView tapeGif;
-    MultiWaveHeader waveHeader, waveFotter;
+    MultiWaveHeader waveHeader;
 
 
     @Override
@@ -78,7 +72,7 @@ public class UserProfilesFragment extends Fragment {
 
         /************* initialize general *************/
         Model.instance.getGeneral(map -> {
-            if(map != null){
+            if (map != null) {
                 generalModel.instance.map = map;
             }
         });
@@ -99,7 +93,7 @@ public class UserProfilesFragment extends Fragment {
 
         text.setEnabled(false);
 
-        if(Model.instance.getUser().getProfilesArray().size() > 0){
+        if (Model.instance.getUser().getProfilesArray().size() > 0) {
             text.setVisibility(View.GONE);
             greenGif.setVisibility(View.GONE);
             greenGif.setEnabled(false);
@@ -150,118 +144,45 @@ public class UserProfilesFragment extends Fragment {
         waveHeader.setStartColor(0XFFDEC1);
         waveHeader.setCloseColor(0Xfff0d3);
 
-        /*waveHeader = view.findViewById(R.id.MultiWaveFotter);
-        waveHeader.setVelocity(1);
-        waveHeader.setProgress(1);
-        waveHeader.isRunning();
-        waveHeader.setGradientAngle(45);
-        waveHeader.setWaveHeight(40);
-        waveHeader.setStartColor(0XFFDEC1);
-        waveHeader.setCloseColor(0Xfff0d3);*/
-
-//        imgList = new ArrayList<>();
-
-//        user1Img = view.findViewById(R.id.user_profiles_profile1_btn);
-//        user2Img = view.findViewById(R.id.user_profiles_profile2_btn);
-//        user3Img = view.findViewById(R.id.user_profiles_profile3_btn);
-//        user4Img = view.findViewById(R.id.user_profiles_profile4_btn);
-//        user5Img = view.findViewById(R.id.user_profiles_profile5_btn);
-//
-//        imgList.add(user1Img);
-//        imgList.add(user2Img);
-//        imgList.add(user3Img);
-//        imgList.add(user4Img);
-//        imgList.add(user5Img);
-
-//        tvList = new ArrayList<>();
-
-//        user1Tv = view.findViewById(R.id.user_profiles_profile1_tv);
-//        user2Tv = view.findViewById(R.id.user_profiles_profile2_tv);
-//        user3Tv = view.findViewById(R.id.user_profiles_profile3_tv);
-//        user4Tv = view.findViewById(R.id.user_profiles_profile4_tv);
-//        user5Tv = view.findViewById(R.id.user_profiles_profile5_tv);
-
-//        tvList.add(user1Tv);
-//        tvList.add(user2Tv);
-//        tvList.add(user3Tv);
-//        tvList.add(user4Tv);
-//        tvList.add(user5Tv);
-
-
         setButtons();
         setHasOptionsMenu(true);
 
         return view;
     }
 
-    public void setButtonsEnable(boolean flag){
-        if(flag){
-            for (Button b: profilesButtonsList) {
+    public void setButtonsEnable(boolean flag) {
+        if (flag) {
+            for (Button b : profilesButtonsList) {
                 b.setEnabled(true);
             }
-//            for(TextView t: tvList){
-//                t.setEnabled(true);
-//            }
-        }
-        else{
-            for (Button b: profilesButtonsList) {
+        } else {
+            for (Button b : profilesButtonsList) {
                 b.setEnabled(false);
             }
-//            for(TextView t: tvList){
-//                t.setEnabled(false);
-//            }
         }
     }
 
-    public void setButtons(){
+    public void setButtons() {
 
         setButtonsEnable(true);
 
-        for(int j=0; j<profilesButtonsList.size(); j++){
+        for (int j = 0; j < profilesButtonsList.size(); j++) {
             profilesButtonsList.get(j).setVisibility(View.GONE);
-//            tvList.get(j).setVisibility(View.GONE);
             registerForContextMenu(profilesButtonsList.get(j));
         }
 
-        for(int i=0; i < Model.instance.getUser().getProfilesArray().size(); i++){
+        for (int i = 0; i < Model.instance.getUser().getProfilesArray().size(); i++) {
             profilesButtonsList.get(i).setVisibility(View.VISIBLE);
             profilesButtonsList.get(i).setText(Model.instance.getUser().getProfilesArray().get(i));
-//            tvList.get(i).setVisibility(View.VISIBLE);
             int finalI1 = i;
-//            Model.instance.getProfileByUserName(model.getUser().getProfilesArray().get(finalI1), profile -> {
-////                tvList.get(finalI1).setText(profile.getUserName());
-//                Model.instance.getImages(profile.getUserImageUrl(), bitmap -> {
-//                    imgList.get(finalI1).setImageBitmap(bitmap);
-//                });
-//            });
 
-            int count =i;
-
-           Button btn = profilesButtonsList.get(i);
-//           btn.setOnTouchListener(new View.OnTouchListener() {
-//               @Override
-//               public boolean onTouch(View v, MotionEvent event) {
-//                   btn.setBackgroundColor(Color.parseColor("#003328"));
-//                   return false;
-//               }
-//           });
-//            profilesButtonsList.get(i).setOnTouchListener((v, hasFocus) -> {
-//                profilesButtonsList.get(count).setBackgroundColor(Color.parseColor("#003328"));
-//            });
-
-            profilesButtonsList.get(i).setOnClickListener(v-> moveToHomePageWithProfile(model.getUser().getProfilesArray().get(finalI1)));
-//            tvList.get(i).setOnClickListener(v-> moveToHomePageWithProfile(model.getUser().getProfilesArray().get(finalI1)));
-            // addProfile instead of view
+            profilesButtonsList.get(i).setOnClickListener(v -> moveToHomePageWithProfile(model.getUser().getProfilesArray().get(finalI1)));
             profilesButtonsList.get(i).setOnLongClickListener(v -> {
                 editProfileByLongClick(finalI1);
                 return false;
             });
-//            tvList.get(i).setOnLongClickListener(v -> {
-//                editProfileByLongClick(finalI1);
-//                return false;
-//            });
 
-            if(Model.instance.getUser().getProfilesArray().size() < 5){
+            if (Model.instance.getUser().getProfilesArray().size() < 5) {
                 Button b = profilesButtonsList.get(Model.instance.getUser().getProfilesArray().size());
                 b.setText("Create New Profile");
                 b.setVisibility(View.VISIBLE);
@@ -282,46 +203,41 @@ public class UserProfilesFragment extends Fragment {
     private void moveToHomePageWithProfile(String userName) {
         setButtonsEnable(false);
         progressBar.setVisibility(View.VISIBLE);
-        if(!Model.instance.getProfile().getUserName().isEmpty()){
-            if(profilesButtonsList.contains(Model.instance.getProfile().getUserName())){
+        if (!Model.instance.getProfile().getUserName().isEmpty()) {
+            if (profilesButtonsList.contains(Model.instance.getProfile().getUserName())) {
                 Model.instance.getProfile().setStatus("false");
-//                out.println("the profile: " + Model.instance.getProfile());
-//                out.println("----------------" + Model.instance.getProfile().getUserName());
                 Model.instance.editProfile(null, Model.instance.getProfile(), isSuccess -> {
-                    if(isSuccess){
+                    if (isSuccess) {
                         changeProfile(userName);
-                    }
-                    else{
+                    } else {
                         progressBar.setVisibility(View.GONE);
                         showOkDialog(getResources().getString(R.string.outError));
                         setButtonsEnable(true);
                     }
                 });
-            }
-            else{
+            } else {
                 changeProfile(userName);
             }
-        }
-        else{
+        } else {
             changeProfile(userName);
         }
     }
 
-    public void changeProfile(String userName){
+    public void changeProfile(String userName) {
         Model.instance.getProfileFromServer(model.getUser().getEmail(), userName, profile -> {
-            if(profile != null){
+            if (profile != null) {
                 model.setProfile(profile);
                 profile.setStatus("true");
-                Model.instance.editProfile(null,profile, isSuccess -> {
-                    if(isSuccess){
+                Model.instance.editProfile(null, profile, isSuccess -> {
+                    if (isSuccess) {
                         Model.instance.getAllCategoriesListener(categoryList -> {
-                            for(int i = 0; i< categoryList.size(); i++){
+                            for (int i = 0; i < categoryList.size(); i++) {
                                 int finalI = i;
                                 Model.instance.getSubCategoriesByCategoryId(categoryList.get(i).getCategoryId(), profile.getGender(), new Model.GetSubCategoriesByCategoryIdListener() {
                                     @Override
                                     public void onComplete(List<SubCategory> subCategoryList) {
                                         ArrayList<String> subCategoryNames = new ArrayList<>();
-                                        for(int j = 0; j < subCategoryList.size(); j++){
+                                        for (int j = 0; j < subCategoryList.size(); j++) {
                                             subCategoryNames.add(subCategoryList.get(j).getName());
                                         }
                                         Model.instance.putCategoriesAndSubCategories(categoryList.get(finalI).getName(), subCategoryNames);
@@ -333,15 +249,13 @@ public class UserProfilesFragment extends Fragment {
                             startActivity(new Intent(getContext(), MainActivity.class));
                             getActivity().finish();
                         });
-                    }
-                    else{
+                    } else {
                         progressBar.setVisibility(View.GONE);
                         showOkDialog(getResources().getString(R.string.outError));
                         setButtonsEnable(true);
                     }
                 });
-            }
-            else{
+            } else {
                 progressBar.setVisibility(View.GONE);
                 setButtonsEnable(true);
             }
@@ -353,11 +267,10 @@ public class UserProfilesFragment extends Fragment {
         greenGif.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
 
-        if(Model.instance.getUser().getProfilesArray().size() == 5){
+        if (Model.instance.getUser().getProfilesArray().size() == 5) {
             showOkDialog("Sorry, you can only have 5 profiles.");
             progressBar.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             Navigation.findNavController(greenGif).navigate(R.id.action_userProfilesFragment2_to_createProfileStep1Fragment2);
         }
     }
@@ -369,14 +282,13 @@ public class UserProfilesFragment extends Fragment {
         inflater.inflate(R.menu.profile_menu, menu);
     }
 
-    public void editProfileByLongClick(int finalI){
+    public void editProfileByLongClick(int finalI) {
         longClickUserName = Model.instance.getUser().getProfilesArray().get(finalI);
         posInArray = finalI;
-        Model.instance.getProfileFromServer(Model.instance.getUser().getEmail(),longClickUserName,profile -> {
-            if(profile != null){
+        Model.instance.getProfileFromServer(Model.instance.getUser().getEmail(), longClickUserName, profile -> {
+            if (profile != null) {
                 Model.instance.setProfile(profile);
-            }
-            else{
+            } else {
                 showOkDialog(getResources().getString(R.string.outError));
             }
         });
@@ -384,13 +296,13 @@ public class UserProfilesFragment extends Fragment {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.profile_edit_menuItem:{
+        switch (item.getItemId()) {
+            case R.id.profile_edit_menuItem: {
                 progressBar.setVisibility(View.VISIBLE);
                 Navigation.findNavController(this.getView()).navigate(R.id.action_userProfilesFragment2_to_editProfileFragment2);
                 return true;
             }
-            case R.id.profile_delete_menuItem:{
+            case R.id.profile_delete_menuItem: {
                 String s = "Are you sure you want to delete " + longClickUserName + " profile?";
                 showDialog(s);
                 return true;
@@ -402,22 +314,20 @@ public class UserProfilesFragment extends Fragment {
 
     private void delete() {
         progressBar.setVisibility(View.VISIBLE);
-        Model.instance.deleteProfile(longClickUserName,isSuccess -> {
-            if(isSuccess){
+        Model.instance.deleteProfile(longClickUserName, isSuccess -> {
+            if (isSuccess) {
                 Model.instance.getUser().getProfilesArray().remove(posInArray); //current user
-//                        imgList.get(posInArray).setVisibility(View.GONE);
-//                        imgList.remove(posInArray);
                 setButtons();
                 progressBar.setVisibility(View.GONE);
                 Navigation.findNavController(this.getView()).navigate(R.id.action_global_userProfilesFragment2);
 
-            }else{
+            } else {
                 showOkDialog(getResources().getString(R.string.outError));
             }
         });
     }
 
-    private void showDialog(String text){
+    private void showDialog(String text) {
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_dialog);
 
@@ -441,7 +351,7 @@ public class UserProfilesFragment extends Fragment {
         dialog.show();
     }
 
-    private void showOkDialog(String str){
+    private void showOkDialog(String str) {
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_ok_dialog);
 
@@ -473,37 +383,32 @@ public class UserProfilesFragment extends Fragment {
         if (item.getItemId() == R.id.CreateProfileStep1Fragment) {
             addProfile();
             return true;
-        }
-        else if(item.getItemId() == R.id.EditUserFragment){
+        } else if (item.getItemId() == R.id.EditUserFragment) {
             NavHostFragment.findNavController(this).navigate(UserProfilesFragmentDirections.actionUserProfilesFragment2ToEditUserFragment());
             return true;
-        }
-        else if(item.getItemId() == R.id.logout){
+        } else if (item.getItemId() == R.id.logout) {
             String s = "Do you want to log out of PerfectFit?";
             showDialogLogout(s);
             return true;
-        }
-        else {
+        } else {
             return super.onOptionsItemSelected(item);
         }
     }
 
     private void logout() {
         Model.instance.logout(isSuccess -> {
-            if(isSuccess){
+            if (isSuccess) {
                 Model.instance.logoutFromAppLocalDB(isSuccess1 -> {
-                    if(isSuccess1){
+                    if (isSuccess1) {
                         startActivity(new Intent(getContext(), LoginActivity.class));
                         getActivity().finish();
-                    }
-                    else{
+                    } else {
                         showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
-            }
-            else{
+            } else {
 
-                if(Model.instance.getRefreshFlag()){
+                if (Model.instance.getRefreshFlag()) {
                     Model.instance.setRefreshFlag(false);
                     startActivity(new Intent(getContext(), LoginActivity.class));
                     getActivity().finish();
@@ -513,7 +418,7 @@ public class UserProfilesFragment extends Fragment {
         });
     }
 
-    private void showDialogLogout(String text){
+    private void showDialogLogout(String text) {
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_dialog);
 

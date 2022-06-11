@@ -42,7 +42,7 @@ import java.io.InputStream;
 import java.util.Calendar;
 
 
-public class EditProfileFragment extends Fragment implements DatePickerDialog.OnDateSetListener{
+public class EditProfileFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PIC = 2;
@@ -80,7 +80,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
         addPhoto = view.findViewById(R.id.edit_profile_step1_add_photo_imv);
         addBigPhoto = view.findViewById(R.id.edit_profile_step1_add_big_photo_imv2);
         continueBtn = view.findViewById(R.id.edit_profile_step1_continue_btn);
-        continueBtn.setOnClickListener(v-> continueStep2(view));
+        continueBtn.setOnClickListener(v -> continueStep2(view));
 
         ModelProfile.instance.setEditProfile(Model.instance.getProfile());
         firstNameEt.setText(ModelProfile.instance.getEditProfile().getFirstName());
@@ -108,46 +108,42 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
             });
         }
 
-        if(!ModelProfile.instance.getEditProfile().getGender().isEmpty()){
+        if (!ModelProfile.instance.getEditProfile().getGender().isEmpty()) {
             String genderFromServer = ModelProfile.instance.getEditProfile().getGender().toString();
-            if(genderFromServer.equals("Female")){
+            if (genderFromServer.equals("Female")) {
                 femaleCB.setChecked(true);
                 gender = "Female";
-            }
-            else if (genderFromServer.equals("Male")){
+            } else if (genderFromServer.equals("Male")) {
                 maleCB.setChecked(true);
                 gender = "Male";
-            } else{
+            } else {
                 noneCB.setChecked(true);
                 gender = "None";
             }
         }
 
         femaleCB.setOnClickListener(v -> {
-            if(maleCB.isChecked()){
+            if (maleCB.isChecked()) {
                 maleCB.setChecked(false);
-            }
-            else if (noneCB.isChecked()){
+            } else if (noneCB.isChecked()) {
                 noneCB.setChecked(false);
             }
             gender = "Female";
         });
 
         maleCB.setOnClickListener(v -> {
-            if(femaleCB.isChecked()){
+            if (femaleCB.isChecked()) {
                 femaleCB.setChecked(false);
-            }
-            else if (noneCB.isChecked()){
+            } else if (noneCB.isChecked()) {
                 noneCB.setChecked(false);
             }
             gender = "Male";
         });
 
         noneCB.setOnClickListener(v -> {
-            if(femaleCB.isChecked()){
+            if (femaleCB.isChecked()) {
                 femaleCB.setChecked(false);
-            }
-            else if (maleCB.isChecked()){
+            } else if (maleCB.isChecked()) {
                 maleCB.setChecked(false);
             }
             gender = "None";
@@ -180,20 +176,17 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         builder.setTitle("Choose an Option");
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int i) {
+        builder.setItems(items, (dialog, i) -> {
 
-                if (i == 0) {
-                    openCam();
-                }
+            if (i == 0) {
+                openCam();
+            }
 
-                if (i == 1) {
-                    openGallery();
-                }
-                if (i == 2) {
-                    deleteImage();
-                }
+            if (i == 1) {
+                openGallery();
+            }
+            if (i == 2) {
+                deleteImage();
             }
         });
         builder.create().show();
@@ -205,22 +198,19 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         builder.setTitle("Choose an Option");
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int i) {
-                if (photoFlag.equals("photo")) {
-                    dialogFlag = 1;
-                } else {
-                    dialogBigPhotoFlag = 1;
-                }
+        builder.setItems(items, (dialog, i) -> {
+            if (photoFlag.equals("photo")) {
+                dialogFlag = 1;
+            } else {
+                dialogBigPhotoFlag = 1;
+            }
 
-                if (i == 0) {
-                    openCam();
-                }
+            if (i == 0) {
+                openCam();
+            }
 
-                if (i == 1) {
-                    openGallery();
-                }
+            if (i == 1) {
+                openGallery();
             }
         });
 
@@ -287,7 +277,6 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -301,7 +290,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
         String userName = userNameEt.getText().toString();
 
         if (flag) {
-            if(!ModelProfile.instance.getEditProfile().getUserName().equals(userName)){
+            if (!ModelProfile.instance.getEditProfile().getUserName().equals(userName)) {
                 Model.instance.checkIfUserNameExist(userName, isSuccess -> {
                     if (isSuccess) {
                         continueStep3(view);
@@ -313,10 +302,9 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                         continueBtn.setEnabled(true);
                     }
                 });
-            }else
+            } else
                 continueStep3(view);
-        }
-        else{
+        } else {
             progressBar.setVisibility(View.GONE);
             continueBtn.setEnabled(true);
 
@@ -331,33 +319,33 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
 
         boolean flag = true;
 
-        if(firstName.isEmpty()){
+        if (firstName.isEmpty()) {
             firstNameEt.setError("Please enter your first name");
             continueBtn.setEnabled(true);
             flag = false;
         }
-        if(lastName.isEmpty()){
+        if (lastName.isEmpty()) {
             lastNameEt.setError("Please enter your last name");
             continueBtn.setEnabled(true);
             flag = false;
         }
-        if(userName.isEmpty()){
+        if (userName.isEmpty()) {
             userNameEt.setError("Please enter your user name");
             continueBtn.setEnabled(true);
             flag = false;
         }
-        if(birthday.isEmpty()){
+        if (birthday.isEmpty()) {
             birthdayEt.setError("Please enter your birthday");
             continueBtn.setEnabled(true);
             flag = false;
         }
-        if(!femaleCB.isChecked() && !maleCB.isChecked() && !noneCB.isChecked()){
+        if (!femaleCB.isChecked() && !maleCB.isChecked() && !noneCB.isChecked()) {
             String s = "Please chose your gender.";
             showOkDialog(s);
             flag = false;
         }
 
-        if(flag) {
+        if (flag) {
 
             ModelProfile.instance.getEditProfile().setFirstName(firstName);
             ModelProfile.instance.getEditProfile().setLastName(lastName);
@@ -369,7 +357,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
             if (mBitmap != null) { // upload profile pic.
                 Model.instance.uploadImage(mBitmap, getActivity(), url -> {
                     StringBuilder newUrl = new StringBuilder(url);
-                    newUrl.replace(7,8,"/");
+                    newUrl.replace(7, 8, "/");
                     ModelProfile.instance.getEditProfile().setUserImageUrl(newUrl.toString());
 
                     if (mBigBitmap != null) { // upload big pic.
@@ -379,7 +367,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                             ModelProfile.instance.getEditProfile().setBigPictureUrl(newUrl1.toString());
 
                             String des = Navigation.findNavController(view).getGraph().getDisplayName();
-                            if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){
+                            if (des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")) {
                                 Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
                             } else {
                                 Navigation.findNavController(view).navigate(R.id.action_editProfileFragment_to_editProfileStep2Fragment);
@@ -387,7 +375,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                         });
                     } else { // upload profile pic but not big pic.
                         String des = Navigation.findNavController(view).getGraph().getDisplayName();
-                        if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){
+                        if (des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")) {
                             Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
                         } else {
                             Navigation.findNavController(view).navigate(R.id.action_editProfileFragment_to_editProfileStep2Fragment);
@@ -402,7 +390,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                         ModelProfile.instance.getEditProfile().setBigPictureUrl(newUrl1.toString());
 
                         String des = Navigation.findNavController(view).getGraph().getDisplayName();
-                        if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){
+                        if (des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")) {
                             Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
                         } else {
                             Navigation.findNavController(view).navigate(R.id.action_editProfileFragment_to_editProfileStep2Fragment);
@@ -411,7 +399,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                 } else { // didn't upload profile pic or big pic.
 
                     String des = Navigation.findNavController(view).getGraph().getDisplayName();
-                    if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){
+                    if (des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")) {
                         Navigation.findNavController(view).navigate(R.id.action_editProfileFragment2_to_editProfileStep2Fragment2);
                     } else {
                         Navigation.findNavController(view).navigate(R.id.action_editProfileFragment_to_editProfileStep2Fragment);
@@ -419,14 +407,13 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
                 }
             }
 
-        }
-        else{
+        } else {
             continueBtn.setEnabled(true);
             progressBar.setVisibility(View.GONE);
         }
     }
 
-    private void showOkDialog(String text){
+    private void showOkDialog(String text) {
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_ok_dialog);
 
@@ -456,7 +443,7 @@ public class EditProfileFragment extends Fragment implements DatePickerDialog.On
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date = dayOfMonth + "/" + (month +1)  + "/" + year;
+        String date = dayOfMonth + "/" + (month + 1) + "/" + year;
         birthdayEt.setText(date);
     }
 

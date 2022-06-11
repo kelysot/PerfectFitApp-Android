@@ -1,7 +1,6 @@
 package com.example.perfectfitapp_android.model.ModelServer;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.model.Comment;
@@ -22,7 +21,7 @@ public class CommentModelServer {
 
     Server server = new Server();
 
-    public void getCommentsByPostId(String postId, Model.GetCommentsByPostIdListener listener){
+    public void getCommentsByPostId(String postId, Model.GetCommentsByPostIdListener listener) {
         String token = server.sp.getString("ACCESS_TOKEN", "");
         Call<JsonArray> call = server.service.getCommentsByPostId(token, postId);
 
@@ -33,19 +32,16 @@ public class CommentModelServer {
                     JsonArray commentsJson = response.body();
                     List<Comment> comments = Comment.jsonArrayToCategory(commentsJson);
                     listener.onComplete(comments);
-                }
-                else if(response.code() == 400) {
+                } else if (response.code() == 400) {
                     Log.d("TAG", "failed in getCommentsByPostId");
                     listener.onComplete(null);
-                }
-                else if(response.code() == 403){
+                } else if (response.code() == 403) {
                     Model.instance.refreshToken(tokensList -> {
-                        if(tokensList != null) {
+                        if (tokensList != null) {
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
                             getCommentsByPostId(postId, listener);
-                        }
-                        else{
+                        } else {
                             listener.onComplete(null);
                         }
                     });
@@ -54,8 +50,6 @@ public class CommentModelServer {
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                        Toast.LENGTH_LONG).show();
                 listener.onComplete(null);
             }
         });
@@ -75,18 +69,14 @@ public class CommentModelServer {
                     newComment = Comment.jsonElementToComment(response.body().get("comment"));
                     listener.onComplete(newComment);
                 } else if (response.code() == 400) {
-                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                            Toast.LENGTH_LONG).show();
                     listener.onComplete(null);
-                }
-                else if(response.code() == 403){
+                } else if (response.code() == 403) {
                     Model.instance.refreshToken(tokensList -> {
-                        if(tokensList != null) {
+                        if (tokensList != null) {
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
                             addNewComment(comment, listener);
-                        }
-                        else{
+                        } else {
                             listener.onComplete(null);
                         }
                     });
@@ -95,8 +85,6 @@ public class CommentModelServer {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                        Toast.LENGTH_LONG).show();
                 listener.onComplete(null);
             }
         });
@@ -110,25 +98,20 @@ public class CommentModelServer {
         call.enqueue(new Callback<JsonElement>() {
             @Override
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
-                if(response.code() == 200){
+                if (response.code() == 200) {
                     JsonElement js = response.body();
                     Comment comment = Comment.jsonElementToComment(js);
                     listener.onComplete(comment);
-                }
-                else if(response.code() == 400){
-                    Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                            Toast.LENGTH_LONG).show();
+                } else if (response.code() == 400) {
                     Log.d("TAG", "failed in ModelServer in getCommentById 1");
                     listener.onComplete(null);
-                }
-                else if(response.code() == 403){
+                } else if (response.code() == 403) {
                     Model.instance.refreshToken(tokensList -> {
-                        if(tokensList != null) {
+                        if (tokensList != null) {
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
                             getCommentById(commentId, listener);
-                        }
-                        else{
+                        } else {
                             listener.onComplete(null);
                         }
                     });
@@ -137,8 +120,6 @@ public class CommentModelServer {
 
             @Override
             public void onFailure(Call<JsonElement> call, Throwable t) {
-                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                        Toast.LENGTH_LONG).show();
                 Log.d("TAG", "failed in ModelServer in getCommentById 2");
                 listener.onComplete(null);
             }

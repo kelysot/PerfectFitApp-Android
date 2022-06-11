@@ -83,10 +83,8 @@ public class SearchPostsFragment extends Fragment {
             String postId = viewModel.getData().get(position).getPostId();
             Model.instance.getPostById(postId, post -> {
                 if (post != null) {
-
-                    //TODO: bring the post from appLocalDB
                     Model.instance.setPost(post);
-                    Navigation.findNavController(v).navigate(SearchPostsFragmentDirections.actionGlobalPostPageFragment(postId, "wishlist"));
+                    Navigation.findNavController(v).navigate(SearchPostsFragmentDirections.actionGlobalPostPageFragment(postId, "home"));
                 } else {
                     showOkDialog(getResources().getString(R.string.outError));
                 }
@@ -118,8 +116,6 @@ public class SearchPostsFragment extends Fragment {
         progressBar = view.findViewById(R.id.searchposts_progress_bar);
         progressBar.setVisibility(View.GONE);
 
-//        refresh();
-
         return view;
     }
 
@@ -138,7 +134,6 @@ public class SearchPostsFragment extends Fragment {
 
     public List<Post> searchMap() {
         List<Post> posts = new ArrayList<>();
-//        for (Post p : viewModel.getData()) {
         for (Post p : SearchModel.instance.list) {
             if (p.getProfileId().contains(theSearch)) {
                 posts.add(p);
@@ -193,7 +188,6 @@ public class SearchPostsFragment extends Fragment {
             if (posts != null) {
                 viewModel.setData(posts);
                 adapter.notifyDataSetChanged();
-//                swipeRefresh.setRefreshing(false);
             } else {
                 showOkDialog(getResources().getString(R.string.outError));
             }
@@ -203,15 +197,13 @@ public class SearchPostsFragment extends Fragment {
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView descriptionTv, categoryTv, subCategoryTv, userNameTv, likesNumberTV, timeAgoTv;
+        TextView categoryTv, subCategoryTv, userNameTv, likesNumberTV, timeAgoTv;
         ImageButton addToWishList, addToLikes, commentsBtn;
         ShapeableImageView postPic, userPic;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
-            //TODO: change the productName to userName - by the profileID in the mongo
             userNameTv = itemView.findViewById(R.id.listrow_username_tv);
-            //descriptionTv = itemView.findViewById(R.id.listrow_description_tv);
             categoryTv = itemView.findViewById(R.id.listrow_category_tv);
             subCategoryTv = itemView.findViewById(R.id.listrow_subcategory_tv);
             addToWishList = itemView.findViewById(R.id.add_to_wish_list_btn);
@@ -253,9 +245,7 @@ public class SearchPostsFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             Post post = viewModel.getData().get(position);
-//            Post post = SearchModel.instance.list.get(position);
             holder.userNameTv.setText(post.getProfileId());
-//            holder.descriptionTv.setText(post.getDescription());
             holder.categoryTv.setText(post.getCategoryId());
             holder.subCategoryTv.setText(post.getSubCategoryId());
             holder.addToWishList.setOnClickListener(v -> addToWishList(holder, post));

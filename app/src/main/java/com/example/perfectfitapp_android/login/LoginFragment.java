@@ -22,9 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.perfectfitapp_android.MyApplication;
 import com.example.perfectfitapp_android.R;
-import com.example.perfectfitapp_android.home.HomePageFragmentDirections;
 import com.example.perfectfitapp_android.user_profiles.UserProfilesActivity;
 import com.example.perfectfitapp_android.model.Model;
 

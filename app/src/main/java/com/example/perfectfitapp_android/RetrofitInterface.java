@@ -66,11 +66,6 @@ public interface RetrofitInterface {
     @GET("/auth/checkIfEmailExist/{email}")
     Call<Void> checkIfEmailExist(@Path("email") String email);
 
-    @GET("/profile/:{id}")
-    Call<JsonObject> getUser(@Path("id") String id);
-    // http://10.0.2.2:4000/profile/1
-    // Call<User> service.getUser(1);
-
     @GET("/auth/refreshToken")
     Call<JsonObject> getTokens (@Header("authorization") String token);
 
@@ -132,7 +127,6 @@ public interface RetrofitInterface {
 
     @PATCH("/post")
     Call<Void> editPost(@Header("authorization") String token, @Body HashMap<String, Object> post);
-//    Call<JsonArray> getWishList(@Header("authorization") String token, @Path("wishListId") List<String> wishListId);
 
     @GET("/post/getProfilePosts/{userName}")
     Call<JsonArray> getProfilePosts(@Header("authorization") String token, @Path("userName") String userName);
@@ -145,12 +139,6 @@ public interface RetrofitInterface {
 
     @GET("/post/getSuitablePosts/{profileId}")
     Call<JsonArray> getSuitablePosts(@Header("authorization") String token, @Path("profileId") String profileId);
-
-//    @GET("/post/getSearchPosts}")
-//    Call<JsonArray> getSearchPosts(@Header("authorization") String token, @Query("map") HashMap<String, List<String>> map);
-//
-//    @GET ("/post/getSearchPosts")
-//    Call<JsonArray> getSearchPosts(@Header("authorization") String token, @Query("map") HashMap<String, List<String>> map);
 
     @POST ("/post/getSearchPosts")
     Call<JsonArray> getSearchPosts(@Header("authorization") String token, @Body HashMap<String, List<String>> map);
@@ -214,10 +202,7 @@ public interface RetrofitInterface {
 
     @POST("/post/general")
     Call<Void> general(@Header("authorization") String token);
-
-//    @GET("/post/getGeneral")
-//    Call<JsonArray> getGeneral(@Header("authorization") String token);
-
+    
     @GET("/post/getGeneral")
     Call<JsonObject> getGeneral(@Header("authorization") String token);
 

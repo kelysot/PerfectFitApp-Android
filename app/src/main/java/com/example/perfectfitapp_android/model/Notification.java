@@ -13,7 +13,7 @@ public class Notification {
     String notificationId, profileIdFrom, profileIdMine, notificationType, date, postId, seen;
 
     public Notification(String notificationId, String profileIdFrom, String profileIdMine, String notificationType, String date, String postId, String seen) {
-        this.notificationId =  notificationId;
+        this.notificationId = notificationId;
         this.profileIdMine = profileIdMine;
         this.profileIdFrom = profileIdFrom;
         this.notificationType = notificationType;
@@ -22,7 +22,8 @@ public class Notification {
         this.seen = seen;
     }
 
-    public Notification() {}
+    public Notification() {
+    }
 
     /*--------------------------------- Getters & Setters -------------------------------*/
 
@@ -110,7 +111,7 @@ public class Notification {
     }
     /*------------------------------------------------------*/
 
-    public HashMap<String, Object> toJson(){
+    public HashMap<String, Object> toJson() {
 
         HashMap<String, Object> map = new HashMap<>();
 
@@ -126,7 +127,7 @@ public class Notification {
     }
 
 
-    public static Notification jsonObjectToNotification(JsonObject notificationJson){
+    public static Notification jsonObjectToNotification(JsonObject notificationJson) {
         String notificationId = notificationJson.get("_id").getAsString();
         String profileIdMine = notificationJson.get("profileIdMine").getAsString();
         String profileIdFrom = notificationJson.get("profileIdFrom").getAsString();
@@ -135,12 +136,12 @@ public class Notification {
         String postId = notificationJson.get("postId").getAsString();
         String seen = notificationJson.get("seen").getAsString();
 
-        Notification notification =  new Notification(notificationId, profileIdFrom, profileIdMine, notificationType, date, postId, seen);
+        Notification notification = new Notification(notificationId, profileIdFrom, profileIdMine, notificationType, date, postId, seen);
         return notification;
     }
     /*------------------------------------------------------*/
 
-    public static Notification jsonElementToNotification(JsonElement notificationJson){
+    public static Notification jsonElementToNotification(JsonElement notificationJson) {
         String notificationId = notificationJson.getAsJsonObject().get("_id").getAsString();
         String profileIdMine = notificationJson.getAsJsonObject().get("profileIdMine").getAsString();
         String profileIdFrom = notificationJson.getAsJsonObject().get("profileIdFrom").getAsString();
@@ -149,13 +150,13 @@ public class Notification {
         String postId = notificationJson.getAsJsonObject().get("postId").getAsString();
         String seen = notificationJson.getAsJsonObject().get("seen").getAsString();
 
-        Notification notification =  new Notification(notificationId, profileIdFrom, profileIdMine, notificationType, date, postId, seen);
+        Notification notification = new Notification(notificationId, profileIdFrom, profileIdMine, notificationType, date, postId, seen);
         return notification;
     }
 
     /*------------------------------------------------------*/
 
-    public static List<Notification> jsonArrayToNotification(JsonArray notificationJson){
+    public static List<Notification> jsonArrayToNotification(JsonArray notificationJson) {
         List<Notification> notificationList = new ArrayList<>();
         for (int i = 0; i < notificationJson.size(); i++) {
             notificationList.add(Notification.jsonElementToNotification(notificationJson.get(i)));

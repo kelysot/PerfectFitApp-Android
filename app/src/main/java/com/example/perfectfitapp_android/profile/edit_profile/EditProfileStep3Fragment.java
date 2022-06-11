@@ -46,15 +46,14 @@ public class EditProfileStep3Fragment extends Fragment {
         progressBar = view.findViewById(R.id.edit_profile_step3_progress_bar);
         progressBar.setVisibility(View.GONE);
 
-        if(ModelProfile.instance.getEditProfile().getGender().equals("Female")){
+        if (ModelProfile.instance.getEditProfile().getGender().equals("Female")) {
             explenationImg.setImageResource(R.drawable.body_measurement_for_her);
-        }
-        else{
+        } else {
             explenationImg.setImageResource(R.drawable.body_measurement_for_him);
         }
 
         saveChangesBtn = view.findViewById(R.id.edit_profile_step3_savechanges_btn);
-        saveChangesBtn.setOnClickListener(v-> saveChanges(view));
+        saveChangesBtn.setOnClickListener(v -> saveChanges(view));
 
         shoulderEt.setText(ModelProfile.instance.getEditProfile().getShoulder());
         chestEt.setText(ModelProfile.instance.getEditProfile().getChest());
@@ -73,43 +72,43 @@ public class EditProfileStep3Fragment extends Fragment {
         saveChangesBtn.setEnabled(false);
         boolean flag = true;
 
-        if(shoulderEt.getText().toString().isEmpty()){
+        if (shoulderEt.getText().toString().isEmpty()) {
             shoulderEt.setError("Please enter your shoulder size.");
             saveChangesBtn.setEnabled(true);
             flag = false;
         }
-        if(chestEt.getText().toString().isEmpty()){
+        if (chestEt.getText().toString().isEmpty()) {
             chestEt.setError("Please enter your chest size.");
             saveChangesBtn.setEnabled(true);
             flag = false;
         }
-        if(basinEt.getText().toString().isEmpty()){
+        if (basinEt.getText().toString().isEmpty()) {
             basinEt.setError("Please enter your hips size.");
             saveChangesBtn.setEnabled(true);
             flag = false;
         }
-        if(waistEt.getText().toString().isEmpty()){
+        if (waistEt.getText().toString().isEmpty()) {
             waistEt.setError("Please enter your waist size.");
             saveChangesBtn.setEnabled(true);
             flag = false;
         }
-        if(heightEt.getText().toString().isEmpty()){
+        if (heightEt.getText().toString().isEmpty()) {
             heightEt.setError("Please enter your height size.");
             saveChangesBtn.setEnabled(true);
             flag = false;
         }
-        if(weightEt.getText().toString().isEmpty()){
+        if (weightEt.getText().toString().isEmpty()) {
             weightEt.setError("Please enter your weight size.");
             saveChangesBtn.setEnabled(true);
             flag = false;
         }
-        if(footEt.getText().toString().isEmpty()){
+        if (footEt.getText().toString().isEmpty()) {
             footEt.setError("Please enter your shoes size.");
             saveChangesBtn.setEnabled(true);
             flag = false;
         }
 
-        if(flag) {
+        if (flag) {
 
             ModelProfile.instance.getEditProfile().setShoulder(shoulderEt.getText().toString());
             ModelProfile.instance.getEditProfile().setChest(chestEt.getText().toString());
@@ -119,8 +118,6 @@ public class EditProfileStep3Fragment extends Fragment {
             ModelProfile.instance.getEditProfile().setWeight(weightEt.getText().toString());
             ModelProfile.instance.getEditProfile().setFoot(footEt.getText().toString());
             ModelProfile.instance.getEditProfile().setSimilarProfileId(new ArrayList<>());
-
-            //TODO: change the function when we have the refresh
 
             Model.instance.editProfile(ModelProfile.instance.getPreviousName(), Model.instance.getProfile(), isSuccess -> {
                 if (isSuccess) {
@@ -132,27 +129,24 @@ public class EditProfileStep3Fragment extends Fragment {
                     Model.instance.getUser().getProfilesArray().set(index, userName);
 
                     String des = Navigation.findNavController(view).getGraph().getDisplayName();
-                    Log.d("TAG4444", des);
-                    if(des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")){
+                    if (des.equals("com.example.perfectfitapp_android:id/user_profiles_graph")) {
                         Navigation.findNavController(view).navigate(R.id.action_global_userProfilesFragment2);
                     } else {
                         Navigation.findNavController(view).navigate(R.id.action_global_profileFragment);
                     }
-                }
-                else{
+                } else {
                     progressBar.setVisibility(View.GONE);
                     saveChangesBtn.setEnabled(true);
                     showOkDialog();
                 }
             });
-        }
-        else{
+        } else {
             progressBar.setVisibility(View.GONE);
             saveChangesBtn.setEnabled(true);
         }
     }
 
-    private void showOkDialog(){
+    private void showOkDialog() {
         Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
         dialog.setContentView(R.layout.custom_ok_dialog);
 

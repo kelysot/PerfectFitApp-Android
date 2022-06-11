@@ -48,15 +48,15 @@ public class CreateProfileStep2Fragment extends Fragment {
         bodyTypeTv = view.findViewById(R.id.register_step2_bodytype_name_et);
 
         rightBtn = view.findViewById(R.id.register_step2_right_img_btn);
-        rightBtn.setOnClickListener(v-> goRight());
+        rightBtn.setOnClickListener(v -> goRight());
         leftBtn = view.findViewById(R.id.register_step2_left_img_btn);
-        leftBtn.setOnClickListener(v-> goLeft());
+        leftBtn.setOnClickListener(v -> goLeft());
 
         progressBar = view.findViewById(R.id.register_step2_progress_bar);
         progressBar.setVisibility(View.GONE);
 
         continueBtn = view.findViewById(R.id.register_step2_continue_btn);
-        continueBtn.setOnClickListener(v-> continueStep3(view));
+        continueBtn.setOnClickListener(v -> continueStep3(view));
 
         bodyTypesList = generalModel.instance.map.get("BodyTypes");
         bodyDescriptionList = generalModel.instance.map.get("BodyTypeDescription");
@@ -69,14 +69,14 @@ public class CreateProfileStep2Fragment extends Fragment {
     }
 
     private void goLeft() {
-        if(place != 0){
+        if (place != 0) {
             place--;
         }
         setBodyType();
     }
 
     private void goRight() {
-        if(place != bodyTypesList.size() - 1){
+        if (place != bodyTypesList.size() - 1) {
             place++;
         }
         setBodyType();
@@ -89,15 +89,13 @@ public class CreateProfileStep2Fragment extends Fragment {
     }
 
 
-    public void setBodyType(){
-        System.out.println("------- " + bodyDescriptionList);
-        System.out.println("------- " + bodyTypesList);
+    public void setBodyType() {
         descriptionText.setText(bodyDescriptionList.get(place));
         bodyImage.setImageResource(resBodyType.get(place));
         bodyTypeTv.setText(bodyTypesList.get(place));
     }
 
-    public void setResBodyType(){
+    public void setResBodyType() {
 
         resBodyType = new ArrayList<>();
 
@@ -108,8 +106,7 @@ public class CreateProfileStep2Fragment extends Fragment {
             resBodyType.add(R.drawable.body_pear_female);
             resBodyType.add(R.drawable.body_round_female);
             resBodyType.add(R.drawable.body_rectangle_female);
-        }
-        else{
+        } else {
 
             resBodyType.add(R.drawable.body_inverted_triangle_men);
             resBodyType.add(R.drawable.body_trapezoid_men);

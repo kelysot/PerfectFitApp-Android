@@ -2,30 +2,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:id="@+id/root_vg"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <View
             android:layout_width="40dp"
             android:layout_height="60dp"
-            android:background="@drawable/ic_corner"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_corner" />
+
         <ImageView
             android:id="@+id/btn_close"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="2dp"
-            android:src="@drawable/ic_clear"
-            android:layout_alignParentEnd="true"
             android:layout_marginRight="2dp"
-            android:layout_alignParentRight="true" />
+            android:src="@drawable/ic_clear" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,9 +37,9 @@
                 android:id="@+id/img_icon"
                 android:layout_width="120dp"
                 android:layout_height="70dp"
-                android:layout_marginRight="5dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="12dp"
+                android:layout_marginRight="5dp"
                 android:elevation="8dp"
                 android:src="@drawable/logowhite" />
 
@@ -77,7 +78,5 @@
 
         </LinearLayout>
     </RelativeLayout>
-
-
 
 </RelativeLayout>

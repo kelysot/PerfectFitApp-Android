@@ -16,9 +16,6 @@ public interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertUser(User user);
 
-//    @Delete
-//    void delete(User user);
-
     @Query("DELETE FROM User WHERE email = :userEmail")
     void deleteByUserEmail(String userEmail);
 }

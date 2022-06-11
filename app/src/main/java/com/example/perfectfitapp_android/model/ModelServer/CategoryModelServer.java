@@ -26,24 +26,22 @@ public class CategoryModelServer {
                 if (response.isSuccessful()) {
                     JsonArray categoriesJson = response.body();
                     List<Category> categories = Category.jsonArrayToCategory(categoriesJson);
-                    for(int i = 0; i < categories.size(); i++){
-                        if(categories.get(i).getSubCategory().size() == 0){
+                    for (int i = 0; i < categories.size(); i++) {
+                        if (categories.get(i).getSubCategory().size() == 0) {
                             categories.remove(categories.get(i));
                         }
                     }
                     listener.onComplete(categories);
-                } else if(response.code() == 400){
+                } else if (response.code() == 400) {
                     Log.d("TAG", "failed in getAllPosts in ModelServer 1");
                     listener.onComplete(null);
-                }
-                else if(response.code() == 403){
+                } else if (response.code() == 403) {
                     Model.instance.refreshToken(tokensList -> {
-                        if(tokensList != null) {
+                        if (tokensList != null) {
                             Model.instance.insertTokens(tokensList);
                             System.out.println("********************************* change the token *********************************");
                             getAllCategoriesListener(listener);
-                        }
-                        else{
+                        } else {
                             listener.onComplete(null);
                         }
                     });
