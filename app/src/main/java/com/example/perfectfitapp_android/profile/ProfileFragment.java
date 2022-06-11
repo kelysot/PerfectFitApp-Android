@@ -294,7 +294,7 @@ public class ProfileFragment extends Fragment {
                         followersSize++;
                         numOfFollowers.setText(String.valueOf(followersSize));
                         Notification notification =  new Notification("0", currentUserName,
-                                profile.getUserName(), currentUserName + " started following you.", "", " ", "false");
+                                profile.getUserName(),  "Started following you.", "", " ", "false");
                         Model.instance.addNewNotification(notification, notification1 -> {});
                     } else
                         //TODO: dialog
@@ -506,7 +506,7 @@ public class ProfileFragment extends Fragment {
 
                 if (!Model.instance.getProfile().getUserName().equals(post.getProfileId())) {
                     Notification notification = new Notification("0", Model.instance.getProfile().getUserName(),
-                            post.getProfileId(), Model.instance.getProfile().getUserName() + " liked your post.", "10/5/22", post.getPostId(), "false");
+                            post.getProfileId(), "Liked your post.", "10/5/22", post.getPostId(), "false");
                     Model.instance.addNewNotification(notification, notification1 -> {
                     });
                 }
