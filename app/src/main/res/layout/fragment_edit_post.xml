@@ -142,6 +142,7 @@
                         android:backgroundTint="#00FAFAFA"
                         android:fontFamily="@font/dosis_medium"
                         android:hint="Price"
+                        android:drawableEnd="@drawable/ic_dollar"
                         android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 

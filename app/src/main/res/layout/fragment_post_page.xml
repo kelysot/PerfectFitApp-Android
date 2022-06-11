@@ -102,7 +102,8 @@
                             android:layout_height="wrap_content"
                             android:backgroundTint="#00FFFFFF"
                             android:fontFamily="@font/dosis_medium"
-                            android:hint="Color" />
+                            android:hint="Color"
+                            android:textColor="@color/black" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -125,7 +126,9 @@
                             android:backgroundTint="#00FFFFFF"
                             android:fontFamily="@font/dosis_medium"
                             android:hint="Price"
-                            android:inputType="numberDecimal" />
+                            android:drawableEnd="@drawable/ic_dollar"
+                            android:inputType="numberDecimal"
+                            android:textColor="@color/black" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <RatingBar
@@ -179,7 +182,8 @@
                             android:layout_height="wrap_content"
                             android:backgroundTint="#00FFFFFF"
                             android:fontFamily="@font/dosis_medium"
-                            android:hint="Description" />
+                            android:hint="Description"
+                            android:textColor="@color/black" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -202,7 +206,8 @@
                             android:layout_height="wrap_content"
                             android:backgroundTint="#00FFFFFF"
                             android:fontFamily="@font/dosis_medium"
-                            android:hint="Size" />
+                            android:hint="Size"
+                            android:textColor="@color/black" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -226,7 +231,8 @@
                             android:layout_height="wrap_content"
                             android:backgroundTint="#00FFFFFF"
                             android:fontFamily="@font/dosis_medium"
-                            android:hint="Company" />
+                            android:hint="Company"
+                            android:textColor="@color/black" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -268,7 +274,8 @@
                             android:backgroundTint="#00FFFFFF"
                             android:editable="false"
                             android:fontFamily="@font/dosis_medium"
-                            android:hint="Link" />
+                            android:hint="Link"
+                            android:textColor="@color/black" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageButton
@@ -305,7 +312,8 @@
                             android:layout_height="wrap_content"
                             android:backgroundTint="#00FFFFFF"
                             android:fontFamily="@font/dosis_medium"
-                            android:hint="SKU" />
+                            android:hint="SKU"
+                            android:textColor="@color/black" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
