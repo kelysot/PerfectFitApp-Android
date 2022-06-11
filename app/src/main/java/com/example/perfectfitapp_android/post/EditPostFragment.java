@@ -206,10 +206,8 @@ public class EditPostFragment extends Fragment {
                 toPage();
             }
             else{
-                //TODO: dialog
                 deleteBtn.setEnabled(true);
-                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                        Toast.LENGTH_LONG).show();
+                showOkDialog(getResources().getString(R.string.outError));
             }
         });
     }
@@ -369,7 +367,7 @@ public class EditPostFragment extends Fragment {
                 toPage();
             }
             else{
-                //TODO: dialog
+                showOkDialog(getResources().getString(R.string.outError));
                 editBtn.setEnabled(true);
                 progressBar.setVisibility(View.GONE);
 
@@ -489,6 +487,24 @@ public class EditPostFragment extends Fragment {
 //        }
 
 
+    }
+
+    private void showOkDialog(String text) {
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_ok_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText(text);
+
+        Button btnOk = dialog.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(v -> dialog.dismiss());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
     }
 
 }
