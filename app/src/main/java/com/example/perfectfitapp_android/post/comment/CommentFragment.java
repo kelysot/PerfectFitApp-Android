@@ -1,5 +1,6 @@
 package com.example.perfectfitapp_android.post.comment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -103,9 +104,7 @@ public class CommentFragment extends Fragment {
            }
            else{
                addBtn.setEnabled(true);
-               Toast.makeText(MyApplication.getContext(), "Comment didn't saved",
-                       Toast.LENGTH_LONG).show();
-               //TODO: dialog
+               showOkDialog(getResources().getString(R.string.outError));
            }
 
 
@@ -191,5 +190,23 @@ public class CommentFragment extends Fragment {
             }
             return viewModel.getData().size();
         }
+    }
+
+    private void showOkDialog(String text) {
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_ok_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText(text);
+
+        Button btnOk = dialog.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(v -> dialog.dismiss());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
     }
 }

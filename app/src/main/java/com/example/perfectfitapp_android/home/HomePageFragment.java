@@ -128,13 +128,6 @@ public class HomePageFragment extends Fragment {
         });
 
 
-//        checkDate = view.findViewById(R.id.check_date);
-//        checkDate.setOnClickListener(v -> {
-//            Model.instance.getDates("Sun Apr 17 2022 14:54:53 GMT+0300",isSuccess -> {
-//                //TODO:
-//            });
-//        });
-
         Model.instance.checkNotification();
 //        Model.instance.refreshPostsList();
         return view;
@@ -302,9 +295,7 @@ public class HomePageFragment extends Fragment {
                         refresh();
                     }
                     else {
-                        //TODO: dialog
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
 
@@ -318,9 +309,7 @@ public class HomePageFragment extends Fragment {
                         refresh();
                     }
                     else{
-                        //TODO: dialog
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
 
@@ -341,9 +330,7 @@ public class HomePageFragment extends Fragment {
                         holder.addToWishList.setImageResource(R.drawable.ic_addtowishlist);
                     }
                     else{
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
-                        //TODO: dialog
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
             }
@@ -356,9 +343,7 @@ public class HomePageFragment extends Fragment {
                         System.out.println(Model.instance.getProfile().getWishlist());
                     }
                     else{
-                        //TODO: dialog
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
             }
@@ -465,6 +450,24 @@ public class HomePageFragment extends Fragment {
         dialog.show();
     }
 
+    private void showOkDialog(String text) {
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_ok_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText(text);
+
+        Button btnOk = dialog.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(v -> dialog.dismiss());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
+    }
+
     private void logout() {
         Model.instance.logout(isSuccess -> {
             if(isSuccess){
@@ -481,17 +484,14 @@ public class HomePageFragment extends Fragment {
                     else {
                         progressBar.setVisibility(View.GONE);
                         Model.instance.getProfile().setStatus("true");
-                        //TODO: dialog
-                        Toast.makeText(MyApplication.getContext(), "Can't change to false - to logout",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
+
                     }
                 });
             }
             else{
                 progressBar.setVisibility(View.GONE);
-                //TODO: dialog
-                Toast.makeText(MyApplication.getContext(), "Can't logout",
-                        Toast.LENGTH_LONG).show();
+                showOkDialog(getResources().getString(R.string.outError));
             }
         });
     }

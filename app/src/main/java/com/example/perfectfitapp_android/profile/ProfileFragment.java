@@ -138,7 +138,7 @@ public class ProfileFragment extends Fragment {
 
                 }
                 else{
-                    //TODO: dialog
+                    showOkDialog(getResources().getString(R.string.outError));
                 }
             });
         } else {
@@ -257,12 +257,12 @@ public class ProfileFragment extends Fragment {
                         adapter.notifyDataSetChanged();
                     } else {
                         swipeRefresh.setRefreshing(false);
-                        //TODO: create a popup
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
             } else {
                 swipeRefresh.setRefreshing(false);
-                //TODO: create a popup
+                showOkDialog(getResources().getString(R.string.outError));
             }
         });
     }
@@ -297,14 +297,10 @@ public class ProfileFragment extends Fragment {
                                 profile.getUserName(), currentUserName + " started following you.", "", " ", "false");
                         Model.instance.addNewNotification(notification, notification1 -> {});
                     } else
-                        //TODO: dialog
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later11",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                 });
             } else
-                //TODO: dialog
-                Toast.makeText(MyApplication.getContext(), "No Connection, please try later11",
-                        Toast.LENGTH_LONG).show();
+                showOkDialog(getResources().getString(R.string.outError));
         });
 
     }
@@ -321,14 +317,10 @@ public class ProfileFragment extends Fragment {
                         followersSize--;
                         numOfFollowers.setText(String.valueOf(followersSize));
                     } else
-                        //TODO: dialog
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later11",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                 });
             } else
-                //TODO: dialog
-                Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                        Toast.LENGTH_LONG).show();
+                showOkDialog(getResources().getString(R.string.outError));
         });
 
     }
@@ -521,9 +513,7 @@ public class ProfileFragment extends Fragment {
                     if (isSuccess) {
                         holder.addToWishList.setImageResource(R.drawable.ic_addtowishlist);
                     } else {
-                        //TODO: dialog
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
             } else {
@@ -534,9 +524,7 @@ public class ProfileFragment extends Fragment {
                         System.out.println("the posts added to the list");
                         System.out.println(Model.instance.getProfile().getWishlist());
                     } else {
-                        //TODO: dialog
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
             }
@@ -627,8 +615,7 @@ public class ProfileFragment extends Fragment {
                     }
                 }
             }else{
-                //TODO: dialog
-                Log.d("TAG","not work");
+                showOkDialog(getResources().getString(R.string.outError));
             }
         });
     }
@@ -650,6 +637,25 @@ public class ProfileFragment extends Fragment {
             delete();
             dialog.dismiss();
         });
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+
+    private void showOkDialog(String text) {
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_ok_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText(text);
+
+        Button btnOk = dialog.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(v -> dialog.dismiss());
 
         ImageView btnClose = dialog.findViewById(R.id.btn_close);
         btnClose.setOnClickListener(view -> dialog.dismiss());

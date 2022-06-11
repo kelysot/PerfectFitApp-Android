@@ -292,16 +292,13 @@ public class UserProfilesFragment extends Fragment {
                         changeProfile(userName);
                     }
                     else{
-                        // TODO dialog
                         progressBar.setVisibility(View.GONE);
-                        Toast.makeText(MyApplication.getContext(), "No Connection, please try later",
-                                Toast.LENGTH_LONG).show();
-                        Log.d("TAG", "failed in UserProfile in editProfile - change status to false");
+                        showOkDialog(getResources().getString(R.string.outError));
                         setButtonsEnable(true);
                     }
                 });
             }
-            else{ // no need to change the profile because it's deleted.
+            else{
                 changeProfile(userName);
             }
         }
@@ -384,9 +381,6 @@ public class UserProfilesFragment extends Fragment {
             }
         });
     }
-
-    //TODO: Add refresh to profile array + change delete case after the refresh will work
-    //TODO: Edit functionality + move edit profile page + crate the fragment
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
@@ -503,7 +497,7 @@ public class UserProfilesFragment extends Fragment {
                         getActivity().finish();
                     }
                     else{
-                        //TODO: dialog
+                        showOkDialog(getResources().getString(R.string.outError));
                     }
                 });
             }
@@ -514,9 +508,7 @@ public class UserProfilesFragment extends Fragment {
                     startActivity(new Intent(getContext(), LoginActivity.class));
                     getActivity().finish();
                 }
-                //TODO: dialog
-                Toast.makeText(MyApplication.getContext(), "Can't logout",
-                        Toast.LENGTH_LONG).show();
+                showOkDialog(getResources().getString(R.string.outError));
             }
         });
     }
