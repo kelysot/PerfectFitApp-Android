@@ -31,7 +31,6 @@ public class PostModelServer {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
 
-                //TODO: check the code == 200 or 400
                 if (response.isSuccessful()) {
                     JsonArray postsJson = response.body();
                     List<Post> posts = Post.jsonArrayToPost(postsJson);
@@ -341,7 +340,6 @@ public class PostModelServer {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 if(response.code() == 200){
-                    //TODO
                     JsonArray wishListArray = response.body();
                     List<Post> postsWishList = new ArrayList<>();
                     postsWishList = Post.jsonArrayToPost(response.body());

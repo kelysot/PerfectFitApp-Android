@@ -52,8 +52,6 @@ public class SearchFragment extends Fragment {
 
         setMap();
 
-        //TODO: 1
-
         if(SearchModel.instance.mapToServer.get("Categories") != null){
             if(!SearchModel.instance.mapToServer.get("Categories").isEmpty()) {
                 categoryBtn.setTextColor(Color.GRAY);
@@ -119,7 +117,6 @@ public class SearchFragment extends Fragment {
         searchBtn.setEnabled(false);
         int count = 0;
 
-        //TODO: check if isEmpty
         if(SearchModel.instance.mapToServer.get("Sizes").isEmpty()){
             SearchModel.instance.mapToServer.put("Sizes", generalModel.instance.map.get("Sizes"));
             count++;
@@ -176,7 +173,6 @@ public class SearchFragment extends Fragment {
                 System.out.println("problem at searchFragment 1");
                 progressBar.setVisibility(View.GONE);
                 searchBtn.setEnabled(true);
-                //TODO: dialog
                 showOkDialog();
             }
         });
@@ -203,13 +199,6 @@ public class SearchFragment extends Fragment {
                 showOkDialog();
             }
         });
-//        Model.instance.getAllCategoriesListener(categoryList -> {
-//            List<String> list = new ArrayList<>();
-//            for(int i=0; i< categoryList.size(); i++){
-//                list.add(categoryList.get(i).getName());
-//            }
-//            generalModel.instance.map.put("Categories", list);
-//        });
     }
 
     public void setMapToServer(){

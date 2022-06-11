@@ -135,7 +135,6 @@ public class AddNewPostStep2 extends Fragment {
 
         if(category.isEmpty()){
             categoryAuto.setError("Please enter category");
-            //TODO: remove the error after the client fill the field
             flag = false;
         }
         if(subCategory.isEmpty()){

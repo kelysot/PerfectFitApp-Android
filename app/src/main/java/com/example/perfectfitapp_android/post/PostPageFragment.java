@@ -1,5 +1,6 @@
 package com.example.perfectfitapp_android.post;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -108,7 +109,7 @@ public class PostPageFragment extends Fragment {
                 });
             }
             else{
-                //TODO: dialog
+                showOkDialog(getResources().getString(R.string.outError));
             }
         });
 
@@ -127,5 +128,24 @@ public class PostPageFragment extends Fragment {
 
     private void editPost(View view) {
         Navigation.findNavController(view).navigate(PostPageFragmentDirections.actionPostPageFragmentToEditPostFragment(postId, postSource));
+    }
+
+
+    private void showOkDialog(String text){
+        Dialog dialog = new Dialog(getActivity(), R.style.DialogStyle);
+        dialog.setContentView(R.layout.custom_ok_dialog);
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_window);
+
+        TextView tx = dialog.findViewById(R.id.txtDesc);
+        tx.setText(text);
+
+        Button btnOk = dialog.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(v -> dialog.dismiss());
+
+        ImageView btnClose = dialog.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
     }
 }

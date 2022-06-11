@@ -64,7 +64,6 @@ public class CreateProfileStep2Fragment extends Fragment {
         setResBodyType();
         setBodyType();
 
-        //TODO bring the images of bodyTypes from the db
 
         return view;
     }

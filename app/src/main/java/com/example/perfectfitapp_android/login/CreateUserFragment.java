@@ -56,22 +56,22 @@ public class CreateUserFragment extends Fragment {
 
         /* *************************************** Validations *************************************** */
 
-//        if (!isValidEmail(email)) {
-//            progressBar.setVisibility(View.GONE);
-//            emailEt.setError("Please enter valid email address.");
-//            emailEt.requestFocus();
-//            registerBtn.setEnabled(true);
-//            return;
-//        }
-//
-//        if (!isValidPassword(password)) {
-//            progressBar.setVisibility(View.GONE);
-//            passwordEt.requestFocus();
-//            String s = "Your password needs to contain 8 characters.";
-//            showOkDialog(s);
-//            registerBtn.setEnabled(true);
-//            return;
-//        }
+        if (!isValidEmail(email)) {
+            progressBar.setVisibility(View.GONE);
+            emailEt.setError("Please enter valid email address.");
+            emailEt.requestFocus();
+            registerBtn.setEnabled(true);
+            return;
+        }
+
+        if (!isValidPassword(password)) {
+            progressBar.setVisibility(View.GONE);
+            passwordEt.requestFocus();
+            String s = "Your password needs to contain 8 characters.";
+            showOkDialog(s);
+            registerBtn.setEnabled(true);
+            return;
+        }
 
         Model.instance.checkIfEmailExist(email, isSuccess -> {
             if (isSuccess) {

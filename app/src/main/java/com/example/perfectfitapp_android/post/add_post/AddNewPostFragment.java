@@ -95,7 +95,7 @@ public class AddNewPostFragment extends Fragment {
 //        return view;
 //    }
 //
-//    //TODO: Make all fields require.
+//
 //    private void post(View view) {
 //
 ////        progressBar.setVisibility(View.VISIBLE);
@@ -119,13 +119,13 @@ public class AddNewPostFragment extends Fragment {
 //        sizeAdj = String.valueOf(sizeAdjSk.getRating());
 //        price = priceEt.getText().toString();
 //
-//        //TODO: add validations
+//
 //
 //        boolean flag = true;
 //
 //        if(category.isEmpty()){
 //            categoryAuto.setError("Please enter category");
-//            //TODO: remove the error after the client fill the field
+//
 //            flag = false;
 //        }
 //        if(subCategory.isEmpty()){
@@ -154,7 +154,7 @@ public class AddNewPostFragment extends Fragment {
 //        }
 //
 //
-//        //TODO: Require or not:
+//
 //
 //        if(description.isEmpty()){
 //            description = "-";
@@ -199,7 +199,7 @@ public class AddNewPostFragment extends Fragment {
 //                    Navigation.findNavController(view)
 //                            .navigate(AddNewPostFragmentDirections.actionGlobalHomePageFragment());
 //                } else {
-//                    //TODO: dialog and progressbar
+//
 ////                    progressBar.setVisibility(View.GONE);
 //                    postBtn.setEnabled(true);
 //                    Toast.makeText(MyApplication.getContext(), "Post didn't saved",

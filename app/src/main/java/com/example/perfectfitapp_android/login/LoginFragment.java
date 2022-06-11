@@ -81,20 +81,22 @@ public class LoginFragment extends Fragment {
 
         /* *************************************** Validations *************************************** */
 
-//        if (!isValidEmail(localInputIEmail)) {
-//            emailEt.setError("Please enter valid email address.");
-//            emailEt.requestFocus();
-//            loginBtn.setEnabled(true);
-//            return;
-//        }
-//
-//        if (!isValidPassword(localInputPassword)) {
-//            passwordEt.requestFocus();
-//            String s = "Your password needs to contain 8 characters.";
-//            showOkDialog(s);
-//            loginBtn.setEnabled(true);
-//            return;
-//        }
+        if (!isValidEmail(localInputIEmail)) {
+            progressBar.setVisibility(View.GONE);
+            emailEt.setError("Please enter valid email address.");
+            emailEt.requestFocus();
+            loginBtn.setEnabled(true);
+            return;
+        }
+
+        if (!isValidPassword(localInputPassword)) {
+            progressBar.setVisibility(View.GONE);
+            passwordEt.requestFocus();
+            String s = "Your password needs to contain 8 characters.";
+            showOkDialog(s);
+            loginBtn.setEnabled(true);
+            return;
+        }
 
         Model.instance.logIn(localInputIEmail, localInputPassword, user1 -> {
             if (user1 != null) {
