@@ -330,6 +330,7 @@
                         android:id="@+id/addnewpost_price_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_dollar"
                         android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
