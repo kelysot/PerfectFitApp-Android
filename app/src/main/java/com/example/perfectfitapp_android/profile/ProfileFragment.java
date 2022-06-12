@@ -181,7 +181,9 @@ public class ProfileFragment extends Fragment {
             });
         });
 
-        setHasOptionsMenu(true);
+        if(Model.instance.getProfile().getUserName().equals(userNameTv.getText().toString())){
+            setHasOptionsMenu(true);
+        }
         Model.instance.checkNotification();
         refresh();
 
