@@ -49,7 +49,7 @@
                 android:layout_height="280dp"
                 android:layout_gravity="center_horizontal"
                 android:adjustViewBounds="true"
-                android:background="#C9FFFFFF"
+                android:background="@color/myCream"
                 android:src="@drawable/coverphotoprofile"
                 app:layout_constraintDimensionRatio="w,21:9"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -27,7 +27,7 @@
             android:fontFamily="@font/dosis_medium"
             android:text="TextView"
             android:textColor="#191919"
-            android:textSize="28sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
