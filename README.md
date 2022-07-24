@@ -45,35 +45,36 @@ https://github.com/kelysot/PerfectFitApp-Android.git
 - Build and run the application on an Android emulator
 
 
+
 <!-- ## Screenshots
 
 Intro Page | Login Page |  Signup Page
 :-------------------------:|:-------------------------:|:-------------------------:
-<img src="app/src/main/res/drawable/our_intro.png" alt="register" width="300">  | <img src="app/src/main/res/drawable/log_in.png" alt="register" width="300">  |  <img src="app/src/main/res/drawable/sign_up.png" alt="register" width="300">
+<img src="https://www.linkpicture.com/q/intro_3.png" alt="intro" width="300">  | <img src="https://www.linkpicture.com/q/login_3.png" alt="login" width="300">  |  <img src="https://www.linkpicture.com/q/signup_2.png" alt="register" width="300">
 
 Create + Edit Profile Step 1 Page | Create + Edit Profile Step 2 Page |  Create + Edit Profile Step 3 Page 
 :-------------------------:|:-------------------------:|:-------------------------:
-<img src="app/src/main/res/drawable/edit_profile_step_1.png" alt="register" width="300">  | <img src="app/src/main/res/drawable/edit_profile_step_2.png" alt="register" width="300">  |  <img src="app/src/main/res/drawable/edit_profile_step_3.png" alt="register" width="300">
+<img src="https://www.linkpicture.com/q/create-profile-1.png" alt="Create + Edit Profile Step 1 Page" width="300">  | <img src="https://www.linkpicture.com/q/create-profile-2.png" alt="Create + Edit Profile Step 2 Page" width="300">  |  <img src="https://www.linkpicture.com/q/create-profile-3.png" alt="Create + Edit Profile Step 3 Page " width="300">
 
 Home Page |  Profile Page |  User - Profiles Page
 :-------------------------:|:-------------------------: |:-------------------------:
-<img src="app/src/main/res/drawable/home_page.png" alt="register" width="300">  |  <img src="app/src/main/res/drawable/profile.png" alt="register" width="300"> |  <img src="app/src/main/res/drawable/user_profiles.png" alt="register" width="300">
+<img src="https://www.linkpicture.com/q/home_35.png" alt="Home" width="300">  |  <img src="https://www.linkpicture.com/q/profile_8.png" alt="Profile" width="300"> |  <img src="https://www.linkpicture.com/q/user-profiles-full.png" alt="User - Profiles" width="300">
 
 Add + Edit Post 1 Page |  Add + Edit Post 2 Page |  Post 1 Page 
 :-------------------------:|:-------------------------: |:-------------------------:
-<img src="app/src/main/res/drawable/edit_post_1.png" alt="register" width="300">  |  <img src="app/src/main/res/drawable/edit_post_2.png" alt="register" width="300"> |  <img src="app/src/main/res/drawable/post_1.png" alt="register" width="300">
+<img src="https://www.linkpicture.com/q/edit-post-1.png" alt="register" width="300">  |  <img src="https://www.linkpicture.com/q/edit-post-2.png" alt="register" width="300"> |  <img src="https://www.linkpicture.com/q/post-1.png" alt="register" width="300">
 
 Post 2 Page |  Category Page |  SubCategory Page
 :-------------------------:|:-------------------------: |:-------------------------:
-<img src="app/src/main/res/drawable/post_2.png" alt="register" width="300">  |  <img src="app/src/main/res/drawable/categories.png" alt="register" width="300"> |  <img src="app/src/main/res/drawable/sub_categories.png" alt="register" width="300">
+<img src="https://www.linkpicture.com/q/post-2.png" alt="register" width="300">  |  <img src="https://www.linkpicture.com/q/categories.png" alt="register" width="300"> |  <img src="https://www.linkpicture.com/q/sub-categories.png" alt="register" width="300">
 
 Search Page |  Search feature Page |  Wishlist Page
 :-------------------------:|:-------------------------: |:-------------------------:
-<img src="app/src/main/res/drawable/filter.png" alt="register" width="300">  |  <img src="app/src/main/res/drawable-v24/logo_black_2.png" alt="register" width="300"> |  <img src="app/src/main/res/drawable/wishlist.png" alt="register" width="300">
+<img src="https://www.linkpicture.com/q/filter-new.png" alt="register" width="300">  |  <img src="https://www.linkpicture.com/q/filter-catrgory-option.png" alt="register" width="300"> |  <img src="https://www.linkpicture.com/q/wish-list.png" alt="register" width="300">
 
 Notifications Page |  Likes Page |  Comments Page
 :-------------------------:|:-------------------------: |:-------------------------:
-<img src="app/src/main/res/drawable/notifications.png" alt="register" width="300">  |  <img src="app/src/main/res/drawable-v24/logo_black_2.png" alt="register" width="300"> |  <img src="app/src/main/res/drawable-v24/logo_black_2.png" alt="register" width="300">
+<img src="https://www.linkpicture.com/q/notification_4.png" alt="register" width="300">  |  <img src="https://www.linkpicture.com/q/likes.png" alt="register" width="300"> |  <img src="https://www.linkpicture.com/q/comments_1.png" alt="register" width="300">
 
 
- -->
+-->
