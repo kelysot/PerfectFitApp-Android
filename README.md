@@ -3,7 +3,7 @@
 <br />
 <p align="center">
     <a href="https://github.com/kelysot/PerfectFitApp-Android">
-      <img src="https://www.linkpicture.com/q/צילום-מסך-2022-08-01-ב-18.10.24.png" alt="Logo" width="200" heigt="200">
+      <img src="https://www.linkpicture.com/q/11_77.png" alt="Logo" width="200" heigt="200">
   </a>
  </p>
  
@@ -49,30 +49,30 @@ https://github.com/kelysot/PerfectFitApp-Android.git
 
 Intro Page | Login Page |  Signup Page
 :-------------------------:|:-------------------------:|:-------------------------:
-<img src="https://www.linkpicture.com/q/intro_5.png" alt="intro" width="300">  | <img src="https://www.linkpicture.com/q/login_8.png" alt="login" width="300">  |  <img src="https://www.linkpicture.com/q/signup_5.png" alt="register" width="300">
+<img src="https://www.linkpicture.com/q/צילום-מסך-2023-05-04-ב-11.14.28.png" alt="intro" width="300">  | <img src="https://www.linkpicture.com/q/login_8.png" alt="login" width="300">  |  <img src="https://www.linkpicture.com/q/signup_5.png" alt="register" width="300">
 
 Create + Edit Profile Step 1 Page | Create + Edit Profile Step 2 Page |  Create + Edit Profile Step 3 Page 
 :-------------------------:|:-------------------------:|:-------------------------:
-<img src="https://www.linkpicture.com/q/edit-profile_2.png" alt="Create + Edit Profile Step 1 Page" width="300">  | <img src="https://www.linkpicture.com/q/edit-profile-2.png" alt="Create + Edit Profile Step 2 Page" width="300">  |  <img src="https://www.linkpicture.com/q/edit-profile-3.png" alt="Create + Edit Profile Step 3 Page " width="300">
+<img src="https://www.linkpicture.com/q/IMG_8801_1.jpg" alt="Create + Edit Profile Step 1 Page" width="300">  | <img src="https://www.linkpicture.com/q/IMG_8803_1.jpg" alt="Create + Edit Profile Step 2 Page" width="300">  |  <img src="https://www.linkpicture.com/q/IMG_8805_1.jpg" alt="Create + Edit Profile Step 3 Page " width="300">
 
 Home Page |  Profile Page |  User - Profiles Page
 :-------------------------:|:-------------------------: |:-------------------------:
-<img src="https://www.linkpicture.com/q/home_3.png" alt="Home" width="300">  |  <img src="https://www.linkpicture.com/q/profile_11.png" alt="Profile" width="300"> |  <img src="https://www.linkpicture.com/q/user-profiles_1.png" alt="User - Profiles" width="300">
+<img src="https://www.linkpicture.com/q/IMG_8806_1.jpg" alt="Home" width="300">  |  <img src="https://www.linkpicture.com/q/profile_11.png" alt="Profile" width="300"> |  <img src="https://www.linkpicture.com/q/user-profiles_1.png" alt="User - Profiles" width="300">
 
 Add + Edit Post 1 Page |  Add + Edit Post 2 Page |  Post 1 Page 
 :-------------------------:|:-------------------------: |:-------------------------:
-<img src="https://www.linkpicture.com/q/edit-post-1_1.png" alt="register" width="300">  |  <img src="https://www.linkpicture.com/q/edit-post-2_1.png" alt="register" width="300"> |  <img src="https://www.linkpicture.com/q/post-1_1.png" alt="register" width="300">
+<img src="https://www.linkpicture.com/q/new-post.png" alt="register" width="300">  |  <img src="https://www.linkpicture.com/q/new-post2.png" alt="register" width="300"> |  <img src="https://www.linkpicture.com/q/post-1_1.png" alt="register" width="300">
 
 Post 2 Page |  Category Page |  SubCategory Page
 :-------------------------:|:-------------------------: |:-------------------------:
-<img src="https://www.linkpicture.com/q/edit-post-2_1.png" alt="register" width="300">  |  <img src="https://www.linkpicture.com/q/categories_1.png" alt="register" width="300"> |  <img src="https://www.linkpicture.com/q/sub-categories_1.png" alt="register" width="300">
+<img src="https://www.linkpicture.com/q/post2.png" alt="register" width="300">  |  <img src="https://www.linkpicture.com/q/IMG_8807_1.jpg" alt="register" width="300"> |  <img src="https://www.linkpicture.com/q/sub-categories_1.png" alt="register" width="300">
 
 Search Page |  Search feature Page |  Wishlist Page
 :-------------------------:|:-------------------------: |:-------------------------:
-<img src="https://www.linkpicture.com/q/filter_1.png" alt="register" width="300">  |  <img src="https://www.linkpicture.com/q/search_8.png" alt="register" width="300"> |  <img src="https://www.linkpicture.com/q/wish-list_1.png" alt="register" width="300">
+<img src="https://www.linkpicture.com/q/filter_1.png" alt="register" width="300">  |  <img src="https://www.linkpicture.com/q/search-filter.png" alt="register" width="300"> |  <img src="https://www.linkpicture.com/q/wish-list_1.png" alt="register" width="300">
 
 Notifications Page |  Likes Page |  Comments Page
 :-------------------------:|:-------------------------: |:-------------------------:
-<img src="https://www.linkpicture.com/q/Notification_27.png" alt="register" width="300">  |  <img src="https://www.linkpicture.com/q/likes_1.png" alt="register" width="300"> |  <img src="https://www.linkpicture.com/q/comments_2.png" alt="register" width="300">
+<img src="https://www.linkpicture.com/q/Notification_27.png" alt="register" width="300">  |  <img src="https://www.linkpicture.com/q/ללא-שם_3.png" alt="register" width="300"> |  <img src="https://www.linkpicture.com/q/COmments-1.png" alt="register" width="300">
 
 
